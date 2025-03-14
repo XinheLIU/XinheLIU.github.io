@@ -105,9 +105,9 @@ theme: matery
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/XinheLIU/XinheLIU.github.io.git
+  repo: git@github.com:XinheLIU/XinheLIU.github.io.git
   branch: main
-  force_https: true
+  force_https: false
   force: true
 
 # Prism plugin settings
