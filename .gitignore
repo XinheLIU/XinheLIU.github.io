@@ -5,8 +5,4 @@ db.json
 node_modules/
 public/
 .deploy*/
-.idea/
-.vscode/
-*.swp
-*.swo
 _multiconfig.yml

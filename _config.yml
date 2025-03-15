@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
+title: 查拉图斯特拉后花园
+subtitle: '随便聊聊'
+description: '生活随便、技术闲聊'
 keywords:
-author: John Doe
-language: en
+author: 佚名小司机
+language: zh-CN
 timezone: ''
 
 # URL
@@ -102,7 +102,6 @@ deploy:
   repo: https://github.com/XinheLIU/XinheLIU.github.io.git
   branch: main
   message: 'Site updated: {{ now("YYYY-MM-DD HH:mm:ss") }}'
-  force_push: true
 
 markdown:
   render:
