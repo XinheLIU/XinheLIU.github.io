@@ -4,24 +4,22 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="推荐系统101(1)推荐系统介绍, 查拉图斯特拉后花园">
+    <meta name="keywords" content="推荐系统101-2-推荐策略, 查拉图斯特拉后花园">
     <meta name="description" content="
-现代推荐系统
-推荐系统架构
-召回模块
+推荐系统三要素：用户、信息、平台的协同演进
+策略产品角色
 
-粗排模块
-精排
-重排/混排
-数据层
-推荐系统的评估
+常见的推荐策略
+用户体验策略
+冷启动策略
+生态策略
+样式和交互设计
 
 
 参考
 
-推荐系统的发展历史
-推荐系统是一种信息过滤系统，用于预测用户对物品的&amp;quot;评分&amp;quot;或&amp;quot;偏好&amp;quot;
-一个常">
+推荐系统三要素：用户、信息、平台的协同演进
+推荐系统中产品作用通常 &amp;gt; 算法作用；原因：现代">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -33,7 +31,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>推荐系统101(1)推荐系统介绍 | 查拉图斯特拉后花园</title>
+    <title>推荐系统101-2-推荐策略 | 查拉图斯特拉后花园</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -348,12 +346,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">推荐系统101(1)推荐系统介绍</h1>
+                    <h1 class="description center-align post-title">推荐系统101-2-推荐策略</h1>
                 </div>
             </div>
         </div>
@@ -406,7 +404,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-12-13
+                    2023-12-14
                 </div>
                 
 
@@ -431,622 +429,341 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <ul>
-<li><a href="#%E7%8E%B0%E4%BB%A3%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F">现代推荐系统</a></li>
-<li><a href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84">推荐系统架构</a></li>
-<li><a href="#%E5%8F%AC%E5%9B%9E%E6%A8%A1%E5%9D%97">召回模块</a>
+<li><a href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E4%B8%89%E8%A6%81%E7%B4%A0%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E5%B9%B3%E5%8F%B0%E7%9A%84%E5%8D%8F%E5%90%8C%E6%BC%94%E8%BF%9B">推荐系统三要素：用户、信息、平台的协同演进</a></li>
+<li><a href="#%E7%AD%96%E7%95%A5%E4%BA%A7%E5%93%81%E8%A7%92%E8%89%B2">策略产品角色</a>
 <ul>
-<li><a href="#%E7%B2%97%E6%8E%92%E6%A8%A1%E5%9D%97">粗排模块</a></li>
-<li><a href="#%E7%B2%BE%E6%8E%92">精排</a></li>
-<li><a href="#%E9%87%8D%E6%8E%92%E6%B7%B7%E6%8E%92">重排/混排</a></li>
-<li><a href="#%E6%95%B0%E6%8D%AE%E5%B1%82">数据层</a></li>
-<li><a href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%84%E4%BC%B0">推荐系统的评估</a></li>
+<li><a href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AD%96%E7%95%A5">常见的推荐策略</a></li>
+<li><a href="#%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E7%AD%96%E7%95%A5">用户体验策略</a></li>
+<li><a href="#%E5%86%B7%E5%90%AF%E5%8A%A8%E7%AD%96%E7%95%A5">冷启动策略</a></li>
+<li><a href="#%E7%94%9F%E6%80%81%E7%AD%96%E7%95%A5">生态策略</a></li>
+<li><a href="#%E6%A0%B7%E5%BC%8F%E5%92%8C%E4%BA%A4%E4%BA%92%E8%AE%BE%E8%AE%A1">样式和交互设计</a></li>
 </ul>
 </li>
 <li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
-<h3 id="推荐系统的发展历史">推荐系统的发展历史</h3>
-<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Recommender_system">推荐系统</a>是一种信息过滤系统，用于预测用户对物品的&quot;评分&quot;或&quot;偏好&quot;</p>
-<p>一个常见的推荐系统架构：</p>
-<ul>
-<li>目标：匹配用户和信息</li>
-<li>召回：猜用户可能喜欢什么内容</li>
-<li>排序服务: 确定用户最喜欢什么</li>
-<li>重排序（Reranking） 服务：不要出现同样分类、重复密集等</li>
-<li>应用场景：Feed流 信息流</li>
-</ul>
-<div class="mermaid">
-  flowchart LR
-    subgraph "推荐技术框架"
-        direction LR
-        A1["理点"] --> B1["用户特征"]
-        A2["用户信息"] --> B1
-        A3["信息格式化"] --> B2["信息特征"]
-        
-        B1 --> C["召回服务"]
-        B2 --> C
-        
-        C --> D["排序服务"]
-        D --> E["重排序服务"]
-        E --> F["应用场景"]
-    end
-</div>
-
-<p>推荐系统发展历史：</p>
+<h2 id="推荐系统三要素：用户、信息、平台的协同演进">推荐系统三要素：用户、信息、平台的协同演进</h2>
+<p><strong>推荐系统中产品作用通常 &gt; 算法作用</strong>；原因：现代推荐算法已成熟，<strong>关键在于场景匹配</strong>， 例如</p>
+<p>一、信息从稀缺到丰富的适配</p>
 <ol>
-<li>早期阶段（1990年代初）：推荐系统起源于图书馆学科，基于过滤和关键词匹配。代表性产品/服务：早期的图书馆检索系统、学术论文推荐系统。</li>
-<li>协同过滤时期（1990年代末至2000年代初）：引入协同过滤算法，通过分析用户行为，找到相似用户或物品进行推荐。代表性产品/服务：亚马逊的商品推荐、Netflix的电影推荐、Last.fm的音乐推荐。</li>
-<li>内容过滤时期（2000年代中期）：基于内容特征和用户偏好进行推荐，利用物品的元数据和用户画像进行匹配。代表性产品/服务：Google News的新闻推荐、Pandora的音乐推荐、StumbleUpon的网页推荐。</li>
-<li>混合推荐时期（2000年代后期至今）：将协同过滤、内容过滤等不同算法进行组合，提供更准确和多样化的推荐结果。代表性产品/服务：淘宝的商品推荐、Spotify的音乐推荐、LinkedIn的职业推荐。</li>
-<li>个性化推荐时期（2010年代初）：以今日头条为代表，通过机器学习算法实现千人千面的个性化推荐。张一鸣团队开发的推荐算法成为行业标杆，推动了推荐系统的普及和应用。</li>
-<li>深度学习时期（2010年代中期至今）：利用深度学习技术提取更丰富的特征，结合用户行为序列、上下文信息等，进一步提高推荐的准确性。代表性产品/服务：YouTube的视频推荐、TikTok的短视频推荐、Instagram的内容推荐。</li>
-<li>云服务化时期（2020年代至今）：推荐算法在各大厂已经变成标准化的云服务，通过API接口提供给开发者使用。代表性服务：AWS Personalize、Google Recommendations AI、Azure Personalizer。这些服务封装了常用的推荐算法，如协同过滤、内容过滤和混合推荐，同时注重用户隐私保护，仅使用必要的行为数据进行推荐。</li>
+<li>信息稀缺阶段（日更新量&lt;100）
+<ul>
+<li>场景：垂直专业论坛、小众社区</li>
+<li>策略：基础排序为主，如时间倒序、热度排序</li>
+<li>重点：信息展示形式设计，确保核心内容有效触达</li>
+</ul>
+</li>
+<li>信息积累阶段（日更新量1000+）
+<ul>
+<li>场景：内容供给累积到能实现垂直领域平台（如本地生活、专业知识）</li>
+<li>策略：
+<ul>
+<li>构建话题体系，实现结构化展示</li>
+<li>设计内容引导机制，促进深度浏览</li>
+<li>引入基础推荐算法，如基于话题的协同过滤</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>信息丰富阶段（日更新量10000+）
+<ul>
+<li>场景：综合内容平台、电商平台</li>
+<li>策略：全面实施个性化推荐，建立用户-内容匹配模型</li>
+<li>重点：平衡推荐准确性与多样性，避免信息茧房</li>
+</ul>
+</li>
 </ol>
-<h3 id="协同过滤算法">协同过滤算法</h3>
-<p>协同过滤算法是推荐系统中的一种基本算法，它基于用户行为数据来推荐物品，对现代推荐系统发展有着深远影响。协同过滤奠定了基于用户行为数据进行推荐的基础思想，为后续的矩阵分解、因子分解机(FFM)、深度学习推荐模型等提供了理论基础。它引入的用户-物品交互矩阵成为推荐系统数据组织的标准方式，而其解决稀疏性和冷启动问题的思路也启发了混合推荐、多模态推荐等新方法。现代推荐系统如YouTube的深度神经网络推荐和TikTok的多目标优化推荐，都能看到协同过滤的影子。</p>
-<p>现在大厂提供的标准化推荐服务（例如火山引擎），大多都是基于协同过滤算法。</p>
-<p>协同过滤算法主要分为以下三种：</p>
+<p>二、平台发展阶段匹配</p>
 <ol>
-<li><strong>基于内容的推荐</strong>：如果用户浏览或购买过某种类型的内容，则给用户推荐这种类型下的其它内容。例如，向用户推荐某位主演的其他电影，这种是基于内容的推荐。</li>
-<li><strong>基于用户的协同过滤</strong>：基于&quot;跟用户喜好相似的人喜欢的东西，用户也很有可能喜欢&quot;的原理。通过分析用户之间的相似性，找到相似用户群体，然后推荐相似用户喜欢但目标用户尚未接触的物品。例如，&quot;购买了该商品的用户还购买了什么商品&quot;这类推荐。</li>
-<li><strong>基于物品的协同过滤</strong>：基于&quot;与用户喜欢的物品相似的物品，用户也可能喜欢&quot;的原理。通过分析物品之间的相似关系，向用户推荐与其已经喜欢的物品相似的其他物品。例如，用户购买了某个商品后，系统会推荐与该商品经常一起购买的相关商品。</li>
+<li>初创期
+<ul>
+<li>特点：资源（硬件、算法、信息量）有限，数据不足</li>
+<li>策略：
+<ul>
+<li>采用轻量级算法（如TF-IDF、热度排序）</li>
+<li>设计知识体系展示结构</li>
+<li>优先保证核心内容触达效率</li>
+</ul>
+</li>
+<li>原则：算法优于全人工运营，简单有效优于复杂模型</li>
+</ul>
+</li>
+<li>成长期
+<ul>
+<li>重点：构建推荐生态</li>
+<li>策略：
+<ul>
+<li>完善UGC生产机制</li>
+<li>建立用户增长体系</li>
+<li>优化内容引入策略</li>
+</ul>
+</li>
+<li>目标：为个性化推荐奠定基础</li>
+</ul>
+</li>
+<li>成熟期
+<ul>
+<li>重点：商业价值与用户体验平衡</li>
+<li>核心指标：用户留存、停留时长、转化率</li>
+<li>策略：
+<ul>
+<li>建立多目标优化机制</li>
+<li>设计商业化推荐策略</li>
+<li>优化长期用户体验</li>
+</ul>
+</li>
+</ul>
+</li>
 </ol>
-<h2 id="现代推荐系统">现代推荐系统</h2>
-<p>现代推荐系统的主要流程采用<strong>数据流优先的设计原则</strong>，具有高度灵活性。</p>
-<p>其核心流程为：</p>
+<p>三、用户认知阶段的适配</p>
 <ol>
-<li>收集用户行为数据</li>
-<li>拼接训练样本</li>
-<li>模型训练</li>
-<li>生成推荐</li>
-<li>用户反馈</li>
-<li>模型更新</li>
+<li>用户冷启动
+<ul>
+<li>核心目标：建立用户信任，促进留存</li>
+<li>策略：
+<ul>
+<li>展示平台优质内容</li>
+<li>利用设备信息、地理位置等基础数据</li>
+<li>设计引导式兴趣选择</li>
+<li>避免过早商业化</li>
+</ul>
+</li>
+<li>原则：以用户体验为先，培养用户粘性</li>
+</ul>
+</li>
+<li>画像培养阶段
+<ul>
+<li>核心目标：完善用户画像</li>
+<li>策略：
+<ul>
+<li>采用<strong>探索-利用</strong>机制</li>
+<li>保持推荐多样性</li>
+<li>控制商业化程度</li>
+</ul>
+</li>
+<li>重点：平衡推荐准确性与探索空间</li>
+</ul>
+</li>
+<li>画像稳定阶段
+<ul>
+<li>核心目标：优化长期体验</li>
+<li>策略：
+<ul>
+<li>设计防信息茧房机制</li>
+<li>建立商业化推荐体系</li>
+<li>优化社交推荐功能</li>
+</ul>
+</li>
+<li>原则：兼顾<strong>商业价值与用户体验</strong>，实现可持续发展</li>
+</ul>
+</li>
 </ol>
-<p>这种设计实现了端到端的实时更新能力，具体特点包括：</p>
+<h2 id="策略产品角色">策略产品角色</h2>
+<p>策略产品需要对平台价值负责、对用户体验负责, 其常见工作有</p>
 <ol>
-<li>
-<p>模型训练与部署</p>
+<li>定义使用场景
 <ul>
-<li>支持多种训练框架：LR（逻辑回归）、FM（因子分解机）、TensorFlow、DeepRec等</li>
-<li>自研模型存储系统：统一的数据流架构和模型格式</li>
-<li>快速更新：模型训练到线上更新可在分钟级完成</li>
-<li>多Backend支持：可灵活切换不同计算后端</li>
+<li>如&quot;猜你喜欢&quot;、“凑单”、&quot;常购&quot;等，需要适配不同的策略</li>
 </ul>
 </li>
-<li>
-<p>平台化开发</p>
+<li>明确业务目标
 <ul>
-<li>兼容主流深度学习框架的算子和自研算子</li>
-<li>支持自定义算子开发</li>
-<li>性能优化：针对不同框架进行内存分配和算子优化</li>
-<li>框架迁移：2022年从TensorFlow迁移到DeepRec，发现性能优化思路具有通用性</li>
+<li>购物车场景：快速下单+增加购买</li>
+<li>首页推荐：基于完整用户画像推荐</li>
+<li>凑单逻辑：金额达标+易达成的平衡</li>
+<li>长期价值：留存率、用户路径优化</li>
 </ul>
 </li>
-</ol>
-<p>这种架构设计确保了推荐系统能够快速响应业务需求，同时保持技术栈的灵活性，为持续优化推荐效果提供了坚实的技术基础。</p>
-<img src="/recsys/101-intro/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-1.png" class="" title="图片来源：data-Fun">
-<img src="/recsys/101-intro/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-2.png" class="" title="分层视角的推荐架构">
-<img src="/recsys/101-intro/%E5%BE%AE%E5%8D%9A-%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84.png" class="" title="微博的推荐架构">
-<h2 id="推荐系统架构">推荐系统架构</h2>
-<h2 id="召回模块">召回模块</h2>
-<p>召回模块的目标是从海量候选集中快速筛选出与用户兴趣相关的候选集合，以较低的计算成本获取高召回率。主要特点：</p>
-<ol>
-<li>效率优先：处理百万甚至亿级别的候选集，要求算法高效</li>
-<li>广覆盖：确保不遗漏潜在相关内容，追求高召回率</li>
-<li>多样性：通过多路召回策略保证推荐内容的多样性</li>
-<li>实时性：能够快速响应用户最新行为和兴趣变化</li>
-</ol>
-<p>工程实现：一般采取多路召回再进行融合</p>
-<ol>
-<li>融合用户特征、商品特征和行为特征，通过多种召回通道获取候选集</li>
-<li>使用向量检索等技术在线上进行高效召回</li>
-<li>多路召回结果融合，平衡效率与多样性</li>
-</ol>
-<img src="/recsys/101-intro/%E5%8F%AC%E5%9B%9E-1.png" class="" title="召回模块示意图">
-<p>常见召回策略：召回技术可以分为四大类型：传统召回、知识召回、表示召回和匹配召回，实际应用中通常是这些方法的融合。</p>
-<img src="/recsys/101-intro/%E5%8F%AC%E5%9B%9E-2.png" class="" title="召回技术分类">
-<ol>
-<li>
-<p>传统召回</p>
+<li>确定UI设计
 <ul>
-<li>虽然近年来使用减少，但仍占据推荐系统的重要位置</li>
-<li>包括热门召回、协同过滤召回和基于内容的召回
-<ul>
-<li>协同过滤召回：基于用户行为相似性</li>
-<li>内容特征召回：基于内容标签、属性匹配</li>
-<li>热门/时效性召回：基于全局热度和时效性</li>
+<li>需具备算法、UI、用户、业务综合能力</li>
 </ul>
 </li>
-<li>代表算法：SVD、Slim系列(gSlim、fSlim)、UserCF、ItemCF、Swing等</li>
+<li>构建模型数据
+<ul>
+<li>数据区别对待的问题
+<ul>
+<li>特征构建
+<ul>
+<li>过往价格区间是否能直接作为特征？不太合适——男女消费品类差异较大</li>
+<li>但品牌偏好、价格档次可迁移 数据过滤策略</li>
 </ul>
 </li>
-<li>
-<p>知识召回</p>
+<li>分场景推荐策略
 <ul>
-<li>基于知识图谱构建，具有强可解释性和高性能</li>
-<li>实现方式：通过图谱或规则标签建立
-<ul>
-<li>社交关系召回：基于用户社交网络</li>
-<li>兴趣标签召回：基于用户显性兴趣标签</li>
+<li>看过商品：根据购买意愿判断</li>
+<li>买过商品：考虑复购周期</li>
+<li>视频推荐：区分短视频/长视频</li>
 </ul>
 </li>
 </ul>
 </li>
-</ol>
+<li>先验知识的应用的问题
 <ul>
-<li>应用：基于实体召回、基于标签召回、基于路径推理、基于逻辑表达</li>
-</ul>
-<ol start="3">
-<li>
-<p>表示召回</p>
+<li>确定性问题优先使用知识而非算法
 <ul>
-<li>向量检索召回（将用户和内容映射到同一向量空间）</li>
-<li>从简单双塔模型发展到基于Graph的复杂模型</li>
-<li>主要分类：
-<ul>
-<li>显式行为建模：
-<ul>
-<li>GRE4Rec (Gated Recurrent Units for Recommendation)</li>
-<li>DUPN (Deep User Perception Network)</li>
-<li>BERT4Rec (Bidirectional Encoder Representations from Transformers for Recommendation)</li>
-</ul>
-</li>
-<li>隐式行为建模：
-<ul>
-<li>XDM (eXtreme Deep Factorization Machine)</li>
-</ul>
-</li>
-<li>多兴趣表征：
-<ul>
-<li>MIND (Multi-Interest Network with Dynamic routing)</li>
-<li>SASNet (Self-Attention Sequential Network)</li>
-</ul>
-</li>
-<li>超长行为建模</li>
+<li>如母婴商品推荐使用育儿知识</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>
-<p>匹配召回</p>
-<ul>
-<li>为精准表征行为，对模型复杂度要求更高</li>
-<li>代表算法：
-<ul>
-<li>NCF (Neural Collaborative Filtering)</li>
-<li>TDM (Tree-based Deep Matching)</li>
-<li>DR (Deep Retrieval)</li>
 </ul>
 </li>
-<li>TDM和DR从检索、模型、索引三方面优化召回链路</li>
-<li>需要精准的负样本采样</li>
+<li>算法实验
+<ul>
+<li>定义算法目标（点击率、转化率等）
+<ul>
+<li>理解评价指标意义（如F1在不同场景的应用）</li>
 </ul>
 </li>
-</ol>
-<h3 id="粗排模块">粗排模块</h3>
-<p>粗排模块的目标是在召回阶段筛选出的候选集上进行更精细的排序，以提高推荐的准确性和效率。</p>
-<p>粗排模块通常需要平衡模型复杂度和计算效率，处理数百到数千个候选项，为精排阶段提供更优质的候选集。主要特点：</p>
-<ol>
-<li><strong>计算效率与精度平衡</strong>：比召回更精准，比精排更高效</li>
-<li><strong>特征使用</strong>：使用比召回更丰富但比精排更精简的特征集</li>
-<li><strong>模型复杂度</strong>：中等复杂度，通常采用轻量级深度学习模型</li>
-<li><strong>候选集规模</strong>：处理数百到数千个候选项，输出几十到几百个结果</li>
-</ol>
-<p>粗排的发展历程：</p>
-<ul>
-<li><strong>早期</strong>：主要基于人工规则或后验概率统计，简单直接但表达能力有限。</li>
-<li><strong>中期</strong>：引入LR、XFTRL、GBDT等简单线性模型，开始有了基础的特征表达能力。</li>
-<li><strong>现代</strong>：轻量级深度学习模型（如双塔模型、三塔模型、和FSCD模型）将用户和商品分别进行表征后再进行匹配，大幅提升了表达能力。</li>
-<li><strong>最新趋势</strong>：端到端深度粗排、与精排模型协同优化
-<ul>
-<li>如COLD模型、AutoFAS模型等，在特征工程和模型架构上进行深度优化，追求更高性能和精度</li>
-<li><strong>与精排模型的融合</strong>：通过模型蒸馏等技术，使粗排模型能够学习精排模型的能力，保持决策一致性。</li>
-<li><strong>优化目标的一致性</strong>：将粗排的优化目标与整体推荐系统目标对齐，确保粗排决策有利于最终效果。</li>
-<li><strong>工程效率优化</strong>：随着模型复杂度增加，需要更强的工程优化能力来保证实时性。</li>
+<li>确定数据输入源及结构</li>
+<li>负责算法优化迭代</li>
 </ul>
 </li>
-</ul>
-<p>粗排面临的主要挑战：</p>
-<ol>
-<li>如何与召回和精排保持一致性</li>
-<li>如何在有限计算资源下提高模型表达能力
-<ol>
-<li>特征交叉设计：如何在轻量模型中实现有效的特征交叉</li>
-<li>性能与精度平衡：在保证推理速度的同时提升模型精度</li>
-<li>样本选择偏差(SSB)：如何解决由于前序环节筛选导致的数据分布偏差问题</li>
-</ol>
-</li>
-<li>如何处理样本选择偏差(SSB)问题</li>
-<li>如何设计高效的特征交叉机制</li>
-</ol>
-<p>粗排模型的演进与融合：</p>
-<img src="/recsys/101-intro/%E7%B2%97%E6%8E%92.png" class="" title="粗排模型演进与融合">
-<h3 id="精排">精排</h3>
-<p>精排模块是推荐系统中最核心的排序环节，负责对粗排筛选后的候选集进行精细化排序，直接决定最终的推荐结果质量。主要特点：</p>
-<ol>
-<li><strong>高精度优先</strong>：追求最高的预测准确性，是整个推荐系统的核心决策环节</li>
-<li><strong>特征丰富</strong>：使用最全面的特征集，包括用户特征、物品特征、上下文特征和交叉特征</li>
-<li><strong>模型复杂度高</strong>：采用复杂的深度学习模型，充分挖掘特征间的非线性关系</li>
-<li><strong>候选集规模</strong>：处理几十到几百个候选项，输出最终的推荐结果</li>
-</ol>
-<p>精排模块的主要目标：</p>
-<ol>
-<li><strong>准确预测用户行为</strong>：精确预测用户对不同物品的点击率、转化率等关键指标</li>
-<li><strong>多目标平衡</strong>：同时优化点击率、转化率、用户体验等多个业务目标</li>
-<li><strong>实时响应</strong>：在有限的延迟要求下完成复杂模型的推理</li>
-<li><strong>可解释性</strong>：提供推荐结果的解释，增强用户信任和系统透明度</li>
-</ol>
-<p>精排模型的演进历程：</p>
-<ol>
-<li><strong>传统机器学习阶段</strong>
+<li>发现问题和持续迭代
 <ul>
-<li>线性模型：基于LR (Logistic Regression)、MLR (Mixed Logistic Regression)</li>
-<li>树模型：GBDT (Gradient Boosting Decision Tree)、XGBoost</li>
-<li>因子分解：FM (Factorization Machines)、FFM (Field-aware Factorization Machines)</li>
-<li>具体做法：通过样本分组做 MLR、通过特征交叉做 FM，通过 FM 做序列，通过树模型的 GBDT 相关序列，XGBOST 序列，有实时性的、 FTRL、XFTRL等</li>
-<li>优点：训练和推理效率高，可解释性强</li>
-<li>局限：表达能力有限，难以捕捉复杂特征交互</li>
+<li>案例分析、数据实验</li>
+<li><strong>推荐系统评估</strong>
+<ul>
+<li>精准度：AUC、UAUC等指标</li>
+<li>覆盖度/多样性：HHI、Gini指数</li>
+<li>多目标平衡：内容消费、作者、留存等指标</li>
+<li>指标有效性：人工评估系统</li>
 </ul>
 </li>
-<li><strong>深度学习早期阶段</strong>
+<li><strong>系统迭代思路</strong>
 <ul>
-<li>基础深度网络：DNN (Deep Neural Network)、Wide &amp; Deep</li>
-<li>特征交互增强：DeepFM、DCN (Deep &amp; Cross Network)、xDeepFM</li>
-<li>优点：增强了特征交互能力，提升了模型表达能力</li>
-<li>局限：对序列和时序信息建模不足</li>
-</ul>
-</li>
-<li><strong>注意力机制阶段</strong>
-<ul>
-<li>行为序列建模：DIN (Deep Interest Network)、DIEN (Deep Interest Evolution Network)</li>
-<li>多兴趣建模：MIND (Multi-Interest Network)、ComiRec</li>
-<li>优点：能够捕捉用户兴趣动态变化，提升个性化推荐效果</li>
-<li>代表模型：
-<ul>
-<li>DIN：通过注意力机制对用户历史行为进行加权，突出与当前候选物品相关的历史行为</li>
-<li>DIEN：在DIN基础上引入兴趣进化网络，建模用户兴趣的演变过程</li>
-<li>SIM (Search Interest Model)：融合搜索和浏览行为，更全面地理解用户兴趣</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>多任务学习阶段</strong>
-<ul>
-<li>共享表示学习：Shared-Bottom、MMoE (Multi-gate Mixture-of-Experts)</li>
-<li>任务关系建模：PLE (Progressive Layered Extraction)、AITM (Adaptive Information Transfer Multi-task)</li>
-<li>优点：能够同时优化多个业务目标，提升整体推荐效果</li>
-<li>代表模型：
-<ul>
-<li>MMoE：通过多个专家网络和门控机制，实现任务间的选择性知识共享</li>
-<li>PLE：通过分层提取结构，平衡任务间的共享与竞争关系</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>预训练与迁移学习阶段</strong>
-<ul>
-<li>大规模预训练：BERT4Rec、P5 (Personalized Prompt Learning for Product Search)</li>
-<li>跨域迁移：STAR (Sparse Transfer Learning for Recommendation)</li>
-<li>优点：能够利用大规模数据和跨域知识，提升推荐效果</li>
-<li>局限：计算资源需求高，工程实现复杂</li>
-</ul>
-</li>
-</ol>
-<p>精排面临的主要挑战：</p>
-<ol>
-<li>
-<p><strong>多目标优化</strong>：如何平衡点击率、转化率、用户体验等多个业务目标</p>
-<ul>
-<li>解决方案：多任务学习、帕累托最优、约束优化等</li>
-</ul>
-</li>
-<li>
-<p><strong>样本偏差处理</strong>：如何处理曝光选择偏差、位置偏差等数据偏差问题</p>
-<ul>
-<li>解决方案：反事实学习、因果推断、去偏技术等</li>
-</ul>
-</li>
-<li>
-<p><strong>冷启动问题</strong>：如何处理新用户、新物品的推荐问题</p>
-<ul>
-<li>解决方案：元学习、迁移学习、内容特征增强等</li>
-</ul>
-</li>
-<li>
-<p><strong>计算效率与实时性</strong>：如何在保证模型复杂度的同时满足实时推理需求</p>
-<ul>
-<li>解决方案：模型压缩、知识蒸馏、分布式计算等</li>
-</ul>
-</li>
-<li>
-<p><strong>可解释性与透明度</strong>：如何提供推荐结果的解释，增强用户信任</p>
-<ul>
-<li>解决方案：注意力可视化、特征重要性分析、本地解释模型等</li>
-</ul>
-</li>
-</ol>
-<img src="/recsys/101-intro/%E7%B2%BE%E6%8E%92.png" class="" title="精排模型演进与融合">
-<p>该技术演进图可以从四个部分来分析：</p>
-<ul>
-<li>下部分：主要基于多层感知机(MLP)到Wide &amp; Deep的演进路线，包括Deep &amp; Cross Network(DCN)、DeepFM、Attentional Factorization Machine(AFM)、Neural Factorization Machine(NFM)等模型，这些模型都是针对特定部分进行优化</li>
-<li>上部分：主要是对多层感知机(MLP)架构的增强，引入了注意力(Attention)机制、Product Layer以及图神经网络(GNN)等先进技术</li>
-<li>右侧部分：主要基于自编码器(AE)、强化学习或神经协同过滤(NCF)的改进和变体</li>
-<li>左侧部分：主要是基于注意力机制演化而来，包括Deep Interest Network(DIN)、Deep Interest Evolution Network(DIEN)、Multi-channel Interest Merge Network(MIMN)、Deep Session Interest Network(DSIN)和Search Interest Model(SIM)等模型，主要解决长序列建模问题</li>
-</ul>
-<p>精排技术的发展趋势主要朝着四个方向发展：多模块、多任务、多目标和多模态。其中：</p>
-<ul>
-<li>多任务方向：代表模型有Multi-gate Mixture-of-Experts(MMoE)和Progressive Layered Extraction(PLE)等</li>
-<li>多目标方向：代表技术有帕累托最优等</li>
-<li>多模态方向：代表模型有Multi-Modal Graph Convolution Network(MMGCN)、LOGO等</li>
-</ul>
-<p>这些发展趋势体现在三个核心方面：、</p>
-<ol>
-<li>模型目标：从单一目标向多目标优化转变</li>
-<li>模型表达：采用更成熟复杂的结构增强表达能力</li>
-<li>模型容量：通过引入更多特征处理和外部信息扩充模型容量</li>
-</ol>
-<h3 id="重排-混排">重排/混排</h3>
-<p>重排（Reranking）是推荐系统流程中的最后一个环节，主要负责对精排输出的候选集进行最终调整和优化，以提升整体推荐效果。与精排不同，重排阶段可以：</p>
-<ol>
-<li><strong>全局优化</strong>：考虑候选集整体的多样性、新颖性和覆盖度
-<ul>
-<li>解决方案：基于贪心算法、整数规划、强化学习等方法</li>
-</ul>
-</li>
-<li><strong>考虑上下文</strong>：将用户当前状态、历史交互和页面展示效果纳入考量
-<ul>
-<li>解决方案：序列模型、注意力机制、图神经网络等</li>
-</ul>
-</li>
-<li><strong>实时反馈</strong>：能够利用用户最新的交互信号进行实时调整
-<ul>
-<li>解决方案：在线学习、增量更新、边缘计算等</li>
-</ul>
-</li>
-</ol>
-<p>重排的主要技术方法包括：</p>
-<ol>
-<li><strong>基于规则的重排</strong>
-<ul>
-<li>多样性规则：控制同类内容比例、打散相似内容</li>
-<li>约束规则：业务规则、合规要求、运营干预等</li>
-<li>优点：可解释性强，易于实现和调整</li>
-<li>局限：难以捕捉复杂模式，规则维护成本高</li>
-</ul>
-</li>
-<li><strong>基于模型的重排</strong>
-<ul>
-<li>全局排序模型：DLCM (Deep Listwise Context Model)、PRM (Personalized Re-ranking Model)</li>
-<li>序列感知模型：SetRank、IRGPR (Intent-aware Re-ranking with Graph Neural Networks)</li>
-<li>优点：能够学习复杂的全局依赖关系，提升整体推荐质量</li>
-<li>局限：计算复杂度高，实时性要求高</li>
-</ul>
-</li>
-<li><strong>基于强化学习的重排</strong>
-<ul>
-<li>策略梯度方法：REINFORCE、Actor-Critic</li>
-<li>值函数方法：DQN、Double DQN</li>
-<li>优点：能够直接优化长期收益，处理延迟反馈</li>
-<li>局限：训练不稳定，样本效率低</li>
-</ul>
-</li>
-<li><strong>边缘计算重排</strong>
-<ul>
-<li>轻量级模型：EdgeRec（阿里开源）、MobileRec</li>
-<li>模型压缩：量化、剪枝、知识蒸馏</li>
-<li>优点：低延迟，能够利用端侧实时信息</li>
-<li>局限：模型能力受限，依赖端侧计算资源</li>
-</ul>
-</li>
-</ol>
-<p>重排面临的主要挑战：</p>
-<ol>
-<li><strong>实时性与复杂性平衡</strong>：如何在毫秒级响应时间内完成复杂的全局优化
-<ul>
-<li>解决方案：模型压缩、计算优化、分布式处理</li>
-</ul>
-</li>
-<li><strong>评估指标多元化</strong>：如何平衡点击率、多样性、用户满意度等多维度指标
-<ul>
-<li>解决方案：多目标优化、加权评分、A/B测试</li>
-</ul>
-</li>
-<li><strong>冷启动与探索</strong>：如何在重排阶段引入探索机制，避免推荐系统固化
-<ul>
-<li>解决方案：Thompson采样、上下文赌臂算法、探索-利用平衡</li>
-</ul>
-</li>
-<li><strong>个性化与公平性</strong>：如何在满足个性化的同时保证算法公平性和内容多样性
-<ul>
-<li>解决方案：公平性约束、多样性指标、伦理审计</li>
-</ul>
-</li>
-</ol>
-<p>例如，序列重排：</p>
-<img src="/recsys/101-intro/%E9%87%8D%E6%8E%92.png" class="" title="重排模型演进与融合">
-<h3 id="数据层">数据层</h3>
-<p>数据层是推荐系统的基础，负责数据的收集、处理和存储，为上层算法提供高质量的数据支持。一个完善的数据层架构通常包括以下几个关键组件：</p>
-<ol>
-<li>
-<p><strong>数据采集系统</strong></p>
-<ul>
-<li>埋点设计、采集方案和数据流设计</li>
-<li><strong>用户行为数据</strong>：点击、浏览、停留时间、收藏、分享、评论等</li>
-<li><strong>内容特征数据</strong>：文本、图像、视频、音频的结构化和非结构化特征</li>
-<li><strong>上下文数据</strong>：时间、地点、设备、网络环境等</li>
-<li><strong>业务数据</strong>：交易、支付、退款、客服互动等</li>
-</ul>
-</li>
-<li>
-<p><strong>数据处理框架</strong></p>
-<ul>
-<li><strong>实时处理</strong>：Kafka、Flink、Spark Streaming等</li>
-<li><strong>离线处理</strong>：Hadoop、Spark、Hive等</li>
-<li><strong>特征存储</strong>：Redis、HBase、Cassandra、特征存储系统(如阿里的FeatureStore)</li>
-</ul>
-</li>
-<li>
-<p><strong>特征工程系统</strong></p>
-<ul>
-<li><strong>特征提取</strong>：从原始数据中提取有价值的信号</li>
-<li><strong>特征变换</strong>：归一化、标准化、离散化、编码等</li>
-<li><strong>特征选择</strong>：过滤、包装、嵌入式方法等</li>
-<li><strong>特征组合</strong>：交叉特征、多域特征融合等</li>
-</ul>
-</li>
-<li>
-<p><strong>用户理解系统</strong></p>
-<ul>
-<li><strong>数据层</strong>：构建全面的用户画像基础
-<ul>
-<li>全面收集用户基础信息、行为信息、时空信息及设备信息</li>
-<li>依赖成熟的实时数据采集框架支持</li>
-<li>确保数据的全面性、实时性和准确性</li>
-</ul>
-</li>
-<li><strong>洞察层</strong>：深度分析用户特征
-<ul>
-<li>用户价值洞察：消费能力、活跃度、忠诚度等</li>
-<li>行为模式洞察：浏览习惯、购买周期、兴趣变化等</li>
-<li>生命周期洞察：新用户、成长期、成熟期、流失风险等</li>
-<li>标签体系建设：需求强度标签、价格敏感度标签、行为序列模式标签等</li>
-</ul>
-</li>
-<li><strong>理解层</strong>：用户偏好与意图解析
-<ul>
-<li>显式理解：
-<ul>
-<li>用户行为筛选与分析（物料、类目偏好等）</li>
-<li>兴趣标签抽取与权重计算</li>
-<li>用户群体聚类与相似用户发现（Lookalike模型）</li>
-<li>高层意图推断（购买力、品牌偏好、决策周期等）</li>
-<li>用户生命周期全链路理解（从浏览到购买决策的完整路径）</li>
-</ul>
-</li>
-<li>隐式理解/表达：
-<ul>
-<li>多维度用户行为向量化表达</li>
-<li>多模态行为序列建模（短期、长期、超长期）</li>
-<li>行为序列的隐式语义挖掘</li>
-<li>生命周期的连续性表达</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>可解释性建设</strong>：
-<ul>
-<li>基于相似用户和商品的推荐解释机制</li>
-<li>基于文本和视觉内容的推荐理由生成</li>
-<li>通过社交关系网络增强推荐可信度</li>
+<li>数据引入：完善用户画像、标签体系</li>
+<li>召回优化：多角度召回、效率评估</li>
+<li>排序优化：多目标平衡</li>
+<li>规则应用：主观判断、时效性规则</li>
 </ul>
 </li>
 </ul>
 </li>
 </ol>
-<img src="/recsys/101-intro/%E6%95%B0%E6%8D%AE%E5%B1%82.png" class="" title="数据层">
-<p>数据层的核心挑战包括：</p>
-<ol>
-<li><strong>数据质量保障</strong>
+<h3 id="常见的推荐策略">常见的推荐策略</h3>
+<h3 id="用户体验策略">用户体验策略</h3>
+<p>用户体验是推荐系统成功的关键因素，良好的用户体验策略能够显著提升用户满意度和平台黏性。在推荐系统中，用户体验策略主要关注内容的多样性、质量和时效性，通过解决重复内容问题、过滤低质量内容以及合理处理时空限定内容来优化用户体验。以下是用户体验策略的主要方面：</p>
 <ul>
-<li>完整性：确保数据无缺失、无重复</li>
-<li>准确性：确保数据真实反映用户行为和内容特征</li>
-<li>时效性：确保数据能够及时更新和处理</li>
+<li><strong>重复优化问题</strong>
+<ul>
+<li>完全重复：识别抄袭、搬运</li>
+<li>详情页重复：去重策略</li>
+<li>列表页/标题/相似内容重复：打散策略</li>
 </ul>
 </li>
-<li><strong>数据规模处理</strong>
+<li><strong>内容质量问题</strong>
 <ul>
-<li>海量数据存储：PB级数据的高效存储和检索</li>
-<li>高并发处理：每秒百万级请求的实时处理</li>
-<li>低延迟访问：毫秒级的特征获取和计算</li>
+<li>低质内容识别：用户反馈+主观打标</li>
+<li>推荐打压策略</li>
+<li>优质内容扶持和生产</li>
 </ul>
 </li>
-<li><strong>数据隐私保护</strong>
+<li><strong>时空限定内容</strong>
 <ul>
-<li>数据脱敏：敏感信息的加密和匿名化</li>
-<li>访问控制：严格的数据访问权限管理</li>
-<li>合规处理：符合GDPR、CCPA等隐私法规</li>
+<li>时效性：短、中、长时效性内容处理</li>
+<li>地域性：本地化分发策略</li>
 </ul>
 </li>
-</ol>
-<p>在实际应用中，大型推荐系统通常采用Lambda架构或Kappa架构，结合批处理和流处理能力，以满足不同场景下的数据处理需求。</p>
-<h3 id="推荐系统的评估">推荐系统的评估</h3>
-<p>推荐系统的评估是确保系统有效性和持续优化的关键环节，主要分为线上业务指标和离线模型指标两大类：</p>
-<p>线上/业务指标</p>
-<p>线上指标直接反映推荐系统对业务的实际影响，是最终评判系统价值的关键：</p>
-<ol>
-<li><strong>转化率指标</strong>
+</ul>
+<h3 id="冷启动策略">冷启动策略</h3>
+<p>冷启动问题是推荐系统中的经典挑战，指的是系统缺乏足够的用户行为数据或内容交互数据时，难以提供准确推荐的情况。有效的冷启动策略能够快速建立初始推荐模型，提升新用户留存率和新内容曝光机会。</p>
 <ul>
-<li>点击率(CTR)：用户点击推荐内容的比例</li>
-<li>购买转化率(CVR)：从推荐到最终购买的转化比例</li>
-<li>下单率(Order Rate)：用户通过推荐系统产生订单的比例</li>
-<li>留存率(Retention Rate)：推荐系统对用户留存的提升效果</li>
+<li><strong>用户冷启动</strong>：基于设备信息、注册信息快速补充用户画像
+<ul>
+<li>显性兴趣收集：引导用户选择初始兴趣类别</li>
+<li>隐性特征推断：基于IP地址、设备类型等推断用户群体特征</li>
+<li>相似用户映射：利用有限信息匹配相似用户群体</li>
+<li>高热内容推荐：为新用户优先展示平台热门内容</li>
+<li>兴趣探索机制：设计多样化推荐策略，快速探测用户兴趣</li>
+<li>反馈即时响应：对用户初期行为给予更高权重，加速画像构建</li>
 </ul>
 </li>
-<li><strong>推荐质量指标</strong>
+<li><strong>内容冷启动</strong>：基于标题、封面、描述等固有属性进行内容分析
 <ul>
-<li>覆盖率(Coverage)：推荐系统能够推荐的物品占总物品的比例</li>
-<li>多样性(Diversity)：推荐结果的类别丰富程度</li>
-<li>新颖性(Novelty)：推荐结果中新内容的比例</li>
-<li>相关性(Relevance)：推荐内容与用户兴趣的匹配度</li>
-<li>时效性(Timeliness)：推荐内容的实时更新能力</li>
+<li>文本特征提取：使用NLP技术分析内容主题和关键词</li>
+<li>多模态分析：结合图像、视频特征进行内容理解</li>
+<li>相似内容映射：与已有热门内容建立关联</li>
+<li>长尾内容覆盖：为新内容设置曝光保障机制</li>
+<li>内容分发测试：小流量测试新内容表现</li>
+<li>创作者信誉传递：利用创作者历史表现预估新内容质量</li>
 </ul>
 </li>
-<li><strong>用户满意度指标</strong>
+</ul>
+<h3 id="生态策略">生态策略</h3>
+<p>生态策略是推荐系统的核心支撑框架，它关注平台上<strong>创作者、内容和用户三者之间的良性循环关系</strong>。</p>
+<p>一个健康的推荐生态系统需要平衡各方利益，促进优质内容创作，提升用户体验，并实现平台的可持续发展。有效的生态策略能够形成&quot;<strong>优质创作者产出优质内容，优质内容吸引更多用户，更多用户为创作者提供反馈和激励</strong>&quot;的正向循环。以下从创作生态、内容生态和用户生态三个维度详细阐述推荐系统的生态策略。</p>
 <ul>
-<li>用户反馈评分：用户对推荐内容的直接评价</li>
-<li>停留时长：用户在推荐内容上的停留时间</li>
-<li>互动深度：评论、分享、收藏等深度互动行为</li>
-<li>NPS(净推荐值)：用户推荐意愿的综合评分</li>
-<li>用户投诉率：对推荐内容不满的反馈比例</li>
+<li><strong>创作/发布生态</strong>
+<ul>
+<li>工具与策略：提供创作辅助工具、发布指南和最佳实践</li>
+<li>作者质量体系：评估原创度、健康度、专业度等维度</li>
+<li>平台内容调性引导：通过推荐倾向引导创作方向</li>
+<li>作者激励机制：流量分成、创作基金、荣誉体系</li>
+<li>治理策略：扶持新作者、反作弊、创作者服务与培训</li>
 </ul>
 </li>
-</ol>
-<p>离线/模型链路指标</p>
-<p>离线指标主要用于算法迭代和模型优化，按推荐系统的不同阶段有不同的评估重点：</p>
-<ol>
-<li><strong>召回阶段指标</strong>
+<li><strong>内容生态</strong>
 <ul>
-<li>Recall(召回率)：正确召回的相关物品占所有相关物品的比例</li>
-<li>Precision(精确率)：正确召回的物品占所有召回物品的比例</li>
-<li>F1 Score：Recall和Precision的调和平均</li>
-<li>Hit Rate：至少一次命中的比例</li>
-<li>NS-recall/NS-precision：考虑负采样的召回/精确率</li>
-<li>KL散度：评估推荐分布与真实分布的差异</li>
-<li>长尾覆盖率：对非热门内容的推荐能力</li>
+<li>内容质量把控：审核机制、用户举报、算法识别低质内容</li>
+<li>多样性策略：媒介形式（文字、图片、视频、音频）、内容体裁（知识、娱乐、资讯）</li>
+<li>长尾内容扶持：为小众但高质量内容提供曝光机会</li>
+<li>内容分发平衡：热门与新鲜内容的比例调控</li>
+<li>内容安全策略：敏感内容过滤、版权保护机制</li>
 </ul>
 </li>
-<li><strong>粗排阶段指标</strong>
+<li><strong>用户生态</strong>
 <ul>
-<li>AUC(曲线下面积)：模型区分正负样本的能力</li>
-<li>GAUC(分组AUC)：考虑用户分组的AUC加权</li>
-<li>MAP(平均精度均值)：考虑排序位置的精确率</li>
-<li><strong>与精排一致性</strong>：粗排结果与精排打分的相关性</li>
-<li>计算效率：处理速度和资源消耗</li>
+<li>用户分层策略：针对不同活跃度用户的差异化推荐</li>
+<li>社区氛围营造：鼓励优质互动、评论引导</li>
+<li>用户成长体系：从新用户到活跃用户的转化路径</li>
+<li>用户反馈机制：评价、收藏、分享等行为的权重设计</li>
+<li>用户留存策略：个性化推送、兴趣培养、社交连接</li>
 </ul>
 </li>
-<li><strong>精排和重排阶段指标</strong>
+</ul>
+<h3 id="样式和交互设计">样式和交互设计</h3>
+<p>推荐系统的交互设计直接影响用户体验和推荐效果，良好的设计能够提高用户参与度和转化率。以下是交互设计在推荐系统优化中的关键角色：</p>
 <ul>
-<li>场景化AUC/GAUC：不同场景下的区分能力</li>
-<li>分类目/人群AUC：针对不同类目和用户群体的表现</li>
-<li>NDCG(归一化折损累计增益)：考虑位置权重的排序质量</li>
-<li>MRR(平均倒数排名)：相关项排名的倒数平均</li>
-<li>商业目标达成度：GMV、收入等业务指标的提升</li>
-<li>公平性指标：不同用户群体获得推荐质量的均衡性</li>
+<li><strong>减少选择疲劳</strong>
+<ul>
+<li>例子：Netflix的自动预览功能，用户无需点击即可了解内容</li>
+<li>例子：Spotify的&quot;每日推荐&quot;播放列表，一键获取个性化音乐</li>
 </ul>
 </li>
-</ol>
-<p>评估体系的构建原则</p>
-<ol>
-<li><strong>多维度评估</strong>：单一指标无法全面反映系统质量，需要构建多维度的评估体系</li>
-<li><strong>线上线下结合</strong>：离线指标提供快速迭代基础，线上指标验证实际业务价值</li>
-<li><strong>短期长期平衡</strong>：兼顾即时转化与用户长期价值</li>
-<li><strong>A/B测试验证</strong>：通过对照实验验证模型迭代的实际效果</li>
-<li><strong>持续监控与优化</strong>：建立实时监控机制，及时发现并解决问题</li>
-</ol>
-<p>推荐系统的评估是一个动态过程，需要根据业务发展阶段和用户需求变化不断调整评估指标和权重，确保系统持续为用户和平台创造价值。</p>
-<img src="/recsys/101-intro/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F-%E6%8C%87%E6%A0%87.png" class="" title="推荐系统指标">
+<li><strong>提高数据收集质量</strong>
+<ul>
+<li>例子：YouTube的&quot;不感兴趣&quot;和&quot;不要推荐此频道&quot;选项，获取精确负反馈</li>
+<li>例子：亚马逊的星级评分与文字评价分离，降低用户提供反馈的门槛</li>
+</ul>
+</li>
+<li><strong>引导用户探索</strong>
+<ul>
+<li>例子：TikTok的&quot;发现&quot;页面设计，通过视觉差异化突出新内容类别</li>
+<li>例子：Pinterest的相关内容网格布局，自然引导用户发现相关兴趣</li>
+</ul>
+</li>
+<li><strong>增强推荐透明度</strong>
+<ul>
+<li>例子：LinkedIn的&quot;因为您关注了X&quot;推荐理由说明</li>
+<li>例子：Facebook的&quot;为什么我看到这条广告&quot;解释功能</li>
+</ul>
+</li>
+<li><strong>优化即时反馈机制</strong>
+<ul>
+<li>例子：Instagram的双击点赞功能，简化反馈操作</li>
+<li>例子：Medium的渐进式阅读进度条，隐式收集内容质量信号</li>
+</ul>
+</li>
+</ul>
+<p>这些交互设计不仅改善了用户体验，还能为推荐算法提供更高质量的训练数据，形成推荐系统优化的良性循环。</p>
 <h2 id="参考">参考</h2>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.datafuntalk.com/p/t_pc/course_pc_detail/image_text/i_64365c0ae4b0cf39e6ba78bc">DataFunTalk：推荐系统综述</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.datafuntalk.com/p/t_pc/course_pc_detail/video/v_6203c245e4b04d7e2fca6306">DataFun: 推荐策略框架思考</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/667304142">搜广推策略产品经理，徐修建</a></li>
+<li><a target="_blank" rel="noopener" href="https://weread.qq.com/web/bookDetail/f42323b0811e7870eg018610">策略产品经理：模型与方法论，青十五 韩瞳</a></li>
+<li><a target="_blank" rel="noopener" href="https://weread.qq.com/web/bookDetail/f42323b0811e7870eg018610">策略产品经理实践，青十五 韩瞳</a></li>
+<li><a target="_blank" rel="noopener" href="https://weread.qq.com/wrpage/book/share/934462?from=pingshuke">内容算法：把内容变成价值的效率系统</a></li>
 </ul>
 
                 
@@ -1074,7 +791,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/recsys/101-intro/">http://example.com/recsys/101-intro/</a>
+                    <a href="http://example.com/recsys/101-intro-2/">http://example.com/recsys/101-intro-2/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1167,13 +884,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/recsys/101-intro-2/">
+                <a href="/recsys/101-intro-3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="推荐系统101-2-推荐策略">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="推荐系统101(3)算法前沿">
                         
-                        <span class="card-title">推荐系统101-2-推荐策略</span>
+                        <span class="card-title">推荐系统101(3)算法前沿</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1184,7 +901,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-12-14
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-12-15
                         </span>
                         <span class="publish-author">
                             
@@ -1217,7 +934,7 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/recsys/101-intro/">
@@ -1251,7 +968,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
