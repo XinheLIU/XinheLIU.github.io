@@ -523,9 +523,9 @@
 </li>
 </ol>
 <p>这种架构设计确保了推荐系统能够快速响应业务需求，同时保持技术栈的灵活性，为持续优化推荐效果提供了坚实的技术基础。</p>
-<img src="/recsys/101-intro/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-1.png" class="" title="图片来源：data-Fun">
-<img src="/recsys/101-intro/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-2.png" class="" title="分层视角的推荐架构">
-<img src="/recsys/101-intro/%E5%BE%AE%E5%8D%9A-%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84.png" class="" title="微博的推荐架构">
+<img src="/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-1.png" class="" title="图片来源：data-Fun">
+<img src="/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-2.png" class="" title="分层视角的推荐架构">
+<img src="/recsys/101-intro-1/%E5%BE%AE%E5%8D%9A-%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84.png" class="" title="微博的推荐架构">
 <h2 id="推荐系统架构">推荐系统架构</h2>
 <h2 id="召回模块">召回模块</h2>
 <p>召回模块的目标是从海量候选集中快速筛选出与用户兴趣相关的候选集合，以较低的计算成本获取高召回率。主要特点：</p>
@@ -541,9 +541,9 @@
 <li>使用向量检索等技术在线上进行高效召回</li>
 <li>多路召回结果融合，平衡效率与多样性</li>
 </ol>
-<img src="/recsys/101-intro/%E5%8F%AC%E5%9B%9E-1.png" class="" title="召回模块示意图">
+<img src="/recsys/101-intro-1/%E5%8F%AC%E5%9B%9E-1.png" class="" title="召回模块示意图">
 <p>常见召回策略：召回技术可以分为四大类型：传统召回、知识召回、表示召回和匹配召回，实际应用中通常是这些方法的融合。</p>
-<img src="/recsys/101-intro/%E5%8F%AC%E5%9B%9E-2.png" class="" title="召回技术分类">
+<img src="/recsys/101-intro-1/%E5%8F%AC%E5%9B%9E-2.png" class="" title="召回技术分类">
 <ol>
 <li>
 <p>传统召回</p>
@@ -659,7 +659,7 @@
 <li>如何设计高效的特征交叉机制</li>
 </ol>
 <p>粗排模型的演进与融合：</p>
-<img src="/recsys/101-intro/%E7%B2%97%E6%8E%92.png" class="" title="粗排模型演进与融合">
+<img src="/recsys/101-intro-1/%E7%B2%97%E6%8E%92.png" class="" title="粗排模型演进与融合">
 <h3 id="精排">精排</h3>
 <p>精排模块是推荐系统中最核心的排序环节，负责对粗排筛选后的候选集进行精细化排序，直接决定最终的推荐结果质量。主要特点：</p>
 <ol>
@@ -764,7 +764,7 @@
 </ul>
 </li>
 </ol>
-<img src="/recsys/101-intro/%E7%B2%BE%E6%8E%92.png" class="" title="精排模型演进与融合">
+<img src="/recsys/101-intro-1/%E7%B2%BE%E6%8E%92.png" class="" title="精排模型演进与融合">
 <p>该技术演进图可以从四个部分来分析：</p>
 <ul>
 <li>下部分：主要基于多层感知机(MLP)到Wide &amp; Deep的演进路线，包括Deep &amp; Cross Network(DCN)、DeepFM、Attentional Factorization Machine(AFM)、Neural Factorization Machine(NFM)等模型，这些模型都是针对特定部分进行优化</li>
@@ -862,7 +862,7 @@
 </li>
 </ol>
 <p>例如，序列重排：</p>
-<img src="/recsys/101-intro/%E9%87%8D%E6%8E%92.png" class="" title="重排模型演进与融合">
+<img src="/recsys/101-intro-1/%E9%87%8D%E6%8E%92.png" class="" title="重排模型演进与融合">
 <h3 id="数据层">数据层</h3>
 <p>数据层是推荐系统的基础，负责数据的收集、处理和存储，为上层算法提供高质量的数据支持。一个完善的数据层架构通常包括以下几个关键组件：</p>
 <ol>
@@ -942,7 +942,7 @@
 </ul>
 </li>
 </ol>
-<img src="/recsys/101-intro/%E6%95%B0%E6%8D%AE%E5%B1%82.png" class="" title="数据层">
+<img src="/recsys/101-intro-1/%E6%95%B0%E6%8D%AE%E5%B1%82.png" class="" title="数据层">
 <p>数据层的核心挑战包括：</p>
 <ol>
 <li><strong>数据质量保障</strong>
@@ -1043,10 +1043,11 @@
 <li><strong>持续监控与优化</strong>：建立实时监控机制，及时发现并解决问题</li>
 </ol>
 <p>推荐系统的评估是一个动态过程，需要根据业务发展阶段和用户需求变化不断调整评估指标和权重，确保系统持续为用户和平台创造价值。</p>
-<img src="/recsys/101-intro/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F-%E6%8C%87%E6%A0%87.png" class="" title="推荐系统指标">
+<img src="/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F-%E6%8C%87%E6%A0%87.png" class="" title="推荐系统指标">
 <h2 id="参考">参考</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.datafuntalk.com/p/t_pc/course_pc_detail/image_text/i_64365c0ae4b0cf39e6ba78bc">DataFunTalk：推荐系统综述</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.datafuntalk.com/live_pc/l_643b8cbae4b09d72378d91d0">DataFnTalk: 微博推荐实时大模型技术演进</a></li>
 </ul>
 
                 
@@ -1074,7 +1075,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/recsys/101-intro/">http://example.com/recsys/101-intro/</a>
+                    <a href="http://example.com/recsys/101-intro-1/">http://example.com/recsys/101-intro-1/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1171,9 +1172,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="推荐系统101-2-推荐策略">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="推荐系统101(2)推荐策略">
                         
-                        <span class="card-title">推荐系统101-2-推荐策略</span>
+                        <span class="card-title">推荐系统101(2)推荐策略</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1220,7 +1221,7 @@
                 本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/recsys/101-intro/">
+                <a href="/recsys/101-intro-1/">
                     <div class="card-image">
                         
                         
