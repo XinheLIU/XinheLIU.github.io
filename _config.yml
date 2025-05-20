@@ -122,3 +122,25 @@ prism_plugin:
   mode: 'preprocess'
   theme: 'tomorrow'
   line_number: false
+
+
+  markdown_it_plus:
+    render:
+      html: true
+      xhtmlOut: false
+      breaks: true
+      linkify: true
+      typographer: true
+    plugins:
+      - markdown-it-katex
+      - markdown-it-emoji
+      - markdown-it-abbr
+      - markdown-it-footnote
+      - markdown-it-ins
+      - markdown-it-sub
+      - markdown-it-sup
+    anchors:
+      level: 2
+      permalink: true
+      permalinkClass: header-anchor
+      permalinkSymbol: ¶
