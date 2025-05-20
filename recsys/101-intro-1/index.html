@@ -1,0 +1,1778 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="推荐系统101(1)推荐系统介绍, 查拉图斯特拉后花园">
+    <meta name="description" content="
+现代推荐系统
+推荐系统架构
+召回模块
+
+粗排模块
+精排
+重排/混排
+数据层
+推荐系统的评估
+
+
+参考
+
+ 推荐系统的发展历史
+推荐系统是一种信息过滤系统，用于预测用户对物品的&amp;quot;评分&amp;quot;或&amp;quot;偏好&amp;quot;
+一个">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>推荐系统101(1)推荐系统介绍 | 查拉图斯特拉后花园</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">查拉图斯特拉后花园</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">查拉图斯特拉后花园</div>
+        <div class="logo-desc">
+            
+            生活随便、技术闲聊
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">推荐系统101(1)推荐系统介绍</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
+                                <span class="chip bg-color">搜广推</span>
+                            </a>
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">人工智能和机器学习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                技术
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-12-13
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <ul>
+<li><a href="#%E7%8E%B0%E4%BB%A3%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F">现代推荐系统</a></li>
+<li><a href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84">推荐系统架构</a></li>
+<li><a href="#%E5%8F%AC%E5%9B%9E%E6%A8%A1%E5%9D%97">召回模块</a>
+<ul>
+<li><a href="#%E7%B2%97%E6%8E%92%E6%A8%A1%E5%9D%97">粗排模块</a></li>
+<li><a href="#%E7%B2%BE%E6%8E%92">精排</a></li>
+<li><a href="#%E9%87%8D%E6%8E%92%E6%B7%B7%E6%8E%92">重排/混排</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%B1%82">数据层</a></li>
+<li><a href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%84%E4%BC%B0">推荐系统的评估</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+<h3 id="推荐系统的发展历史"><a class="markdownIt-Anchor" href="#推荐系统的发展历史"></a> 推荐系统的发展历史</h3>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Recommender_system">推荐系统</a>是一种信息过滤系统，用于预测用户对物品的&quot;评分&quot;或&quot;偏好&quot;</p>
+<p>一个常见的推荐系统架构：</p>
+<ul>
+<li>目标：匹配用户和信息</li>
+<li>召回：猜用户可能喜欢什么内容</li>
+<li>排序服务: 确定用户最喜欢什么</li>
+<li>重排序（Reranking） 服务：不要出现同样分类、重复密集等</li>
+<li>应用场景：Feed流 信息流</li>
+</ul>
+<div class="mermaid">
+  flowchart LR
+    subgraph "推荐技术框架"
+        direction LR
+        A1["理点"] --> B1["用户特征"]
+        A2["用户信息"] --> B1
+        A3["信息格式化"] --> B2["信息特征"]
+        
+        B1 --> C["召回服务"]
+        B2 --> C
+        
+        C --> D["排序服务"]
+        D --> E["重排序服务"]
+        E --> F["应用场景"]
+    end
+</div>
+
+<p>推荐系统发展历史：</p>
+<ol>
+<li>早期阶段（1990年代初）：推荐系统起源于图书馆学科，基于过滤和关键词匹配。代表性产品/服务：早期的图书馆检索系统、学术论文推荐系统。</li>
+<li>协同过滤时期（1990年代末至2000年代初）：引入协同过滤算法，通过分析用户行为，找到相似用户或物品进行推荐。代表性产品/服务：亚马逊的商品推荐、Netflix的电影推荐、Last.fm的音乐推荐。</li>
+<li>内容过滤时期（2000年代中期）：基于内容特征和用户偏好进行推荐，利用物品的元数据和用户画像进行匹配。代表性产品/服务：Google News的新闻推荐、Pandora的音乐推荐、StumbleUpon的网页推荐。</li>
+<li>混合推荐时期（2000年代后期至今）：将协同过滤、内容过滤等不同算法进行组合，提供更准确和多样化的推荐结果。代表性产品/服务：淘宝的商品推荐、Spotify的音乐推荐、LinkedIn的职业推荐。</li>
+<li>个性化推荐时期（2010年代初）：以今日头条为代表，通过机器学习算法实现千人千面的个性化推荐。张一鸣团队开发的推荐算法成为行业标杆，推动了推荐系统的普及和应用。</li>
+<li>深度学习时期（2010年代中期至今）：利用深度学习技术提取更丰富的特征，结合用户行为序列、上下文信息等，进一步提高推荐的准确性。代表性产品/服务：YouTube的视频推荐、TikTok的短视频推荐、Instagram的内容推荐。</li>
+<li>云服务化时期（2020年代至今）：推荐算法在各大厂已经变成标准化的云服务，通过API接口提供给开发者使用。代表性服务：AWS Personalize、Google Recommendations AI、Azure Personalizer。这些服务封装了常用的推荐算法，如协同过滤、内容过滤和混合推荐，同时注重用户隐私保护，仅使用必要的行为数据进行推荐。</li>
+</ol>
+<h3 id="协同过滤算法"><a class="markdownIt-Anchor" href="#协同过滤算法"></a> 协同过滤算法</h3>
+<p>协同过滤算法是推荐系统中的一种基本算法，它基于用户行为数据来推荐物品，对现代推荐系统发展有着深远影响。协同过滤奠定了基于用户行为数据进行推荐的基础思想，为后续的矩阵分解、因子分解机(FFM)、深度学习推荐模型等提供了理论基础。它引入的用户-物品交互矩阵成为推荐系统数据组织的标准方式，而其解决稀疏性和冷启动问题的思路也启发了混合推荐、多模态推荐等新方法。现代推荐系统如YouTube的深度神经网络推荐和TikTok的多目标优化推荐，都能看到协同过滤的影子。</p>
+<p>现在大厂提供的标准化推荐服务（例如火山引擎），大多都是基于协同过滤算法。</p>
+<p>协同过滤算法主要分为以下三种：</p>
+<ol>
+<li><strong>基于内容的推荐</strong>：如果用户浏览或购买过某种类型的内容，则给用户推荐这种类型下的其它内容。例如，向用户推荐某位主演的其他电影，这种是基于内容的推荐。</li>
+<li><strong>基于用户的协同过滤</strong>：基于&quot;跟用户喜好相似的人喜欢的东西，用户也很有可能喜欢&quot;的原理。通过分析用户之间的相似性，找到相似用户群体，然后推荐相似用户喜欢但目标用户尚未接触的物品。例如，&quot;购买了该商品的用户还购买了什么商品&quot;这类推荐。</li>
+<li><strong>基于物品的协同过滤</strong>：基于&quot;与用户喜欢的物品相似的物品，用户也可能喜欢&quot;的原理。通过分析物品之间的相似关系，向用户推荐与其已经喜欢的物品相似的其他物品。例如，用户购买了某个商品后，系统会推荐与该商品经常一起购买的相关商品。</li>
+</ol>
+<h2 id="现代推荐系统"><a class="markdownIt-Anchor" href="#现代推荐系统"></a> 现代推荐系统</h2>
+<p>现代推荐系统的主要流程采用<strong>数据流优先的设计原则</strong>，具有高度灵活性。</p>
+<p>其核心流程为：</p>
+<ol>
+<li>收集用户行为数据</li>
+<li>拼接训练样本</li>
+<li>模型训练</li>
+<li>生成推荐</li>
+<li>用户反馈</li>
+<li>模型更新</li>
+</ol>
+<p>这种设计实现了端到端的实时更新能力，具体特点包括：</p>
+<ol>
+<li>
+<p>模型训练与部署</p>
+<ul>
+<li>支持多种训练框架：LR（逻辑回归）、FM（因子分解机）、TensorFlow、DeepRec等</li>
+<li>自研模型存储系统：统一的数据流架构和模型格式</li>
+<li>快速更新：模型训练到线上更新可在分钟级完成</li>
+<li>多Backend支持：可灵活切换不同计算后端</li>
+</ul>
+</li>
+<li>
+<p>平台化开发</p>
+<ul>
+<li>兼容主流深度学习框架的算子和自研算子</li>
+<li>支持自定义算子开发</li>
+<li>性能优化：针对不同框架进行内存分配和算子优化</li>
+<li>框架迁移：2022年从TensorFlow迁移到DeepRec，发现性能优化思路具有通用性</li>
+</ul>
+</li>
+</ol>
+<p>这种架构设计确保了推荐系统能够快速响应业务需求，同时保持技术栈的灵活性，为持续优化推荐效果提供了坚实的技术基础。</p>
+<img src="/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-1.png" class="" title="图片来源：data-Fun">
+<img src="/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-2.png" class="" title="分层视角的推荐架构">
+<img src="/recsys/101-intro-1/%E5%BE%AE%E5%8D%9A-%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84.png" class="" title="微博的推荐架构">
+<h2 id="推荐系统架构"><a class="markdownIt-Anchor" href="#推荐系统架构"></a> 推荐系统架构</h2>
+<h2 id="召回模块"><a class="markdownIt-Anchor" href="#召回模块"></a> 召回模块</h2>
+<p>召回模块的目标是从海量候选集中快速筛选出与用户兴趣相关的候选集合，以较低的计算成本获取高召回率。主要特点：</p>
+<ol>
+<li>效率优先：处理百万甚至亿级别的候选集，要求算法高效</li>
+<li>广覆盖：确保不遗漏潜在相关内容，追求高召回率</li>
+<li>多样性：通过多路召回策略保证推荐内容的多样性</li>
+<li>实时性：能够快速响应用户最新行为和兴趣变化</li>
+</ol>
+<p>工程实现：一般采取多路召回再进行融合</p>
+<ol>
+<li>融合用户特征、商品特征和行为特征，通过多种召回通道获取候选集</li>
+<li>使用向量检索等技术在线上进行高效召回</li>
+<li>多路召回结果融合，平衡效率与多样性</li>
+</ol>
+<img src="/recsys/101-intro-1/%E5%8F%AC%E5%9B%9E-1.png" class="" title="召回模块示意图">
+<p>常见召回策略：召回技术可以分为四大类型：传统召回、知识召回、表示召回和匹配召回，实际应用中通常是这些方法的融合。</p>
+<img src="/recsys/101-intro-1/%E5%8F%AC%E5%9B%9E-2.png" class="" title="召回技术分类">
+<ol>
+<li>
+<p>传统召回</p>
+<ul>
+<li>虽然近年来使用减少，但仍占据推荐系统的重要位置</li>
+<li>包括热门召回、协同过滤召回和基于内容的召回
+<ul>
+<li>协同过滤召回：基于用户行为相似性</li>
+<li>内容特征召回：基于内容标签、属性匹配</li>
+<li>热门/时效性召回：基于全局热度和时效性</li>
+</ul>
+</li>
+<li>代表算法：SVD、Slim系列(gSlim、fSlim)、UserCF、ItemCF、Swing等</li>
+</ul>
+</li>
+<li>
+<p>知识召回</p>
+<ul>
+<li>基于知识图谱构建，具有强可解释性和高性能</li>
+<li>实现方式：通过图谱或规则标签建立
+<ul>
+<li>社交关系召回：基于用户社交网络</li>
+<li>兴趣标签召回：基于用户显性兴趣标签</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>应用：基于实体召回、基于标签召回、基于路径推理、基于逻辑表达</li>
+</ul>
+<ol start="3">
+<li>
+<p>表示召回</p>
+<ul>
+<li>向量检索召回（将用户和内容映射到同一向量空间）</li>
+<li>从简单双塔模型发展到基于Graph的复杂模型</li>
+<li>主要分类：
+<ul>
+<li>显式行为建模：
+<ul>
+<li>GRE4Rec (Gated Recurrent Units for Recommendation)</li>
+<li>DUPN (Deep User Perception Network)</li>
+<li>BERT4Rec (Bidirectional Encoder Representations from Transformers for Recommendation)</li>
+</ul>
+</li>
+<li>隐式行为建模：
+<ul>
+<li>XDM (eXtreme Deep Factorization Machine)</li>
+</ul>
+</li>
+<li>多兴趣表征：
+<ul>
+<li>MIND (Multi-Interest Network with Dynamic routing)</li>
+<li>SASNet (Self-Attention Sequential Network)</li>
+</ul>
+</li>
+<li>超长行为建模</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>匹配召回</p>
+<ul>
+<li>为精准表征行为，对模型复杂度要求更高</li>
+<li>代表算法：
+<ul>
+<li>NCF (Neural Collaborative Filtering)</li>
+<li>TDM (Tree-based Deep Matching)</li>
+<li>DR (Deep Retrieval)</li>
+</ul>
+</li>
+<li>TDM和DR从检索、模型、索引三方面优化召回链路</li>
+<li>需要精准的负样本采样</li>
+</ul>
+</li>
+</ol>
+<h3 id="粗排模块"><a class="markdownIt-Anchor" href="#粗排模块"></a> 粗排模块</h3>
+<p>粗排模块的目标是在召回阶段筛选出的候选集上进行更精细的排序，以提高推荐的准确性和效率。</p>
+<p>粗排模块通常需要平衡模型复杂度和计算效率，处理数百到数千个候选项，为精排阶段提供更优质的候选集。主要特点：</p>
+<ol>
+<li><strong>计算效率与精度平衡</strong>：比召回更精准，比精排更高效</li>
+<li><strong>特征使用</strong>：使用比召回更丰富但比精排更精简的特征集</li>
+<li><strong>模型复杂度</strong>：中等复杂度，通常采用轻量级深度学习模型</li>
+<li><strong>候选集规模</strong>：处理数百到数千个候选项，输出几十到几百个结果</li>
+</ol>
+<p>粗排的发展历程：</p>
+<ul>
+<li><strong>早期</strong>：主要基于人工规则或后验概率统计，简单直接但表达能力有限。</li>
+<li><strong>中期</strong>：引入LR、XFTRL、GBDT等简单线性模型，开始有了基础的特征表达能力。</li>
+<li><strong>现代</strong>：轻量级深度学习模型（如双塔模型、三塔模型、和FSCD模型）将用户和商品分别进行表征后再进行匹配，大幅提升了表达能力。</li>
+<li><strong>最新趋势</strong>：端到端深度粗排、与精排模型协同优化
+<ul>
+<li>如COLD模型、AutoFAS模型等，在特征工程和模型架构上进行深度优化，追求更高性能和精度</li>
+<li><strong>与精排模型的融合</strong>：通过模型蒸馏等技术，使粗排模型能够学习精排模型的能力，保持决策一致性。</li>
+<li><strong>优化目标的一致性</strong>：将粗排的优化目标与整体推荐系统目标对齐，确保粗排决策有利于最终效果。</li>
+<li><strong>工程效率优化</strong>：随着模型复杂度增加，需要更强的工程优化能力来保证实时性。</li>
+</ul>
+</li>
+</ul>
+<p>粗排面临的主要挑战：</p>
+<ol>
+<li>如何与召回和精排保持一致性</li>
+<li>如何在有限计算资源下提高模型表达能力
+<ol>
+<li>特征交叉设计：如何在轻量模型中实现有效的特征交叉</li>
+<li>性能与精度平衡：在保证推理速度的同时提升模型精度</li>
+<li>样本选择偏差(SSB)：如何解决由于前序环节筛选导致的数据分布偏差问题</li>
+</ol>
+</li>
+<li>如何处理样本选择偏差(SSB)问题</li>
+<li>如何设计高效的特征交叉机制</li>
+</ol>
+<p>粗排模型的演进与融合：</p>
+<img src="/recsys/101-intro-1/%E7%B2%97%E6%8E%92.png" class="" title="粗排模型演进与融合">
+<h3 id="精排"><a class="markdownIt-Anchor" href="#精排"></a> 精排</h3>
+<p>精排模块是推荐系统中最核心的排序环节，负责对粗排筛选后的候选集进行精细化排序，直接决定最终的推荐结果质量。主要特点：</p>
+<ol>
+<li><strong>高精度优先</strong>：追求最高的预测准确性，是整个推荐系统的核心决策环节</li>
+<li><strong>特征丰富</strong>：使用最全面的特征集，包括用户特征、物品特征、上下文特征和交叉特征</li>
+<li><strong>模型复杂度高</strong>：采用复杂的深度学习模型，充分挖掘特征间的非线性关系</li>
+<li><strong>候选集规模</strong>：处理几十到几百个候选项，输出最终的推荐结果</li>
+</ol>
+<p>精排模块的主要目标：</p>
+<ol>
+<li><strong>准确预测用户行为</strong>：精确预测用户对不同物品的点击率、转化率等关键指标</li>
+<li><strong>多目标平衡</strong>：同时优化点击率、转化率、用户体验等多个业务目标</li>
+<li><strong>实时响应</strong>：在有限的延迟要求下完成复杂模型的推理</li>
+<li><strong>可解释性</strong>：提供推荐结果的解释，增强用户信任和系统透明度</li>
+</ol>
+<p>精排模型的演进历程：</p>
+<ol>
+<li><strong>传统机器学习阶段</strong>
+<ul>
+<li>线性模型：基于LR (Logistic Regression)、MLR (Mixed Logistic Regression)</li>
+<li>树模型：GBDT (Gradient Boosting Decision Tree)、XGBoost</li>
+<li>因子分解：FM (Factorization Machines)、FFM (Field-aware Factorization Machines)</li>
+<li>具体做法：通过样本分组做 MLR、通过特征交叉做 FM，通过 FM 做序列，通过树模型的 GBDT 相关序列，XGBOST 序列，有实时性的、 FTRL、XFTRL等</li>
+<li>优点：训练和推理效率高，可解释性强</li>
+<li>局限：表达能力有限，难以捕捉复杂特征交互</li>
+</ul>
+</li>
+<li><strong>深度学习早期阶段</strong>
+<ul>
+<li>基础深度网络：DNN (Deep Neural Network)、Wide &amp; Deep</li>
+<li>特征交互增强：DeepFM、DCN (Deep &amp; Cross Network)、xDeepFM</li>
+<li>优点：增强了特征交互能力，提升了模型表达能力</li>
+<li>局限：对序列和时序信息建模不足</li>
+</ul>
+</li>
+<li><strong>注意力机制阶段</strong>
+<ul>
+<li>行为序列建模：DIN (Deep Interest Network)、DIEN (Deep Interest Evolution Network)</li>
+<li>多兴趣建模：MIND (Multi-Interest Network)、ComiRec</li>
+<li>优点：能够捕捉用户兴趣动态变化，提升个性化推荐效果</li>
+<li>代表模型：
+<ul>
+<li>DIN：通过注意力机制对用户历史行为进行加权，突出与当前候选物品相关的历史行为</li>
+<li>DIEN：在DIN基础上引入兴趣进化网络，建模用户兴趣的演变过程</li>
+<li>SIM (Search Interest Model)：融合搜索和浏览行为，更全面地理解用户兴趣</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>多任务学习阶段</strong>
+<ul>
+<li>共享表示学习：Shared-Bottom、MMoE (Multi-gate Mixture-of-Experts)</li>
+<li>任务关系建模：PLE (Progressive Layered Extraction)、AITM (Adaptive Information Transfer Multi-task)</li>
+<li>优点：能够同时优化多个业务目标，提升整体推荐效果</li>
+<li>代表模型：
+<ul>
+<li>MMoE：通过多个专家网络和门控机制，实现任务间的选择性知识共享</li>
+<li>PLE：通过分层提取结构，平衡任务间的共享与竞争关系</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>预训练与迁移学习阶段</strong>
+<ul>
+<li>大规模预训练：BERT4Rec、P5 (Personalized Prompt Learning for Product Search)</li>
+<li>跨域迁移：STAR (Sparse Transfer Learning for Recommendation)</li>
+<li>优点：能够利用大规模数据和跨域知识，提升推荐效果</li>
+<li>局限：计算资源需求高，工程实现复杂</li>
+</ul>
+</li>
+</ol>
+<p>精排面临的主要挑战：</p>
+<ol>
+<li>
+<p><strong>多目标优化</strong>：如何平衡点击率、转化率、用户体验等多个业务目标</p>
+<ul>
+<li>解决方案：多任务学习、帕累托最优、约束优化等</li>
+</ul>
+</li>
+<li>
+<p><strong>样本偏差处理</strong>：如何处理曝光选择偏差、位置偏差等数据偏差问题</p>
+<ul>
+<li>解决方案：反事实学习、因果推断、去偏技术等</li>
+</ul>
+</li>
+<li>
+<p><strong>冷启动问题</strong>：如何处理新用户、新物品的推荐问题</p>
+<ul>
+<li>解决方案：元学习、迁移学习、内容特征增强等</li>
+</ul>
+</li>
+<li>
+<p><strong>计算效率与实时性</strong>：如何在保证模型复杂度的同时满足实时推理需求</p>
+<ul>
+<li>解决方案：模型压缩、知识蒸馏、分布式计算等</li>
+</ul>
+</li>
+<li>
+<p><strong>可解释性与透明度</strong>：如何提供推荐结果的解释，增强用户信任</p>
+<ul>
+<li>解决方案：注意力可视化、特征重要性分析、本地解释模型等</li>
+</ul>
+</li>
+</ol>
+<img src="/recsys/101-intro-1/%E7%B2%BE%E6%8E%92.png" class="" title="精排模型演进与融合">
+<p>该技术演进图可以从四个部分来分析：</p>
+<ul>
+<li>下部分：主要基于多层感知机(MLP)到Wide &amp; Deep的演进路线，包括Deep &amp; Cross Network(DCN)、DeepFM、Attentional Factorization Machine(AFM)、Neural Factorization Machine(NFM)等模型，这些模型都是针对特定部分进行优化</li>
+<li>上部分：主要是对多层感知机(MLP)架构的增强，引入了注意力(Attention)机制、Product Layer以及图神经网络(GNN)等先进技术</li>
+<li>右侧部分：主要基于自编码器(AE)、强化学习或神经协同过滤(NCF)的改进和变体</li>
+<li>左侧部分：主要是基于注意力机制演化而来，包括Deep Interest Network(DIN)、Deep Interest Evolution Network(DIEN)、Multi-channel Interest Merge Network(MIMN)、Deep Session Interest Network(DSIN)和Search Interest Model(SIM)等模型，主要解决长序列建模问题</li>
+</ul>
+<p>精排技术的发展趋势主要朝着四个方向发展：多模块、多任务、多目标和多模态。其中：</p>
+<ul>
+<li>多任务方向：代表模型有Multi-gate Mixture-of-Experts(MMoE)和Progressive Layered Extraction(PLE)等</li>
+<li>多目标方向：代表技术有帕累托最优等</li>
+<li>多模态方向：代表模型有Multi-Modal Graph Convolution Network(MMGCN)、LOGO等</li>
+</ul>
+<p>这些发展趋势体现在三个核心方面：、</p>
+<ol>
+<li>模型目标：从单一目标向多目标优化转变</li>
+<li>模型表达：采用更成熟复杂的结构增强表达能力</li>
+<li>模型容量：通过引入更多特征处理和外部信息扩充模型容量</li>
+</ol>
+<h3 id="重排混排"><a class="markdownIt-Anchor" href="#重排混排"></a> 重排/混排</h3>
+<p>重排（Reranking）是推荐系统流程中的最后一个环节，主要负责对精排输出的候选集进行最终调整和优化，以提升整体推荐效果。与精排不同，重排阶段可以：</p>
+<ol>
+<li><strong>全局优化</strong>：考虑候选集整体的多样性、新颖性和覆盖度
+<ul>
+<li>解决方案：基于贪心算法、整数规划、强化学习等方法</li>
+</ul>
+</li>
+<li><strong>考虑上下文</strong>：将用户当前状态、历史交互和页面展示效果纳入考量
+<ul>
+<li>解决方案：序列模型、注意力机制、图神经网络等</li>
+</ul>
+</li>
+<li><strong>实时反馈</strong>：能够利用用户最新的交互信号进行实时调整
+<ul>
+<li>解决方案：在线学习、增量更新、边缘计算等</li>
+</ul>
+</li>
+</ol>
+<p>重排的主要技术方法包括：</p>
+<ol>
+<li><strong>基于规则的重排</strong>
+<ul>
+<li>多样性规则：控制同类内容比例、打散相似内容</li>
+<li>约束规则：业务规则、合规要求、运营干预等</li>
+<li>优点：可解释性强，易于实现和调整</li>
+<li>局限：难以捕捉复杂模式，规则维护成本高</li>
+</ul>
+</li>
+<li><strong>基于模型的重排</strong>
+<ul>
+<li>全局排序模型：DLCM (Deep Listwise Context Model)、PRM (Personalized Re-ranking Model)</li>
+<li>序列感知模型：SetRank、IRGPR (Intent-aware Re-ranking with Graph Neural Networks)</li>
+<li>优点：能够学习复杂的全局依赖关系，提升整体推荐质量</li>
+<li>局限：计算复杂度高，实时性要求高</li>
+</ul>
+</li>
+<li><strong>基于强化学习的重排</strong>
+<ul>
+<li>策略梯度方法：REINFORCE、Actor-Critic</li>
+<li>值函数方法：DQN、Double DQN</li>
+<li>优点：能够直接优化长期收益，处理延迟反馈</li>
+<li>局限：训练不稳定，样本效率低</li>
+</ul>
+</li>
+<li><strong>边缘计算重排</strong>
+<ul>
+<li>轻量级模型：EdgeRec（阿里开源）、MobileRec</li>
+<li>模型压缩：量化、剪枝、知识蒸馏</li>
+<li>优点：低延迟，能够利用端侧实时信息</li>
+<li>局限：模型能力受限，依赖端侧计算资源</li>
+</ul>
+</li>
+</ol>
+<p>重排面临的主要挑战：</p>
+<ol>
+<li><strong>实时性与复杂性平衡</strong>：如何在毫秒级响应时间内完成复杂的全局优化
+<ul>
+<li>解决方案：模型压缩、计算优化、分布式处理</li>
+</ul>
+</li>
+<li><strong>评估指标多元化</strong>：如何平衡点击率、多样性、用户满意度等多维度指标
+<ul>
+<li>解决方案：多目标优化、加权评分、A/B测试</li>
+</ul>
+</li>
+<li><strong>冷启动与探索</strong>：如何在重排阶段引入探索机制，避免推荐系统固化
+<ul>
+<li>解决方案：Thompson采样、上下文赌臂算法、探索-利用平衡</li>
+</ul>
+</li>
+<li><strong>个性化与公平性</strong>：如何在满足个性化的同时保证算法公平性和内容多样性
+<ul>
+<li>解决方案：公平性约束、多样性指标、伦理审计</li>
+</ul>
+</li>
+</ol>
+<p>例如，序列重排：</p>
+<img src="/recsys/101-intro-1/%E9%87%8D%E6%8E%92.png" class="" title="重排模型演进与融合">
+<h3 id="数据层"><a class="markdownIt-Anchor" href="#数据层"></a> 数据层</h3>
+<p>数据层是推荐系统的基础，负责数据的收集、处理和存储，为上层算法提供高质量的数据支持。一个完善的数据层架构通常包括以下几个关键组件：</p>
+<ol>
+<li>
+<p><strong>数据采集系统</strong></p>
+<ul>
+<li>埋点设计、采集方案和数据流设计</li>
+<li><strong>用户行为数据</strong>：点击、浏览、停留时间、收藏、分享、评论等</li>
+<li><strong>内容特征数据</strong>：文本、图像、视频、音频的结构化和非结构化特征</li>
+<li><strong>上下文数据</strong>：时间、地点、设备、网络环境等</li>
+<li><strong>业务数据</strong>：交易、支付、退款、客服互动等</li>
+</ul>
+</li>
+<li>
+<p><strong>数据处理框架</strong></p>
+<ul>
+<li><strong>实时处理</strong>：Kafka、Flink、Spark Streaming等</li>
+<li><strong>离线处理</strong>：Hadoop、Spark、Hive等</li>
+<li><strong>特征存储</strong>：Redis、HBase、Cassandra、特征存储系统(如阿里的FeatureStore)</li>
+</ul>
+</li>
+<li>
+<p><strong>特征工程系统</strong></p>
+<ul>
+<li><strong>特征提取</strong>：从原始数据中提取有价值的信号</li>
+<li><strong>特征变换</strong>：归一化、标准化、离散化、编码等</li>
+<li><strong>特征选择</strong>：过滤、包装、嵌入式方法等</li>
+<li><strong>特征组合</strong>：交叉特征、多域特征融合等</li>
+</ul>
+</li>
+<li>
+<p><strong>用户理解系统</strong></p>
+<ul>
+<li><strong>数据层</strong>：构建全面的用户画像基础
+<ul>
+<li>全面收集用户基础信息、行为信息、时空信息及设备信息</li>
+<li>依赖成熟的实时数据采集框架支持</li>
+<li>确保数据的全面性、实时性和准确性</li>
+</ul>
+</li>
+<li><strong>洞察层</strong>：深度分析用户特征
+<ul>
+<li>用户价值洞察：消费能力、活跃度、忠诚度等</li>
+<li>行为模式洞察：浏览习惯、购买周期、兴趣变化等</li>
+<li>生命周期洞察：新用户、成长期、成熟期、流失风险等</li>
+<li>标签体系建设：需求强度标签、价格敏感度标签、行为序列模式标签等</li>
+</ul>
+</li>
+<li><strong>理解层</strong>：用户偏好与意图解析
+<ul>
+<li>显式理解：
+<ul>
+<li>用户行为筛选与分析（物料、类目偏好等）</li>
+<li>兴趣标签抽取与权重计算</li>
+<li>用户群体聚类与相似用户发现（Lookalike模型）</li>
+<li>高层意图推断（购买力、品牌偏好、决策周期等）</li>
+<li>用户生命周期全链路理解（从浏览到购买决策的完整路径）</li>
+</ul>
+</li>
+<li>隐式理解/表达：
+<ul>
+<li>多维度用户行为向量化表达</li>
+<li>多模态行为序列建模（短期、长期、超长期）</li>
+<li>行为序列的隐式语义挖掘</li>
+<li>生命周期的连续性表达</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>可解释性建设</strong>：
+<ul>
+<li>基于相似用户和商品的推荐解释机制</li>
+<li>基于文本和视觉内容的推荐理由生成</li>
+<li>通过社交关系网络增强推荐可信度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<img src="/recsys/101-intro-1/%E6%95%B0%E6%8D%AE%E5%B1%82.png" class="" title="数据层">
+<p>数据层的核心挑战包括：</p>
+<ol>
+<li><strong>数据质量保障</strong>
+<ul>
+<li>完整性：确保数据无缺失、无重复</li>
+<li>准确性：确保数据真实反映用户行为和内容特征</li>
+<li>时效性：确保数据能够及时更新和处理</li>
+</ul>
+</li>
+<li><strong>数据规模处理</strong>
+<ul>
+<li>海量数据存储：PB级数据的高效存储和检索</li>
+<li>高并发处理：每秒百万级请求的实时处理</li>
+<li>低延迟访问：毫秒级的特征获取和计算</li>
+</ul>
+</li>
+<li><strong>数据隐私保护</strong>
+<ul>
+<li>数据脱敏：敏感信息的加密和匿名化</li>
+<li>访问控制：严格的数据访问权限管理</li>
+<li>合规处理：符合GDPR、CCPA等隐私法规</li>
+</ul>
+</li>
+</ol>
+<p>在实际应用中，大型推荐系统通常采用Lambda架构或Kappa架构，结合批处理和流处理能力，以满足不同场景下的数据处理需求。</p>
+<h3 id="推荐系统的评估"><a class="markdownIt-Anchor" href="#推荐系统的评估"></a> 推荐系统的评估</h3>
+<p>推荐系统的评估是确保系统有效性和持续优化的关键环节，主要分为线上业务指标和离线模型指标两大类：</p>
+<p>线上/业务指标</p>
+<p>线上指标直接反映推荐系统对业务的实际影响，是最终评判系统价值的关键：</p>
+<ol>
+<li><strong>转化率指标</strong>
+<ul>
+<li>点击率(CTR)：用户点击推荐内容的比例</li>
+<li>购买转化率(CVR)：从推荐到最终购买的转化比例</li>
+<li>下单率(Order Rate)：用户通过推荐系统产生订单的比例</li>
+<li>留存率(Retention Rate)：推荐系统对用户留存的提升效果</li>
+</ul>
+</li>
+<li><strong>推荐质量指标</strong>
+<ul>
+<li>覆盖率(Coverage)：推荐系统能够推荐的物品占总物品的比例</li>
+<li>多样性(Diversity)：推荐结果的类别丰富程度</li>
+<li>新颖性(Novelty)：推荐结果中新内容的比例</li>
+<li>相关性(Relevance)：推荐内容与用户兴趣的匹配度</li>
+<li>时效性(Timeliness)：推荐内容的实时更新能力</li>
+</ul>
+</li>
+<li><strong>用户满意度指标</strong>
+<ul>
+<li>用户反馈评分：用户对推荐内容的直接评价</li>
+<li>停留时长：用户在推荐内容上的停留时间</li>
+<li>互动深度：评论、分享、收藏等深度互动行为</li>
+<li>NPS(净推荐值)：用户推荐意愿的综合评分</li>
+<li>用户投诉率：对推荐内容不满的反馈比例</li>
+</ul>
+</li>
+</ol>
+<p>离线/模型链路指标</p>
+<p>离线指标主要用于算法迭代和模型优化，按推荐系统的不同阶段有不同的评估重点：</p>
+<ol>
+<li><strong>召回阶段指标</strong>
+<ul>
+<li>Recall(召回率)：正确召回的相关物品占所有相关物品的比例</li>
+<li>Precision(精确率)：正确召回的物品占所有召回物品的比例</li>
+<li>F1 Score：Recall和Precision的调和平均</li>
+<li>Hit Rate：至少一次命中的比例</li>
+<li>NS-recall/NS-precision：考虑负采样的召回/精确率</li>
+<li>KL散度：评估推荐分布与真实分布的差异</li>
+<li>长尾覆盖率：对非热门内容的推荐能力</li>
+</ul>
+</li>
+<li><strong>粗排阶段指标</strong>
+<ul>
+<li>AUC(曲线下面积)：模型区分正负样本的能力</li>
+<li>GAUC(分组AUC)：考虑用户分组的AUC加权</li>
+<li>MAP(平均精度均值)：考虑排序位置的精确率</li>
+<li><strong>与精排一致性</strong>：粗排结果与精排打分的相关性</li>
+<li>计算效率：处理速度和资源消耗</li>
+</ul>
+</li>
+<li><strong>精排和重排阶段指标</strong>
+<ul>
+<li>场景化AUC/GAUC：不同场景下的区分能力</li>
+<li>分类目/人群AUC：针对不同类目和用户群体的表现</li>
+<li>NDCG(归一化折损累计增益)：考虑位置权重的排序质量</li>
+<li>MRR(平均倒数排名)：相关项排名的倒数平均</li>
+<li>商业目标达成度：GMV、收入等业务指标的提升</li>
+<li>公平性指标：不同用户群体获得推荐质量的均衡性</li>
+</ul>
+</li>
+</ol>
+<p>评估体系的构建原则</p>
+<ol>
+<li><strong>多维度评估</strong>：单一指标无法全面反映系统质量，需要构建多维度的评估体系</li>
+<li><strong>线上线下结合</strong>：离线指标提供快速迭代基础，线上指标验证实际业务价值</li>
+<li><strong>短期长期平衡</strong>：兼顾即时转化与用户长期价值</li>
+<li><strong>A/B测试验证</strong>：通过对照实验验证模型迭代的实际效果</li>
+<li><strong>持续监控与优化</strong>：建立实时监控机制，及时发现并解决问题</li>
+</ol>
+<p>推荐系统的评估是一个动态过程，需要根据业务发展阶段和用户需求变化不断调整评估指标和权重，确保系统持续为用户和平台创造价值。</p>
+<img src="/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F-%E6%8C%87%E6%A0%87.png" class="" title="推荐系统指标">
+<h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.datafuntalk.com/p/t_pc/course_pc_detail/image_text/i_64365c0ae4b0cf39e6ba78bc">DataFunTalk：推荐系统综述</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.datafuntalk.com/live_pc/l_643b8cbae4b09d72378d91d0">DataFnTalk: 微博推荐实时大模型技术演进</a></li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">佚名小司机</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/recsys/101-intro-1/">http://example.com/recsys/101-intro-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">佚名小司机</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
+                                    <span class="chip bg-color">搜广推</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">人工智能和机器学习</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/recsys/101-intro-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="推荐系统101(2)推荐策略">
+                        
+                        <span class="card-title">推荐系统101(2)推荐策略</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-12-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
+                        <span class="chip bg-color">搜广推</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能和机器学习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/recsys/101-intro-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="推荐系统101(1)推荐系统介绍">
+                        
+                        <span class="card-title">推荐系统101(1)推荐系统介绍</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-13
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
+                        <span class="chip bg-color">搜广推</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能和机器学习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+            
+            <a href="/about" target="_blank">佚名小司机</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/XinheLIU" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:xinhe_l@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

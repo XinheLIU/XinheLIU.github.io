@@ -1,0 +1,1383 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="因果推断（1）什么是因果推断, 查拉图斯特拉后花园">
+    <meta name="description" content="
+因果推断的历史
+Why：相关≠因果
+
+相关性和因果性的差异来源
+
+
+What：反事实难题
+How：实验 &amp;amp; 从观察数据中学习因果效应
+
+AB实验
+从观察数据中学习因果效应
+
+
+
+ 因果推断的历史
+
+哲学探索阶段（古代到 19 世纪">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>因果推断（1）什么是因果推断 | 查拉图斯特拉后花园</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">查拉图斯特拉后花园</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">查拉图斯特拉后花园</div>
+        <div class="logo-desc">
+            
+            生活随便、技术闲聊
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">因果推断（1）什么是因果推断</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/">
+                                <span class="chip bg-color">因果推断</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" class="post-category">
+                                数据科学
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-01-18
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <ul>
+<li><a href="#%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%9A%84%E5%8E%86%E5%8F%B2">因果推断的历史</a></li>
+<li><a href="#why%E7%9B%B8%E5%85%B3%E5%9B%A0%E6%9E%9C">Why：相关≠因果</a>
+<ul>
+<li><a href="#%E7%9B%B8%E5%85%B3%E6%80%A7%E5%92%8C%E5%9B%A0%E6%9E%9C%E6%80%A7%E7%9A%84%E5%B7%AE%E5%BC%82%E6%9D%A5%E6%BA%90">相关性和因果性的差异来源</a></li>
+</ul>
+</li>
+<li><a href="#what%E5%8F%8D%E4%BA%8B%E5%AE%9E%E9%9A%BE%E9%A2%98">What：反事实难题</a></li>
+<li><a href="#how%E5%AE%9E%E9%AA%8C--%E4%BB%8E%E8%A7%82%E5%AF%9F%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%9B%A0%E6%9E%9C%E6%95%88%E5%BA%94">How：实验 &amp; 从观察数据中学习因果效应</a>
+<ul>
+<li><a href="#ab%E5%AE%9E%E9%AA%8C">AB实验</a></li>
+<li><a href="#%E4%BB%8E%E8%A7%82%E5%AF%9F%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%9B%A0%E6%9E%9C%E6%95%88%E5%BA%94">从观察数据中学习因果效应</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="因果推断的历史"><a class="markdownIt-Anchor" href="#因果推断的历史"></a> 因果推断的历史</h2>
+<ul>
+<li>哲学探索阶段（古代到 19 世纪）：
+<ul>
+<li>因果推断最早源于哲学家对因果关系的思辨（如亚里士多德和休谟）。这一时期关注的是因果关系的本质，但缺乏系统的数理方法。</li>
+</ul>
+</li>
+<li>统计相关性阶段（19 世纪到 20 世纪中期）：
+<ul>
+<li>随着统计学的发展，相关性分析和控制变量法逐渐兴起。回归分析和随机对照试验（RCT）为因果推断带来了第一批量化工具，但因果关系依然与相关性容易混淆。</li>
+</ul>
+</li>
+<li>因果推断形式化阶段（20 世纪后期至今）：
+<ul>
+<li>鲁宾的 “潜在结果框架” 和珀尔的 “因果图” 将因果推断数学化并算法化，奠定了现代因果推断理论的基础。21 世纪，因果推断与机器学习、人工智能结合，成为跨学科的重要研究工具。</li>
+</ul>
+</li>
+</ul>
+<h2 id="why相关因果"><a class="markdownIt-Anchor" href="#why相关因果"></a> Why：相关≠因果</h2>
+<p>为什么我们需要因果关系：基于相关的推断可以做出高精度的预测、但有些情况需要因果关系指导决策</p>
+<ul>
+<li>预测问题
+<ul>
+<li>如果给某些用户推送这些内容，他们会更愿意来消费吗?</li>
+<li>流失用户预测：例如app上点击过负反馈的用户留存更高，用作留存/流失率预测模型圈选出可能留存/流失的用户，没有问题。（但不一定高效）</li>
+</ul>
+</li>
+<li>干预问题
+<ul>
+<li>流失用户挽回：怎么做才能挽回流失的用户——让没有负反馈的用户提高负反馈肯定是不行的。</li>
+<li>用户激励的设计/ROI计算：什么样的补贴策略能够培养新的直播观众?</li>
+<li>推荐策略：给优质主播增加曝光, 是否能够促进用户 的长期直播观看和打赏 ?</li>
+<li>产品功能迭代：在直播PK中进行产品功能的改进, 是否能 够带动整体直播打赏的提升?</li>
+<li>预估产品和方向的长期价值（指标间关系）：改变产品框架, 是否能够增进用户的直播 消费习惯与平台整体长期收入的提升？</li>
+</ul>
+</li>
+</ul>
+<h3 id="相关性和因果性的差异来源"><a class="markdownIt-Anchor" href="#相关性和因果性的差异来源"></a> 相关性和因果性的差异来源</h3>
+<ol>
+<li>
+<p><strong>Spurious correlation</strong><br />
+<a target="_blank" rel="noopener" href="https://www.tylervigen.com/spurious-correlations">Spurious Correlations</a></p>
+<img src="/causal/intro-1/spurious-correlation.png" class="" title="Spurious Correlation">
+</li>
+<li>
+<p><strong>辛普森悖论</strong>：分组的相关性和总体的相关性/高低不一致</p>
+<ul>
+<li>例如：
+<ul>
+<li>男女 / 用药 vs 恢复率<img src="/causal/intro-1/simpsons-1.png" class="" title="Simpson" alt="s Paradox Example">
+</li>
+<li>类似：男女 / 看播时长 vs 购买率</li>
+</ul>
+</li>
+<li>什么时候看分组结论什么时候看总体结论呢？
+<ul>
+<li><strong>Confounding Bias 混杂偏差</strong>：由于共因 (Common Cause/Fork) 造成的相关
+<ul>
+<li>分组影响结果，但不受原因（Treatment, 处理）和结果（Effect, 效应）影响：例如性别会影响是否吃药、也会影响疾病率；但是否吃药无法影响性别<img src="/causal/intro-1/confounding-bias.png" class="" title="Confounding Bias">
+</li>
+<li>这时应该看分组数据。</li>
+</ul>
+</li>
+<li><strong>Selection Bias 选择偏差</strong>：由于共果（Mediator/Collider) 造成相关
+<ul>
+<li>分组受到原因影响，且会影响结果（称为&quot;中介变量&quot;）：例如血压是药物发生作用的中介变量，吃药可能导致血压变化，从而影响是否康复。<img src="/causal/intro-1/selection-bias.png" class="" title="Selection Bias">
+</li>
+<li>这时要判断吃药对康复的影响，就应该看整体数据，而不应该分血压看数据。这时称分组结果具有&quot;选择性偏差&quot;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>伯克森悖论（Berkson’s paradox）</strong>：选择性偏差的例子</p>
+<ul>
+<li>简历越好，能力越差：两者都不行的话会被刷掉，两者都很好的公司又付不起工资，因此也不会录用。<img src="/causal/intro-1/berksons-paradox.png" class="" title="Berkson" alt="s Paradox">
+</li>
+<li>同样，筛选已婚人士看智商和颜值；&quot;寒门出贵子&quot;等，都是该悖论的影响</li>
+</ul>
+</li>
+</ol>
+<p>实际问题中，因果关系可能没有这么简单明确</p>
+<ul>
+<li>例如性别、职位和薪酬的关系。</li>
+<li>因果循环：比如
+<ul>
+<li>搜索影响社交、社交影响内容消费、内容消费影响搜索；</li>
+<li>点赞影响流量、流量影响GMV、GMV影响流量、流量又影响点赞；</li>
+<li>马太效应：曝光多/流行度高的内容会进一步获得更多曝光，互为因果的循环关系。</li>
+</ul>
+</li>
+</ul>
+<p><strong>归因难题</strong>：在很多模型/数据分析是从结果往回寻找原因，往往去优化解释度。但解释度高不代表归因正确</p>
+<ul>
+<li>例如
+<ul>
+<li>解释睡眠质量：穿鞋 vs 不穿鞋 对睡眠质量解释度很高；真实情况是喝醉的时候不穿鞋</li>
+<li>是否给社区活跃用户提供更多的内容，能进一步提升他们在社区消费?——这里需要解答的因果关系是是否用户越活跃、越喜欢探索，就会 ⇒消费？
+<ul>
+<li>比如：可能本来用户就是喜欢app ⇒ 喜欢消费+喜欢在社区留言，不能简单把消费归因到内容给业务出结论。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>从结果往回找原因是没有完美解决方案的难题
+<ul>
+<li>论文1：Pearl, J. (2015). Causes of Effects and Effects of Causes. <em>Sociological Methods &amp; Research</em>, 44(1), 149-164. <a target="_blank" rel="noopener" href="https://doi.org/10.1177/0049124114562614">https://doi.org/10.1177/0049124114562614</a></li>
+<li>论文2：Mueller, S., Li, A., &amp; Pearl, J. (2021). Causes of effects: Learning individual responses from population data. <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2104.13730.pdf">https://arxiv.org/pdf/2104.13730.pdf</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="what反事实难题"><a class="markdownIt-Anchor" href="#what反事实难题"></a> What：反事实难题</h2>
+<p>先把哲学上复杂的定义放到一边，只关注因果关系最实用的（最有助于你工作的）那部分定义。</p>
+<ul>
+<li>一句话：因果关系试图回答的是what-if的问题。即假如其他一切不变，只改变X，如果Y的取值发生了改变，则认为X-Y有因果关系，更准确地说是X导致了Y。
+<ul>
+<li>设X为&quot;是否接受手术&quot;，Y 为&quot;个体一年后是否存活&quot;，那么每个个体都有两个潜在结果：接受手术后的结果，以及不接受手术后的结果。这两种结果之间的差别就是手术和存活间的因果关系。</li>
+</ul>
+</li>
+<li>现实中，我们只能观察到个体的某一个潜在结果，所以个体粒度的因果关系是不能确定的。这个难题被称作因果推断的根本难题，本质上是一个缺失数据（missing data）的问题。</li>
+</ul>
+<p>因果推断的方法和模型的目标是解决反事实难题。</p>
+<h2 id="how实验-从观察数据中学习因果效应"><a class="markdownIt-Anchor" href="#how实验-从观察数据中学习因果效应"></a> How：实验 &amp; 从观察数据中学习因果效应</h2>
+<h3 id="ab实验"><a class="markdownIt-Anchor" href="#ab实验"></a> AB实验</h3>
+<p>为什么随机分流的A/B实验可以跨越数据缺失的障碍呢？一句话回答：因为随机可以保证两组用户的潜在结果一致。</p>
+<ul>
+<li>随机试验的实质在于分配机制（即用户分流）与潜在结果无关。现实中，影响每个人潜在结果的因素数不胜数，其中很多还观测不到。但我们不需要再为此担心了，因为随机分组本身保证了用户分组和潜在结果无关。换言之，实验组/对照组是可交换的，这样每组的潜在结果可以认为是整体的潜在因果，因此可以直接对比得出因果效应（假设样本量接近无限，忽略抽样方差）。</li>
+<li>这就是各家互联网公司都特别重视A/B实验的原因。比起其他方法，A/B实验让我们有机会把握因果效应，从而帮助做出业务决策。虽然到处都说&quot;数据驱动&quot;，但不是有数据就能驱动！A/B实验获取的结果数据才能更好地驱动业务</li>
+</ul>
+<p>实验的限制：</p>
+<ol>
+<li>目标确定时可以告诉我们两条路哪个更好一些（局部优化），但没办法我们告诉路在何方</li>
+<li>实验没办法直接回答因果机制的问题：观测到的指标diff只能说明策略改动的效果是什么样的，不能直接说明这个效果是怎么来的，中间过程是什么样的，如果想了解中介变量或者说机制，可能需要单独设计实验来做，在中介变量不能直接操纵的情况下会比较困难。</li>
+<li>Effect of cause and cause of effect ：和上面类似，这不是实验特有的问题，实际上我们介绍的各种估计方法都是在估计effect of cause，而不会涉及cause of effect 即对一个现象、结果做归因的问题。</li>
+</ol>
+<h3 id="从观察数据中学习因果效应"><a class="markdownIt-Anchor" href="#从观察数据中学习因果效应"></a> 从观察数据中学习因果效应</h3>
+<p>但有很多场景下我们没有办法进行实验，如何从观察数据中进行因果推断？</p>
+<p>核心：从观察到的数据中通过估计(estimation)来回答因果问题</p>
+<ul>
+<li>什么是估计: 利用estimator估计estimand
+<ul>
+<li>Estimand（估计量）：需要估计的量（真实希望回答的问题）：是一个&quot;what if&quot;的问题，由于反事实难题。我们无法观测到缺失那部分数据</li>
+<li>Estimate（估计值）：使用有限数据样本对估计量的近似值。是实际得到的结果，只能依赖于现有数据。</li>
+<li>Estimator（估计方法）：用于得出估计量估计值的方法或公式。它的核心是估计未知的数据/参数。</li>
+</ul>
+</li>
+<li>如何来估计：建立统计/机器学习/各种模型来去除bias/模拟缺失数据或模拟数据生成过程，来（近似）回答反事实问题</li>
+<li>是否可以回答 ：identification（可识别性）是否能从数据中得到因果效应的估计
+<ul>
+<li>一般意义的&quot;可识别性&quot;只模型是否是否能给出输出或&quot;有解&quot;：例如一个线性回归模型，所有的训练数据中都没有x=5的数据，那么数据量再多也无法对x=5给出估计</li>
+</ul>
+</li>
+</ul>
+<p>两套框架</p>
+<ul>
+<li>因果推断的分析框架有两个，一个是20世纪70年代Rubin提出的Causal Model（RCM）或Potential Outcomes Framework
+<ul>
+<li>优势：RCM将因果关系定义为事实和反事实的比较、相对来说比较容易理解并且更易应用，比较适合观测数据进行有因果推断，适用于社会科学、计量经济等领域。</li>
+<li>缺点：RCM假设潜在反事实（未观察到的对比情况）是可比较的，即处理组和对照组在其他方面是相似的（具体之后会展开讲）它的一系列假设总体来说是比较强的。</li>
+</ul>
+</li>
+<li>另一个是20世纪80年代Judea Pearl 提出来的结构因果模型（Structural Causal Model, SCM)或因果图 (Causal Diagram)
+<ul>
+<li>优势：SCM提供了直观的因果图表示，它最大的好处是可以把假设直观呈现出来，可以帮助研究者理解变量之间的因果关系。此外比较适合复杂因果建模、更适用于计算机、因果发现等领域。</li>
+<li>缺点：SCM对于复杂的因果关系可能难以建模，并且对于观察数据的因果推断能力有限。此外，SCM在处理未观察到的混淆变量时也存在困难</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Rubin因果模型 (RCM)</th>
+<th>结构因果模型 (SCM)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>提出时间</td>
+<td>20世纪70年代</td>
+<td>20世纪80年代</td>
+</tr>
+<tr>
+<td>核心概念</td>
+<td>潜在结果框架，关注事实与反事实的比较</td>
+<td>因果图，关注变量间的结构关系</td>
+</tr>
+<tr>
+<td>适用领域</td>
+<td>社会科学、计量经济学、观测数据因果推断</td>
+<td>计算机科学、人工智能、因果发现</td>
+</tr>
+<tr>
+<td>数学基础</td>
+<td>概率论、统计学</td>
+<td>图论、概率论</td>
+</tr>
+<tr>
+<td>主要优势</td>
+<td>1. 概念直观，易于理解和应用<br>2. 适合处理观测数据<br>3. 与随机对照试验(RCT)理论紧密相关<br>4. 估计方法成熟</td>
+<td>1. 提供直观的因果图表示<br>2. 适合处理复杂的因果关系<br>3. 可以处理干预和反事实推理<br>4. 有助于理解因果机制</td>
+</tr>
+<tr>
+<td>主要局限</td>
+<td>1. 假设条件较强<br>2. 难以处理复杂的交互作用<br>3. 对未观测混杂因素敏感<br>4. 不适合处理动态系统</td>
+<td>1. 复杂系统建模困难<br>2. 观察数据推断能力有限<br>3. 未观测混杂因素处理困难<br>4. 计算复杂度较高</td>
+</tr>
+<tr>
+<td>应用场景</td>
+<td>1. 政策评估<br>2. 医疗研究<br>3. 社会科学实验<br>4. 经济学研究</td>
+<td>1. 机器学习<br>2. 人工智能<br>3. 复杂系统分析<br>4. 因果发现</td>
+</tr>
+<tr>
+<td>工具支持</td>
+<td>1. R语言相关包<br>2. Stata等统计软件<br>3. 传统统计方法</td>
+<td>1. Python因果推断库<br>2. 贝叶斯网络工具<br>3. 图模型软件</td>
+</tr>
+</tbody>
+</table>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">佚名小司机</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/causal/intro-1/">http://example.com/causal/intro-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">佚名小司机</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/">
+                                    <span class="chip bg-color">因果推断</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/AB-Test/intro-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="AB实验（1）AB实验从0到1">
+                        
+                        <span class="card-title">AB实验（1）AB实验从0到1</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-05-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" class="post-category">
+                                    数据科学
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/">
+                        <span class="chip bg-color">因果推断</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/recsys/101-intro-3/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="推荐系统101(3)算法前沿">
+                        
+                        <span class="card-title">推荐系统101(3)算法前沿</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
+                        <span class="chip bg-color">搜广推</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能和机器学习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+            
+            <a href="/about" target="_blank">佚名小司机</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/XinheLIU" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:xinhe_l@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

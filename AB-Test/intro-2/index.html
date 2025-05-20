@@ -1,0 +1,2414 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="AB实验（2）AB实验中的难题, 查拉图斯特拉后花园">
+    <meta name="description" content=" AB实验中的难题
+
+AB实验中的难题
+
+概览
+测算类问题：灵敏度和统计功效提升
+
+灵敏度提升
+Triggered Analysis
+Heterogenous Treatment Effect (异质性分析)
+
+
+实验机制与决策类问题
+
+L">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>AB实验（2）AB实验中的难题 | 查拉图斯特拉后花园</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">查拉图斯特拉后花园</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">查拉图斯特拉后花园</div>
+        <div class="logo-desc">
+            
+            生活随便、技术闲聊
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">AB实验（2）AB实验中的难题</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/AB%E5%AE%9E%E9%AA%8C/">
+                                <span class="chip bg-color">AB实验</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" class="post-category">
+                                数据科学
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-06-20
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="ab实验中的难题"><a class="markdownIt-Anchor" href="#ab实验中的难题"></a> AB实验中的难题</h1>
+<ul>
+<li><a href="#ab%E5%AE%9E%E9%AA%8C%E4%B8%AD%E7%9A%84%E9%9A%BE%E9%A2%98">AB实验中的难题</a>
+<ul>
+<li><a href="#%E6%A6%82%E8%A7%88">概览</a></li>
+<li><a href="#%E6%B5%8B%E7%AE%97%E7%B1%BB%E9%97%AE%E9%A2%98%E7%81%B5%E6%95%8F%E5%BA%A6%E5%92%8C%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88%E6%8F%90%E5%8D%87">测算类问题：灵敏度和统计功效提升</a>
+<ul>
+<li><a href="#%E7%81%B5%E6%95%8F%E5%BA%A6%E6%8F%90%E5%8D%87">灵敏度提升</a></li>
+<li><a href="#triggered-analysis">Triggered Analysis</a></li>
+<li><a href="#heterogenous-treatment-effect-%E5%BC%82%E8%B4%A8%E6%80%A7%E5%88%86%E6%9E%90">Heterogenous Treatment Effect (异质性分析)</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%9E%E9%AA%8C%E6%9C%BA%E5%88%B6%E4%B8%8E%E5%86%B3%E7%AD%96%E7%B1%BB%E9%97%AE%E9%A2%98">实验机制与决策类问题</a>
+<ul>
+<li><a href="#long-term-effects-%E9%95%BF%E6%9C%9F%E6%95%88%E5%BA%94%E5%BA%A6%E9%87%8F">Long Term Effects (长期效应度量)</a>
+<ul>
+<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%80%E9%95%BF%E6%9C%9F%E5%AE%9E%E9%AA%8C">方法一：长期实验</a></li>
+<li><a href="#%E6%96%B9%E6%B3%952modeling-user-learning">方法2：Modeling User Learning</a></li>
+<li><a href="#%E6%96%B9%E6%B3%953surrogate-index-%E7%9F%AD%E6%9C%9F%E6%8C%87%E6%A0%87%E6%9B%BF%E4%BB%A3%E9%95%BF%E6%9C%9F%E6%8C%87%E6%A0%87">方法3：surrogate Index (短期指标替代长期指标)</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95">其他方法</a></li>
+</ul>
+</li>
+<li><a href="#optional-stopping-%E8%BF%9E%E7%BB%AD%E5%AE%9E%E9%AA%8C%E9%97%AE%E9%A2%98">Optional Stopping (连续实验问题)</a>
+<ul>
+<li><a href="#sequential-testing">Sequential Testing</a></li>
+<li><a href="#bayesian-ab-testing">Bayesian A/B Testing</a></li>
+</ul>
+</li>
+<li><a href="#interference-%E5%AE%9E%E9%AA%8C%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%92%E7%9B%B8%E5%B9%B2%E9%A2%84">Interference (实验对象之间的互相干预)</a>
+<ul>
+<li><a href="#%E5%AE%9E%E9%AA%8C%E5%8D%95%E4%BD%8D%E9%97%B4%E7%9B%B4%E6%8E%A5%E8%81%94%E7%B3%BB">实验单位间直接联系</a></li>
+<li><a href="#%E9%97%B4%E6%8E%A5%E8%81%94%E7%B3%BB%E5%8F%8C%E8%BE%B9%E5%B8%82%E5%9C%BA">间接联系：双边市场</a>
+<ul>
+<li><a href="#%E6%96%B9%E6%A1%881%E7%B1%BB%E4%BC%BC%E7%9B%B4%E6%8E%A5%E5%B9%B2%E9%A2%84%E4%B8%AD%E7%9A%84%E7%A4%BE%E4%BA%A4%E5%85%B3%E7%B3%BB%E5%88%86%E6%B5%81%E7%89%A9%E7%90%86%E9%9A%94%E7%A6%BB">方案1：类似直接干预中的社交关系分流/物理隔离</a></li>
+<li><a href="#%E6%96%B9%E6%A1%882%E6%97%B6%E9%97%B4%E9%9A%94%E7%A6%BB%E6%97%B6%E9%97%B4%E7%89%87%E8%BD%AE%E8%BD%AC%E5%AE%9E%E9%AA%8Cswitchback-experiments">方案2：时间隔离/时间片轮转实验（Switchback Experiments）</a></li>
+<li><a href="#%E6%96%B9%E6%A1%883%E5%8F%8C%E8%BE%B9%E5%AE%9E%E9%AA%8C">方案3：双边实验</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="概览"><a class="markdownIt-Anchor" href="#概览"></a> 概览</h2>
+<table>
+  <tr>
+    <th>问题类型</th>
+    <th>挑战</th>
+    <th>问题描述</th>
+    <th>解决方法</th>
+    <th>例子</th>
+  </tr>
+  <tr>
+    <td rowspan="3">灵敏度与统计功效类的问题</td>
+    <td>Small Treatment Effects</td>
+    <td>收益小但样本量又不够怎么办？</td>
+    <td>Variance Reduction / CUPED</td>
+    <td>深度转化广告主价值进行指标capping；计刘侧广告主侧实验使用CUPED缩减方差</td>
+  </tr>
+  <tr>
+    <td>Triggered Analysis</td>
+    <td>只有一部分局部显著收益如何大盘收益？</td>
+    <td>通过ATT和渗透率来反向预估ATE</td>
+    <td>在实验场景下结合IV，PSM综合度量因果效应</td>
+  </tr>
+  <tr>
+    <td>Heterogeneous Treatment Effects</td>
+    <td>如何识别不同个体面对相同的干预下的会不同差异（异质性）？</td>
+    <td>线性模型/KNN/因果森林/Double Machine Learning</td>
+    <td>用户研究方向的一些实验拆解（如端变量策略关注对load对不同用户活跃的影响，识别用户对于广告的敏感程度等）</td>
+  </tr>
+  <tr>
+    <td rowspan="3">实验设计与决策机制类问题</td>
+    <td>Long-Term Effects</td>
+    <td>如何在短期的实验里测出指标长期的变化避免决策短视？</td>
+    <td>短期实验结果预测长期实验结果</td>
+    <td>中高广告侧堂试通过估计学习效应和中间指标推进预试实验长期LTV表规，预测依效结果强依赖于学习效应的趋势</td>
+  </tr>
+  <tr>
+    <td>Optional Stopping</td>
+    <td>如何避免挥择"优汇"汇？查量立实验NG吗？</td>
+    <td>序贯检测(Sequential testing)</td>
+    <td>暂无实际应用，采用矢方法绘制p-value曲线替代</td>
+  </tr>
+  <tr>
+    <td>Interference</td>
+    <td>分单单低互干扰怎么办？</td>
+    <td>隔离社区实验法/时间轮转法/TSR法</td>
+    <td>预算分桶</td>
+  </tr>
+</table>
+<h2 id="测算类问题灵敏度和统计功效提升"><a class="markdownIt-Anchor" href="#测算类问题灵敏度和统计功效提升"></a> 测算类问题：灵敏度和统计功效提升</h2>
+<h3 id="灵敏度提升"><a class="markdownIt-Anchor" href="#灵敏度提升"></a> 灵敏度提升</h3>
+<p>在AB实验的假设检验过程中一直存在的一个不可能三角，即“收益小，方差大，样本量少”；具体实操中，如商业化的场景下，该挑战比比皆是，比如深度转化产品的转化稀疏导致广告主价值方差大，单一策略对其的影响通常是在「万分位」上的，往往需要很长的观测周期，积累大量样本，才能取得置信的结果，大部份流量实验是以周为单位开设的，流量有限；即收益小且样本量又不够在日常迭代必须要面对的一个问题，仅仅延长实验时间以缓解流量的枯竭会影响实验迭代效率</p>
+<p>如何提高指标灵敏度呢？常见方法有</p>
+<ol>
+<li>提高样本量
+<ol>
+<li>例如，interleaving实验机制代替传统AB实验</li>
+</ol>
+</li>
+<li>提高样本质量
+<ol>
+<li>trimming (去掉异常值/outliers)或其他统计变换：对一些表现最极端异常的观测值，认为是异常值并予以剔除</li>
+<li>去掉个别高方差/异常样本</li>
+<li>Triggered Analysis (下文详述)</li>
+</ol>
+</li>
+<li>修改指标定义
+<ol>
+<li>disceretization: 通过卡阈值的方式将连续性指标转化成比率性指标（binarizing count metrics）如将曝光原始数据转化成【曝光大于X的内容占比】，将人均活跃天数转化成【是否活跃5天等】；–&gt; 这类指标的重要挑选原则即为保证方向性（directionality），原指标在实验中表现为正向，binarizing后也应该为正向</li>
+<li>拟合新指标：机器学习的方法，在保证同向性的情况下，将原本的指标当作<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span>，通过机器学习的方法找到可解释性最强的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>，拟合一个新的指标从而降低指标的方差（Yandex和FB使用了该方法）</li>
+</ol>
+</li>
+<li>方差缩减
+<ol>
+<li><strong>capping</strong>：对一些虽然比较大的数值（符合业务逻辑）直接进行替换，如直播打赏超过500的都记做500从而降低该指标的方差
+<ol>
+<li>依赖假设策略只对没有被cap的值影响/对是否cap值影响一致</li>
+<li>阈值较难确定/可能实验间不稳定</li>
+</ol>
+</li>
+<li>利用实验前数据缩减方差
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.statsig.com/blog/cuped">CUPED</a>
+<ol>
+<li>论文：Deng etl. <a target="_blank" rel="noopener" href="https://www.exp-platform.com/Documents/2013-02-CUPED-ImprovingSensitivityOfControlledExperiments.pdf">Improving the Sensitivity of Online Controlled Experiments by Utilizing Pre-Experiment Data</a></li>
+<li>要求是实验前后的指标相关性较强（例如用户时长等）</li>
+</ol>
+</li>
+<li>Post Stratification/<a target="_blank" rel="noopener" href="https://research.facebook.com/publications/variance-weighted-estimators-to-improve-sensitivity-in-online-experiments/">variance-weighted estimator</a>：使用个体层面方差估计的加权估计量能够降低处理效应估计的方差，且证明了样本总体方差的变异系数是确定可能方差缩减规模的充分统计量</li>
+<li>optimal sampling methods：利用改进抽样方法等提升灵敏度，举要具体结合场景分析效
+<ol>
+<li>Karmarkar-Karp heristic</li>
+<li>Stratified sampling
+<ol>
+<li>层间方差远小于层内方差时达到总体方差缩减</li>
+</ol>
+</li>
+<li>Post-stratification</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>非参数检验
+<ol>
+<li>例如</li>
+</ol>
+</li>
+</ol>
+<p>CUPED 使用的例子</p>
+<p>假设随机变量<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span>代表进组用户在实验开启后的app使用时长(Stay_Duration)，是我们关注的指标。<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span>代表进组用户的平均使用时长，假设我们有另一个随机变量<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>，在CUPED中，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>一般取用户在实验开启前的同一指标，i.e.用户在实验开启前的app使用时长。定义一个新的统计量：</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mrow><mi>a</mi><mi>d</mi><mi>j</mi></mrow></msub><mo>=</mo><mi>Y</mi><mo>−</mo><mi>θ</mi><mi>X</mi><mo>+</mo><mi>E</mi><mo stretchy="false">(</mo><mi>θ</mi><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Y_{adj} = Y - \theta X+ E (\theta X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span>，（公式1）</p>
+<p>其中，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E(X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span>是变量<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>的理论期望值，是个参数（是个数）。</p>
+<p>此时：</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">(</mo><msub><mi>Y</mi><mrow><mi>a</mi><mi>d</mi><mi>j</mi></mrow></msub><mo stretchy="false">)</mo><mo>=</mo><mi>E</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>−</mo><mi>θ</mi><mi>X</mi><mo>+</mo><mi>E</mi><mo stretchy="false">(</mo><mi>θ</mi><mi>X</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mi>E</mi><mo stretchy="false">(</mo><mi>Y</mi><mo stretchy="false">)</mo><mo>−</mo><mi>θ</mi><mi>E</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo><mo>+</mo><mi>θ</mi><mi>E</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo><mo>=</mo><mi>E</mi><mo stretchy="false">(</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E(Y_{adj}) = E(Y - \theta X+ E (\theta X)) = E(Y) - \theta E(X)+ \theta E(X) = E(Y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span></span></span></span></p>
+<p>也就是说，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mrow><mi>a</mi><mi>d</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">Y_{adj}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>与<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span>的无偏估计。</p>
+<p>与此同时：</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><msub><mi>Y</mi><mrow><mi>a</mi><mi>d</mi><mi>j</mi></mrow></msub><mo stretchy="false">)</mo><mo>=</mo><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>−</mo><mi>θ</mi><mi>X</mi><mo>+</mo><mi>E</mi><mo stretchy="false">(</mo><mi>θ</mi><mi>X</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>−</mo><mi>θ</mi><mi>X</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>−</mo><mi>θ</mi><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Var(Y_{adj}) = Var(Y - \theta X+ E(\theta X)) = Var(Y - \theta X) = \frac{1}{n}Var(Y - \theta X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><mo stretchy="false">(</mo><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><mi>Y</mi><mo stretchy="false">)</mo><mo>+</mo><msup><mi>θ</mi><mn>2</mn></msup><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo><mo>−</mo><mn>2</mn><mi>θ</mi><mi>C</mi><mi>o</mi><mi>v</mi><mo stretchy="false">(</mo><mi>Y</mi><mo separator="true">,</mo><mi>X</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">= \frac{1}{n}(Var(Y)+\theta^2Var(X)-2\theta Cov(Y,X))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>，（公式2）</p>
+<p>注意，新指标的方差是关于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span></span></span></span>的一个一元二次函数并且开口向上的抛物线，当</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>=</mo><mfrac><mrow><mn>2</mn><mi>C</mi><mi>o</mi><mi>v</mi><mo stretchy="false">(</mo><mi>Y</mi><mo separator="true">,</mo><mi>X</mi><mo stretchy="false">)</mo></mrow><mrow><mn>2</mn><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>C</mi><mi>o</mi><mi>v</mi><mo stretchy="false">(</mo><mi>Y</mi><mo separator="true">,</mo><mi>X</mi><mo stretchy="false">)</mo></mrow><mrow><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\theta = \frac{2Cov(Y,X)}{2Var(X)} = \frac{Cov(Y,X)}{Var(X)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.53em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight" style="margin-right:0.22222em;">V</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.07847em;">X</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.22222em;">Y</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.07847em;">X</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.53em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.22222em;">V</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.07847em;">X</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.22222em;">Y</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.07847em;">X</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>时，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><msub><mi>Y</mi><mrow><mi>a</mi><mi>d</mi><mi>j</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Var(Y_{adj})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>取得最小值</p>
+<h3 id="triggered-analysis"><a class="markdownIt-Anchor" href="#triggered-analysis"></a> Triggered Analysis</h3>
+<ul>
+<li>某些策略需要用户采取主动行为来“采纳”，例如需报名才能得到激励奖励，需要某种行为才能被干预到，存在漏斗的场景。这时平均处理效应会受到“渗透率/触发率” 的影响</li>
+<li>Triggered Analysis通过仅分析实际被实验干预到的用户（如进入支付页的用户）来提高实验灵敏度，虽然样本量减少但可避免处理效应被未触发用户稀释。即如果真正triggered用户占比很小，那么平均处理效应将会大大低估，这时仅观察triggered用户是缓解低估的好办法。这里主要挑战有两点：
+<ul>
+<li>将triggered用户上的结果推广至全集上；</li>
+<li>降低ATE的方差来抵消triggered用户样本量小对灵敏度的削弱</li>
+</ul>
+</li>
+</ul>
+<img src="/AB-Test/intro-2/AB-Test-Trigger-Analysis.png" class="" title="Deng, A., &amp; Hu, Y. (2015, February). Diluted treatment effect estimation for trigger analysis in online controlled experiments. In Proceedings of the Eighth ACM International Conference on Web Search and Data Mining">
+<ul>
+<li><strong>方法一：user-triggered analysis（常用）</strong>
+<ul>
+<li>样本选择：观测triggered用户从第一次被trigger后，在实验周期内所有事件；</li>
+<li>优点：对处理效应没有假设；可以看user - level的指标；</li>
+<li>被证实可以提升统计功效、降低方差。</li>
+</ul>
+</li>
+<li><strong>方法二：session-trigger analysis</strong>
+<ul>
+<li>样本选择：观测triggered用户被触发的session</li>
+<li>优缺点：降低方差的能力比user - triggered更强，但强假设：<strong>处理效应只发生在被触发的session。</strong></li>
+</ul>
+</li>
+<li><strong>估计：diluted formulas</strong>
+<ul>
+<li>示例
+<ul>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-Trigger-Exp.png" class="" title="Trigger Experiment Example">
+</li>
+<li>ITT (Intention-to-treat)，估计的是我们意图想要让策略生效(但其中有一部分有主见的用户)的人群，也就是实验组A1+A2整体，的策略人均效果</li>
+<li>ATT (Average treatment effect on the treated)，估计的是策略实际生效人群的策略人均效果</li>
+</ul>
+</li>
+<li>找出可比人群A1和B1，利用ATT反推ATE/ITT
+<ul>
+<li>处理效应绝对值：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>T</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi>I</mi><mi>T</mi><mi>T</mi><mo>=</mo><mi>A</mi><mi>T</mi><mi>T</mi><mo>∗</mo><mfrac><mi>n</mi><mi>N</mi></mfrac></mrow><annotation encoding="application/x-tex">ATE/ITT = ATT*\frac{n}{N}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></li>
+<li>比例型指标：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>T</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi>I</mi><mi>T</mi><mi>T</mi><mo>=</mo><mi>A</mi><mi>T</mi><mi>T</mi><mo>∗</mo><mfrac><mi>n</mi><mi>N</mi></mfrac><mo>∗</mo><mover accent="true"><mi>r</mi><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">ATE/ITT = ATT*\frac{n}{N}*\overline{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.63056em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.63056em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span><span style="top:-3.55056em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>，其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>r</mi><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.63056em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.63056em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span><span style="top:-3.55056em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>是平均触发率（分母的函数）</li>
+<li>可以和CUPED等方法集合缩减方差</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>常见问题
+<ul>
+<li>
+<p>借助IV评估ATT的思路可否应用到有always taker的情况？</p>
+<ul>
+<li>
+<p>估计量并不完全一致。IV估计的是LATE，即compliers的treatment effect。在没有always taker的情况下，对T = 1的估计就等于是对compliers的估计，即LATE=ATT。然而在有always taker的情况下，可以理解为IV估计的compliers是ATT中一部分treated units，不代表整个采纳的ATT。因此采用2sls和采用PSM估计的估计量并不相同。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>T = 0</th>
+<th>T = 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z = 0</td>
+<td>Never taker + compiler</td>
+<td>Always taker</td>
+</tr>
+<tr>
+<td>Z = 1</td>
+<td>Never taker</td>
+<td>Always taker + compiler</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<p>对ATT的估计结果可以外推到全体人群吗？即看到功能对compliers有显著效果，可以将功能前置应用到所有人，并认为其效果即为ATT估计的效果吗？</p>
+<ul>
+<li>不可以。compliers是用户自选择的结果，其分布与大盘不同，在compliers上估计的ATT并不代表大盘整体的效果，若在compliers上看到显著性结论并考虑将功能前置（比如从手动点击改为pop - up弹窗）面向全量人群，则需基于新的产品逻辑重新做实验测算。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>如何找出和A1可比的样本B1？</p>
+<ol>
+<li>利用工具变量（IV）
+<ol>
+<li>AB实验分流信息本身是完美的工具变量；我们只需要知道实验组中complier比例即可估计全部因果效应
+<ol>
+<li>假设
+<ol>
+<li>Z-&gt;T-&gt;Y: Z对Y的影响完全经由T产生；Z和Y不存在后门路径；单调性假设（T(Z=1) &gt; T(Z=0)）即实验组对照组不存在defier和always-taker；仅有complier和never-taker</li>
+</ol>
+</li>
+<li>问题
+<ol>
+<li>IV本身无法提升灵敏度或显著性: 在策略存在漏斗的场景下，如果AB实验得到的ITT（reduced-form estimation）不显著，那么工具变量得到的LATE大概率不会显著。
+<ol>
+<li>工具变量估计的显著性基本上跟reduced-form estimation一致。所以LATE并不是一个提升策略效果估计显著性的手段。</li>
+<li>使用LATE的motivation一般是当策略存在漏斗时，我们更关心策略采纳的效果，而不是实验分流所带来的nudge的效果。这是由业务问题导向的，而不是数据/显著性决定的。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>对于同一个内生变量/策略，使用不同的工具变量也会得到不同的LATE，这主要是因为不同的工具变量会得到不同的compliers，所以不同的IV在不同的人群上生效，当然估计出来的treatment effect也会有所不同。</li>
+<li>反事实Logging (Conterfactual Logging): 通过某种机制定位出对照组可比人群B（例如让模型预估两次）
+<ol>
+<li>可以大幅缩减方差来估计ATT</li>
+<li>工程成本较高
+<ol>
+<li>例如 广告场景用的“染色”机制（Ghost Ads, Reference: (Johnson, G. A., Lewis, R. A., &amp; Nubbemeyer, E. I. (2017). <a target="_blank" rel="noopener" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2620078">Ghost Ads: Improving the Economics of Measuring Online Ad Effectiveness.</a>,<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_do6ACKKlnw">youtube</a>))
+<ol>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-Ghost-Ads.png" class="">
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>局限性
+<ol>
+<li>染色的阈值：提出了染上一次色是否是推荐系统的偶然现象，以及染几次色才算真正可比的疑问</li>
+<li>策略的干扰：指出第一次染色后，由于频控等策略，对照组染色的概率会更高，因此实验不能持续太长时间</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>匹配法
+<ol>
+<li>通过实验前特征等在对照组中找出可比的对照组B1（例如PSM等方法）</li>
+<li>预估有偏差，但可以提升灵敏度</li>
+<li>常和IV配合使用（两阶段估计）</li>
+</ol>
+</li>
+</ol>
+<p>如何结合IV和匹配（PSM）方法？</p>
+<div class="mermaid">
+  graph TD
+    A[目标: 评估ATT] --> B[实验]
+    B --> C{显著?}
+    C -- ✔ --> D[输出 ATT = ITT/渗透率]
+    C -- ❌ --> E[IV + X: 2SLS]
+    E --> F{显著?}
+    F -- ✔ --> G[输出 ATT=LATE]
+    F -- ❌ --> H[PSM直接估计ATT <br> IV校准]
+    H --> I{显著? <br> 且通过IV检验}
+    I -- ✔ --> J[输出ATT]
+    I -- ❌ --> K[策略无显著效果 <br> 优化策略重启实验]
+
+    style D fill:#d4efdf,stroke:#2ecc71
+    style G fill:#d4efdf,stroke:#2ecc71
+    style J fill:#d4efdf,stroke:#2ecc71
+    style K fill:#fadbd8,stroke:#e74c3c
+    style A fill:#fadbd8,stroke:#e74c3c
+</div>
+
+<p>如何和匹配方法结合缩减偏差？两阶段回归为例</p>
+<p>假设了策略T和Y之间是线性关系：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mi>δ</mi><mi>T</mi><mo>+</mo><msub><mi>α</mi><mi>u</mi></msub><mi>U</mi></mrow><annotation encoding="application/x-tex">Y=\delta T + \alpha _u U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.0037em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span></span></span></p>
+<p>在这个假设下，策略效果ATT = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow><annotation encoding="application/x-tex">\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>对所有人都是一样的。在这种情况下我们可以推导出利用IV可以得到ATT的无偏估计，用到IV假设A1 - A4：</p>
+<p><strong>变量类型 - 无偏估计推理</strong></p>
+<p><strong>Y和T都是0，1变量</strong>:</p>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: No such environment: align* at position 7: \begin{̲a̲l̲i̲g̲n̲*̲}̲
+\delta&amp;=\frac{…'>\begin{align*}
+\delta&amp;=\frac{E[Y|Z = 1]-E[Y|Z = 0]}{E[T|Z = 1]-E[T|Z = 0]}\\
+E[Y|Z = 1]-E[Y|Z = 0]&amp;=E[\delta T+\alpha _u U|Z = 1]-E[\delta T+\alpha _u U|Z = 0] \ ( \text{Assumption 2 and 4} )\\
+&amp;=\delta (E[T|Z = 1]-E[T|Z = 0])+\alpha _u (E[U|Z = 1]-E[U|Z = 0])\\
+&amp;=\delta (E[T|Z = 1]-E[T|Z = 0])+\alpha _u (E[U]-E[U]) \ ( \text{Assumption 3} )\\
+&amp;=\delta (E[T|Z = 1]-E[T|Z = 0])\\
+\delta&amp;=\frac{E[Y|Z = 1]-E[Y|Z = 0]}{E[T|Z = 1]-E[T|Z = 0]}
+\end{align*}
+</p>
+<p>IV假设1保证了上面的分母<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">[</mo><mi>T</mi><mi mathvariant="normal">∣</mi><mi>Z</mi><mo>=</mo><mn>1</mn><mo stretchy="false">]</mo><mo>−</mo><mi>E</mi><mo stretchy="false">[</mo><mi>T</mi><mi mathvariant="normal">∣</mi><mi>Z</mi><mo>=</mo><mn>0</mn><mo stretchy="false">]</mo><mo mathvariant="normal">≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">E[T|Z = 1]-E[T|Z = 0]\neq 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>。delta是我们想估计的ATT，分子分母中的条件期望都可以通过实验数据中的条件平均值计算出来。</p>
+<p>此时如果实验中没有always - taker，那么对照组中就没有T = 1的用户，实验组中E[T|Z = 1]为策略在实验组中的渗透率，此时ATT就等于ITT/渗透率。</p>
+<p><strong>Y和T都是连续变量的情况</strong>:</p>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: No such environment: align* at position 7: \begin{̲a̲l̲i̲g̲n̲*̲}̲
+\delta&amp;=\frac{…'>\begin{align*}
+\delta&amp;=\frac{Cov(Y,Z)}{Cov(T,Z)}\\
+Cov(Y,Z)&amp;=E[YZ]-E[Y]E[Z]\\
+&amp;=E[(\delta T+\alpha _u U)Z]-E[\delta T+\alpha _u U]E[Z] \ ( \text{Assumption 2 and 4} )\\
+&amp;=\delta (E[TZ]-E[T]E[Z])+\alpha _u (E[UZ]-E[U]E[Z])\\
+&amp;=\delta Cov(T,Z)+\alpha _u Cov(U,Z)\\
+&amp;=\delta Cov(T,Z) \ ( \text{Assumption 3} )\\
+\delta&amp;=\frac{Cov(Y,Z)}{Cov(T,Z)}
+\end{align*}
+</p>
+<p>假设1保证分母$\neq$0。</p>
+<p><strong>两阶段回归法：各种变量类型都适用</strong></p>
+<ol>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">[</mo><mi>T</mi><mi mathvariant="normal">∣</mi><mi>Z</mi><mo stretchy="false">]</mo><mo>=</mo><mi>β</mi><mi>Z</mi><mo>+</mo><mi>ρ</mi><mi>X</mi></mrow><annotation encoding="application/x-tex">E[T|Z]=\beta Z+\rho X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">ρ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mi>E</mi><mo stretchy="false">[</mo><mi>T</mi><mi mathvariant="normal">∣</mi><mi>Z</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">T = E[T|Z]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mclose">]</span></span></span></span> ；第一阶段：T对Z回归。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">[</mo><mi>Y</mi><mi mathvariant="normal">∣</mi><mover accent="true"><mi>T</mi><mo stretchy="true">^</mo></mover><mo stretchy="false">]</mo><mo>=</mo><mi>δ</mi><mover accent="true"><mi>T</mi><mo stretchy="true">^</mo></mover><mo>+</mo><mi>λ</mi><mi>X</mi></mrow><annotation encoding="application/x-tex">E[Y|\widehat{T}]=\delta\widehat{T}+\lambda X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.17333em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mord">∣</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.92333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span><span class="svg-align" style="width:calc(100% - 0.16668em);margin-left:0.16668em;top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.24em;"><svg width='100%' height='0.24em' viewBox='0 0 1062 239' preserveAspectRatio='none'><path d='M529 0h5l519 115c5 1 9 5 9 10 0 1-1 2-1 3l-4 22
+c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z'/></svg></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0066599999999999em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.92333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span><span class="svg-align" style="width:calc(100% - 0.16668em);margin-left:0.16668em;top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.24em;"><svg width='100%' height='0.24em' viewBox='0 0 1062 239' preserveAspectRatio='none'><path d='M529 0h5l519 115c5 1 9 5 9 10 0 1-1 2-1 3l-4 22
+c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z'/></svg></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">λ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span> ；第二阶段：Y对<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>T</mi><mo stretchy="true">^</mo></mover></mrow><annotation encoding="application/x-tex">\widehat{T}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.92333em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.92333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span><span class="svg-align" style="width:calc(100% - 0.16668em);margin-left:0.16668em;top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.24em;"><svg width='100%' height='0.24em' viewBox='0 0 1062 239' preserveAspectRatio='none'><path d='M529 0h5l519 115c5 1 9 5 9 10 0 1-1 2-1 3l-4 22
+c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z'/></svg></span></span></span></span></span></span></span></span></span>回归。此时<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>T</mi><mo stretchy="true">^</mo></mover></mrow><annotation encoding="application/x-tex">\widehat{T}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.92333em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.92333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span><span class="svg-align" style="width:calc(100% - 0.16668em);margin-left:0.16668em;top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.24em;"><svg width='100%' height='0.24em' viewBox='0 0 1062 239' preserveAspectRatio='none'><path d='M529 0h5l519 115c5 1 9 5 9 10 0 1-1 2-1 3l-4 22
+c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z'/></svg></span></span></span></span></span></span></span></span></span>是通过一阶段回归由Z映射而来，因此<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>T</mi><mo stretchy="true">^</mo></mover></mrow><annotation encoding="application/x-tex">\widehat{T}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.92333em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.92333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span><span class="svg-align" style="width:calc(100% - 0.16668em);margin-left:0.16668em;top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.24em;"><svg width='100%' height='0.24em' viewBox='0 0 1062 239' preserveAspectRatio='none'><path d='M529 0h5l519 115c5 1 9 5 9 10 0 1-1 2-1 3l-4 22
+c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z'/></svg></span></span></span></span></span></span></span></span></span>继承了Z的unconfoundedness。</li>
+</ol>
+<p>两阶段回归中加入与T，Z相关性高的X可以减小估计方差（与CUPED思路相似）。</p>
+<p>线性模型的优点是它可以利用IV帮助我们计算T对Y的无偏ATT估计量，但是它的缺陷也很明显：线性模型假设策略对所有人的效果是相同的</p>
+<p>Reference</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://statisticaloddsandends.wordpress.com/2022/01/07/what-do-we-mean-by-triggering-in-a-b-testing/">What do we mean by triggering in A/B testing?</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.13299">Deng, etl, Zero to Hero: Exploiting Null Effects to Achieve Variance Reduction in Experiments with One-sided Triggering</a></li>
+<li><a target="_blank" rel="noopener" href="https://alexdeng.github.io/public/files/wsdm2015-dilution.pdf">Deng, A., &amp; Hu, Y. (2015, February). Diluted treatment effect estimation for trigger analysis in online controlled experiments. In Proceedings of the Eighth ACM International Conference on Web Search and Data Mining</a></li>
+<li>Felton, C., &amp; Stewart, B. M. (2022, September 5). Handle with Care: A Sociologist’s Guide to Causal Inference with Instrumental Variables.</li>
+<li>Mostly harmless econometrics, Chapter 4</li>
+</ul>
+<h3 id="heterogenous-treatment-effect-异质性分析"><a class="markdownIt-Anchor" href="#heterogenous-treatment-effect-异质性分析"></a> Heterogenous Treatment Effect (异质性分析)</h3>
+<p>有时候，关心实验整体效果（ATE）并不能满足我们的需要 例如</p>
+<ul>
+<li>一个广告策略的实验，由于用户主动选择/推荐策略，触达人群有差异
+<ul>
+<li>从策略效果，B优于A，但是打平人群对比，A内容质量/转化率优于B</li>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-Targeting-Imbalance.png" class="">
+</li>
+</ul>
+</li>
+</ul>
+<p>Reference</p>
+<ul>
+<li>Braun, M., &amp; Schwartz, E. M. (2023, May 25). <a target="_blank" rel="noopener" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3896024">Where A - B Testing Goes Wrong: What Online Experiments Cannot (and Can) Tell You About How Customers Respond to Advertising</a>.</li>
+</ul>
+<h2 id="实验机制与决策类问题"><a class="markdownIt-Anchor" href="#实验机制与决策类问题"></a> 实验机制与决策类问题</h2>
+<h3 id="long-term-effects-长期效应度量"><a class="markdownIt-Anchor" href="#long-term-effects-长期效应度量"></a> Long Term Effects (长期效应度量)</h3>
+<p>受实验成本和迭代速度限制，普通实验评估策略短期效应，但企业更希望度量长期效应。一般假设策略短期效应即可代表长期效应，但并非所有场景都成立</p>
+<p>短期效应假设不能代表长期效应可能的原因有</p>
+<ul>
+<li>用户随时间学习导致处理效应改变（即ATE是时间函数）
+<ul>
+<li>新奇效应：新鲜的改变一开始引人入胜，能够提升参与度，但是长期会随着时间逐渐消退甚至反向
+<ul>
+<li>搜索结果不好带来用户重复搜索，query占比和广告收入短期会上升，长期用户离开，收入下降；</li>
+<li>出更多广告短期收入上升，但用户流失或学会了不点广告，长期收入下降；</li>
+</ul>
+</li>
+<li>首位效应：最开始并没有带来正向收益，但是由于用户随时间变化习惯了改动，参与度会提升</li>
+</ul>
+</li>
+<li>策略效应本身需要时间
+<ul>
+<li>网络效应延迟：社交或平台类产品的网络效应需要时间积累，短期实验无法观察到临界质量带来的价值</li>
+<li>行为习惯形成周期：养成新习惯通常需要数周甚至数月，短期实验难以捕捉稳定行为模式的建立
+<ul>
+<li>airbnb从预订到入住时间较长，用户留存的影响很久才能测量出来；</li>
+</ul>
+</li>
+<li>长尾效应：某些策略可能对少数用户产生极大影响，但需要长期才能在整体指标上显现</li>
+<li>跨平台协同效应：用户在多平台间的行为迁移和适应需要时间，短期内难以评估完整影响</li>
+<li>品牌认知建立：某些变化可能影响品牌认知，这种效应通常需要长时间才能在用户行为中体现</li>
+<li>生态系统/外部环境变动：新功能上线；季节性；竞争环境改变：比如竞品上了同样的功能；治理政策：如GDPR；Concept driff; 软件退化；都会导致策略效果衰减</li>
+</ul>
+</li>
+</ul>
+<h4 id="方法一长期实验"><a class="markdownIt-Anchor" href="#方法一长期实验"></a> 方法一：长期实验</h4>
+<p>直观的方法是把实验时间拉长，通常采用如下分析方法</p>
+<ul>
+<li>直接分析
+<ul>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-LT-1.png" class="">
+</li>
+<li>对归因来说：效果稀释
+<ul>
+<li>用户多设备导致的效果稀释；</li>
+<li>如果是基于cookie分流的，时间越长同一个自然人越可能进入不同组；</li>
+<li>如果有网络效应，时间越长，leakage会越大；</li>
+</ul>
+</li>
+<li>幸存者偏差：如果用户留存有区别，只看最后一周的数据就不能准确反映实验效果；</li>
+<li>和其他功能的交互效果：实验期间会有很多新的功能上线，会影响现有功能的表现，比如一开始发push很有用，如果其他team也发push，效果就会衰减；</li>
+<li>如果外部环境变化了，实验效果也会受影响，所以末期和初期的效果diff不一定是效果本身的影响。</li>
+</ul>
+</li>
+<li>Cohort Analysis：分析同一批用户的短期效果和长期效果，可以解决稀释和幸存者偏差的问题，但需要考虑两个问题：
+<ul>
+<li>先要确定用户群的稳定性，即用什么字段来对应同一个用户，这个字段需要比较稳定才能用这个方法</li>
+<li>这一批用户是否能代表整体用户，不能的话这个实验的外部有效性就会很低 (例如对于低频业务，先进组的用户可能高活)</li>
+</ul>
+</li>
+<li>Post-Period Analysis
+<ul>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-LT-2.png" class="">
+</li>
+<li>在实验关闭后比较实验组和对照组用户的差别，衡量用户学习的影响，在测量时实验组和对照组的treatment是一样的，这么测量的效果即学习效应，可以分成两类：
+<ul>
+<li>用户习得效应：例如给用户出很多低质广告后，用户学会了少点击广告；</li>
+<li>系统习得效应：系统“记住了”之前的信息，比如很多依赖机器学习模型的个性化算法，比如一个给爱点广告的人出更多广告的算法，如果实验改动使得用户点击更多广告，那即使实验结束了，仍然会出更多广告。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Time-Staggered Treatments：即两组使用同样的treatment，但开始的时间不一致，比较两组的差别
+<ul>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-LT-3.png" class="">
+</li>
+</ul>
+</li>
+<li>Holdback and Reverse Experiment
+<ul>
+<li>试验成本提升</li>
+<li>实验持续时间太长，没有办法敏捷的做出判断</li>
+<li>无法控制长期的其他变量不变
+<ul>
+<li>例如用户随时间变化无法观察到相应数据，或者一个设备上线时间其实是不同用户在使用</li>
+<li>或一个用户长时间采用不同设备登陆，这些都会污染实验</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>长期实验相比短期实验在开设和观测上有很多难点:</p>
+<ul>
+<li>分流Cookie稳定性问题
+<ul>
+<li>Cookie Churn: 用户Cookie留存率低（两月实验低于25%留存），可能导致样本流失和选择性偏差
+<ul>
+<li>避坑：采用UID/Device ID分流或Cookie备份机制</li>
+</ul>
+</li>
+<li>Cookie Clobbering: 非用户主动清除（如浏览器Bug）导致数据丢失
+<ul>
+<li>避坑：使用跨浏览器兼容性测试和冗余数据存储</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>实验设计偏差
+<ul>
+<li>幸存者偏差: 用户流失可能使剩余样本不具代表性（例如高活跃用户留存）
+<ul>
+<li>避坑：采用抗流失指标（如Click/User）和全周期用户追踪</li>
+</ul>
+</li>
+<li>选择性偏差: PP方法可能高估学习效应（例如广告下划线实验）
+<ul>
+<li>避坑：通过对比长期实验直接观测结果验证短期结论</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>效应混淆
+<ul>
+<li>短期效应与长期效应混杂: 用户学习效应（广告适应）与系统或季节性变化交织
+<ul>
+<li>避坑：使用CCD方法(下文）量化学习效应趋势</li>
+</ul>
+</li>
+<li>副作用残留: 实验结束后可能依然影响用户信息录入或模型反馈等
+<ul>
+<li>避坑：设计策略回滚监测期和因果影响链分析</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>外部干扰
+<ul>
+<li>季节性影响: 大型活动可能干扰学习效应度量（例如格莱美周娱乐实验）<br />
+避坑：采用全周期用户分析替代分段观测</li>
+<li>错误关联感知: 系统变化可能被误判为学习效应（例如浏览器市场份额变动）<br />
+避坑：建立系统变更监控基线和多维度归因模型</li>
+</ul>
+</li>
+<li>方法局限性
+<ul>
+<li>Naive Setup: 潜在缺陷在于受系统、季节或交互因素干扰（优化方案：结合反事实预测模型）</li>
+<li>PP方法: 潜在问题为样本流失与选择性偏差（优化方案：缩短Post-period观测窗口）</li>
+<li>CCD方法: 潜在问题是工程复杂且需要更大流量 （优化方案：采用分阶段流量扩量策略）</li>
+</ul>
+</li>
+<li>指标设计陷阱
+<ul>
+<li>比例型指标误导: 如CTR可能掩盖用户流失问题
+<ul>
+<li>避坑：同时监控绝对值指标（例如总点击量）</li>
+</ul>
+</li>
+<li>长期效应拟合偏差: 实验周期内学习效应可能未完全收敛
+<ul>
+<li>避坑：采用指数衰减模型进行效应外推</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>关键验证步骤
+<ul>
+<li>实验前进行AA测试以验证分流均匀性</li>
+<li>定期检查实验组和对照组的用户画像一致性</li>
+<li>建立反事实对照组以排除外部干扰</li>
+<li>对显著结论进行敏感性分析和多方法交叉验证</li>
+</ul>
+</li>
+</ul>
+<p>Reference：</p>
+<ul>
+<li>Trustworthy Online Controled Experiments, Chapter 23 Measuring Long-Term Treatment Effects</li>
+<li>Dmitriev, P., Frasca, B., Gupta, S., Kohavi, R., &amp; Vaz, G. (n.d.).2-16 <a target="_blank" rel="noopener" href="http://bit.ly/expLongTerm">Pitfalls of Long - Term Online Controlled Experiments.</a>Microsoft Corporation, Redmond, WA 98052, USA. Retrieved from</li>
+</ul>
+<h4 id="方法2modeling-user-learning"><a class="markdownIt-Anchor" href="#方法2modeling-user-learning"></a> 方法2：Modeling User Learning</h4>
+<ul>
+<li>Google提出了一种新的实验机制
+<ul>
+<li>Reference: Hohnhold, H., O’Brien, D., &amp; Tang, D. (2015). <a target="_blank" rel="noopener" href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43887.pdf">Focusing on the Long-term: It’s Good for Users and Business.</a> KDD (pp. 1849-1858)</li>
+<li>本质上解决了长期效应难以度量（用参数拟合学习效应）和噪声问题（开设时间长，外部干扰因素混入）</li>
+</ul>
+</li>
+<li>Cookie-Cookie-Day实验机制
+<ul>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-CCD.png" class="">
+</li>
+<li>CCD框架结合了两个并行实验的特点：
+<ol>
+<li><strong>标准Cookie实验</strong>：用户始终处于固定的处理组或控制组中。</li>
+<li><strong>Cookie x 日实验</strong>：用户每天都会被重新随机分配到处理组或控制组中。这种双管齐下的方法通过比较持续暴露于实验条件与短暂暴露的群组来隔离长期效应Cookie日实验中的每日重新随机分配创建了一个主要经历基线处理的控制组，使研究人员能够区分即时效应和累计效应</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>问题
+<ul>
+<li>使用模型去拟合更长阶段的残余效应时，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span>的假设一定不合理：本篇论文假设了学习效应参数是0.012，但因为行为曝光的强度会影响用户学习的速度，比如说，搜索更频繁、广告出现更频繁的用户学习的速度更快，也就是不需要那么长的实验时间</li>
+<li>cookie作为识别用户的身份证，会有bias；同一个用户会切换设备，切换不同的浏览器，一些注重隐私保护的用户甚至会定时清空cookie</li>
+<li>如果条件控制的不严格会出现各种各样的bias（如口碑 用户传播等）</li>
+</ul>
+</li>
+</ul>
+<h4 id="方法3surrogate-index-短期指标替代长期指标"><a class="markdownIt-Anchor" href="#方法3surrogate-index-短期指标替代长期指标"></a> 方法3：surrogate Index (短期指标替代长期指标)</h4>
+<p>找对长期处理效应有因果影响的 driver metrics（短期）并度量它，估计用户学习效应，进而估计长期处理效应变化</p>
+<p>Paper1 Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). <a target="_blank" rel="noopener" href="https://www.nber.org/system/files/working_papers/w26463/w26463.pdf">The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely</a> (No. w26463). National Bureau of Economic Research.</p>
+<ul>
+<li>形式化了如何将中间结果组合以高效估计长期影响，明确了在何种假设下这种方法产生无偏估计，并正式将基于次级数据集的替代指标与长期结果之间关系的估计纳入考虑</li>
+<li>开发了对这些假设违反可能导致的偏差程度的可行界限，以及验证这些假设的样本外方法</li>
+<li>展示了即使在可以直接估计长期处理效应的情况下，使用替代指标也能提高效率</li>
+<li>提供了一个实证应用，表明使用多个中间结果而非单一预测因子可以将劳动力市场中长期处理效应的预测提前数年，并显著提高精确度</li>
+<li>主要参考点：</li>
+<li>完整理论框架与数学证明到实际操作：如何通过观察数据找到替代指标，然后用实验数据（或伪实验数据）进行验证</li>
+<li>证伪替代/中介作用的方法：留出法（hold out）</li>
+</ul>
+<p>Paper2: Yang, J., Eckles, D., Dhillon, P., &amp; Aral, S. (2023). <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2010.15835">Targeting for long-term outcomes.</a> Management Science. by HBS</p>
+<ul>
+<li>主要贡献：Paper1的拓展
+<ul>
+<li>分析性地展示了替代指标（surrogate index）在何种情况下可以有效地替代真实但无法观察的长期结果进行政策评估和优化</li>
+<li>通过实证验证了该方法：
+<ul>
+<li>进行了两个大规模实验，确定应该针对哪些用户提供什么样的激励，以最大化《波士顿环球报》的长期订阅收入</li>
+<li>结合第一个实验的数据和时间推移，证明了基于替代指标推断的长期结果优化的政策优于基于短期代理指标优化的政策，并且其表现与基于真实长期结果优化的政策相似</li>
+</ul>
+</li>
+<li>实施了优化政策，并加入额外的随机探索，以便应对潜在的非平稳性，并在每次实验后更新优化政策</li>
+</ul>
+</li>
+<li>主要参考：
+<ul>
+<li>Surrogate Index的理论框架需要满足的假设
+<ul>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-Surrogate-1.png" class="">
+</li>
+<li>Unconfoundedness（等价于Ignorabiity, Positivity）：通常的因果推断假设</li>
+<li>Surrogacy Condition（完全中介）：只能证伪，paper1提出了一种方法
+<ul>
+<li>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>A</mi><mi>i</mi></msub><mo>⊥</mo><mtext> ⁣</mtext><mtext> ⁣</mtext><mtext> ⁣</mtext><mo>⊥</mo><msub><mi>Y</mi><mi>i</mi></msub><mi mathvariant="normal">∣</mi><msub><mi>S</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>X</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>i</mi><mo>∈</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">A_i \perp\!\!\!\perp Y_i | S_i, X_i, i \in E
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊥</span><span class="mspace" style="margin-right:-0.16666666666666666em;"></span><span class="mspace" style="margin-right:-0.16666666666666666em;"></span><span class="mspace" style="margin-right:-0.16666666666666666em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mrel">⊥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span></span></p>
+</li>
+</ul>
+</li>
+<li>Comparability：条件于协变量和替代指标的长期结果分布在实验数据集和历史数据集中是相同的
+<ul>
+<li>实际应用时不能与训练或制定规则时的分布发生偏移
+<ul>
+<li>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>Y</mi><mi>i</mi></msub><mi mathvariant="normal">∣</mi><msub><mi>S</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>X</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>i</mi><mo>∈</mo><mi>E</mi><mo>∼</mo><msub><mi>Y</mi><mi>i</mi></msub><mi mathvariant="normal">∣</mi><msub><mi>S</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>X</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>i</mi><mo>∈</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">Y_i | S_i, X_i, i \in E \sim Y_i | S_i, X_i, i \in H
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span></span></span></span></span></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>实操过程（结合paper1）</li>
+</ul>
+</li>
+</ul>
+<p>Paper3： Wang, Y., Sharma, M., Xu, C., Badam, S., Sun, Q., Richardson, L., … &amp; Chen, M. (2022, August). <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3534678.3539073">Surrogate for long-term user experience in recommender systems</a> (pp. 4100-4109)<br />
+, Google Research</p>
+<ul>
+<li>研究了一系列连续的用户行为模式，并标准化了一个流程，用于精确定位那些对用户长期访问频率变化具有强预测能力的行为子集
+<ul>
+<li>测量：提出了一套指标，用以捕捉用户的顺序性和时间性的消费行为模式。</li>
+<li>分析洞察：识别了一组与用户长期体验相关的用户行为模式。</li>
+<li>替代指标的选择：标准化了选择用户行为模式作为长期用户体验替代指标的过程，该过程基于稳健的预测模型。</li>
+<li>算法改进：验证了在强化学习推荐系统中，通过替代指标优化长期用户体验的有效性。</li>
+</ul>
+</li>
+<li>主要挑战在于确定用户的真实兴趣，而不仅仅是根据用户曾经消费过的主题来进行推断。
+<ul>
+<li>这需要定义一个度量来捕捉用户的真实兴趣，以便在推荐系统中提高长期用户体验。</li>
+</ul>
+</li>
+<li>主要参考：
+<ol>
+<li>代理指标 如多样性的定义、有效/高价值消费（卡阈值 xxx代表建立“心智”）、类目发现性及复访（复购）频次</li>
+<li>前置数据分析：需要验证路径一致性</li>
+<li>指标选择方法：用tree</li>
+<li>验证方法：reward experiment（EE/RF开长期实验）</li>
+</ol>
+</li>
+</ul>
+<p>Paper4: Duan, W., Ba, S., &amp; Zhang, C. (2021, March). <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2106.01421">Online Experimentation with Surrogate Metrics: Guidelines and a Case Study</a>). LinkedIn</p>
+<ul>
+<li>主要参考
+<ul>
+<li>文章的“Surrogate Metrics&quot; 和前面三篇的Surrogate Index不完全是一个概念，更接近于验证在实验中使用预估值代替后验值的可行性（例如用预估LTV代替后验LTV）偏实操</li>
+</ul>
+</li>
+<li>实操原则
+<ol>
+<li>选择北极星指标的指导原则（定性规则）
+<ol>
+<li>对真实北极星指标具有高预测能力（如 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">R^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>、AUC 等指标）</li>
+<li>专注于我们可以在短期内改变和测量的指标（分析历史实验中的撬动作用）</li>
+<li>针对不同处理特征进行定制化（跨渠道、用户等定义一致的指标）</li>
+<li>可解释性（如果是模型，代理指标的涨跌最好能归因）</li>
+<li>管理开销（最好是简单规则，避免需要持续训练且难以解释的模型）</li>
+</ol>
+</li>
+<li>实验方差需要修正，代理指标的方差通常比实际小，要考虑预测环节本身的方差
+<ol>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-Surrogate-2.png" class="">
+</li>
+</ol>
+</li>
+<li>如何验证替代条件(surrogacy condition)
+<ol>
+<li>验证 W -&gt; S -&gt; Y 是唯一通路（中介变量）等价于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>=</mo><mi>y</mi><mi mathvariant="normal">∣</mi><mi>S</mi><mo separator="true">,</mo><mi>W</mi><mo stretchy="false">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>=</mo><mi>y</mi><mi mathvariant="normal">∣</mi><mi>S</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(Y = y|S, W) = P(Y = y|S)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mclose">)</span></span></span></span> (（注意作者没有特别控制其他变量，而是所有信息都包含在 S 模型中）)</li>
+<li>在现实应用中，使用历史实验数据来确保两者偏差不要太大</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="其他方法"><a class="markdownIt-Anchor" href="#其他方法"></a> 其他方法</h4>
+<p>统计性解法方案：</p>
+<ul>
+<li>把<strong>长期处理效应看作异质性处理效应带来的偏差</strong>，根据HTE推导出某一类群体的偏差ATE的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Jackknife_resampling">bias-adjusted jackknife estimator</a>
+<ul>
+<li>References
+<ul>
+<li>Günter J Hitsch and Sanjog Misra. Heterogeneous treatment effects and optimal targeting policy evaluation. Working paper, 2018.</li>
+<li>Eva Ascarza. Retention futility: Targeting high-risk customers might be ineffective. Journal of Marketing Research, 55(1):80–98, 2018.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>双边市场场景下，利用sequential testing和强化学习来验证长期处理效应</li>
+<li>因果推断相关
+<ul>
+<li>Marshall M Joffe and Tom Greene. 2009. Related causal frameworks for surrogate outcomes. Biometrics 65, 2 (2009), 530–538.</li>
+<li>Ross L Prentice. 1989. Surrogate endpoints in clinical trials: definition and operational criteria. Statistics in medicine 8, 4 (1989), 431–440</li>
+<li>Christopher J Weir and Rosalind J Walley. 2006. Statistical evaluation of biomarkers as surrogate endpoints: a literature review. Statistics in medicine 25, 2 (2006), 183–203.</li>
+</ul>
+</li>
+<li>推荐系统相关方法
+<ul>
+<li>Wang-Cheng Kang and Julian McAuley. 2018. Self-attentive sequential recommendation. In ICDM’ 18. IEEE, 197–206.</li>
+<li>Raghav Pavan Karumur, Tien T Nguyen, and Joseph A Konstan. 2018. Personality,  user preferences and behavior in recommender systems. Information Systems  Frontiers 20, 6 (2018), 1241–1265.</li>
+</ul>
+</li>
+</ul>
+<p>Reference: Lassen, et al, 2022. Statistical Challenges in Online Controlled Experiments: A Review of A/B Testing Methodology</p>
+<h3 id="optional-stopping-连续实验问题"><a class="markdownIt-Anchor" href="#optional-stopping-连续实验问题"></a> Optional Stopping (连续实验问题)</h3>
+<p>连续实验问题主要关注如何在不损害统计效度的前提下提前结束实验。企业希望快速筛选出有正向影响的策略，同时尽早摒弃负向影响的策略。由于实验结果通常可以近实时观察，研究人员容易产生&quot;窥视&quot;(peeking)行为——即连续监视p值并在达到显著性时立即停止实验。这种做法虽然能降低实验成本，但会显著提高假阳性率(一类错误)。因此，我们需要一种能在控制一类错误率的同时允许提前决策的实验终止机制。</p>
+<p>peeking问题：连续观测会引起一类错误率膨胀：每天都做了一次假设检验，犯错概率5%，连续做了N天的假设检验，整体犯错率为1-(1-5%)^n &gt;5%</p>
+<h4 id="sequential-testing"><a class="markdownIt-Anchor" href="#sequential-testing"></a> Sequential Testing</h4>
+<ul>
+<li>通过降低每一天/次假设检验的一类错误率，保障多次假设检验的总一类错误率不超过5%</li>
+<li>优点：可以控制一类错误率，避免碰巧显著而关停实验带来的一类错误率膨胀；</li>
+<li>缺点：
+<ul>
+<li>也有一些不适用场景，例如多个指标检测；降低HTE功效
+<ul>
+<li>sequential testing会降低统计功效，根据optimizely的数据该方法大约会带来36%的统计功效损失</li>
+<li>为解决sequential testing降低统计功效的问题，我们将实验分为两个阶段：
+<ol>
+<li>观察监控时期：从实验开始到结束前一天，使用保守的sequential testing方法进行连续监控。只有在效果特别显著且满足最小观察周期时才做决策，重点控制一类错误率。</li>
+<li>决策时期：实验结束后，使用传统的固定样本检验方法进行全面分析和决策，更注重统计功效。这种方法既能控制整个实验过程中的一类错误率，又能在决策阶段保持较高的统计功效，平衡了早期监控的安全性和最终决策的灵敏度。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>该方法需要对潜在因果的分布有先验知识，因此实际应用受到局限
+<ul>
+<li>optimizely的论文中，假设先验分布是均值为0的正态分布，方差未知，但是可以通过历史实验中true treatment effect进行估计，这是概率论估计思路的方法。这种方法的好处是和sequential testing这套思想完全契合。</li>
+<li>另一种方法是转化成优化问题。在控制一类错误率的部分，我们发现这个部分参数的先验分布本身并无任何限制，也就是说不管我们是使用方差为多少的正态分布，哪怕甚至是均匀分布、lognormal分布…不管是什么样的先验分布我们都可以通过鞅的性质对一类错误率进行很好的控制</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>具体方法：</p>
+
+<ul>
+<li>sequential probability ratio test (SPRT)
+<ul>
+<li>(0 &lt; B &lt; A, B = \frac{\beta}{1-\alpha}, A = \frac{1 - \beta}{\alpha})；假设分别为：(H_0 : \theta = \theta_0, H_1 : \theta = \theta_1)；</li>
+<li>likelihood ratio test statistics：(\Lambda_n = \prod_{i = 1}^{n}\frac{f(y_i|\theta_1)}{f(y_i|\theta_0)})</li>
+<li>通过A、B两个值，拒绝域将样本空间划分为三个决策规则：
+<ul>
+<li>如果(\Lambda_n &gt; A)，拒绝(H_0)，停止实验；</li>
+<li>如果(\Lambda_n &lt; B)，无法拒绝(H_0)，停止实验；</li>
+<li>如果(B &lt; \Lambda_n &lt; A)，积累实验样本，计算(\Lambda_{n + 1})；</li>
+<li>统计原理
+<ul>
+<li>当H_0成立时统计量LR是鞅(martingale)，会在1的附近随机波动，因此可以通过随机过程中鞅的性质来控制一类错误率。以b作为判断LR是否显著的阈值，LR&gt;b则认为检验有显著结论。假设首次得到显著结论是在第T_b次检验，那么有如下性质，即在任意多次检验范围内犯一类错误的概率不超过1/b。那么当我们以1/alpha作为监控阈值，那么一类错误率就可以被控制在alpha的范围内，也就是说在H_0的时候就算我们无限制的等下去也只有5%的概率会误报。</li>
+<li>这里出现了一个很尴尬的问题：我们并不知道实际上实验有没有效果，H_0成立的时候95%概率下我们等一辈子也不会有显著效果，这可怎么办呢？因此我们采用截断的方法（truncation）：即我们设定一个截止时间，到这个时间的时候如果还没有显著的结论那我们就认为这个实验确实没有效果，同时停止实验。</li>
+</ul>
+</li>
+<li>如图、上面那一条「reject null if crossed」用来判断是否拒绝原假设，一旦高出这条线，实验结束，称之为 Efficacy Boundary；下面那一条「accept null if crossed」用来判断是否确实无需继续等待结果显著，一旦低于这条线，实验结束，称之为 Futility Boundary，顾名思义是来避免资源浪费的。</li>
+</ul>
+</li>
+<li>在此基础上，又延伸出mixture sequential probability ratio test (mSPRT)和generalized sequential probability ratio test (GSPRT)
+<ul>
+<li>Group Sequential Trials (GST): 在实际情况中，基本都无法做到「连续地」做检验（每新增一部分数据就做一次检验），这样成本太高而且在 AB test 中是不可能实现的。在 GST 中，把全部数据分成几部分（group），分别对每一部分的数据做检验，然后再把这些检验结果合在一起
+<ul>
+<li>如何选择Decision Boundaries: 越多样本积累、越激进</li>
+<li>要求：分析的时间间隔一致：比如如果做两次分析，那么第一次、第二次分别用到全部信息量的50%、100%；如果做四次分析，那么四次分别用到全部信息量的 25%、50%、75%、100%；做几次分析、分析的时间节点，都需要事先确定</li>
+<li>一些改进的方法：spending function（医学领域）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>sequential testing的方法在业界有被广泛应用，Netflix(Group Sequential)、optimizely、蚂蚁、libra用户侧都采用了该方法。除此之外，针对peeking业界和学界也有其他不同的处理方法</p>
+<table>
+  <tr>
+    <th>名称</th>
+    <th>理论方案</th>
+    <th>实际场景</th>
+    <th>优点</th>
+    <th>缺点</th>
+  </tr>
+  <tr>
+    <td>p - value曲线（libra现有方案）</td>
+    <td>在连续多天查看报表显著性的情况下，"综合考虑连续多天的显著性，稳定显著再决策"比"只考虑连续多天内某一天的显著性，一天显著就决策"犯一类错误的概率更小，通过"改变稳定显著的决策逻辑"可以将一类错误率控制在预期alpha水平</td>
+    <td>通过「p - value曲线稳定显著」做决策可以控制整体一类错误率不过分膨胀。最佳决策逻辑：第1天&lt;2*alpha，第2、3天&lt;alpha</td>
+    <td>1. 工程实现起来方便<br>2. 对实际一类错误率的控制不够灵活，一类错误率仍存在稍高于预期的可能性</td>
+    <td>1. 用户理解、使用有成本</td>
+  </tr>
+  <tr>
+    <td>mSPRT（Netflix）</td>
+    <td>每组样本内，假设所有样本点独立同分布。重新构造p - value的计算方式，使得无论何时进行观测，观测到的p - value总是控制在预期alpha以内；理论上利用鞅的性质可以证明上述结论</td>
+    <td>Online A/B testing场景中，"用户复访"这一大特点可能会导致：<br>- 对于mSPRT来说："重新构造的p - value"不再具有鞅的性质，也就意味着存在一类错误率超出预期alpha的风险</td>
+    <td>1. 用户可实时观测，方便使用</td>
+    <td>1. 实际场景与理论假设存在差异，主要是"用户复访"的问题</td>
+  </tr>
+  <tr>
+    <td>GST</td>
+    <td>每组样本内，假设所有样本点独立同分布。给定整体实验周期中预期观测次数N，基于已有样本量或固定各观察阶段样本量调整alpha，控制各阶段的一类错误率，进而保证整体的一类错误率不超过alpha</td>
+    <td>- 对于GST来说：一方面，用户在各个时期的行为跟他自身前期的行为有一定关系，分阶段调整alpha的方法所依赖的样本独立性假设被打破；另一方面，用户有进组的先后顺序，随着时间的积累，可能会出现用户体验不一致的情况，样本点之间不再满足同分布假设。<br>用户复访：第一天的用户，也可能会在第二天第三天再次出现</td>
+    <td>1. 用户可定期观测，可控性强</td>
+    <td>1. 理论方案主要基于小样本，实际场景数据量巨大，导致工程成本较高<br>2. "用户复访"问题</td>
+  </tr>
+</table>
+<p>Reference</p>
+<ul>
+<li>Matwin,Yu, Farooq, <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3097983.3097992">Peeking at A/B Tests: Why it matters, and what to do about it</a>, KDD17</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Sequential_probability_ratio_test">Sequential Test, Wikipedia</a></li>
+<li>Wald, Abraham (June 1945). <a target="_blank" rel="noopener" href="https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-16/issue-2/Sequential-Tests-of-Statistical-Hypotheses/10.1214/aoms/1177731118.full">&quot;Sequential Tests of Statistical Hypotheses</a>&quot;. Annals of Mathematical Statistics. 16 (2): 117–186. doi:10.1214/aoms/1177731118. JSTOR 2235829.</li>
+<li>Georgiev, G. Z. (n.d.). <a target="_blank" rel="noopener" href="https://www.abtestingstats.com/"><em>Statistical methods in online A/B testing: Statistics for data - driven business decisions and risk management in e - commerce.</em></a> Chapter 10. Sequential Testing</li>
+<li><a target="_blank" rel="noopener" href="https://www.optimizely.com/insights/blog/why-you-should-choose-sequential-testing-and-not-bayesian/">Why you should choose sequential testing to accelerate your experimentation program</a>, Optimizely</li>
+<li>Leonid Pekelis,<a target="_blank" rel="noopener" href="https://www.optimizely.com/insights/blog/statistics-for-the-internet-age-the-story-behind-optimizelys-new-stats-engine/"> The story behind our Stats Engine</a>, Optimizely</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Optional_stopping_theorem">Optional stopping theorem</a></li>
+<li><a target="_blank" rel="noopener" href="https://netflixtechblog.com/improving-experimentation-efficiency-at-netflix-with-meta-analysis-and-optimal-stopping-d8ec290ae5be">Improving Experimentation Efficiency at Netflix with Meta Analysis and Optimal Stopping, Netflix</a></li>
+</ul>
+<h4 id="bayesian-ab-testing"><a class="markdownIt-Anchor" href="#bayesian-ab-testing"></a> Bayesian A/B Testing</h4>
+<p>Bayesian testing不会出现p-value hacking的问题:在Bayesian testing框架下，实验者采用fdr来描述错误率，即当我们决定要拒绝原假设时，这个决策是错误的概率有多大，false positive count/ positive count</p>
+<ul>
+<li>用bayes直接得到了待估参数的后验分布及相应的后验区间估计，更符合正常人对概率和区间正常逻辑的理解。同时，bayes可以产出probability to be the best和probability to beat the baseline等实验结论指标，可以直接避免传统假设检验中多重比较风险(multiple comparison problem)、常观察风险(peeking problem)、多组择优(be the best)的问题。</li>
+<li>正因为bayes的决策自动化、低用户理解成本、低实验成本等原因，越来越多的互联网公司在条件许可的情况下更多地应用了bayes theorm进行A/B实验分析决策。</li>
+<li>方法
+<ol>
+<li>Traditional Bayesian Testing
+<ol>
+<li>根据历史经验给出参数先验分布，通过不断搜集样本来更新参数后验，最终从后验分布生成随机数，模拟得到产生最优指标的概率</li>
+</ol>
+</li>
+<li>Objective Bayesian Testing
+<ol>
+<li>结合先验信息进行假设检验，原假设为diff等于0，备则假设为diff服从某个先验分布，并且根据先验知识得到原假设成立和备则假设成立的概率。通过不断收集样本，更新原假设和备则假设成立的后验概率，最后直接比较两个后验概率进行决策</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>难点
+<ul>
+<li>先验选择：先验选择不当会使实验漫长或错误率高；不控制假阳性频率，易检测出更多 “赢家”，因未强力控制错误发现率，其表现取决于先验分布选择；无偏好可以选择均匀分布</li>
+<li>evidence计算：likelihood和prior可以进行无数种不同组合，再加上theta有多个时导致积分空间变为高维空间，这个积分式不保证能进行解析计算，解决的方法有两种：
+<ul>
+<li>使用conjugate function（posterior和prior属于同一个function family）。Math trick，非general solution。对于binom适用（这也是demo用binom做的原因之一）。</li>
+</ul>
+</li>
+<li>使用数值方法计算：数值方法需要我们根据任意给定的（高维）概率分布实现抽样（困扰统计模拟的核心问题之一，有一篇很好的<a target="_blank" rel="noopener" href="https://cosx.org/2013/01/lda-math-mcmc-and-gibbs-sampling/">blog</a>来帮助理解）。实践中是由<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm">Metropolis</a>族的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">MCMC</a>算法（如<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Gibbs_sampling">Gibbs</a>）来实现，后者由Markov Chain的长期稳态性质保证随机均匀</li>
+</ul>
+</li>
+<li>可以做什么
+<ul>
+<li>AB实验中避免多重检验、Peeking、多组比较等问题</li>
+<li>最优化
+<ul>
+<li>自动调参实验：多组参数中动态分配流量选择最优参数</li>
+<li>MAB问题：能用一样的方法在线上用最小的成本完成在线实验
+<ul>
+<li>广告投放等需要平衡earn &amp; learn的case，这个成本，可以是实验所耗费的时间，流量，更直接的，可能是因为实验损失掉的performance和变现机会；基于贝叶斯的推断方法切断了多重比较和多次观察的犯错可能，全程用户无介入；另一方面，动态流量分配策略把实验在performance和monetization上的成本都降到最低
+<ul>
+<li>eg. <a target="_blank" rel="noopener" href="https://marketingplatform.google.com/about/resources/success-stories/">优化网页转化率</a>、<a target="_blank" rel="noopener" href="https://www.inverse.com/article/13762-how-the-multi-armed-bandit-determines-what-ads-and-stories-you-see-online">智能投放</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>业界最佳实践</p>
+<ul>
+<li>VWO, <a target="_blank" rel="noopener" href="https://vwo.com/why-us/technology/bayesian-statistics/">Bayesian Whitepaper</a></li>
+<li>VWO, <a target="_blank" rel="noopener" href="https://vwo.com/blog/bayesian-a-b-testing-a-powerful-reasoning-model/">Maximize Website Conversions</a></li>
+<li>Optimizely, <a target="_blank" rel="noopener" href="https://www.optimizely.com/optimization-glossary/multi-armed-bandit/">Multi-Armed Bandit</a></li>
+<li>Meta, <a target="_blank" rel="noopener" href="https://research.facebook.com/blog/2018/9/efficient-tuning-of-online-systems-using-bayesian-optimization/">Efficient tuning of online systems using Bayesian optimization</a></li>
+<li>Uber,<a target="_blank" rel="noopener" href="https://www.uber.com/en-SG/blog/xp/"> Under the Hood of Uber’s Experimentation Platform</a></li>
+</ul>
+<p>Reference</p>
+<ul>
+<li>Alex Deng, Jiannan Lu, Shouyuan Chen, <a target="_blank" rel="noopener" href="https://alexdeng.github.io/public/files/continuousMonitoring.pdf">Continuous monitoring of A/B tests without pain: Optional stopping in Bayesian testing</a></li>
+<li>Alex Deng, <a target="_blank" rel="noopener" href="https://alexdeng.github.io/public/files/BayesianAB.pdf">Objective Bayesian Two Sample Hypothesis Testing forOnline Controlled Experiments</a></li>
+<li>Statssig, <a target="_blank" rel="noopener" href="https://www.statsig.com/blog/bayesian-experiments-beginners-guide">When to use Bayesian experiments: A beginner’s guide</a></li>
+<li>Statssig, <a target="_blank" rel="noopener" href="https://www.statsig.com/perspectives/beginner-guide-bayesian-experimentation">Bayesian Experimentation</a></li>
+</ul>
+<h3 id="interference-实验对象之间的互相干预"><a class="markdownIt-Anchor" href="#interference-实验对象之间的互相干预"></a> Interference (实验对象之间的互相干预)</h3>
+<p>Stable Unit Treatment Value Assumption(SUTVA)：SUTVA 指的是分流单位之间互不干扰，这是AB实验结论可信的一个前提。在用户粒度分流场景中，SUTVA 指的是：某个用户的行为不会干扰到其他用户受实验变量影响的情况。如果违反了 SUTVA ，我们称之为 <strong>interference，a.k.a spillover/linkeage</strong></p>
+<p>直接从字面意思上也很好理解——由于实验组和对照组用户之间产生了关联，使得实验组的策略「溢出」到了对照组，导致对照组用户感知到了他本不该感知到的策略，从而使得实验效果被低估和高估。</p>
+<h4 id="实验单位间直接联系"><a class="markdownIt-Anchor" href="#实验单位间直接联系"></a> 实验单位间直接联系</h4>
+<p>典型案例如社交网络，男生把新表情包发给女生时，对照组中的女生感知到了实验策略；微信新表情包只在IOS更新上、命中安卓用户等</p>
+<ul>
+<li>方案1：规避网络效应–只使用未被网络效应污染的数据
+<ul>
+<li>Reference：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1903.08766">A Method for Measuring Network Effects of One-to-One Communication Features in Online A/B Tests</a></li>
+<li>对所有的 edges（边）都做好标记之后，在实验进行中我们就可以对以上三种类型的关系分别统计发信息、互动等动作的数量（如果衡量指标是互动量的话），并通过对比「实验组-实验组」、「对照组-对照组」两类 edges 上的互动量来推算出真实的互动量 diff。该方法有一个假设是No treatment affinity，即T-T用户并没有比其他用户更活跃/更不活跃。
+<ul>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-Message-Group-1.png" class="">
+</li>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-Message-Group-2.png" class="">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>方案2：人群分流（Cluster-based Randomization）
+<ul>
+<li>Refenrence
+<ul>
+<li>Gui et al. 2015, <a target="_blank" rel="noopener" href="https://hanj.cs.illinois.edu/pdf/www15_hgui.pdf">Network A/B Testing: From Sampling to Estimation</a></li>
+<li>Saveski et al. <a target="_blank" rel="noopener" href="https://www.researchgate.net/publication/318920536_Detecting_Network_Effects_Randomizing_Over_Randomized_Experiments">Detecting Network Effects: Randomizing Over Randomized Experiments</a></li>
+</ul>
+</li>
+<li>按照社交关系给用户画出社交圈子，再对这些圈子进行分流，这样就可以尽量减少实验组和对照组之间的相互影响。
+<ul>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-Cluster-based.png" class="">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>方案3：
+<ul>
+<li>Reference: Saint-Jacques, et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1903.08755">Using Ego-Clusters to Measure Network Effects at LinkedIn</a></li>
+<li>人群分流只能缓解一部分的相互影响，在上图中也可以看到，cluster之间实际上也还是存在联系的。因此转变思路，不再考虑如何规避网络效应，而是允许它存在并衡量出来。</li>
+<li>将用户聚合成cluster并对cluster进行分流：所有cluster的中心都是control，不同的是一部分cluster中其他所有用户都是treatment，另一部分其他用户都是control。此时treatment/control的中心用户的差别可以认为是网络效应的影响效果</li>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-Ego-Centric.png" class="">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="间接联系双边市场"><a class="markdownIt-Anchor" href="#间接联系双边市场"></a> 间接联系：双边市场</h4>
+<p>互联网平台通常具有双边市场属性</p>
+<table>
+<thead>
+<tr>
+<th>平台类型</th>
+<th>Supply 生产者</th>
+<th>Demand 消费者</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电商平台</td>
+<td>商家</td>
+<td>买家</td>
+</tr>
+<tr>
+<td>短视频平台</td>
+<td>达人（内容生产）</td>
+<td>用户</td>
+</tr>
+<tr>
+<td>广告</td>
+<td>流量（人x广告位）</td>
+<td>广告主</td>
+</tr>
+<tr>
+<td>外卖</td>
+<td>餐厅，骑手</td>
+<td>买家</td>
+</tr>
+<tr>
+<td>酒旅</td>
+<td>酒店商家</td>
+<td>买家</td>
+</tr>
+</tbody>
+</table>
+<p>双百年市场存在两种常见干预</p>
+<ul>
+<li>共享资源：例如AB组（作者或广告）共享一笔营销预算；共享一个模型（模型学习效果会反映到AB组）
+<ul>
+<li>相对比较好处理，可以在AB组间隔离或打平预算</li>
+</ul>
+</li>
+<li>互相竞争：互相争夺资源
+<ul>
+<li>对于需求方稀缺的平台，需求侧实验是无偏的，供给侧实验是有偏的。比如直播平台，一个直播间可以服务无限多的人，所以供给无限，主播共同竞争作为需求方的用户</li>
+<li>对于供给方稀缺的平台，供给侧实验是无偏的，需求侧实验是有偏的。比如早高峰的西二旗地铁站，需要乘车的人非常多，早高峰时段接近无限需求，乘客共同竞争作为供给方的地铁。实验不同的车厢填充策略是无偏的，但是实验不同的乘客排队策略是有侵蚀效应的</li>
+<li>对于供需关系处于中间态的平台，有偏的情况会比较复杂。比如Airbnb，各个地区的供需关系不尽相同</li>
+</ul>
+</li>
+</ul>
+<table>
+  <tr>
+    <th>实验场景</th>
+    <th>Interference</th>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>分流单位：用户粒度分流</li>
+        <li>观测指标：时长, 活跃度，Life Time/arpu、LTV、广告收入等</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>电商
+          <ul>
+            <li>竞争/挤压：共享商品，同一个商品只能卖一次，例如实验组酒店降价，实验组订了，对照组找不到，收益高估</li>
+            <li>共享模型（学习效果溢出）实验组在冷启动/低估人群上投放特别好，对照组也会学到，收益低估</li>
+          </ul>
+        </li>
+        <li>广告
+          <ul>
+            <li>竞争/挤压：共享预算（实验组策略特别好，花光所有预算）收益高估</li>
+            <li>模型共享样本（学习效果溢出）：同上</li>
+          </ul>
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>分流单位：内容（item）分流内容生产分流，商品分流</li>
+        <li>观测指标：销量，订购率等</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>电商
+          <ul>
+            <li>竞争/挤压：商家竞争同一批用户，用户有定选低价的，收益高估，实际推全后没有这种效果</li>
+            <li>共享用户（用户受多组策略影响）：例如均匀投放item_id粒度分流，同一个用户看到回同时看到更新和未更新的内容，可能减低对推后投放的兴趣，收益高估，但两者效果的差异并不代表推全的vv差异</li>
+          </ul>
+        </li>
+        <li>广告
+          <ul>
+            <li>竞争/挤压：一次request，同一个用户，两组计划互相竞价（例如boost实验组）导致对照组投不出，收益高估（adload维持一定）</li>
+            <li>共享用户（用户受多组策略影响）eg 实验组投了一个好玩的游戏，用户后续看到对照组的游戏广告就没有兴趣了！收益高估</li>
+          </ul>
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>分流单位：双边实验：用户 x 商品（用户 x 内容）粒度分流</li>
+        <li>观测指标：SD, 活跃天数，订购率等</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>只能隔离"一部分干预"（下面展开）</li>
+        <li>样本量，置信度和power问题</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+<h5 id="方案1类似直接干预中的社交关系分流物理隔离"><a class="markdownIt-Anchor" href="#方案1类似直接干预中的社交关系分流物理隔离"></a> 方案1：类似直接干预中的社交关系分流/物理隔离</h5>
+<ul>
+<li>对于用户之间强联系的维度进行聚类（eg 出租车/酒店主要在一个城市，生活服务在poi/地理位置）成cluster，同cluster用户在实验/对照组
+<ul>
+<li>例如对于打车业务，最直接减少干预的方法是改变实验颗粒度，从用户-&gt;区域-&gt;街区-&gt;城市；代价是方差变大（减少bias增大varaince）
+<ul>
+<li>大公司会采取仿真技术先模拟效果/调试算法后再AB实验；并用trigger analysis或其他方法进一步缩减方差（例如Lyft的<a target="_blank" rel="noopener" href="https://eng.lyft.com/experimentation-in-a-ridesharing-marketplace-b39db027a66e">实践1</a>, <a target="_blank" rel="noopener" href="https://eng.lyft.com/https-medium-com-adamgreenhall-simulating-a-ridesharing-marketplace-36007a8a31f2">2</a>, <a target="_blank" rel="noopener" href="https://eng.lyft.com/experimentation-in-a-ridesharing-marketplace-f75a9c4fcf01">3</a>）</li>
+</ul>
+</li>
+<li>参照前文社交分流方法开设实验</li>
+<li>对于模型，有在不同流量间拆分模型的技术（self-train）样本隔离等</li>
+<li>一些其他技术手段减少组间互相影响，例如Facebook Seller-Side Ranking 迭代，先分别排序，再混合成一个结果，减少组间干预（Reference: Ha - Thuc, V., Dutta, A., Mao, R., Wood, M., &amp; Liu, Y. (n.d.).2020, <a target="_blank" rel="noopener" href="https://research.facebook.com/publications/a-counterfactual-framework-for-seller-side-a-b-testing-on-marketplaces/">A Counterfactual Framework for Seller - Side A/B Testing on Marketplaces</a>. Facebook Inc., Menlo Park, CA.)</li>
+</ul>
+</li>
+<li>或开设两个实验，用户粒度-cluster粒度，并根据进行纠偏
+<ul>
+<li>Reference: David Holtz, Ruben Lobel, Inessa Liskovich, Sinan Aral, <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.12489">Reducing Interference Bias in Online Marketplace Pricing Experiments</a> (Airbnb)</li>
+<li>B是所在cluster，M是两种实验的diff，v代表了实际SUTVA是否违反
+<ul>
+<li>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><mi>α</mi><mo>+</mo><mo stretchy="false">(</mo><mi>β</mi><mo>+</mo><mi>ν</mi><msub><mi>M</mi><mi>i</mi></msub><mo stretchy="false">)</mo><msub><mi>T</mi><mi>i</mi></msub><mo>+</mo><mi>ξ</mi><msub><mi>M</mi><mi>i</mi></msub><mo>+</mo><munder><mo>∑</mo><mi>l</mi></munder><msub><mi>γ</mi><mi>l</mi></msub><mn mathvariant="double-struck">1</mn><mo stretchy="false">(</mo><msub><mi>B</mi><mi>i</mi></msub><mo>=</mo><mi>l</mi><mo stretchy="false">)</mo><mo>+</mo><mi>δ</mi><msub><mi>X</mi><mi>i</mi></msub><mo>+</mo><msub><mi>ϵ</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">Y_i = \alpha + (\beta + \nu M_i)T_i + \xi M_i + \sum_l \gamma_l \mathbb{1}(B_i = l) + \delta X_i + \epsilon_i
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.06366em;">ν</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.04601em;">ξ</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.3521180000000004em;vertical-align:-1.3021129999999999em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0500050000000005em;"><span style="top:-1.847887em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3021129999999999em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.05556em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord">1</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="方案2时间隔离时间片轮转实验switchback-experiments"><a class="markdownIt-Anchor" href="#方案2时间隔离时间片轮转实验switchback-experiments"></a> 方案2：时间隔离/时间片轮转实验（Switchback Experiments）</h5>
+<ul>
+<li>例如外卖平台通常面临的局面是
+<ul>
+<li><strong>骑手缺少</strong> → 导致用户无法满足消费需求 → 消费者等待时间过长。</li>
+<li><strong>需求问题需解决</strong>：如何提高用户留存和选择所属时长。</li>
+</ul>
+</li>
+<li>为了解决这一问题，Doordash 需要能够通过 <strong>增量评估 delivery fee</strong>（提升价格）来分析其对用户的具体影响。在上述场景下，使用传统实验对消费者进行精准分流是难以准确评估策略结果的</li>
+<li>Switchback testing的核心思想是， 对于某一区域，随时间推移，在实验组和对照组之间交叉切换。即：对于不同的区域设不同时间段分桶，再对其实验组time bucket和对照组time bucket之间的差异，来评估策略效果
+<ul>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-Switchback.png" class="">
+</li>
+<li>方差通常通过Sandwich Estimator技术来计算</li>
+</ul>
+</li>
+<li>问题：
+<ul>
+<li><strong>增加了variance</strong>，换句话说，<strong>通常都有power不足的问题</strong>
+<ul>
+<li>
+<ol>
+<li>信息利用率较低</li>
+</ol>
+<ul>
+<li>检验效率都是比较低的：只选择连续treatment/control的unit进行分析，这就导致了其他剩余流量的浪费; 或进行bucket处理，即把用户打包成bucket(比如说region)当作unit进行分析。这都会导致功效的浪费</li>
+<li>carryover假设过强：假设策略对用户是没有留存影响的，但不太符合实际情况；推策略上线实际上最终想获得的就是持续的长期的收益。方法2没有单独处理carryover的问题。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>该两类实验的设置还让可能出现的偏流客会，会造成一定程度未监管风险。若操作不当，会引入额外的bias</li>
+</ul>
+</li>
+</ul>
+<p>Reference</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.researchgate.net/publication/357150412_Uber_Express_A_Case_of_Study?enrichId=rgreq-2d35822755a6c9d11aabac6d64a2254b-XXX&amp;enrichSource=Y292ZXJQYWdlOzM1NzE1MDQxMjtBUzoxMTAyMjI5NzgwMDg2Nzg1QDE2Mzk4MDM0NjYyMzA%3D&amp;el=1_x_3&amp;_esc=publicationCoverPdf">Uber Express: A Case of Study</a></li>
+<li>Case study paper on switchback design (2021): “<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2110.00118">Unbiased Experiments in Congested Networks</a>”</li>
+<li>Holtz et al. (2020) “Reducing Interference Bias in Online Marketplace Pricing Experiments”</li>
+<li>Spang et al. (2021)  “<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2110.00118">Unbiased Experiments in Congested Networks</a>” – A real application to show how switchback design mitigates spillover effect</li>
+<li>Bojinov, et al, 2020,<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2009.00148"> Design and Analysis of Switchback Experiments</a></li>
+<li>Doordash: <a target="_blank" rel="noopener" href="https://careersatdoordash.com/blog/experiment-rigor-for-switchback-experiment-analysis/">Experiment Rigor for Switchback Experiment Analysis</a></li>
+</ul>
+<h5 id="方案3双边实验"><a class="markdownIt-Anchor" href="#方案3双边实验"></a> 方案3：双边实验</h5>
+<ul>
+<li>
+<p>TSR(双边实验，Two-sided Randomization)</p>
+<ul>
+<li>同时开设双边分流
+<ul>
+<li>需求远大于供给（供给不足），listing间对于需求的竞争不激烈（listing争抢用户弱），listing之间interference弱，开设listing分流合理</li>
+</ul>
+</li>
+<li>需求远小于供给（需求不足），customer之间竞争弱（用户排队争供给不严重），用户侧实验合理</li>
+<li>供需不平衡，但不存在明显过剩，双边分流（交叉分流），可以基于双边分流debias
+<ul>
+<li>Listing competition: Q00-Q01, 第一行的差异 = 供给争抢用户带来的挤压</li>
+<li>Customer competition: Q00-Q10 = 用户争抢供给带来的挤压</li>
+</ul>
+</li>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-TSR-Estimator.png" class="">
+<ul>
+<li>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mover accent="true"><mtext>GTE</mtext><mo stretchy="true">^</mo></mover><mtext>TSRN</mtext></msup><mo stretchy="false">(</mo><mi>T</mi><mi mathvariant="normal">∣</mi><msub><mi>a</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>L</mi></msub><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><msub><mi>Q</mi><mn>11</mn></msub><mo stretchy="false">(</mo><mi>T</mi><mi mathvariant="normal">∣</mi><msub><mi>a</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>L</mi></msub><mo stretchy="false">)</mo></mrow><mrow><msub><mi>a</mi><mi>C</mi></msub><msub><mi>a</mi><mi>L</mi></msub></mrow></mfrac><mo>−</mo><mfrac><mrow><msub><mi>Q</mi><mn>01</mn></msub><mo stretchy="false">(</mo><mi>T</mi><mi mathvariant="normal">∣</mi><msub><mi>a</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>L</mi></msub><mo stretchy="false">)</mo><mo>+</mo><msub><mi>Q</mi><mn>10</mn></msub><mo stretchy="false">(</mo><mi>T</mi><mi mathvariant="normal">∣</mi><msub><mi>a</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>L</mi></msub><mo stretchy="false">)</mo><mo>+</mo><msub><mi>Q</mi><mn>00</mn></msub><mo stretchy="false">(</mo><mi>T</mi><mi mathvariant="normal">∣</mi><msub><mi>a</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>L</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mn>1</mn><mo>−</mo><msub><mi>a</mi><mi>C</mi></msub><msub><mi>a</mi><mi>L</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">\widehat{\text{GTE}}^{\text{TSRN}}(T|a_C, a_L) = \frac{Q_{11}(T|a_C, a_L)}{a_C a_L} - \frac{Q_{01}(T|a_C, a_L) + Q_{10}(T|a_C, a_L) + Q_{00}(T|a_C, a_L)}{1 - a_C a_L}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.404561em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.92333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">GTE</span></span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.24em;"><svg width='100%' height='0.24em' viewBox='0 0 1062 239' preserveAspectRatio='none'><path d='M529 0h5l519 115c5 1 9 5 9 10 0 1-1 2-1 3l-4 22
+c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z'/></svg></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.154561em;"><span style="top:-3.37623em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">TSRN</span></span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.263em;vertical-align:-0.8360000000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.3139999999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8360000000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.263em;vertical-align:-0.8360000000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.3139999999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8360000000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mover accent="true"><mtext>GTE</mtext><mo stretchy="true">^</mo></mover><mtext>TSRN</mtext></msup></mrow><annotation encoding="application/x-tex">\widehat{\text{GTE}}^{\text{TSRN}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.154561em;vertical-align:0em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.92333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">GTE</span></span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.24em;"><svg width='100%' height='0.24em' viewBox='0 0 1062 239' preserveAspectRatio='none'><path d='M529 0h5l519 115c5 1 9 5 9 10 0 1-1 2-1 3l-4 22
+c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z'/></svg></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.154561em;"><span style="top:-3.37623em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">TSRN</span></span></span></span></span></span></span></span></span></span></span></span></span> 表示TSR naive估计器</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>T</mi><mi mathvariant="normal">∣</mi><msub><mi>a</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>L</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(T|a_C, a_L)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> 表示在给定 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>C</mi></msub></mrow><annotation encoding="application/x-tex">a_C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>（customer assignment）和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>L</mi></msub></mrow><annotation encoding="application/x-tex">a_L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>（listing assignment）条件下的处理效应</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>MRD(Multiple Randomization Designs)</p>
+<ul>
+<li>结果是pair粒度可以观测的，干预可以发生在pair粒度 (例如，特定主播x特定用户生效策略)
+<ul>
+<li>MRD优点
+<ul>
+<li>没有spillover effect（溢出）时，测量ATE更有效度；</li>
+<li>有spillover effect（溢出）和interference effect（干扰）时可以度量出来</li>
+<li>可以在此基础上调整或延展，测量更复杂的溢出或干扰效应。</li>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-MRD-1.png" class="">
+</li>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-MRD-2.png" class="">
+</li>
+</ul>
+</li>
+<li>TSR是MRD的一个特例</li>
+<li>仍然没办法告诉策略推进全的真实effect，但基于local interference假设（每一pair只受同行/同列pair的影响，不受其他影响）可以度量挤压问题；蓝色，绿色与红色的差异可以视为策略的溢出或者挤压效果
+<ul>
+<li>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>类似的思路可以拓展到很多场景下</p>
+<ul>
+<li>例如一个电商主播扶持 x 用户的实验中
+<ul>
+<li>主播策略组中流量AB组的差异=扶持策略带来的损失</li>
+<li>流量空白组中主播AB组的差异=主播行为带来的收益（例如增加投入、供给等）</li>
+<li>主播空白组中流量AB组的差异=生效用户被挤压的效应</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>有时候会叠加双边的隔离</p>
+<ul>
+<li>例如 <a target="_blank" rel="noopener" href="https://rphilipzhang.github.io/rphilipzhang/Cold_Start_unblinded.pdf">快手冷启动</a>: 限制部分冷启动item只能投放在部分流量上，隔离共享样本带来的模型效果溢出
+<ul>
+<li>Reference Zikun Ye, Dennis J. Zhang, Heng Zhang, Renyu Zhang, Xin Chen, Zhiwei Xu (2023), <a target="_blank" rel="noopener" href="https://rphilipzhang.github.io/rphilipzhang/Cold_Start_unblinded.pdf">Cold Start to Improve Market Thickness on<br />
+Online Advertising Platforms: Data-Driven Algorithms and Field Experiments. Management Science 69(7):3838-3860</a></li>
+<li>
+<img src="/AB-Test/intro-2/AB-Test-Cold-Start.png" class="">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Reference</p>
+<ul>
+<li>Patrick Bajari, Brian Burdick, Guido W. Imbens, Lorenzo Masoero, James McQueen, Thomas Richardson, Ido M. Rosen, 2021. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.13495">Multiple Randomization Designs</a><br />
+-<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Y-RT76WY2pE">Presentation</a></li>
+<li>Ramesh Johari, Hannah Li, Inessa Liskovich, Gabriel Weintraub,2020. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2002.05670">Experimental Design in Two-Sided Platforms: An Analysis of Bias</a>
+<ul>
+<li>Presentaion (<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=GwzHQaag-Ds">Ramesh Johari: Experimental design in two-sided platforms: an analysis of bias</a>)</li>
+</ul>
+</li>
+<li>Li, et al. <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/fullHtml/10.1145/3485447.3512063">Interference, Bias, and Variance in Two-Sided Marketplace Experimentation: Guidance for Platforms</a></li>
+<li>David Holtz, Ruben Lobel, Inessa Liskovich, Sinan Aral, 2020. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.12489">Reducing Interference Bias in Online Marketplace Pricing Experiments</a></li>
+</ul>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ul>
+<li>Xu Jia, <a target="_blank" rel="noopener" href="https://drive.google.com/file/d/1rcqZ56lWZB2LW_pO5hJ2qlQXm8TqbC_X/view">Causal Inference Challenges in Industry, A perspective from experiences at LinkedIn</a>; <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=OoKsLAvyIYA&amp;t=2938s">Talk</a></li>
+<li>Lassen, et al, 2022.<a target="_blank" rel="noopener" href="https://www.tandfonline.com/doi/full/10.1080/00031305.2023.2257237">Statistical Challenges in Online Controlled Experiments: A Review of A/B Testing Methodology</a></li>
+<li>Johnson, G. A. (2020, April 20). <a target="_blank" rel="noopener" href="https://www.readcube.com/articles/10.2139%2Fssrn.3581396">Inferno: A guide to field experiments in online display advertising.</a></li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">佚名小司机</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/AB-Test/intro-2/">http://example.com/AB-Test/intro-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">佚名小司机</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/AB%E5%AE%9E%E9%AA%8C/">
+                                    <span class="chip bg-color">AB实验</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/AB-Test/intro-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="AB实验（2）AB实验中的难题">
+                        
+                        <span class="card-title">AB实验（2）AB实验中的难题</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" class="post-category">
+                                    数据科学
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AB%E5%AE%9E%E9%AA%8C/">
+                        <span class="chip bg-color">AB实验</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/AB-Test/intro-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="AB实验（1）AB实验从0到1">
+                        
+                        <span class="card-title">AB实验（1）AB实验从0到1</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-05-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" class="post-category">
+                                    数据科学
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/">
+                        <span class="chip bg-color">因果推断</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+            
+            <a href="/about" target="_blank">佚名小司机</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/XinheLIU" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:xinhe_l@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
