@@ -516,7 +516,7 @@ peeking问题：连续观测会引起一类错误率膨胀：每天都做了一�
 
 具体方法：
 
-{% asset_img Sequential-Testing.png %}
+{% asset_img AB-Test-Sequential-Testing.png %}
 
 - sequential probability ratio test (SPRT)
   - \(0 < B < A, B = \frac{\beta}{1-\alpha}, A = \frac{1 - \beta}{\alpha}\)；假设分别为：\(H_0 : \theta = \theta_0, H_1 : \theta = \theta_1\)；
