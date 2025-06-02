@@ -5,6 +5,6 @@ permalink: /AB-Test/intro-1/
 categories:
   - 数据科学
 tags:
-  - 因果推断
+  - AB实验
 updated: 2024-12-14 13:30:00
 ---
