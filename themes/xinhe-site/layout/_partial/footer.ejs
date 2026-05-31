@@ -1,0 +1,28 @@
+<%
+    var isChinese = (page.site_locale || '').indexOf('zh') === 0;
+    var githubLink = (theme.socialLink && theme.socialLink.github) ? theme.socialLink.github : 'https://github.com/XinheLIU';
+    var emailLink = (theme.socialLink && theme.socialLink.email) ? 'mailto:' + theme.socialLink.email : 'mailto:xinhe_l@163.com';
+%>
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span><%= isChinese ? '昕和 · 个人网站、写作与技术笔记' : 'Charles · Personal site, writing, and technical notes' %></span>
+        <div class="footer-links">
+            <a href="<%- url_for(isChinese ? '/writing-zh/' : '/writing/') %>"><%= isChinese ? '写作' : 'Writing' %></a>
+            <a href="<%- url_for(isChinese ? '/projects-zh/' : '/projects/') %>"><%= isChinese ? '项目' : 'Projects' %></a>
+            <a href="<%- url_for(isChinese ? '/about-zh/' : '/about/') %>"><%= isChinese ? '个人信息和联系方式' : 'About & Contact' %></a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="<%- url_for('/tags/') %>"><%= isChinese ? '标签' : 'Tags' %></a>
+            <a href="<%- url_for('/categories/') %>"><%= isChinese ? '分类' : 'Categories' %></a>
+            <a href="<%- url_for('/archives/') %>"><%= isChinese ? '归档' : 'Archives' %></a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="<%- githubLink %>" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="<%- emailLink %>">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>

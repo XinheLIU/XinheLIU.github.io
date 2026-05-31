@@ -1,0 +1,52 @@
+<%
+    var isChinese = (page.site_locale || '').indexOf('zh') === 0;
+    var activeKey = page.nav_key || ((is_home() && page.current === 1) ? 'home' : '');
+    var homePath = isChinese ? '/home-zh/' : '/';
+    var navItems = isChinese
+        ? [
+            { key: 'home', label: '首页', path: '/home-zh/' },
+            { key: 'writing', label: '写作', path: '/writing-zh/' },
+            { key: 'technical-notes', label: '技术笔记', path: '/technical-notes-zh/' },
+            { key: 'projects', label: '项目', path: '/projects-zh/' },
+            { key: 'about', label: '个人信息和联系方式', path: '/about-zh/' }
+        ]
+        : [
+            { key: 'home', label: 'Home', path: '/' },
+            { key: 'writing', label: 'Writing', path: '/writing/' },
+            { key: 'technical-notes', label: 'Technical Notes', path: '/technical-notes/' },
+            { key: 'projects', label: 'Projects', path: '/projects/' },
+            { key: 'about', label: 'About & Contact', path: '/about/' }
+        ];
+    var langSwitchHref = page.lang_switch || (isChinese ? '/' : '/home-zh/');
+    var langSwitchLabel = isChinese ? 'EN' : '中';
+    var langSwitchTitle = isChinese ? 'English' : '中文';
+    var searchTitle = isChinese ? '搜索' : 'Search';
+    var themeTitle = isChinese ? '主题切换' : 'Theme toggle';
+%>
+
+<a class="brand-lockup" href="<%- url_for(homePath) %>" aria-label="<%= isChinese ? '昕和首页' : 'Charles home' %>">
+    <span class="brand-mark">X</span>
+    <span class="brand-name">
+        <strong><%= isChinese ? '昕和' : 'Charles' %></strong>
+        <span><%= isChinese ? '个人网站' : 'Personal site' %></span>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="<%= isChinese ? '主导航' : 'Primary navigation' %>">
+    <% navItems.forEach(function(item) { %>
+        <a href="<%- url_for(item.path) %>" class="<%= activeKey === item.key ? 'is-active' : '' %>"><%= item.label %></a>
+    <% }); %>
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="<%= searchTitle %>" aria-label="<%= searchTitle %>">
+        <i class="fas fa-search"></i>
+    </a>
+    <a class="lang-switch" href="<%- url_for(langSwitchHref) %>" title="<%= langSwitchTitle %>" aria-label="<%= langSwitchTitle %>"><%= langSwitchLabel %></a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="<%= themeTitle %>" aria-label="<%= themeTitle %>">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="<%= isChinese ? '打开菜单' : 'Open menu' %>">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+<%- partial('_partial/mobile-nav') %>

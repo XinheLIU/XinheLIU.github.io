@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 查拉图斯特拉后花园
-subtitle: '随便聊聊'
-description: '生活随便、技术闲聊'
+title: Charles
+subtitle: 'Personal site, writing, and technical notes.'
+description: 'Engineer and technical writer working across data products, recommendation, ads, experimentation, causal measurement, and applied AI workflows.'
 keywords:
-author: 佚名小司机
-language: zh-CN
+author: Charles
+language: en
 timezone: ''
 
 # URL
@@ -93,7 +93,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: matery
+theme: xinhe-site
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment

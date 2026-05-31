@@ -1,0 +1,107 @@
+<%
+    var isChinese = (page.site_locale || '').indexOf('zh') === 0;
+    var notes = [];
+    site.posts.each(function(post) {
+        if (post.hide !== true && post.note_type && post.featured_asset) {
+            notes.push(post);
+        }
+    });
+    notes.sort(function(a, b) {
+        return new Date(b.date) - new Date(a.date);
+    });
+
+    var clusterLabels = isChinese
+        ? {
+            'ads-systems': '广告系统',
+            'recommendation': '推荐系统',
+            'experimentation': '实验',
+            'causal-measurement': '因果测量',
+            'enterprise-ai': '企业 AI'
+        }
+        : {
+            'ads-systems': 'Ads systems',
+            'recommendation': 'Recommendation',
+            'experimentation': 'Experimentation',
+            'causal-measurement': 'Causal measurement',
+            'enterprise-ai': 'Enterprise AI'
+        };
+
+    var noteTypeLabels = isChinese
+        ? {
+            'system-diagram': '系统图',
+            'invariant-check': '检查项',
+            'reading-trace': '阅读痕迹'
+        }
+        : {
+            'system-diagram': 'System diagram',
+            'invariant-check': 'Invariant check',
+            'reading-trace': 'Reading trace'
+        };
+
+    function summaryFor(post) {
+        if (isChinese && post.summary_zh) return post.summary_zh;
+        if (!isChinese && post.summary_en) return post.summary_en;
+        if (post.summary) return post.summary;
+        if (post.excerpt) return strip_html(post.excerpt).substring(0, 120);
+        return strip_html(post.content).substring(0, 120);
+    }
+%>
+
+<main class="content site-page-main">
+    <section class="container hero-narrow">
+        <p class="eyebrow"><%= isChinese ? '技术笔记' : 'Technical notes' %></p>
+        <h1 class="page-title"><%= isChinese ? '更短、更密的实现笔记：图示、约束、方法和阅读痕迹。' : 'Shorter implementation notes for diagrams, invariants, system tradeoffs, and reading traces.' %></h1>
+        <p class="lead"><%= isChinese ? '更短、更密的图示、约束、检查项和方法摘要。' : 'Dense diagrams, checks, snippets, and system-level constraints.' %></p>
+    </section>
+
+    <section class="section compact section-tinted">
+        <div class="container">
+            <div class="section-head">
+                <h2><%= isChinese ? '笔记类型' : 'Note taxonomy' %></h2>
+                <p><%= isChinese ? '从完整文章中抽出更便于复用的图示、约束和方法片段。' : 'Reusable diagrams, constraints, and method fragments extracted from longer writing.' %></p>
+            </div>
+            <div class="card-grid">
+                <article class="card">
+                    <div class="post-preview preview-diagram"><span><%= isChinese ? '图示' : 'diagram' %></span></div>
+                    <h3><%= isChinese ? '系统图示' : 'System diagrams' %></h3>
+                    <p><%= isChinese ? '排序、实验分流、归因管线和智能体工作流的结构图。' : 'Architecture sketches for ranking, experiment assignment, attribution pipelines, and agent workflows.' %></p>
+                </article>
+                <article class="card">
+                    <div class="post-preview preview-chart"><span><%= isChinese ? '检查' : 'checks' %></span></div>
+                    <h3><%= isChinese ? '约束与检查' : 'Invariants and checks' %></h3>
+                    <p><%= isChinese ? '采样、guardrail、归因窗口、预算约束以及线上排查抓手。' : 'Sampling, guardrails, attribution windows, budget constraints, and production debugging handles.' %></p>
+                </article>
+                <article class="card">
+                    <div class="post-preview preview-grid"><span><%= isChinese ? '阅读' : 'trace' %></span></div>
+                    <h3><%= isChinese ? '阅读与方法痕迹' : 'Paper and book traces' %></h3>
+                    <p><%= isChinese ? '把外部方法和推荐、实验、因果测量、应用 AI 连接起来。' : 'Compact notes that connect external ideas to recommendation, experimentation, causal measurement, and applied AI.' %></p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container split-panel">
+            <aside class="sidebar-panel">
+                <h2><%= isChinese ? '实现约束' : 'Implementation rule' %></h2>
+                <p><%= isChinese ? '每条笔记都围绕一个图、表、检查项或方法摘要展开。' : 'Each note centers on a diagram, chart, checklist, or compact method summary.' %></p>
+            </aside>
+            <div class="archive-list">
+                <% notes.forEach(function(post) { %>
+                    <article class="archive-row has-preview">
+                        <a class="post-preview post-preview-image" href="<%- url_for(post.path) %>">
+                            <img src="<%- url_for(post.featured_asset) %>" alt="<%= post.title %>">
+                        </a>
+                        <div class="summary-stack">
+                            <span class="meta"><%= date(post.date, 'YYYY-MM-DD') %> · <%= clusterLabels[post.topic_cluster] || post.note_type %></span>
+                            <h3><a class="archive-row-link" href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
+                            <p><%= summaryFor(post) %></p>
+                            <p><%= isChinese ? '相关写作：' : 'Related writing: ' %><a class="archive-row-link" href="<%- url_for(isChinese ? '/writing-zh/' : '/writing/') %>"><%= clusterLabels[post.topic_cluster] || (isChinese ? '写作档案' : 'Writing archive') %></a></p>
+                        </div>
+                        <span class="tag"><%= noteTypeLabels[post.note_type] || post.note_type %></span>
+                    </article>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+</main>

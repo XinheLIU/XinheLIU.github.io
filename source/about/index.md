@@ -1,45 +1,10 @@
 ---
-title: 关于我
-date: 2024-03-24 00:00:00
-type: "about"
-layout: "about"
+title: About & Contact
+date: 2026-05-31 12:00:00
+layout: about
+nav_key: about
+site_locale: en
+lang_switch: /about-zh/
+summary: Compact professional profile, public writing boundary, and direct contact routes.
+last_updated: 2026-05-31
 ---
-
-## 个人简介
-
-你好！我是小司机，一个热爱技术和写作的程序员。我热衷于探索新技术，分享技术经验，并记录生活中的点点滴滴。
-
-## 专业技能
-
-### 编程语言
-- Python：数据分析、机器学习、Web开发
-- C++：系统编程、算法实现
-- Java：后端开发、企业级应用
-
-### 技术领域
-- 数据科学：数据分析、机器学习、深度学习
-- Web开发：前后端开发、数据库设计
-- 系统开发：操作系统、网络编程
-
-## 教育背景
-
-- 计算机科学与技术专业
-
-## 兴趣爱好
-
-- 技术写作
-- 开源项目
-- 阅读
-- 摄影
-
-## 联系方式
-
-- Email: windgod46@gmail.com
-- GitHub: [XinheLIU](https://github.com/XinheLIU)
-- 微信: liuxinhe894449
-
-## 关于本站
-
-本站使用 Hexo + Matery 主题搭建，主要用于分享技术文章和个人生活随笔。欢迎访问我的博客，希望这里的内容对你有所帮助！
-
-如果你有任何问题或建议，欢迎通过以上联系方式与我交流。

@@ -1,0 +1,16 @@
+<%
+    var isChinese = (page.site_locale || '').indexOf('zh') === 0;
+    var redirectPath = isChinese ? '/about-zh/' : '/about/';
+%>
+<meta http-equiv="refresh" content="0; url=<%- url_for(redirectPath) %>">
+
+<main class="content site-page-main">
+    <section class="container hero-narrow">
+        <p class="eyebrow"><%= isChinese ? '联系入口已合并' : 'Contact moved' %></p>
+        <h1 class="page-title"><%= isChinese ? '个人信息和联系方式' : 'About and Contact' %></h1>
+        <p class="lead"><%= isChinese ? '旧联系链接会继续跳转到个人信息和联系方式页面。' : 'Older contact links continue to the combined page.' %></p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="<%- url_for(redirectPath) %>"><%= isChinese ? '打开个人信息和联系方式' : 'Open About & Contact' %></a>
+        </div>
+    </section>
+</main>

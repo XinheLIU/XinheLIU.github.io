@@ -1,0 +1,206 @@
+<%
+    var allPosts = [];
+    site.posts.each(function(post) {
+        if (post.hide !== true) {
+            allPosts.push(post);
+        }
+    });
+    allPosts.sort(function(a, b) {
+        return new Date(b.date) - new Date(a.date);
+    });
+
+    var clusterOrder = ['ads-systems', 'recommendation', 'experimentation', 'causal-measurement'];
+    var clusterLabels = isChinese
+        ? {
+            'ads-systems': '广告系统',
+            'recommendation': '推荐系统',
+            'experimentation': '实验',
+            'causal-measurement': '因果测量',
+            'enterprise-ai': '企业 AI'
+        }
+        : {
+            'ads-systems': 'Ads systems',
+            'recommendation': 'Recommendation',
+            'experimentation': 'Experimentation',
+            'causal-measurement': 'Causal measurement',
+            'enterprise-ai': 'Enterprise AI'
+        };
+
+    var featuredPosts = clusterOrder.map(function(cluster) {
+        return allPosts.find(function(post) {
+            return post.topic_cluster === cluster;
+        });
+    }).filter(Boolean);
+
+    var notesCount = allPosts.filter(function(post) {
+        return !!post.note_type;
+    }).length;
+
+    function summaryFor(post) {
+        if (isChinese && post.summary_zh) return post.summary_zh;
+        if (!isChinese && post.summary_en) return post.summary_en;
+        if (post.summary) return post.summary;
+        if (post.excerpt) return strip_html(post.excerpt).substring(0, 120);
+        return strip_html(post.content).substring(0, 120);
+    }
+%>
+
+<main class="content site-page-main">
+    <section class="container hero">
+        <div>
+            <p class="eyebrow"><%= isChinese ? '个人网站 · 写作 · 技术笔记' : 'Personal site · writing · technical notes' %></p>
+            <h1 class="display-title">
+                <%= isChinese
+                    ? '昕和的个人主页。'
+                    : 'Charles writes about data, AI, and product systems.' %>
+            </h1>
+            <p class="lead">
+                <%= isChinese
+                    ? '这里收集我的技术写作、系统笔记、项目线索和联系方式。内容主要围绕推荐、广告、实验、因果测量和应用 AI。'
+                    : 'A compact home for my technical writing, systems notes, project threads, and contact details across recommendation, ads, experimentation, causal measurement, and applied AI.' %>
+            </p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="<%- url_for(isChinese ? '/writing-zh/' : '/writing/') %>"><%= isChinese ? '阅读写作' : 'Read writing' %></a>
+                <a class="btn btn-secondary" href="<%- url_for(isChinese ? '/about-zh/' : '/about/') %>"><%= isChinese ? '个人信息和联系方式' : 'About & Contact' %></a>
+            </div>
+            <div class="metric-strip">
+                <div class="metric">
+                    <strong><%= allPosts.length %></strong>
+                    <span><%= isChinese ? '公开文章' : 'Published posts' %></span>
+                </div>
+                <div class="metric">
+                    <strong><%= notesCount %></strong>
+                    <span><%= isChinese ? '技术预览' : 'Technical previews' %></span>
+                </div>
+                <div class="metric">
+                    <strong>4</strong>
+                    <span><%= isChinese ? '现有主题簇' : 'Current clusters' %></span>
+                </div>
+                <div class="metric">
+                    <strong>5</strong>
+                    <span><%= isChinese ? '主导航入口' : 'Primary destinations' %></span>
+                </div>
+            </div>
+        </div>
+        <aside class="hero-panel" aria-label="<%= isChinese ? '个人概览' : 'Profile snapshot' %>">
+            <h2 class="panel-title"><%= isChinese ? '个人概览' : 'Profile snapshot' %></h2>
+            <div class="decision-loop">
+                <div class="loop-step">
+                    <span>01</span>
+                    <p><strong><%= isChinese ? '专业方向' : 'Focus' %></strong><%= isChinese ? '数据产品、应用 AI、实验和测量系统。' : 'Data products, applied AI, experimentation, and measurement systems.' %></p>
+                </div>
+                <div class="loop-step">
+                    <span>02</span>
+                    <p><strong><%= isChinese ? '写作' : 'Writing' %></strong><%= isChinese ? '推荐、广告、实验、因果推断和智能体工作流相关的长文与笔记。' : 'Essays and notes on recommendation, ads, experiments, causal thinking, and agent workflows.' %></p>
+                </div>
+                <div class="loop-step">
+                    <span>03</span>
+                    <p><strong><%= isChinese ? '项目线索' : 'Projects' %></strong><%= isChinese ? '用问题、图示和方法记录可公开分享的技术工作。' : 'Public notes on problems, diagrams, methods, and reusable technical judgment.' %></p>
+                </div>
+                <div class="loop-step">
+                    <span>04</span>
+                    <p><strong><%= isChinese ? '站点' : 'Site' %></strong><%= isChinese ? '简洁的个人主页、写作档案和技术笔记入口。' : 'A concise personal homepage, writing archive, and technical notes index.' %></p>
+                </div>
+                <div class="loop-step">
+                    <span>05</span>
+                    <p><strong><%= isChinese ? '边界' : 'Boundary' %></strong><%= isChinese ? '只发布可公开分享的文章、图示和方法总结。' : 'Only public writing, diagrams, and reusable method notes are published here.' %></p>
+                </div>
+            </div>
+        </aside>
+    </section>
+
+    <section class="section section-tinted">
+        <div class="container">
+            <div class="section-head">
+                <h2><%= isChinese ? '精选写作' : 'Featured writing' %></h2>
+                <p><%= isChinese ? '近期文章和代表性图示，方便从首页直接进入完整写作档案。' : 'Recent essays and representative diagrams, with direct paths into the full writing archive.' %></p>
+            </div>
+            <div class="archive-list">
+                <% featuredPosts.forEach(function(post) { %>
+                    <article class="archive-row has-preview">
+                        <% if (post.featured_asset) { %>
+                            <a class="post-preview post-preview-image" href="<%- url_for(post.path) %>">
+                                <img src="<%- url_for(post.featured_asset) %>" alt="<%= post.title %>">
+                            </a>
+                        <% } else { %>
+                            <a class="post-preview preview-grid" href="<%- url_for(post.path) %>">
+                                <span><%= clusterLabels[post.topic_cluster] %></span>
+                            </a>
+                        <% } %>
+                        <div class="summary-stack">
+                            <span class="meta"><%= date(post.date, 'YYYY-MM-DD') %> · <%= clusterLabels[post.topic_cluster] %></span>
+                            <h3><a class="archive-row-link" href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
+                            <p><%= summaryFor(post) %></p>
+                        </div>
+                        <span class="tag"><%= clusterLabels[post.topic_cluster] %></span>
+                    </article>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <h2><%= isChinese ? '项目线索' : 'Project threads' %></h2>
+                <p><%= isChinese ? '围绕问题类型、系统边界和技术判断整理可公开分享的项目方向。' : 'Public project notes organized around problem types, system boundaries, and technical judgment.' %></p>
+            </div>
+            <div class="card-grid two">
+                <article class="card">
+                    <h3><%= isChinese ? '增长与测量系统' : 'Growth and measurement systems' %></h3>
+                    <p><%= isChinese ? '把模糊增长目标翻译成指标、实验、上线标准和反馈闭环。' : 'Translating ambiguous growth goals into metrics, experiments, launch criteria, and operating feedback.' %></p>
+                </article>
+                <article class="card">
+                    <h3><%= isChinese ? '推荐与广告基础设施' : 'Recommendation and ads infrastructure' %></h3>
+                    <p><%= isChinese ? '围绕排序、召回、分配和测量，平衡用户价值、市场约束与业务目标。' : 'Ranking, retrieval, allocation, and measurement layers that balance user value, marketplace constraints, and business goals.' %></p>
+                </article>
+                <article class="card">
+                    <h3><%= isChinese ? '因果测量与实验' : 'Causal measurement and experimentation' %></h3>
+                    <p><%= isChinese ? '关注 lift、holdout、归因窗口和反事实推断。' : 'Separating lift from correlation with holdouts, attribution windows, and counterfactual reasoning.' %></p>
+                </article>
+                <article class="card">
+                    <h3><%= isChinese ? '企业 AI 与智能体工作流' : 'Enterprise AI and agent workflows' %></h3>
+                    <p><%= isChinese ? '把评估、升级路径、人类复核和治理合同放在自动化之前。' : 'Putting evaluation, escalation, human review, and governance contracts ahead of workflow automation.' %></p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tinted">
+        <div class="container split-panel">
+            <aside class="sidebar-panel">
+                <h2><%= isChinese ? '继续阅读' : 'Continue through the site' %></h2>
+                <p><%= isChinese ? '从这里继续进入写作、技术笔记、项目线索和个人信息。' : 'Continue into writing, technical notes, project threads, and contact details.' %></p>
+                <div class="summary-list">
+                    <div class="summary-item">
+                        <strong><%= isChinese ? '写作' : 'Writing' %></strong>
+                        <span><%= isChinese ? '长文、主题簇、摘要和阅读路径。' : 'Long-form essays, topic clusters, summaries, and reading paths.' %></span>
+                    </div>
+                    <div class="summary-item">
+                        <strong><%= isChinese ? '技术笔记' : 'Technical Notes' %></strong>
+                        <span><%= isChinese ? '图示、约束、方法和更密集的实现痕迹。' : 'Diagrams, invariants, methods, and denser implementation traces.' %></span>
+                    </div>
+                    <div class="summary-item">
+                        <strong><%= isChinese ? '个人信息和联系方式' : 'About & Contact' %></strong>
+                        <span><%= isChinese ? '集中展示专业叙事、GitHub、邮箱和交流主题。' : 'A compact professional narrative, GitHub, email, and focused collaboration prompts.' %></span>
+                    </div>
+                </div>
+            </aside>
+            <div class="quiet-callout">
+                <h3><%= isChinese ? '个人信息和联系方式' : 'About and contact' %></h3>
+                <p><%= isChinese ? '关于我的专业方向、公开写作边界、GitHub 和邮件入口。' : 'Professional background, publication boundaries, GitHub, and email in one place.' %></p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="<%- url_for(isChinese ? '/about-zh/' : '/about/') %>"><%= isChinese ? '查看个人信息和联系方式' : 'Open About & Contact' %></a>
+                    <a class="btn btn-secondary" href="<%- url_for(isChinese ? '/projects-zh/' : '/projects/') %>"><%= isChinese ? '查看项目线索' : 'View project threads' %></a>
+                </div>
+                <div class="archive-utilities">
+                    <div class="footer-links">
+                        <a href="<%- url_for('/archives/') %>"><%= isChinese ? '归档' : 'Archives' %></a>
+                        <a href="<%- url_for('/categories/') %>"><%= isChinese ? '分类' : 'Categories' %></a>
+                        <a href="<%- url_for('/tags/') %>"><%= isChinese ? '标签' : 'Tags' %></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

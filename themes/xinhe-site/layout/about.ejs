@@ -1,0 +1,134 @@
+<%
+    var isChinese = (page.site_locale || '').indexOf('zh') === 0;
+    var githubLink = (theme.socialLink && theme.socialLink.github) ? theme.socialLink.github : 'https://github.com/XinheLIU';
+    var emailAddress = (theme.socialLink && theme.socialLink.email) ? theme.socialLink.email : 'xinhe_l@163.com';
+%>
+
+<main class="content site-page-main">
+    <section class="container hero">
+        <div>
+            <p class="eyebrow"><%= isChinese ? '个人信息和联系方式' : 'About & Contact' %></p>
+            <h1 class="display-title"><%= isChinese ? '我是昕和，关注数据、AI 与产品系统的工程师和技术写作者。' : 'I am Charles, an engineer and technical writer working across data, AI, and product systems.' %></h1>
+            <p class="lead"><%= isChinese ? '这里集中放置我的专业方向、写作边界、GitHub 和联系入口。' : 'A compact place for my professional focus, writing boundaries, GitHub, and contact details.' %></p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="#contact"><%= isChinese ? '开始技术交流' : 'Start a focused conversation' %></a>
+                <a class="btn btn-secondary" href="<%- url_for(isChinese ? '/projects-zh/' : '/projects/') %>"><%= isChinese ? '查看项目线索' : 'View project threads' %></a>
+            </div>
+        </div>
+        <aside class="hero-panel">
+            <h2 class="panel-title"><%= isChinese ? '个人框架' : 'Profile frame' %></h2>
+            <div class="summary-list">
+                <div class="summary-item">
+                    <strong><%= isChinese ? '身份' : 'Profile' %></strong>
+                    <span><%= isChinese ? '工程师、技术写作者，以及数据密集型产品系统的建设者。' : 'Engineer, technical writer, and builder of data-heavy product systems.' %></span>
+                </div>
+                <div class="summary-item">
+                    <strong><%= isChinese ? '领域' : 'Domains' %></strong>
+                    <span><%= isChinese ? '推荐、广告、实验、因果测量、应用 AI。' : 'Recommendation, ads, experimentation, causal measurement, applied AI.' %></span>
+                </div>
+                <div class="summary-item">
+                    <strong><%= isChinese ? '写作风格' : 'Writing style' %></strong>
+                    <span><%= isChinese ? '系统笔记、图示、约束、实现权衡。' : 'Systems notes, diagrams, invariants, and implementation tradeoffs.' %></span>
+                </div>
+                <div class="summary-item">
+                    <strong><%= isChinese ? '公开边界' : 'Public boundary' %></strong>
+                    <span><%= isChinese ? '不公开私有雇主/客户细节和非公开案例。' : 'No private employer/client details or non-public case studies.' %></span>
+                </div>
+            </div>
+        </aside>
+    </section>
+
+    <section class="section section-tinted">
+        <div class="container split-panel">
+            <aside class="sidebar-panel">
+                <h2><%= isChinese ? '专业叙事' : 'Professional narrative' %></h2>
+                <p><%= isChinese ? '我更关注问题定义、测量设计和系统中的可解释反馈。' : 'I focus on problem framing, measurement design, and inspectable feedback in systems.' %></p>
+            </aside>
+            <div class="card">
+                <h3><%= isChinese ? '我在做什么' : 'What I work on' %></h3>
+                <p><%= isChinese ? '我关注数据产品、推荐与广告系统、实验、因果测量，以及逐渐进入真实工作流的应用 AI。这个站点用于沉淀公开写作、技术笔记和项目线索。' : 'I work across data products, recommendation and ads systems, experimentation, causal measurement, and applied AI workflows. This site collects public writing, technical notes, and project threads.' %></p>
+                <p style="margin-top: 20px;"><%= isChinese ? '我更偏好精确的问题定义，而不是宽泛结论。好的系统通常会显式表达不确定性、约束条件和可供人类检查的痕迹。' : 'I prefer precise problem framing over broad claims. Strong systems make uncertainty visible, define their constraints, and leave a trail that humans can inspect.' %></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <h2><%= isChinese ? '页面内容' : 'On this page' %></h2>
+                <p><%= isChinese ? '这一页集中展示专业信息、公开发布边界和直接联系入口。' : 'The combined page should connect the professional narrative, publication boundary, and direct contact paths without turning into another homepage.' %></p>
+            </div>
+            <div class="card-grid">
+                <article class="card">
+                    <h3><%= isChinese ? '我关注的问题' : 'What I work on' %></h3>
+                    <p><%= isChinese ? '增长、推荐、广告、实验、因果测量与应用 AI 的数据密集型系统。' : 'Data-heavy product systems across growth, recommendation, ads, experimentation, causal measurement, and applied AI.' %></p>
+                </article>
+                <article class="card">
+                    <h3><%= isChinese ? '我如何思考' : 'How I think' %></h3>
+                    <p><%= isChinese ? '问题定义、测量设计、模型/智能体集成、反馈闭环和诚实地处理不确定性。' : 'Problem framing, measurement design, model and agent integration, operating feedback, and honest uncertainty.' %></p>
+                </article>
+                <article class="card">
+                    <h3><%= isChinese ? '我会公开什么' : 'What I publish' %></h3>
+                    <p><%= isChinese ? '技术文章、系统图示、实现笔记、方法痕迹和项目线索。' : 'Technical essays, notes, diagrams, implementation traces, and project threads.' %></p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tinted" id="contact">
+        <div class="container contact-grid">
+            <aside class="contact-card">
+                <h3><%= isChinese ? '适合联系的主题' : 'Good reasons to reach out' %></h3>
+                <p><%= isChinese ? '适合围绕技术写作、实验、测量系统和应用 AI 展开交流。' : 'Useful starting points for technical writing, experimentation, measurement systems, and applied AI.' %></p>
+                <div class="summary-list">
+                    <div class="summary-item">
+                        <strong><%= isChinese ? '技术写作与审阅' : 'Technical writing and review' %></strong>
+                        <span><%= isChinese ? '把复杂系统整理成清晰的图示、说明和可复用文档。' : 'Turning complex systems into clear diagrams, notes, and reusable explanations.' %></span>
+                    </div>
+                    <div class="summary-item">
+                        <strong><%= isChinese ? '实验与因果测量' : 'Experimentation and causal measurement' %></strong>
+                        <span><%= isChinese ? 'A/B 设计、holdout、guardrail、归因与 incrementality。' : 'A/B design, holdouts, guardrails, attribution, and incrementality.' %></span>
+                    </div>
+                    <div class="summary-item">
+                        <strong><%= isChinese ? '推荐、广告与应用 AI' : 'Recommendation, ads, and applied AI' %></strong>
+                        <span><%= isChinese ? '系统架构、评估、智能体工作流与技术写作。' : 'System architecture, evaluation, agent workflows, and technical writing.' %></span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>GitHub / Email</strong>
+                        <span><a class="archive-row-link" href="<%- githubLink %>" target="_blank" rel="noreferrer">GitHub</a> · <a class="archive-row-link" href="mailto:<%- emailAddress %>"><%- emailAddress %></a></span>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="contact-card">
+                <h3><%= isChinese ? '消息草稿预览' : 'Message draft' %></h3>
+                <p><%= isChinese ? '这个小交互只负责帮助整理邮件开头，不会把消息发送出去。' : 'This small interaction only drafts a message opening. It does not send anything.' %></p>
+                <form data-contact-form>
+                    <div class="field">
+                        <label for="name"><%= isChinese ? '姓名' : 'Name' %></label>
+                        <input id="name" name="name" type="text" placeholder="<%= isChinese ? '你的名字' : 'Your name' %>">
+                    </div>
+                    <div class="field">
+                        <label for="topic"><%= isChinese ? '主题' : 'Topic' %></label>
+                        <input id="topic" name="topic" type="text" placeholder="<%= isChinese ? '技术写作、实验、因果测量、应用 AI...' : 'Technical writing, experimentation, causal measurement, applied AI...' %>">
+                    </div>
+                    <div class="field">
+                        <label for="message"><%= isChinese ? '内容' : 'Message' %></label>
+                        <textarea id="message" name="message" placeholder="<%= isChinese ? '简短说明你想交流的技术主题。' : 'A concise note about the technical topic you want to discuss.' %>"></textarea>
+                    </div>
+                    <button class="btn btn-primary" type="submit"><%= isChinese ? '生成草稿' : 'Preview message' %></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container split-panel">
+            <aside class="sidebar-panel">
+                <h2><%= isChinese ? '预览文本' : 'Generated preview' %></h2>
+                <p><%= isChinese ? '可直接复制到邮件里，或继续补充更具体的技术上下文。' : 'Use this as the start of an email, then add the specific technical context you want to discuss.' %></p>
+            </aside>
+            <pre class="card contact-preview" data-contact-preview><%= isChinese ? '主题：技术交流\n\n昕和你好，\n\n我想交流一个技术主题，可能与实验、推荐、因果测量或应用人工智能有关。\n\n祝好，\n你的名字' : 'Subject: Technical conversation\n\nHi Charles,\n\nI would like to discuss a technical topic around experimentation, recommendation, causal measurement, or applied AI.\n\nBest,\nYour name' %></pre>
+        </div>
+    </section>
+</main>

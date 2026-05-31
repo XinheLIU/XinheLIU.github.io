@@ -1,0 +1,4 @@
+<%
+    var isChinese = (page.site_locale || '').indexOf('zh') === 0;
+%>
+<%- partial('_partial/xinhe-home-content', { isChinese: isChinese }) %>

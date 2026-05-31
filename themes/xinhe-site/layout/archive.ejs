@@ -1,0 +1,62 @@
+<%
+    var clusterLabels = {
+        'ads-systems': 'Ads systems',
+        'recommendation': 'Recommendation',
+        'experimentation': 'Experimentation',
+        'causal-measurement': 'Causal measurement',
+        'enterprise-ai': 'Enterprise AI'
+    };
+
+    function summaryFor(post) {
+        if (post.summary_en) return post.summary_en;
+        if (post.summary_zh) return post.summary_zh;
+        if (post.summary) return post.summary;
+        return strip_html(post.content).substring(0, 120);
+    }
+%>
+
+<main class="content site-page-main">
+    <section class="container hero-narrow">
+        <p class="eyebrow">Archives</p>
+        <h1 class="page-title"><%= is_month() ? 'Archives: ' + page.year + '/' + page.month : (is_year() ? 'Archives: ' + page.year : 'Archives') %></h1>
+        <p class="lead">A compact archive view with previews, dates, and topic cues. Tags and Categories remain secondary utilities rather than primary navigation.</p>
+    </section>
+
+    <section class="section compact">
+        <div class="container">
+            <div class="archive-list">
+                <% page.posts.each(function(post) { %>
+                    <article class="archive-row has-preview">
+                        <% if (post.featured_asset) { %>
+                            <a class="post-preview post-preview-image" href="<%- url_for(post.path) %>">
+                                <img src="<%- url_for(post.featured_asset) %>" alt="<%= post.title %>">
+                            </a>
+                        <% } else { %>
+                            <a class="post-preview preview-grid" href="<%- url_for(post.path) %>">
+                                <span><%= clusterLabels[post.topic_cluster] || 'Archive' %></span>
+                            </a>
+                        <% } %>
+                        <div class="summary-stack">
+                            <span class="meta"><%= date(post.date, 'YYYY-MM-DD') %></span>
+                            <h3><a class="archive-row-link" href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
+                            <p><%= summaryFor(post) %></p>
+                        </div>
+                        <span class="tag"><%= clusterLabels[post.topic_cluster] || 'Archive' %></span>
+                    </article>
+                <% }); %>
+            </div>
+
+            <div class="archive-utilities">
+                <div class="footer-links">
+                    <a href="<%- url_for('/writing/') %>">Writing</a>
+                    <a href="<%- url_for('/tags/') %>">Tags</a>
+                    <a href="<%- url_for('/categories/') %>">Categories</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<% if (page.total > 1) { %>
+    <%- partial('_partial/paging') %>
+<% } %>

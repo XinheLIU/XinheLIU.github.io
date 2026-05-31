@@ -1,0 +1,121 @@
+<%
+    var isChinese = (page.site_locale || '').indexOf('zh') === 0;
+    var githubLink = (theme.socialLink && theme.socialLink.github) ? theme.socialLink.github : 'https://github.com/XinheLIU';
+%>
+
+<main class="content site-page-main">
+    <section class="container hero-narrow">
+        <p class="eyebrow"><%= isChinese ? '项目' : 'Projects' %></p>
+        <h1 class="page-title"><%= isChinese ? '项目线索：测量、推荐、广告、因果推断与应用 AI。' : 'Project threads across measurement, recommendation, ads, causal inference, and applied AI.' %></h1>
+        <p class="lead"><%= isChinese ? '用问题类别、系统边界、权衡和可复用产物记录技术工作。' : 'Technical work organized by problem class, system boundary, tradeoffs, and reusable artifacts.' %></p>
+    </section>
+
+    <section class="section compact section-tinted">
+        <div class="container">
+            <div class="section-head">
+                <h2><%= isChinese ? '项目方向' : 'Project directions' %></h2>
+                <p><%= isChinese ? '这些方向连接写作、系统图和后续可公开分享的技术产物。' : 'These directions connect writing, system diagrams, and future public technical artifacts.' %></p>
+            </div>
+            <div class="card-grid two">
+                <article class="card">
+                    <div class="post-preview preview-chart"><span><%= isChinese ? '指标 / 上线' : 'metrics / launch' %></span></div>
+                    <h3><%= isChinese ? '增长与测量系统' : 'Growth and measurement systems' %></h3>
+                    <p><%= isChinese ? '把业务目标翻译成指标、实验、上线标准和反馈闭环。' : 'Translating ambiguous growth goals into metrics, experiments, launch criteria, and operating feedback.' %></p>
+                </article>
+                <article class="card">
+                    <div class="post-preview preview-grid"><span><%= isChinese ? '排序 / 广告' : 'ranking / ads' %></span></div>
+                    <h3><%= isChinese ? '推荐与广告基础设施' : 'Recommendation and ads infrastructure' %></h3>
+                    <p><%= isChinese ? '围绕排序、召回、分配和测量，平衡用户价值、市场约束与业务目标。' : 'Ranking, retrieval, allocation, and measurement layers that balance user value, marketplace constraints, and business goals.' %></p>
+                </article>
+                <article class="card">
+                    <div class="post-preview preview-diagram"><span><%= isChinese ? '对照 / 增量' : 'holdout / lift' %></span></div>
+                    <h3><%= isChinese ? '因果测量与实验' : 'Causal measurement and experimentation' %></h3>
+                    <p><%= isChinese ? '围绕 holdout、lift、归因窗口和反事实推断建立决策依据。' : 'Separating lift from correlation with holdouts, attribution windows, and counterfactual reasoning.' %></p>
+                </article>
+                <article class="card">
+                    <div class="post-preview preview-grid"><span><%= isChinese ? '智能体 / 复核' : 'agent / review' %></span></div>
+                    <h3><%= isChinese ? '企业 AI 与智能体工作流' : 'Enterprise AI and agent workflows' %></h3>
+                    <p><%= isChinese ? '把评估、升级路径、人工复核和治理合同放在自动化之前。' : 'Integrating agents into real workflows through evaluation, escalation, human review, and measurable operating contracts.' %></p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <h2><%= isChinese ? '项目记录结构' : 'Project note structure' %></h2>
+                <p><%= isChinese ? '每条项目线索都保留问题、边界、权衡、产物和可迁移经验。' : 'Each project note keeps the problem, boundary, tradeoffs, artifact, and transferable lesson visible.' %></p>
+            </div>
+            <div class="path-map">
+                <div class="path-step">
+                    <span>01</span>
+                    <strong><%= isChinese ? '问题形状' : 'Problem shape' %></strong>
+                    <p><%= isChinese ? '描述决策问题的类别，不写私有组织名称。' : 'Describe the class of decision problem, not the private organization.' %></p>
+                </div>
+                <div class="path-step">
+                    <span>02</span>
+                    <strong><%= isChinese ? '系统边界' : 'System boundary' %></strong>
+                    <p><%= isChinese ? '说明输入、输出、约束和反馈信号。' : 'Explain inputs, outputs, constraints, and feedback signals.' %></p>
+                </div>
+                <div class="path-step">
+                    <span>03</span>
+                    <strong><%= isChinese ? '关键权衡' : 'Tradeoffs' %></strong>
+                    <p><%= isChinese ? '速度 vs 有效性、自动化 vs 复核、增长 vs guardrail。' : 'Speed vs validity, automation vs review, growth vs guardrails.' %></p>
+                </div>
+                <div class="path-step">
+                    <span>04</span>
+                    <strong><%= isChinese ? '可复用产物' : 'Reusable artifact' %></strong>
+                    <p><%= isChinese ? '如果已经公开，就链接图示、清单、笔记或仓库。' : 'Link a diagram, checklist, note, or repo when it is public.' %></p>
+                </div>
+                <div class="path-step">
+                    <span>05</span>
+                    <strong><%= isChinese ? '迁移价值' : 'Transferable lesson' %></strong>
+                    <p><%= isChinese ? '用可迁移的经验收尾，而不是业绩数字。' : 'End with a transferable lesson, not an inflated performance claim.' %></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tinted">
+        <div class="container split-panel">
+            <aside class="sidebar-panel">
+                <h2><%= isChinese ? '发布边界' : 'Publication boundaries' %></h2>
+                <p><%= isChinese ? '只保留可以公开讨论的问题、图示、方法和经验。' : 'Only public problems, diagrams, methods, and lessons are included here.' %></p>
+            </aside>
+            <div class="archive-list">
+                <article class="archive-row has-preview">
+                    <div class="post-preview preview-grid"><span><%= isChinese ? '边界' : 'boundary' %></span></div>
+                    <div class="summary-stack">
+                        <h3><%= isChinese ? '雇主或客户标识' : 'Employer or client identifiers' %></h3>
+                        <p><%= isChinese ? '统一替换为领域级描述：推荐系统、广告平台、实验基础设施、企业 AI。' : 'Replace with domain-level descriptions: enterprise AI, recommendation systems, ads platforms, experiment infrastructure.' %></p>
+                    </div>
+                    <span class="tag"><%= isChinese ? '隐私' : 'Privacy' %></span>
+                </article>
+                <article class="archive-row has-preview">
+                    <div class="post-preview preview-diagram"><span><%= isChinese ? '系统图' : 'system map' %></span></div>
+                    <div class="summary-stack">
+                        <h3><%= isChinese ? '私有指标与内部架构' : 'Private metrics and internal architecture' %></h3>
+                        <p><%= isChinese ? '只保留系统目标、公开图示和通用约束，不写非公开细节。' : 'Keep qualitative system goals, public diagrams, and general constraints. Leave out non-public details.' %></p>
+                    </div>
+                    <span class="tag"><%= isChinese ? '保密' : 'Confidentiality' %></span>
+                </article>
+                <article class="archive-row has-preview">
+                    <div class="post-preview preview-chart"><span><%= isChinese ? '结果校验' : 'claim check' %></span></div>
+                    <div class="summary-stack">
+                        <h3><%= isChinese ? '夸大的结果陈述' : 'Inflated outcome claims' %></h3>
+                        <p><%= isChinese ? '没有公开出处的数字就不要写，用方法与判断替代。' : 'Do not invent numbers. If a number is not public and attributable, leave it out.' %></p>
+                    </div>
+                    <span class="tag"><%= isChinese ? '可信度' : 'Credibility' %></span>
+                </article>
+            </div>
+        </div>
+        <div class="container page-note">
+            <div class="footer-links">
+                <a href="<%- githubLink %>" target="_blank" rel="noreferrer">GitHub</a>
+                <a href="<%- url_for(isChinese ? '/writing-zh/' : '/writing/') %>"><%= isChinese ? '相关写作' : 'Related writing' %></a>
+                <a href="<%- url_for(isChinese ? '/technical-notes-zh/' : '/technical-notes/') %>"><%= isChinese ? '技术笔记' : 'Technical Notes' %></a>
+            </div>
+        </div>
+    </section>
+</main>

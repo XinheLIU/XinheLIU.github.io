@@ -7,6 +7,15 @@ categories:
 tags:
   - AB实验
 updated: 2024-12-14 13:30:00
+summary_en: A deeper look at difficult A/B testing cases such as interference, long-term effects, triggering, surrogate metrics, and cluster design.
+summary_zh: 讨论 A/B 实验中的复杂问题，如干扰、长期效应、触发分析、替代指标与分群设计。
+topic_cluster: experimentation
+public_focus: Public-safe notes on experimental failure modes, guardrails, and design tradeoffs.
+note_type: invariant-check
+featured_asset: /AB-Test/intro-2/AB-Test-CCD.png
+confidentiality_safe: true
+site_locale: zh-CN
+last_updated: 2026-05-31
 ---
 
 # AB实验中的难题
