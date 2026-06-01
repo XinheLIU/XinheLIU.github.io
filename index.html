@@ -1,11 +1,12 @@
+
 <!DOCTYPE HTML>
-<html lang="zh-CN">
+<html lang="en">
 
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="查拉图斯特拉后花园">
-    <meta name="description" content="生活随便、技术闲聊">
+    <meta name="keywords" content="Charles">
+    <meta name="description" content="Engineer and technical writer working across data products, recommendation, ads, experimentation, causal measurement, and applied AI workflows.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,13 +18,13 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>查拉图斯特拉后花园</title>
+    <title>Charles</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
 
     <!-- index cover -->
-    <!-- <link rel="stylesheet preload" type="text/css" href="/css/indexcover.css"> -->
+    <!-- <link rel="stylesheet preload" type="text/css" href="/"> -->
     <style>
         .carousel-control {
             width: 45px;
@@ -74,7 +75,7 @@
 <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
 <link rel="stylesheet" type="text/css" href="/css/matery.css">
 <link rel="stylesheet" type="text/css" href="/css/my.css">
-<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
 
 
 
@@ -102,1230 +103,309 @@
 
 
 <body>
-    <header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">查拉图斯特拉后花园</span>
-                </a>
-            </div>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
             
 
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
+<a class="brand-lockup" href="/" aria-label="Charles home">
+    <span class="brand-mark">X</span>
+    <span class="brand-name">
+        <strong>Charles</strong>
+        <span>Personal site</span>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
     
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>首页</span>
+        <a href="/" class="is-active">Home</a>
+    
+        <a href="/writing/" class="">Writing</a>
+    
+        <a href="/technical-notes/" class="">Technical Notes</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <i class="fas fa-search"></i>
     </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>标签</span>
+    <a class="lang-switch" href="/home-zh/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
     </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>分类</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>归档</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-  <li>
-    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
-      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
+</div>
 
 
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">查拉图斯特拉后花园</div>
-        <div class="logo-desc">
-            
-            生活随便、技术闲聊
-            
-        </div>
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">X</span>
+            <span class="brand-name">
+                <strong>Charles</strong>
+                <span>Personal site</span>
+            </span>
+        </a>
+        <p>Charles: personal site, writing, and technical notes.</p>
     </div>
 
-    <ul class="menu-list mobile-menu-list">
+    <ul class="mobile-nav-list">
         
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			首页
-		</a>
-          
-        </li>
+            <li><a href="/">Home</a></li>
         
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			标签
-		</a>
-          
-        </li>
+            <li><a href="/writing/">Writing</a></li>
         
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			分类
-		</a>
-          
-        </li>
+            <li><a href="/technical-notes/">Technical Notes</a></li>
         
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			归档
-		</a>
-          
-        </li>
+            <li><a href="/projects/">Projects</a></li>
         
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
-		</a>
-          
-        </li>
-        
-        
-        <li><div class="divider"></div></li>
-        <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
-                <i class="fab fa-github-square fa-fw"></i>Fork Me
-            </a>
-        </li>
+            <li><a href="/about/">About &amp; Contact</a></li>
         
     </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <i class="fas fa-search"></i>
+        </a>
+        <a class="lang-switch" href="/home-zh/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
 </div>
 
 
         </div>
-
-        
-            <style>
-    .nav-transparent .github-corner {
-        display: none !important;
-    }
-
-    .github-corner {
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        right: 0;
-        border: 0;
-        transform: scale(1.1);
-    }
-
-    .github-corner svg {
-        color: #0f9d58;
-        fill: #fff;
-        height: 64px;
-        width: 64px;
-    }
-
-    .github-corner:hover .octo-arm {
-        animation: a 0.56s ease-in-out;
-    }
-
-    .github-corner .octo-arm {
-        animation: none;
-    }
-
-    @keyframes a {
-        0%,
-        to {
-            transform: rotate(0);
-        }
-        20%,
-        60% {
-            transform: rotate(-25deg);
-        }
-        40%,
-        80% {
-            transform: rotate(10deg);
-        }
-    }
-</style>
-
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
-    </svg>
-</a>
-        
     </nav>
-
 </header>
 
     
 
+<main class="content site-page-main">
+    <section class="container hero">
+        <div>
+            <p class="eyebrow">Personal site · writing · technical notes</p>
+            <h1 class="display-title">
+                Charles writes about data, AI, and product systems.
+            </h1>
+            <p class="lead">
+                A compact home for my technical writing, systems notes, project threads, and contact details across recommendation, ads, experimentation, causal measurement, and applied AI.
+            </p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="/writing/">Read writing</a>
+                <a class="btn btn-secondary" href="/about/">About &amp; Contact</a>
+            </div>
+            <div class="metric-strip">
+                <div class="metric">
+                    <strong>9</strong>
+                    <span>Published posts</span>
+                </div>
+                <div class="metric">
+                    <strong>5</strong>
+                    <span>Technical previews</span>
+                </div>
+                <div class="metric">
+                    <strong>4</strong>
+                    <span>Current clusters</span>
+                </div>
+                <div class="metric">
+                    <strong>5</strong>
+                    <span>Primary destinations</span>
+                </div>
+            </div>
+        </div>
+        <aside class="hero-panel" aria-label="Profile snapshot">
+            <h2 class="panel-title">Profile snapshot</h2>
+            <div class="decision-loop">
+                <div class="loop-step">
+                    <span>01</span>
+                    <p><strong>Focus</strong>Data products, applied AI, experimentation, and measurement systems.</p>
+                </div>
+                <div class="loop-step">
+                    <span>02</span>
+                    <p><strong>Writing</strong>Essays and notes on recommendation, ads, experiments, causal thinking, and agent workflows.</p>
+                </div>
+                <div class="loop-step">
+                    <span>03</span>
+                    <p><strong>Projects</strong>Public notes on problems, diagrams, methods, and reusable technical judgment.</p>
+                </div>
+                <div class="loop-step">
+                    <span>04</span>
+                    <p><strong>Site</strong>A concise personal homepage, writing archive, and technical notes index.</p>
+                </div>
+                <div class="loop-step">
+                    <span>05</span>
+                    <p><strong>Boundary</strong>Only public writing, diagrams, and reusable method notes are published here.</p>
+                </div>
+            </div>
+        </aside>
+    </section>
 
-<div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
-    
-
-    <div class="carousel-item  white-text bg-cover about-cover">
+    <section class="section section-tinted">
         <div class="container">
-            <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                随便聊聊
-                
+            <div class="section-head">
+                <h2>Featured writing</h2>
+                <p>Recent essays and representative diagrams, with direct paths into the full writing archive.</p>
             </div>
-
-            <div class="description center-align">
+            <div class="archive-list">
                 
-                <span id="subtitle"></span>
-                <script src="/libs/typed/typed.js"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: [ 
-                            
-                                "每个人都应当经历自己的变形：先如骆驼般负重前行，再如狮子般挣脱束缚，最后如孩童般纯真创造。",
-                            
-                                "精神的蜕变是生命的奥秘，是心灵的历程，是引导人走向超越的阶梯",
-                            
-                        ],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
+                    <article class="archive-row has-preview">
+                        
+                            <a class="post-preview post-preview-image" href="/ads/intro-3/">
+                                <img src="/ads/intro-3/Ads-Strategy-Behavior-Decomp.png" alt="计算广告（3）广告策略">
+                            </a>
+                        
+                        <div class="summary-stack">
+                            <span class="meta">2025-08-08 · Ads systems</span>
+                            <h3><a class="archive-row-link" href="/ads/intro-3/">计算广告（3）广告策略</a></h3>
+                            <p>Strategy notes on budget pacing, traffic allocation, behavior decomposition, and optimization controls inside ads systems.</p>
+                        </div>
+                        <span class="tag">Ads systems</span>
+                    </article>
+                
+                    <article class="archive-row has-preview">
+                        
+                            <a class="post-preview post-preview-image" href="/recsys/101-intro-3/">
+                                <img src="/recsys/101-intro-3/%E5%A4%9A%E7%9B%AE%E6%A0%87-1.png" alt="推荐系统101(3)算法前沿">
+                            </a>
+                        
+                        <div class="summary-stack">
+                            <span class="meta">2023-12-15 · Recommendation</span>
+                            <h3><a class="archive-row-link" href="/recsys/101-intro-3/">推荐系统101(3)算法前沿</a></h3>
+                            <p>A survey of advanced recommendation models, multi-objective optimization, representation learning, and real-time system evolution.</p>
+                        </div>
+                        <span class="tag">Recommendation</span>
+                    </article>
+                
+                    <article class="archive-row has-preview">
+                        
+                            <a class="post-preview post-preview-image" href="/AB-Test/intro-2/">
+                                <img src="/AB-Test/intro-2/AB-Test-CCD.png" alt="AB实验（2）AB实验中的难题">
+                            </a>
+                        
+                        <div class="summary-stack">
+                            <span class="meta">2024-06-20 · Experimentation</span>
+                            <h3><a class="archive-row-link" href="/AB-Test/intro-2/">AB实验（2）AB实验中的难题</a></h3>
+                            <p>A deeper look at difficult A/B testing cases such as interference, long-term effects, triggering, surrogate metrics, and cluster design.</p>
+                        </div>
+                        <span class="tag">Experimentation</span>
+                    </article>
+                
+                    <article class="archive-row has-preview">
+                        
+                            <a class="post-preview post-preview-image" href="/causal/intro-1/">
+                                <img src="/causal/intro-1/confounding-bias.png" alt="因果推断（1）什么是因果推断">
+                            </a>
+                        
+                        <div class="summary-stack">
+                            <span class="meta">2024-01-18 · Causal measurement</span>
+                            <h3><a class="archive-row-link" href="/causal/intro-1/">因果推断（1）什么是因果推断</a></h3>
+                            <p>An introduction to causal inference, including confounding, selection bias, counterfactual thinking, and the role of randomized experiments.</p>
+                        </div>
+                        <span class="tag">Causal measurement</span>
+                    </article>
                 
             </div>
         </div>
-    </div>
-</div>
+    </section>
 
-
-<script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
-</script>
-<script>
-    
-      var bannerUrl = "/medias/featureimages/" + Math.floor(Math.random() * 24) + '.jpg';
-    
-    $('.bg-cover.about-cover').css('background-image', 'url(' + bannerUrl + ')');
-
-</script>
-
-
-
-            <div class="cover-btns">
-                <a href="#indexCard" class="waves-effect waves-light btn">
-                    <i class="fa fa-angle-double-down"></i>开始阅读
-                </a>
-
-                
-                    <a href="https://github.com/XinheLIU" class="waves-effect waves-light btn" target="_blank">
-                        <i class="fab fa-github-alt"></i>Github
-                    </a>
-                
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <h2>Project threads</h2>
+                <p>Public project notes organized around problem types, system boundaries, and technical judgment.</p>
             </div>
-            <div class="cover-social-link">
-    <a href="https://github.com/XinheLIU" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:xinhe_l@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
-
-</div>
+            <div class="card-grid two">
+                <article class="card">
+                    <h3>Growth and measurement systems</h3>
+                    <p>Translating ambiguous growth goals into metrics, experiments, launch criteria, and operating feedback.</p>
+                </article>
+                <article class="card">
+                    <h3>Recommendation and ads infrastructure</h3>
+                    <p>Ranking, retrieval, allocation, and measurement layers that balance user value, marketplace constraints, and business goals.</p>
+                </article>
+                <article class="card">
+                    <h3>Causal measurement and experimentation</h3>
+                    <p>Separating lift from correlation with holdouts, attribution windows, and counterfactual reasoning.</p>
+                </article>
+                <article class="card">
+                    <h3>Enterprise AI and agent workflows</h3>
+                    <p>Putting evaluation, escalation, human review, and governance contracts ahead of workflow automation.</p>
+                </article>
+            </div>
         </div>
-    </div>
+    </section>
 
-    
-</div>
-
-<script>
-    $(function () {
-        let coverSlider = $('.carousel');
-
-        //用户触摸轮播自动 restartPlay 是否生效
-        let initUserPressedOrDraggedActive = false
-
-        //用户触摸轮播自动 restartPlay
-        function initUserPressedOrDragged(instance) {
-            setInterval(() => {
-                if (instance.pressed || instance.dragged) {
-                    // console.log('initUserPressedOrDragged: ',instance.pressed,instance.dragged)
-                    restartPlay()
-                }
-            }, 1000)
-        }
-
-        coverSlider.carousel({
-            duration: Number('120'),
-            fullWidth: true,
-            indicators: 'true' === 'true',
-            onCycleTo() {
-                if (!initUserPressedOrDraggedActive) {
-                    // console.log('initUserPressedOrDraggedActive')
-                    initUserPressedOrDragged(this)
-                    initUserPressedOrDraggedActive = true
-                }
-            },
-        })
-
-        let carouselIntervalId;
-        
-        // Loop to call the next cover article picture.
-        let autoCarousel = function () {
-            carouselIntervalId = setInterval(function () {
-                coverSlider.carousel('next');
-            }, 5000);
-        };
-        autoCarousel();
-        
-
-        function restartPlay() {
-            
-            clearInterval(carouselIntervalId);
-            autoCarousel();
-            
-        };
-
-        
-        // prev and next cover post.
-        $('#prev-cover').click(function () {
-            coverSlider.carousel('prev');
-            restartPlay();
-        });
-        $('#next-cover').click(function () {
-            coverSlider.carousel('next');
-            restartPlay();
-        });
-        
-    });
-</script>
-
-
-
-<main class="content">
-
-    
-    <div id="indexCard" class="index-card">
-        <div class="container ">
-            <div class="card">
-                <div class="card-content">
-                    
-
-                    
-
-                    
-
-                    
-                    <div id="recommend-sections" class="recommend">
-                        
-
-
-
+    <section class="section section-tinted">
+        <div class="container split-panel">
+            <aside class="sidebar-panel">
+                <h2>Continue through the site</h2>
+                <p>Continue into writing, technical notes, project threads, and contact details.</p>
+                <div class="summary-list">
+                    <div class="summary-item">
+                        <strong>Writing</strong>
+                        <span>Long-form essays, topic clusters, summaries, and reading paths.</span>
                     </div>
-                    
+                    <div class="summary-item">
+                        <strong>Technical Notes</strong>
+                        <span>Diagrams, invariants, methods, and denser implementation traces.</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>About &amp; Contact</strong>
+                        <span>A compact professional narrative, GitHub, email, and focused collaboration prompts.</span>
+                    </div>
+                </div>
+            </aside>
+            <div class="quiet-callout">
+                <h3>About and contact</h3>
+                <p>Professional background, publication boundaries, GitHub, and email in one place.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="/about/">Open About &amp; Contact</a>
+                    <a class="btn btn-secondary" href="/projects/">View project threads</a>
+                </div>
+                <div class="archive-utilities">
+                    <div class="footer-links">
+                        <a href="/archives/">Archives</a>
+                        <a href="/categories/">Categories</a>
+                        <a href="/tags/">Tags</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-
-    
-
-    <!-- 所有文章卡片 -->
-    <article id="articles" class="container articles">
-        <div class="row article-row">
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/ads/intro-3/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="计算广告（3）广告策略">
-                            
-                            <span class="card-title">计算广告（3）广告策略</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                 广告策略
-
-广告策略
-
-流量策略
-
-体验策略
-样式策略
-
-
-投放策略
-
-冷启动
-稳定性
-
-成本稳定性
-投放稳定性
-模型优化
-
-
-出价策略
-
-
-转化和归因
-
-转化
-归因
-
-
-创意和智能投放
-
-创意生产和管理
-
-
-素材数据检索能力
-
-诊断
-智
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-08-08
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    技术
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
-                            <span class="chip bg-color">搜广推</span>
-                        </a>
-                        
-                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
-                            <span class="chip bg-color">人工智能和机器学习</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/ads/intro-2/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="计算广告（2）计算广告系统">
-                            
-                            <span class="card-title">计算广告（2）计算广告系统</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-广告系统Overview
-
-广告是怎样投放出来的？
-广告策略和系统的关系概览
-广告vs推荐vs搜索
-
-
-排序 (Ranking)
-
-召回
-
-Key-value召回
-聚类算法：Ann（approximate nearest neighbor
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-30
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    技术
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
-                            <span class="chip bg-color">搜广推</span>
-                        </a>
-                        
-                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
-                            <span class="chip bg-color">人工智能和机器学习</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/ads/intro-1/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="计算广告（1）广告业务简介">
-                            
-                            <span class="card-title">计算广告（1）广告业务简介</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                 互联网广告-1-广告业务简介
-
-互联网广告-1-广告业务简介
-
-广告的生意逻辑
-
-三方博弈
-
-
-广告主视角下的广告逻辑
-
-广告主预算决策逻辑
-营销科学/营销技术（MarTech）/数据科学扮演的角色
-
-
-平台视角的广告生意
-
-过去10年互
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    技术
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
-                            <span class="chip bg-color">搜广推</span>
-                        </a>
-                        
-                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
-                            <span class="chip bg-color">人工智能和机器学习</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/AB-Test/intro-2/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="AB实验（2）AB实验中的难题">
-                            
-                            <span class="card-title">AB实验（2）AB实验中的难题</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                 AB实验中的难题
-
-AB实验中的难题
-
-概览
-测算类问题：灵敏度和统计功效提升
-
-灵敏度提升
-Triggered Analysis
-Heterogenous Treatment Effect (异质性分析)
-
-
-实验机制与决策类问题
-
-L
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-20
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" class="post-category">
-                                    数据科学
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/AB%E5%AE%9E%E9%AA%8C/">
-                            <span class="chip bg-color">AB实验</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/AB-Test/intro-1/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="AB实验（1）AB实验从0到1">
-                            
-                            <span class="card-title">AB实验（1）AB实验从0到1</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-05-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" class="post-category">
-                                    数据科学
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/AB%E5%AE%9E%E9%AA%8C/">
-                            <span class="chip bg-color">AB实验</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/causal/intro-1/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="因果推断（1）什么是因果推断">
-                            
-                            <span class="card-title">因果推断（1）什么是因果推断</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-因果推断的历史
-Why：相关≠因果
-
-相关性和因果性的差异来源
-
-
-What：反事实难题
-How：实验 &amp; 从观察数据中学习因果效应
-
-AB实验
-从观察数据中学习因果效应
-
-
-
- 因果推断的历史
-
-哲学探索阶段（古代到 19 世纪
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-01-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" class="post-category">
-                                    数据科学
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/">
-                            <span class="chip bg-color">因果推断</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/recsys/101-intro-3/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="推荐系统101(3)算法前沿">
-                            
-                            <span class="card-title">推荐系统101(3)算法前沿</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-排序模型迭代
-
-多目标融合
-多任务(Multi-Task)
-多场景（Multi-Domain)
-
-
-特征工程
-
-兴趣表征和行为序列建模
-特征构造
-
-
-推荐链路
-
-链路表达一致性
-级联模型
-
-
-因果推断和Debias
-LLM for Rec
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    技术
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
-                            <span class="chip bg-color">搜广推</span>
-                        </a>
-                        
-                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
-                            <span class="chip bg-color">人工智能和机器学习</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/recsys/101-intro-2/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="推荐系统101(2)推荐策略">
-                            
-                            <span class="card-title">推荐系统101(2)推荐策略</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-推荐系统三要素：用户、信息、平台的协同演进
-策略产品角色
-
-常见的推荐策略
-用户体验策略
-冷启动策略
-生态策略
-样式和交互设计
-
-
-参考
-
- 推荐系统三要素：用户、信息、平台的协同演进
-推荐系统中产品作用通常 &gt; 算法作用；原因：现
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-14
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    技术
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
-                            <span class="chip bg-color">搜广推</span>
-                        </a>
-                        
-                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
-                            <span class="chip bg-color">人工智能和机器学习</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/recsys/101-intro-1/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="推荐系统101(1)推荐系统介绍">
-                            
-                            <span class="card-title">推荐系统101(1)推荐系统介绍</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-现代推荐系统
-推荐系统架构
-召回模块
-
-粗排模块
-精排
-重排/混排
-数据层
-推荐系统的评估
-
-
-参考
-
- 推荐系统的发展历史
-推荐系统是一种信息过滤系统，用于预测用户对物品的&quot;评分&quot;或&quot;偏好&quot;
-一个
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-13
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    技术
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
-                            <span class="chip bg-color">搜广推</span>
-                        </a>
-                        
-                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
-                            <span class="chip bg-color">人工智能和机器学习</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-        </div>
-    </article>
-
+    </section>
 </main>
 
 
 
-
-    <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="/libs/aplayer/Meting.min.js"></script>
-
-    
-
-    <div class="container row center-align"
-         style="margin-bottom: 0px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            
-                <span id="year">2019-2025</span>
-            
-            <a href="/about" target="_blank">佚名小司机</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            
-            <br>
-            
-            
-            
-                
-            
-            
-                <span id="busuanzi_container_site_pv">
-                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
-                    <span id="busuanzi_value_site_pv" class="white-color"></span>
-            </span>
-            
-            
-                <span id="busuanzi_container_site_uv">
-                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
-                    <span id="busuanzi_value_site_uv" class="white-color"></span>
-            </span>
-            
-            <br>
-
-            <!-- 运行天数提醒. -->
-            
-            <br>
-            
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Charles · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
         </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/XinheLIU" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:xinhe_l@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
-
-</div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:xinhe_l@163.com">Email</a>
+        </div>
     </div>
 </footer>
 
@@ -1336,8 +416,8 @@ LLM for Rec
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
                    class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1436,30 +516,6 @@ $(function () {
 });
 </script>
 
-    <!-- 白天和黑夜主题 -->
-<div class="stars-con">
-    <div id="stars"></div>
-    <div id="stars2"></div>
-    <div id="stars3"></div>  
-</div>
-
-<script>
-    function switchNightMode() {
-        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
-        setTimeout(function () {
-            $('body').hasClass('DarkMode') 
-            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
-            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
-            
-            setTimeout(function () {
-            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
-                $(this).remove()
-            })
-            }, 2e3)
-        })
-    }
-</script>
-
     <!-- 回到顶部按钮 -->
 <div id="backTop" class="top-scroll">
     <a class="btn-floating btn-large waves-effect waves-light" href="#!">
@@ -1469,7 +525,6 @@ $(function () {
 
 
     <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
     <script src="/libs/aos/aos.js"></script>
     <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
     <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
@@ -1520,8 +575,6 @@ $(function () {
 </script>
 
     
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
     
@@ -1541,6 +594,7 @@ $(function () {
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
+    <script src="/js/xinhe-site.js"></script>
 
 </body>
 
