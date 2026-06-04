@@ -15,6 +15,7 @@ note_type: invariant-check
 featured_asset: /AB-Test/intro-2/AB-Test-CCD.png
 confidentiality_safe: true
 site_locale: zh-CN
+lang_switch: /en/AB-Test/intro-2/
 last_updated: 2026-05-31
 ---
 

@@ -51,7 +51,7 @@
   function setupThemeToggle() {
     var toggles = bySelector("[data-theme-toggle]");
     var storageKey = "xinhe-site-theme";
-    var defaultTheme = "light";
+    var defaultTheme = "dark";
     var html = document.documentElement;
     var isChinese = (html.getAttribute("lang") || "").indexOf("zh") === 0;
 

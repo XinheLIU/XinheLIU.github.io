@@ -13,5 +13,6 @@ topic_cluster: experimentation
 public_focus: Public-safe introduction to A/B testing workflow, metrics, and launch reasoning.
 confidentiality_safe: true
 site_locale: zh-CN
+lang_switch: /en/AB-Test/intro-1/
 last_updated: 2026-05-31
 ---

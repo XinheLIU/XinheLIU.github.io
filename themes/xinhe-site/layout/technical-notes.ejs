@@ -3,7 +3,10 @@
     var notes = [];
     site.posts.each(function(post) {
         if (post.hide !== true && post.note_type && post.featured_asset) {
-            notes.push(post);
+            var postIsChinese = (post.site_locale || 'zh-CN').indexOf('zh') === 0;
+            if (postIsChinese === isChinese) {
+                notes.push(post);
+            }
         }
     });
     notes.sort(function(a, b) {

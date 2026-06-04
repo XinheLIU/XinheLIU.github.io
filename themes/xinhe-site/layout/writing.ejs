@@ -3,7 +3,10 @@
     var allPosts = [];
     site.posts.each(function(post) {
         if (post.hide !== true) {
-            allPosts.push(post);
+            var postIsChinese = (post.site_locale || 'zh-CN').indexOf('zh') === 0;
+            if (postIsChinese === isChinese) {
+                allPosts.push(post);
+            }
         }
     });
     allPosts.sort(function(a, b) {

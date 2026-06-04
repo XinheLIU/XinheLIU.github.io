@@ -2,7 +2,10 @@
     var allPosts = [];
     site.posts.each(function(post) {
         if (post.hide !== true) {
-            allPosts.push(post);
+            var postIsChinese = (post.site_locale || 'zh-CN').indexOf('zh') === 0;
+            if (postIsChinese === isChinese) {
+                allPosts.push(post);
+            }
         }
     });
     allPosts.sort(function(a, b) {
@@ -46,68 +49,7 @@
 %>
 
 <main class="content site-page-main">
-    <section class="container hero">
-        <div>
-            <p class="eyebrow"><%= isChinese ? '个人网站 · 写作 · 技术笔记' : 'Personal site · writing · technical notes' %></p>
-            <h1 class="display-title">
-                <%= isChinese
-                    ? '昕和的个人主页。'
-                    : 'Charles writes about data, AI, and product systems.' %>
-            </h1>
-            <p class="lead">
-                <%= isChinese
-                    ? '这里收集我的技术写作、系统笔记、项目线索和联系方式。内容主要围绕推荐、广告、实验、因果测量和应用 AI。'
-                    : 'A compact home for my technical writing, systems notes, project threads, and contact details across recommendation, ads, experimentation, causal measurement, and applied AI.' %>
-            </p>
-            <div class="hero-actions">
-                <a class="btn btn-primary" href="<%- url_for(isChinese ? '/writing-zh/' : '/writing/') %>"><%= isChinese ? '阅读写作' : 'Read writing' %></a>
-                <a class="btn btn-secondary" href="<%- url_for(isChinese ? '/about-zh/' : '/about/') %>"><%= isChinese ? '个人信息和联系方式' : 'About & Contact' %></a>
-            </div>
-            <div class="metric-strip">
-                <div class="metric">
-                    <strong><%= allPosts.length %></strong>
-                    <span><%= isChinese ? '公开文章' : 'Published posts' %></span>
-                </div>
-                <div class="metric">
-                    <strong><%= notesCount %></strong>
-                    <span><%= isChinese ? '技术预览' : 'Technical previews' %></span>
-                </div>
-                <div class="metric">
-                    <strong>4</strong>
-                    <span><%= isChinese ? '现有主题簇' : 'Current clusters' %></span>
-                </div>
-                <div class="metric">
-                    <strong>5</strong>
-                    <span><%= isChinese ? '主导航入口' : 'Primary destinations' %></span>
-                </div>
-            </div>
-        </div>
-        <aside class="hero-panel" aria-label="<%= isChinese ? '个人概览' : 'Profile snapshot' %>">
-            <h2 class="panel-title"><%= isChinese ? '个人概览' : 'Profile snapshot' %></h2>
-            <div class="decision-loop">
-                <div class="loop-step">
-                    <span>01</span>
-                    <p><strong><%= isChinese ? '专业方向' : 'Focus' %></strong><%= isChinese ? '数据产品、应用 AI、实验和测量系统。' : 'Data products, applied AI, experimentation, and measurement systems.' %></p>
-                </div>
-                <div class="loop-step">
-                    <span>02</span>
-                    <p><strong><%= isChinese ? '写作' : 'Writing' %></strong><%= isChinese ? '推荐、广告、实验、因果推断和智能体工作流相关的长文与笔记。' : 'Essays and notes on recommendation, ads, experiments, causal thinking, and agent workflows.' %></p>
-                </div>
-                <div class="loop-step">
-                    <span>03</span>
-                    <p><strong><%= isChinese ? '项目线索' : 'Projects' %></strong><%= isChinese ? '用问题、图示和方法记录可公开分享的技术工作。' : 'Public notes on problems, diagrams, methods, and reusable technical judgment.' %></p>
-                </div>
-                <div class="loop-step">
-                    <span>04</span>
-                    <p><strong><%= isChinese ? '站点' : 'Site' %></strong><%= isChinese ? '简洁的个人主页、写作档案和技术笔记入口。' : 'A concise personal homepage, writing archive, and technical notes index.' %></p>
-                </div>
-                <div class="loop-step">
-                    <span>05</span>
-                    <p><strong><%= isChinese ? '边界' : 'Boundary' %></strong><%= isChinese ? '只发布可公开分享的文章、图示和方法总结。' : 'Only public writing, diagrams, and reusable method notes are published here.' %></p>
-                </div>
-            </div>
-        </aside>
-    </section>
+    <%- partial('_partial/profile-hero', { isChinese: isChinese }) %>
 
     <section class="section section-tinted">
         <div class="container">

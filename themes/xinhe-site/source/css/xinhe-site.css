@@ -166,16 +166,19 @@ body {
 }
 
 .brand-mark {
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  color: var(--accent);
   display: grid;
-  font-family: var(--font-display);
-  font-size: 18px;
-  height: 34px;
-  line-height: 1;
   place-items: center;
   width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.brand-mark img,
+.brand-mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .brand-name {
@@ -839,6 +842,221 @@ body {
   margin-top: var(--space-2);
 }
 
+/* Profile hero (GitHub-style) */
+.profile-hero {
+  padding: var(--space-16) 0;
+}
+
+.profile-layout {
+  display: grid;
+  gap: var(--space-12);
+  grid-template-columns: minmax(0, 260px) 1fr;
+}
+
+.profile-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.profile-avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid var(--border-soft);
+}
+
+.profile-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.profile-name {
+  color: var(--fg);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.profile-handle {
+  color: var(--muted);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  margin: 0;
+}
+
+.profile-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.profile-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.profile-tagline {
+  color: var(--fg);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 500;
+}
+
+.profile-bio {
+  color: var(--muted);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.profile-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.stat-icon {
+  flex-shrink: 0;
+  fill: currentColor;
+  opacity: 0.7;
+}
+
+.stat-item strong {
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: 500;
+}
+
+.stat-item span {
+  color: var(--muted);
+}
+
+.contribution-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.contribution-title {
+  color: var(--fg);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin: 0;
+}
+
+.contribution-count {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.contribution-graph {
+  display: flex;
+  gap: 3px;
+  overflow-x: auto;
+  padding: var(--space-2) 0;
+}
+
+.contribution-column {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.contribution-cell {
+  display: block;
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform var(--motion-fast) var(--ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contribution-cell {
+    transition: none;
+  }
+}
+
+.contribution-cell:hover {
+  transform: scale(1.2);
+}
+
+.contribution-cell.level-0 {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+}
+
+.contribution-cell.level-1 {
+  background: color-mix(in oklab, var(--accent) 25%, var(--surface));
+  border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
+}
+
+.contribution-cell.level-2 {
+  background: color-mix(in oklab, var(--success) 35%, var(--surface));
+  border: 1px solid color-mix(in oklab, var(--success) 40%, transparent);
+}
+
+.contribution-cell.level-3 {
+  background: color-mix(in oklab, var(--accent) 55%, var(--surface));
+  border: 1px solid color-mix(in oklab, var(--accent) 60%, transparent);
+}
+
+.contribution-cell.level-4 {
+  background: color-mix(in oklab, var(--success) 75%, var(--surface));
+  border: 1px solid color-mix(in oklab, var(--success) 80%, transparent);
+}
+
+.contribution-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+
+.legend-cell {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.contribution-note {
+  color: var(--muted);
+  font-size: var(--text-xs);
+  margin: 0;
+}
+
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
 .filter-bar {
   align-items: center;
   display: flex;
@@ -1180,8 +1398,20 @@ body {
   .card-grid,
   .card-grid.two,
   .metric-strip,
+  .profile-layout,
   .path-map {
     grid-template-columns: 1fr;
+  }
+
+  .profile-sidebar {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  .profile-avatar {
+    width: 120px;
+    flex-shrink: 0;
   }
 
   .archive-row,

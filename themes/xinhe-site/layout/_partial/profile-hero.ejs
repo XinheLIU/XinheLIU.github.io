@@ -1,0 +1,165 @@
+<%
+    var allPosts = [];
+    site.posts.each(function(post) {
+        if (post.hide !== true) {
+            var postIsChinese = (post.site_locale || 'zh-CN').indexOf('zh') === 0;
+            if (postIsChinese === isChinese) {
+                allPosts.push(post);
+            }
+        }
+    });
+
+    var notesCount = allPosts.filter(function(post) {
+        return !!post.note_type;
+    }).length;
+
+    // Build contribution graph data (last 365 days)
+    var today = new Date();
+    var oneYearAgo = new Date(today);
+    oneYearAgo.setDate(today.getDate() - 364);
+
+    var contributions = {};
+    allPosts.forEach(function(post) {
+        var postDate = new Date(post.date);
+        var dateKey = postDate.toISOString().split('T')[0];
+        if (postDate >= oneYearAgo && postDate <= today) {
+            if (!contributions[dateKey]) {
+                contributions[dateKey] = { published: 0, updated: 0 };
+            }
+            contributions[dateKey].published += 1;
+        }
+
+        if (post.updated && post.updated !== post.date) {
+            var updateDate = new Date(post.updated);
+            var updateKey = updateDate.toISOString().split('T')[0];
+            if (updateDate >= oneYearAgo && updateDate <= today) {
+                if (!contributions[updateKey]) {
+                    contributions[updateKey] = { published: 0, updated: 0 };
+                }
+                contributions[updateKey].updated += 1;
+            }
+        }
+    });
+
+    // Generate 52 weeks of contribution cells
+    var weeks = [];
+    for (var w = 0; w < 52; w++) {
+        var week = [];
+        for (var d = 0; d < 7; d++) {
+            var cellDate = new Date(oneYearAgo);
+            cellDate.setDate(oneYearAgo.getDate() + w * 7 + d);
+            if (cellDate <= today) {
+                var cellKey = cellDate.toISOString().split('T')[0];
+                var cellData = contributions[cellKey] || { published: 0, updated: 0 };
+                var level = 0;
+                if (cellData.published > 0) {
+                    level = cellData.published >= 2 ? 4 : 2;
+                } else if (cellData.updated > 0) {
+                    level = cellData.updated >= 2 ? 3 : 1;
+                }
+                week.push({ date: cellKey, level: level });
+            }
+        }
+        if (week.length > 0) weeks.push(week);
+    }
+
+    var activeDaysCount = Object.keys(contributions).length;
+%>
+
+<section class="profile-hero">
+    <div class="container">
+        <div class="profile-layout">
+            <!-- Profile photo column -->
+            <aside class="profile-sidebar">
+                <div class="profile-avatar">
+                    <img src="<%- url_for('/images/profile.png') %>" alt="<%= isChinese ? '昕和的头像' : 'Charles profile photo' %>">
+                </div>
+                <div class="profile-meta">
+                    <h1 class="profile-name"><%= isChinese ? '刘昕和' : 'Xinhe Liu' %></h1>
+                    <p class="profile-handle"><%= isChinese ? '昕和' : 'Charles' %></p>
+                </div>
+            </aside>
+
+            <!-- Main content column -->
+            <div class="profile-main">
+                <div class="profile-intro">
+                    <p class="profile-tagline">
+                        <%= isChinese
+                            ? '我是昕和，关注数据、AI 与产品系统的工程师和技术写作者。'
+                            : 'I am Charles, an engineer and technical writer working across data, AI, and product systems.' %>
+                    </p>
+                    <p class="profile-bio">
+                        <%= isChinese
+                            ? '这里集中放置我的专业方向、写作边界、GitHub 和联系入口。'
+                            : 'A compact place for my professional focus, writing boundaries, GitHub, and contact details.' %>
+                    </p>
+                </div>
+
+                <!-- Stats row -->
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <svg class="stat-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Z"/>
+                        </svg>
+                        <strong><%= allPosts.length %></strong>
+                        <span><%= isChinese ? '文章' : 'posts' %></span>
+                    </div>
+                    <div class="stat-item">
+                        <svg class="stat-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/>
+                        </svg>
+                        <strong><%= notesCount %></strong>
+                        <span><%= isChinese ? '笔记' : 'notes' %></span>
+                    </div>
+                    <div class="stat-item">
+                        <svg class="stat-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/>
+                        </svg>
+                        <strong>4</strong>
+                        <span><%= isChinese ? '主题簇' : 'clusters' %></span>
+                    </div>
+                </div>
+
+                <!-- Contribution graph -->
+                <div class="contribution-section">
+                    <h2 class="contribution-title">
+                        <%= activeDaysCount %> <%= isChinese
+                            ? (activeDaysCount === 1 ? '天写作活动' : '天写作活动')
+                            : (activeDaysCount === 1 ? 'day of writing activity in the last year' : 'days of writing activity in the last year') %>
+                    </h2>
+                    <div class="contribution-graph">
+                        <% weeks.forEach(function(week) { %>
+                            <div class="contribution-column">
+                                <% week.forEach(function(cell) { %>
+                                    <span class="contribution-cell level-<%= cell.level %>" data-date="<%= cell.date %>" title="<%= cell.date %>"></span>
+                                <% }); %>
+                            </div>
+                        <% }); %>
+                    </div>
+                    <div class="contribution-legend">
+                        <span><%= isChinese ? '少' : 'Less' %></span>
+                        <span class="legend-cell level-0"></span>
+                        <span class="legend-cell level-1"></span>
+                        <span class="legend-cell level-2"></span>
+                        <span class="legend-cell level-3"></span>
+                        <span class="legend-cell level-4"></span>
+                        <span><%= isChinese ? '多' : 'More' %></span>
+                    </div>
+                    <p class="contribution-note">
+                        <%= isChinese ? '绿色：发布文章 · 蓝色：更新文章' : 'Green: published posts · Blue: updated posts' %>
+                    </p>
+                </div>
+
+                <!-- CTA buttons -->
+                <div class="profile-actions">
+                    <a class="btn btn-primary" href="<%- url_for(isChinese ? '/writing-zh/' : '/writing/') %>">
+                        <%= isChinese ? '阅读写作' : 'Read writing' %>
+                    </a>
+                    <a class="btn btn-secondary" href="<%- url_for(isChinese ? '/about-zh/' : '/about/') %>">
+                        <%= isChinese ? '个人信息和联系方式' : 'About & Contact' %>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

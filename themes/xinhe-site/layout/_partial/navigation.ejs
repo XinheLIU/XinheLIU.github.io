@@ -25,10 +25,11 @@
 %>
 
 <a class="brand-lockup" href="<%- url_for(homePath) %>" aria-label="<%= isChinese ? '昕和首页' : 'Charles home' %>">
-    <span class="brand-mark">X</span>
+    <span class="brand-mark">
+        <img src="<%- url_for('/images/logo.svg') %>" alt="">
+    </span>
     <span class="brand-name">
         <strong><%= isChinese ? '昕和' : 'Charles' %></strong>
-        <span><%= isChinese ? '个人网站' : 'Personal site' %></span>
     </span>
 </a>
 
