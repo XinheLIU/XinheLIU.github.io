@@ -1,17 +1,24 @@
 <%
     var isChinese = (page.site_locale || '').indexOf('zh') === 0;
     var githubLink = (theme.socialLink && theme.socialLink.github) ? theme.socialLink.github : 'https://github.com/XinheLIU';
-    var emailAddress = (theme.socialLink && theme.socialLink.email) ? theme.socialLink.email : 'xinhe_l@163.com';
+    var emailAddress = (theme.socialLink && theme.socialLink.email) ? theme.socialLink.email : 'liuxinhe@outlook.com';
 %>
 
 <main class="content site-page-main">
     <section class="container hero-narrow">
-        <p class="eyebrow"><%= isChinese ? '个人信息和联系方式' : 'About & Contact' %></p>
-        <h1 class="page-title"><%= isChinese ? '我是昕和，关注数据、AI 与产品系统的工程师和技术写作者。' : 'I am Charles, an engineer and technical writer working across data, AI, and product systems.' %></h1>
-        <p class="lead"><%= isChinese ? '这里集中放置我的专业方向、写作边界、GitHub 和联系入口。' : 'A compact place for my professional focus, writing boundaries, GitHub, and contact details.' %></p>
-        <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact"><%= isChinese ? '开始技术交流' : 'Start a focused conversation' %></a>
-            <a class="btn btn-secondary" href="<%- url_for(isChinese ? '/projects-zh/' : '/projects/') %>"><%= isChinese ? '查看项目线索' : 'View project threads' %></a>
+        <div class="about-hero">
+            <div class="about-hero-avatar">
+                <img src="<%- url_for('/images/profile.png') %>" alt="<%= isChinese ? '昕和的头像' : 'Xinhe Liu (Charles) profile photo' %>">
+            </div>
+            <div class="about-hero-copy">
+                <p class="eyebrow"><%= isChinese ? '个人信息和联系方式' : 'About & Contact' %></p>
+                <h1 class="page-title"><%= isChinese ? '我是昕和，关注数据、AI 与产品系统的工程师和技术写作者。' : 'I am Xinhe Liu (Charles), an engineer and technical writer working across data, AI, and product systems.' %></h1>
+                <p class="lead"><%= isChinese ? '这里集中放置我的专业方向、写作边界、GitHub 和联系入口。' : 'A compact place for my professional focus, writing boundaries, GitHub, and contact details.' %></p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#contact"><%= isChinese ? '开始技术交流' : 'Start a focused conversation' %></a>
+                    <a class="btn btn-secondary" href="<%- url_for(isChinese ? '/projects-zh/' : '/projects/') %>"><%= isChinese ? '查看项目线索' : 'View project threads' %></a>
+                </div>
+            </div>
         </div>
     </section>
 

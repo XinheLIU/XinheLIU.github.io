@@ -1,31 +1,61 @@
 <%
-    var clusterLabels = {
-        'ads-systems': 'Ads systems',
-        'recommendation': 'Recommendation',
-        'experimentation': 'Experimentation',
-        'causal-measurement': 'Causal measurement',
-        'enterprise-ai': 'Enterprise AI'
-    };
+    var archiveIsChinese = (page.site_locale || '').indexOf('zh') === 0;
+    var archiveClusterLabels = archiveIsChinese
+        ? {
+            'ads-systems': '广告系统',
+            'recommendation': '推荐系统',
+            'experimentation': '实验',
+            'causal-measurement': '因果测量',
+            'enterprise-ai': '企业 AI',
+            'agentic-engineering': '智能体工程'
+        }
+        : {
+            'ads-systems': 'Ads systems',
+            'recommendation': 'Recommendation',
+            'experimentation': 'Experimentation',
+            'causal-measurement': 'Causal measurement',
+            'enterprise-ai': 'Enterprise AI',
+            'agentic-engineering': 'Agentic engineering'
+        };
 
-    function summaryFor(post) {
-        if (post.summary_en) return post.summary_en;
-        if (post.summary_zh) return post.summary_zh;
+    function archivePostIsCurrentLanguage(post) {
+        var postIsChinese = (post.site_locale || 'zh-CN').indexOf('zh') === 0;
+        return postIsChinese === archiveIsChinese;
+    }
+
+    function archiveSummaryFor(post) {
+        if (archiveIsChinese && post.summary_zh) return post.summary_zh;
+        if (!archiveIsChinese && post.summary_en) return post.summary_en;
         if (post.summary) return post.summary;
+        if (post.excerpt) return strip_html(post.excerpt).substring(0, 120);
         return strip_html(post.content).substring(0, 120);
     }
+
+    function archivePostsForLanguage(posts) {
+        var result = [];
+        posts.forEach(function(post) {
+            if (post.hide !== true && archivePostIsCurrentLanguage(post)) {
+                result.push(post);
+            }
+        });
+        return result;
+    }
+
+    var archiveSourcePosts = page.posts || site.posts.sort('date').reverse();
+    var archivePosts = archivePostsForLanguage(archiveSourcePosts);
 %>
 
 <main class="content site-page-main">
     <section class="container hero-narrow">
-        <p class="eyebrow">Archives</p>
-        <h1 class="page-title"><%= is_month() ? 'Archives: ' + page.year + '/' + page.month : (is_year() ? 'Archives: ' + page.year : 'Archives') %></h1>
-        <p class="lead">A compact archive view with previews, dates, and topic cues. Tags and Categories remain secondary utilities rather than primary navigation.</p>
+        <p class="eyebrow"><%= archiveIsChinese ? '归档' : 'Archives' %></p>
+        <h1 class="page-title"><%= is_month() ? (archiveIsChinese ? '归档：' : 'Archives: ') + page.year + '/' + page.month : (is_year() ? (archiveIsChinese ? '归档：' : 'Archives: ') + page.year : (archiveIsChinese ? '归档' : 'Archives')) %></h1>
+        <p class="lead"><%= archiveIsChinese ? '按语言过滤的文章归档，保留日期、摘要和主题线索。' : 'A language-filtered archive view with dates, summaries, and topic cues.' %></p>
     </section>
 
     <section class="section compact">
         <div class="container">
             <div class="archive-list">
-                <% page.posts.each(function(post) { %>
+                <% archivePosts.forEach(function(post) { %>
                     <article class="archive-row has-preview">
                         <% if (post.featured_asset) { %>
                             <a class="post-preview post-preview-image" href="<%- url_for(post.path) %>">
@@ -33,30 +63,30 @@
                             </a>
                         <% } else { %>
                             <a class="post-preview preview-grid" href="<%- url_for(post.path) %>">
-                                <span><%= clusterLabels[post.topic_cluster] || 'Archive' %></span>
+                                <span><%= archiveClusterLabels[post.topic_cluster] || (archiveIsChinese ? '归档' : 'Archive') %></span>
                             </a>
                         <% } %>
                         <div class="summary-stack">
                             <span class="meta"><%= date(post.date, 'YYYY-MM-DD') %></span>
                             <h3><a class="archive-row-link" href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
-                            <p><%= summaryFor(post) %></p>
+                            <p><%= archiveSummaryFor(post) %></p>
                         </div>
-                        <span class="tag"><%= clusterLabels[post.topic_cluster] || 'Archive' %></span>
+                        <span class="tag"><%= archiveClusterLabels[post.topic_cluster] || (archiveIsChinese ? '归档' : 'Archive') %></span>
                     </article>
                 <% }); %>
             </div>
 
             <div class="archive-utilities">
                 <div class="footer-links">
-                    <a href="<%- url_for('/writing/') %>">Writing</a>
-                    <a href="<%- url_for('/tags/') %>">Tags</a>
-                    <a href="<%- url_for('/categories/') %>">Categories</a>
+                    <a href="<%- url_for(archiveIsChinese ? '/writing-zh/' : '/writing/') %>"><%= archiveIsChinese ? '写作' : 'Writing' %></a>
+                    <a href="<%- url_for('/tags/') %>"><%= archiveIsChinese ? '标签' : 'Tags' %></a>
+                    <a href="<%- url_for('/categories/') %>"><%= archiveIsChinese ? '分类' : 'Categories' %></a>
                 </div>
             </div>
         </div>
     </section>
 </main>
 
-<% if (page.total > 1) { %>
+<% if (!archiveIsChinese && page.total > 1) { %>
     <%- partial('_partial/paging') %>
 <% } %>

@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Last updated: 2026-05-31
+Last updated: 2026-06-06
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -36,7 +36,7 @@ yarn clean && yarn deploy
 
 ```
 _config.yml          # site-wide Hexo config (theme, deploy target, markdown options)
-source/_posts/       # blog posts as Markdown files
+source/_posts/       # bilingual article folders with en.md / zh-CN.md pairs
 source/writing/      # writing archive landing pages
 source/technical-notes/ # technical notes landing pages
 source/projects/     # projects landing pages
@@ -56,10 +56,10 @@ Key rendering stack (configured in `_config.yml`):
 
 ## Writing Posts
 
-New post scaffold:
+New bilingual post pair:
 ```bash
-yarn hexo new post "Post Title"
-# creates source/_posts/Post-Title.md
+mkdir -p source/_posts/example-topic
+# create source/_posts/example-topic/en.md and source/_posts/example-topic/zh-CN.md
 ```
 
 Front-matter fields commonly used by the active site:
@@ -68,29 +68,33 @@ Front-matter fields commonly used by the active site:
 title:
 date:
 layout:
-nav_key:
-site_locale:
-lang_switch:
-summary:
-last_updated:
----
-```
-
-Post metadata used by archive pages is additive, not required for every post:
-
-```yaml
----
+permalink:
 categories:
 tags:
+site_locale:
+lang_switch:
 summary_en:
 summary_zh:
 topic_cluster:
 public_focus:
-note_type:
-featured_asset:
 confidentiality_safe: true
+last_updated:
 ---
 ```
+
+Post assets should sit beside the language file they belong to:
+
+```text
+source/_posts/example-topic/
+  en.md
+  en/
+    diagram.png
+  zh-CN.md
+  zh-CN/
+    diagram.png
+```
+
+Keep `permalink` and `lang_switch` explicit on both language files so published URLs stay stable.
 
 Math: wrap inline with `$...$`, block with `$$...$$` (KaTeX).
 

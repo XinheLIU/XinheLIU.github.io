@@ -12,6 +12,7 @@
         return new Date(b.date) - new Date(a.date);
     });
 
+    var books = site.data && site.data.books ? site.data.books : [];
     var clusterOrder = ['ads-systems', 'recommendation', 'experimentation', 'causal-measurement'];
     var clusterLabels = isChinese
         ? {
@@ -19,14 +20,16 @@
             'recommendation': '推荐系统',
             'experimentation': '实验',
             'causal-measurement': '因果测量',
-            'enterprise-ai': '企业 AI'
+            'enterprise-ai': '企业 AI',
+            'agentic-engineering': '智能体工程'
         }
         : {
             'ads-systems': 'Ads systems',
             'recommendation': 'Recommendation',
             'experimentation': 'Experimentation',
             'causal-measurement': 'Causal measurement',
-            'enterprise-ai': 'Enterprise AI'
+            'enterprise-ai': 'Enterprise AI',
+            'agentic-engineering': 'Agentic engineering'
         };
 
     var featuredPosts = clusterOrder.map(function(cluster) {
@@ -38,6 +41,46 @@
     var notesCount = allPosts.filter(function(post) {
         return !!post.note_type;
     }).length;
+
+    var codingActivityFacts = isChinese
+        ? [
+            {
+                label: 'Languages',
+                value: 'Python / Markdown / JavaScript',
+                detail: '最近 30 天的语言分布保留在 GitHub 主页，避免长期时间线淹没当前状态。'
+            },
+            {
+                label: 'Editor time',
+                value: 'Last 30 days',
+                detail: 'WakaTime 每天刷新，用短窗口展示近期工作节奏。'
+            },
+            {
+                label: 'Build/log/review work',
+                value: 'Source + docs + automation',
+                detail: '把编码、技术写作、自动化和复盘痕迹放在同一个公开入口。'
+            }
+        ]
+        : [
+            { label: 'Languages', value: 'Python / Markdown / JavaScript', detail: 'The GitHub profile keeps the last 30 days visible without the decade-long timeline.' },
+            { label: 'Editor time', value: 'Last 30 days', detail: 'WakaTime refreshes daily so the signal stays current instead of historical.' },
+            { label: 'Build/log/review work', value: 'Source + docs + automation', detail: 'Coding, technical writing, automation, and review traces share one public entry point.' }
+        ];
+
+    function bookTitle(book) {
+        return isChinese ? (book.title_zh || book.title_en) : (book.title_en || book.title_zh);
+    }
+
+    function bookSummary(book) {
+        return isChinese ? (book.summary_zh || book.summary_en) : (book.summary_en || book.summary_zh);
+    }
+
+    function bookStatus(book) {
+        return isChinese ? (book.status_zh || book.status_en) : (book.status_en || book.status_zh);
+    }
+
+    function bookIntroUrl(book) {
+        return isChinese ? book.intro_url_zh : book.intro_url_en;
+    }
 
     function summaryFor(post) {
         if (isChinese && post.summary_zh) return post.summary_zh;
@@ -54,10 +97,29 @@
     <section class="section section-tinted">
         <div class="container">
             <div class="section-head">
-                <h2><%= isChinese ? '精选写作' : 'Featured writing' %></h2>
-                <p><%= isChinese ? '近期文章和代表性图示，方便从首页直接进入完整写作档案。' : 'Recent essays and representative diagrams, with direct paths into the full writing archive.' %></p>
+                <h2><%= isChinese ? '写作与长篇作品' : 'Writing & Books' %></h2>
+                <p><%= isChinese ? '完整书稿、导读和近期文章放在同一个入口，方便从首页进入对应阅读路径。' : 'Complete books, intros, and recent essays share one entry point from the home page.' %></p>
             </div>
             <div class="archive-list">
+                <% books.forEach(function(book) { %>
+                    <article class="archive-row has-preview">
+                        <a class="post-preview preview-grid" href="<%- url_for(book.url) %>">
+                            <span><%= bookStatus(book) %></span>
+                        </a>
+                        <div class="summary-stack">
+                            <span class="meta"><%= bookStatus(book) %> · <%= clusterLabels[book.topic_cluster] || (isChinese ? '长篇作品' : 'Long-form work') %></span>
+                            <h3><a class="archive-row-link" href="<%- url_for(book.url) %>"><%= bookTitle(book) %></a></h3>
+                            <p><%= bookSummary(book) %></p>
+                            <div class="hero-actions longform-actions">
+                                <a class="btn btn-primary" href="<%- url_for(book.url) %>"><%= isChinese ? '阅读完整书稿' : 'Read book' %></a>
+                                <% if (bookIntroUrl(book)) { %>
+                                    <a class="btn btn-secondary" href="<%- url_for(bookIntroUrl(book)) %>"><%= isChinese ? '导读' : 'Intro' %></a>
+                                <% } %>
+                            </div>
+                        </div>
+                        <span class="tag"><%= clusterLabels[book.topic_cluster] || (isChinese ? '长篇作品' : 'Long-form work') %></span>
+                    </article>
+                <% }); %>
                 <% featuredPosts.forEach(function(post) { %>
                     <article class="archive-row has-preview">
                         <% if (post.featured_asset) { %>
@@ -105,6 +167,28 @@
                     <p><%= isChinese ? '把评估、升级路径、人类复核和治理合同放在自动化之前。' : 'Putting evaluation, escalation, human review, and governance contracts ahead of workflow automation.' %></p>
                 </article>
             </div>
+
+            <aside class="coding-activity-panel" aria-labelledby="coding-activity-title">
+                <div class="coding-activity-copy">
+                    <span class="coding-activity-kicker"><%= isChinese ? 'Last 30 days' : 'Last 30 days' %></span>
+                    <h3 id="coding-activity-title"><%= isChinese ? '编码活动' : 'Coding activity' %></h3>
+                    <p><%= isChinese ? '保留 WakaTime 作为近期工作信号，但只展示短窗口和高层结构，避免旧的长时间线抢走首页注意力。' : 'WakaTime stays as a current work signal, but the public surface stays short, structured, and separate from the old long-range chart.' %></p>
+                    <div class="hero-actions coding-activity-actions">
+                        <a class="btn btn-secondary" href="https://github.com/XinheLIU" target="_blank" rel="noopener">
+                            <%= isChinese ? '查看 GitHub 活动' : 'View GitHub activity' %>
+                        </a>
+                    </div>
+                </div>
+                <div class="coding-activity-facts">
+                    <% codingActivityFacts.forEach(function(fact) { %>
+                        <div class="coding-activity-fact">
+                            <span><%= fact.label %></span>
+                            <strong><%= fact.value %></strong>
+                            <p><%= fact.detail %></p>
+                        </div>
+                    <% }); %>
+                </div>
+            </aside>
         </div>
     </section>
 
@@ -137,7 +221,7 @@
                 </div>
                 <div class="archive-utilities">
                     <div class="footer-links">
-                        <a href="<%- url_for('/archives/') %>"><%= isChinese ? '归档' : 'Archives' %></a>
+                        <a href="<%- url_for(isChinese ? '/archives-zh/' : '/archives/') %>"><%= isChinese ? '归档' : 'Archives' %></a>
                         <a href="<%- url_for('/categories/') %>"><%= isChinese ? '分类' : 'Categories' %></a>
                         <a href="<%- url_for('/tags/') %>"><%= isChinese ? '标签' : 'Tags' %></a>
                     </div>

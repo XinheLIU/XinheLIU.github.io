@@ -1,4 +1,33 @@
 <%- partial('_partial/bg-cover') %>
+<%
+    var archiveIsChinese = (page.site_locale || '').indexOf('zh') === 0;
+    if (!page.site_locale && page.posts && page.posts.length > 0) {
+        archiveIsChinese = (page.posts.first().site_locale || 'zh-CN').indexOf('zh') === 0;
+    }
+
+    function archivePostIsCurrentLanguage(post) {
+        var postIsChinese = (post.site_locale || 'zh-CN').indexOf('zh') === 0;
+        return postIsChinese === archiveIsChinese;
+    }
+
+    function archiveSummaryFor(post) {
+        if (archiveIsChinese && post.summary_zh) return post.summary_zh;
+        if (!archiveIsChinese && post.summary_en) return post.summary_en;
+        if (post.summary) return post.summary;
+        if (post.excerpt) return strip_html(post.excerpt).substring(0, 120);
+        return strip_html(post.content).substring(0, 120);
+    }
+
+    function archivePostsForLanguage(posts) {
+        var result = [];
+        posts.forEach(function(post) {
+            if (post.hide !== true && archivePostIsCurrentLanguage(post)) {
+                result.push(post);
+            }
+        });
+        return result;
+    }
+%>
 
 <main class="content">
 
@@ -21,7 +50,7 @@
 
     <article id="articles" class="container articles">
         <div class="row tags-posts">
-            <% page.posts.sort('date').reverse().forEach(post => { %>
+            <% archivePostsForLanguage(page.posts.sort('date').reverse()).forEach(post => { %>
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="<%- url_for(post.path) %>">
@@ -39,11 +68,7 @@
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
-                            <% if (post.summary && post.summary.length > 0) { %>
-                                <%- post.summary %>
-                            <% } else { %>
-                                <%- strip_html(post.content).substring(0, 120) %>
-                            <% } %>
+                            <%- archiveSummaryFor(post) %>
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">

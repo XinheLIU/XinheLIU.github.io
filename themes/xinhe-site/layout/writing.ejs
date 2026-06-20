@@ -13,6 +13,8 @@
         return new Date(b.date) - new Date(a.date);
     });
 
+    var books = site.data && site.data.books ? site.data.books : [];
+
     var clusterButtons = isChinese
         ? [
             { key: 'all', label: '全部' },
@@ -20,7 +22,8 @@
             { key: 'recommendation', label: '推荐系统' },
             { key: 'experimentation', label: '实验' },
             { key: 'causal-measurement', label: '因果' },
-            { key: 'enterprise-ai', label: '企业 AI' }
+            { key: 'enterprise-ai', label: '企业 AI' },
+            { key: 'agentic-engineering', label: '智能体工程' }
         ]
         : [
             { key: 'all', label: 'All' },
@@ -28,7 +31,8 @@
             { key: 'recommendation', label: 'Recommendation' },
             { key: 'experimentation', label: 'Experimentation' },
             { key: 'causal-measurement', label: 'Causal' },
-            { key: 'enterprise-ai', label: 'Enterprise AI' }
+            { key: 'enterprise-ai', label: 'Enterprise AI' },
+            { key: 'agentic-engineering', label: 'Agentic engineering' }
         ];
 
     var clusterLabels = isChinese
@@ -37,15 +41,33 @@
             'recommendation': '推荐系统',
             'experimentation': '实验',
             'causal-measurement': '因果测量',
-            'enterprise-ai': '企业 AI'
+            'enterprise-ai': '企业 AI',
+            'agentic-engineering': '智能体工程'
         }
         : {
             'ads-systems': 'Ads systems',
             'recommendation': 'Recommendation',
             'experimentation': 'Experimentation',
             'causal-measurement': 'Causal measurement',
-            'enterprise-ai': 'Enterprise AI'
+            'enterprise-ai': 'Enterprise AI',
+            'agentic-engineering': 'Agentic engineering'
         };
+
+    function bookTitle(book) {
+        return isChinese ? (book.title_zh || book.title_en) : (book.title_en || book.title_zh);
+    }
+
+    function bookSummary(book) {
+        return isChinese ? (book.summary_zh || book.summary_en) : (book.summary_en || book.summary_zh);
+    }
+
+    function bookStatus(book) {
+        return isChinese ? (book.status_zh || book.status_en) : (book.status_en || book.status_zh);
+    }
+
+    function bookIntroUrl(book) {
+        return isChinese ? book.intro_url_zh : book.intro_url_en;
+    }
 
     function summaryFor(post) {
         if (isChinese && post.summary_zh) return post.summary_zh;
@@ -65,6 +87,33 @@
 
     <section class="section compact">
         <div class="container">
+            <% if (books.length) { %>
+                <div class="section-head">
+                    <h2><%= isChinese ? '长篇作品' : 'Long-form work' %></h2>
+                    <p><%= isChinese ? '完整书稿放在独立站点，导读和相关短文继续进入写作档案。' : 'Complete books live on their own sites, while intros and related notes stay inside the writing archive.' %></p>
+                </div>
+                <div class="longform-list">
+                    <% books.forEach(function(book) { %>
+                        <article class="longform-card">
+                            <div class="longform-mark">
+                                <span><%= bookStatus(book) %></span>
+                            </div>
+                            <div class="summary-stack">
+                                <span class="meta"><%= clusterLabels[book.topic_cluster] || (isChinese ? '长篇作品' : 'Long-form work') %></span>
+                                <h3><a class="archive-row-link" href="<%- url_for(book.url) %>"><%= bookTitle(book) %></a></h3>
+                                <p><%= bookSummary(book) %></p>
+                            </div>
+                            <div class="hero-actions longform-actions">
+                                <a class="btn btn-primary" href="<%- url_for(book.url) %>"><%= isChinese ? '阅读完整书稿' : 'Read book' %></a>
+                                <% if (bookIntroUrl(book)) { %>
+                                    <a class="btn btn-secondary" href="<%- url_for(bookIntroUrl(book)) %>"><%= isChinese ? '导读' : 'Intro' %></a>
+                                <% } %>
+                            </div>
+                        </article>
+                    <% }); %>
+                </div>
+            <% } %>
+
             <div class="filter-bar" aria-label="<%= isChinese ? '写作筛选' : 'Writing filters' %>">
                 <div class="filter-group">
                     <% clusterButtons.forEach(function(button, index) { %>
@@ -107,7 +156,7 @@
 
             <div class="archive-utilities">
                 <div class="footer-links">
-                    <a href="<%- url_for('/archives/') %>"><%= isChinese ? '全部归档' : 'Full archives' %></a>
+                    <a href="<%- url_for(isChinese ? '/archives-zh/' : '/archives/') %>"><%= isChinese ? '全部归档' : 'Full archives' %></a>
                     <a href="<%- url_for('/categories/') %>"><%= isChinese ? '分类' : 'Categories' %></a>
                     <a href="<%- url_for('/tags/') %>"><%= isChinese ? '标签' : 'Tags' %></a>
                 </div>

@@ -1,4 +1,25 @@
 <%- partial('_partial/bg-cover') %>
+<%
+    var archiveIsChinese = (page.site_locale || '').indexOf('zh') === 0;
+    if (!page.site_locale && page.posts && page.posts.length > 0) {
+        archiveIsChinese = (page.posts.first().site_locale || 'zh-CN').indexOf('zh') === 0;
+    }
+
+    function archivePostIsCurrentLanguage(post) {
+        var postIsChinese = (post.site_locale || 'zh-CN').indexOf('zh') === 0;
+        return postIsChinese === archiveIsChinese;
+    }
+
+    function archivePostsForLanguage(posts) {
+        var result = [];
+        posts.forEach(function(post) {
+            if (post.hide !== true && archivePostIsCurrentLanguage(post)) {
+                result.push(post);
+            }
+        });
+        return result;
+    }
+%>
 
 <main class="content">
 
@@ -21,7 +42,7 @@
 
     <article id="articles" class="container articles">
         <div class="row tags-posts">
-            <% page.posts.sort('date').reverse().forEach(post => { %>
+            <% archivePostsForLanguage(page.posts.sort('date').reverse()).forEach(post => { %>
             <%
                 var tagArr = [];
                 if (post.tags && post.tags.length > 0) {

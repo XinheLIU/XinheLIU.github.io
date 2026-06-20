@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls /Users/xhl/Documents/GitHub/site-infrastructure/XinheLIU.github.io/source/writing/)",
+      "Bash(file *.png)",
+      "Bash(yarn build *)",
+      "Bash(yarn clean *)"
+    ]
+  }
+}

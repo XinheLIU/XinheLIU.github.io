@@ -1,0 +1,11 @@
+- key: coding-with-agents
+  topic_cluster: agentic-engineering
+  url: /Coding-with-Agents/
+  intro_url_en: /books/coding-with-agents-intro/
+  intro_url_zh: /books/coding-with-agents-intro-zh/
+  title_en: Coding with Agents
+  title_zh: Coding with Agents
+  summary_en: A practical guide to building software with coding agents.
+  summary_zh: 一本关于如何和编程智能体协作构建软件的实践指南。
+  status_en: Complete book
+  status_zh: 完整书稿

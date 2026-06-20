@@ -24,10 +24,10 @@
                 <img src="<%- url_for('/images/logo.svg') %>" alt="">
             </span>
             <span class="brand-name">
-                <strong><%= isChinese ? '昕和' : 'Charles' %></strong>
+                <strong><%= isChinese ? '昕和' : 'Xinhe Liu (Charles)' %></strong>
             </span>
         </a>
-        <p><%= isChinese ? '昕和的个人主页、写作与技术笔记。' : 'Charles: personal site, writing, and technical notes.' %></p>
+        <p><%= isChinese ? '昕和的个人主页、写作与技术笔记。' : 'Xinhe Liu (Charles): personal site, writing, and technical notes.' %></p>
     </div>
 
     <ul class="mobile-nav-list">
@@ -47,6 +47,6 @@
     <div class="mobile-secondary-links">
         <a href="<%- url_for('/tags/') %>"><%= isChinese ? '标签' : 'Tags' %></a>
         <a href="<%- url_for('/categories/') %>"><%= isChinese ? '分类' : 'Categories' %></a>
-        <a href="<%- url_for('/archives/') %>"><%= isChinese ? '归档' : 'Archives' %></a>
+        <a href="<%- url_for(isChinese ? '/archives-zh/' : '/archives/') %>"><%= isChinese ? '归档' : 'Archives' %></a>
     </div>
 </div>
