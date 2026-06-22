@@ -1,0 +1,1148 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Recommender Systems 101 (2) Recommendation Strategy, Xinhe Liu (Charles)">
+    <meta name="description" content="A practical overview of recommendation strategies, from matching objectives to ranking and user experience tradeoffs.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Recommender Systems 101 (2) Recommendation Strategy | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/writing/" class="">Writing</a>
+    
+        <a href="/technical-notes/" class="">Technical Notes</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <i class="fas fa-search"></i>
+    </a>
+    <a class="lang-switch" href="/recsys/101-intro-2/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/writing/">Writing</a></li>
+        
+            <li><a href="/technical-notes/">Technical Notes</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <i class="fas fa-search"></i>
+        </a>
+        <a class="lang-switch" href="/recsys/101-intro-2/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Recommender Systems 101 (2) Recommendation Strategy</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/AI-Machine-Learning/">
+                                <span class="chip bg-color">AI &amp; Machine Learning</span>
+                            </a>
+                        
+                            <a href="/tags/Recommendation/">
+                                <span class="chip bg-color">Recommendation</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Technology/" class="post-category">
+                                Technology
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2023-12-14
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <ul>
+<li><a href="#three-elements-of-recommender-systems-co-evolution-of-users-information-and-platform">Three Elements of Recommender Systems: Co-Evolution of Users, Information, and Platform</a></li>
+<li><a href="#role-of-the-strategy-product-manager">Role of the Strategy Product Manager</a>
+<ul>
+<li><a href="#common-recommendation-strategies">Common Recommendation Strategies</a></li>
+<li><a href="#user-experience-strategy">User Experience Strategy</a></li>
+<li><a href="#cold-start-strategy">Cold Start Strategy</a></li>
+<li><a href="#ecosystem-strategy">Ecosystem Strategy</a></li>
+<li><a href="#layout-and-interaction-design">Layout and Interaction Design</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<h2 id="three-elements-of-recommender-systems-co-evolution-of-users-information-and-platform"><a class="markdownIt-Anchor" href="#three-elements-of-recommender-systems-co-evolution-of-users-information-and-platform"></a> Three Elements of Recommender Systems: Co-Evolution of Users, Information, and Platform</h2>
+<p><strong>In recommender systems, product definition often plays a greater role than algorithms.</strong> The reason is that modern recommendation algorithms have matured; <strong>the key lies in matching the right scenario.</strong> For example:</p>
+<h3 id="i-aligning-with-information-scarcity-to-richness-phases"><a class="markdownIt-Anchor" href="#i-aligning-with-information-scarcity-to-richness-phases"></a> I. Aligning with Information Scarcity to Richness Phases</h3>
+<ol>
+<li><strong>Information Scarcity Phase (Daily uploads &lt; 100)</strong>
+<ul>
+<li><em>Scenarios</em>: Niche professional forums, small community sites.</li>
+<li><em>Strategies</em>: Basic sorting methods, such as reverse chronological order or popularity sorting.</li>
+<li><em>Focus</em>: Designing clean layout displays to ensure core content is successfully reached.</li>
+</ul>
+</li>
+<li><strong>Information Accumulation Phase (Daily uploads 1,000+)</strong>
+<ul>
+<li><em>Scenarios</em>: Vertical platforms (local services, professional knowledge hubs).</li>
+<li><em>Strategies</em>:
+<ul>
+<li>Build a topic system to achieve structured content presentation.</li>
+<li>Design content guide mechanisms to promote deeper browsing.</li>
+<li>Introduce basic recommendation algorithms, such as topic-based collaborative filtering.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Information Abundance Phase (Daily uploads 10,000+)</strong>
+<ul>
+<li><em>Scenarios</em>: Large portal sites, e-commerce giants.</li>
+<li><em>Strategies</em>: Fully implement personalized recommendations, building user-item matching models.</li>
+<li><em>Focus</em>: Balancing precision and diversity to avoid information cocoons.</li>
+</ul>
+</li>
+</ol>
+<h3 id="ii-aligning-with-platform-growth-phases"><a class="markdownIt-Anchor" href="#ii-aligning-with-platform-growth-phases"></a> II. Aligning with Platform Growth Phases</h3>
+<ol>
+<li><strong>Startup Phase</strong>
+<ul>
+<li><em>Characteristics</em>: Limited resources (hardware, algorithms, information volume), lack of user logs.</li>
+<li><em>Strategies</em>:
+<ul>
+<li>Employ lightweight algorithms (such as TF-IDF, popularity sorting).</li>
+<li>Design structured knowledge systems.</li>
+<li>Prioritize touchpoint efficiency for core content.</li>
+</ul>
+</li>
+<li><em>Principle</em>: Algorithms over pure manual operation; simple and effective over complex models.</li>
+</ul>
+</li>
+<li><strong>Growth Phase</strong>
+<ul>
+<li><em>Focus</em>: Building the recommendation ecosystem.</li>
+<li><em>Strategies</em>:
+<ul>
+<li>Mature UGC production mechanisms.</li>
+<li>Establish user growth frameworks.</li>
+<li>Optimize content sourcing strategies.</li>
+</ul>
+</li>
+<li><em>Goal</em>: Lay the data foundation for personalized recommendations.</li>
+</ul>
+</li>
+<li><strong>Mature Phase</strong>
+<ul>
+<li><em>Focus</em>: Balancing business value and user experience.</li>
+<li><em>Core Metrics</em>: User retention, dwell time, conversion rate.</li>
+<li><em>Strategies</em>:
+<ul>
+<li>Build multi-objective optimization systems.</li>
+<li>Design commercialized recommendation slots.</li>
+<li>Optimize long-term user experience.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="iii-aligning-with-user-cognitive-phases"><a class="markdownIt-Anchor" href="#iii-aligning-with-user-cognitive-phases"></a> III. Aligning with User Cognitive Phases</h3>
+<ol>
+<li><strong>User Cold Start</strong>
+<ul>
+<li><em>Core Goal</em>: Build user trust, promote retention.</li>
+<li><em>Strategies</em>:
+<ul>
+<li>Showcase top-tier high-quality content.</li>
+<li>Leverage basic signals like device type and geographical location.</li>
+<li>Design guided interest selectors.</li>
+<li>Avoid premature monetization.</li>
+</ul>
+</li>
+<li><em>Principle</em>: Experience first to cultivate user stickiness.</li>
+</ul>
+</li>
+<li><strong>Profile Cultivation Phase</strong>
+<ul>
+<li><em>Core Goal</em>: Complete the user profile.</li>
+<li><em>Strategies</em>:
+<ul>
+<li>Employ <strong>Exploration-Exploitation</strong> (EE) mechanisms.</li>
+<li>Maintain list diversity.</li>
+<li>Keep commercialization under strict bounds.</li>
+</ul>
+</li>
+<li><em>Focus</em>: Balancing recommendation precision with exploration space.</li>
+</ul>
+</li>
+<li><strong>Profile Stable Phase</strong>
+<ul>
+<li><em>Core Goal</em>: Optimize long-term experience.</li>
+<li><em>Strategies</em>:
+<ul>
+<li>Design mechanisms to break out of filter bubbles.</li>
+<li>Establish commercialized ad-recommendation blending systems.</li>
+<li>Optimize social recommendation features.</li>
+</ul>
+</li>
+<li><em>Principle</em>: Balance <strong>commercial value and user experience</strong> to achieve sustainable growth.</li>
+</ul>
+</li>
+</ol>
+<h2 id="role-of-the-strategy-product-manager"><a class="markdownIt-Anchor" href="#role-of-the-strategy-product-manager"></a> Role of the Strategy Product Manager</h2>
+<p>Strategy PMs are responsible for platform value and user experience. Common responsibilities include:</p>
+<ol>
+<li><strong>Defining Use Scenarios</strong>
+<ul>
+<li>Such as “You might also like,” “Cross-selling,” “Frequently bought together,” etc. Each requires tailored strategies.</li>
+</ul>
+</li>
+<li><strong>Clarifying Business Goals</strong>
+<ul>
+<li>Shopping cart scenario: fast checkout + auxiliary items.</li>
+<li>Homepage: based on full user profiles.</li>
+<li>Cross-selling: balancing discount thresholds and easy-to-add items.</li>
+<li>Long-term value: retention rate, user path optimization.</li>
+</ul>
+</li>
+<li><strong>Determining UI Designs</strong>
+<ul>
+<li>Requires a combined understanding of algorithms, UI, user behavior, and business models.</li>
+</ul>
+</li>
+<li><strong>Constructing Model Data</strong>
+<ul>
+<li>Handling data differences:
+<ul>
+<li><em>Feature construction</em>: Can historical price ranges be used directly as a feature? Not quite—gender-based differences across categories are massive. However, brand preferences and price tiers can be migrated.</li>
+<li><em>Scenario-specific strategies</em>: For viewed items, judge by purchase intent. For purchased items, account for repurchase cycles. For video, separate short vs. long video.</li>
+<li><em>Leveraging prior knowledge</em>: Prioritize domain rules over raw algorithms for deterministic problems (e.g., using parenting knowledge for maternal and infant product recommendations).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Algorithmic Experiments</strong>
+<ul>
+<li>Defining objective metrics (CTR, CVR, etc.).
+<ul>
+<li>Understanding the role of evaluation metrics (e.g., applying F1 score in different scenarios).</li>
+</ul>
+</li>
+<li>Structuring input sources and data schemas.</li>
+<li>Leading model iterations.</li>
+</ul>
+</li>
+<li><strong>Diagnosing Problems &amp; Continuous Iteration</strong>
+<ul>
+<li>Case studies, online experiments.</li>
+<li><strong>Recommendation System Evaluation</strong>:
+<ul>
+<li><em>Precision</em>: AUC, UAUC, etc.</li>
+<li><em>Coverage/Diversity</em>: Herfindahl-Hirschman Index (HHI), Gini index.</li>
+<li><em>Multi-objective balance</em>: balancing content consumption, author ecosystem, and user retention.</li>
+<li><em>Metric validity</em>: Human evaluation systems.</li>
+</ul>
+</li>
+<li><strong>System Iteration Ideas</strong>:
+<ul>
+<li><em>Data introduction</em>: Enriching user profiles and tag systems.</li>
+<li><em>Retrieval optimization</em>: Multi-channel retrieval, efficiency audits.</li>
+<li><em>Ranking optimization</em>: Multi-objective balancing.</li>
+<li><em>Rule application</em>: Subjective overrides, real-time rules.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="common-recommendation-strategies"><a class="markdownIt-Anchor" href="#common-recommendation-strategies"></a> Common Recommendation Strategies</h3>
+<h3 id="user-experience-strategy"><a class="markdownIt-Anchor" href="#user-experience-strategy"></a> User Experience Strategy</h3>
+<p>User experience is the critical factor for recommender systems; sound user experience strategies boost user satisfaction and platform stickiness. Strategies focus on diversity, quality, and recency of content by addressing duplicates, filtering low-quality items, and handling spatial/temporal constraints.</p>
+<ul>
+<li><strong>Duplicate Optimization</strong>
+<ul>
+<li>Complete duplicates: Identifying plagiarism, copies.</li>
+<li>Detail page duplicates: De-duplication rules.</li>
+<li>List page/Title/Similarity duplicates: Scattering/diversity rules.</li>
+</ul>
+</li>
+<li><strong>Content Quality</strong>
+<ul>
+<li>Low-quality content identification: User negative feedback + manual annotation.</li>
+<li>Down-ranking strategies.</li>
+<li>Sourcing and boosting top-tier content.</li>
+</ul>
+</li>
+<li><strong>Spatial and Temporal Constraints</strong>
+<ul>
+<li>Recency: Processing short, medium, and long-term fresh content.</li>
+<li>Locality: Localization and regional distribution strategies.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cold-start-strategy"><a class="markdownIt-Anchor" href="#cold-start-strategy"></a> Cold Start Strategy</h3>
+<p>The cold start problem is a classic challenge. It refers to the situation where the system lacks sufficient user history or item interaction data, making it difficult to generate accurate recommendations.</p>
+<ul>
+<li><strong>User Cold Start</strong>: Leveraging device information, registration data, and basic context to quickly establish an initial profile.
+<ul>
+<li><em>Explicit interest gathering</em>: Guiding users to select initial interest categories.</li>
+<li><em>Implicit feature inference</em>: Inferring user cohort characteristics from IP address, device type, etc.</li>
+<li><em>Lookalike mapping</em>: Matching new users to similar existing cohorts.</li>
+<li><em>Popular content recommendation</em>: Showcasing the platform’s high-quality trending items.</li>
+<li><em>Interest exploration</em>: Designing diverse recommendations to probe interest boundaries.</li>
+<li><em>Immediate feedback loop</em>: Giving higher weights to the user’s initial clicks to speed up profile building.</li>
+</ul>
+</li>
+<li><strong>Item Cold Start</strong>: Analyzing inherent attributes like title, cover, and description.
+<ul>
+<li><em>Text extraction</em>: Using NLP to parse topics and keywords.</li>
+<li><em>Multimodal analysis</em>: Incorporating image and video features.</li>
+<li><em>Similarity mapping</em>: Linking new items with similar trending items.</li>
+<li><em>Long-tail coverage</em>: Setting up exposure guarantee mechanisms for new items.</li>
+<li><em>Traffic test</em>: Routing new items to a small sliver of traffic to measure performance.</li>
+<li><em>Creator trust transfer</em>: Leveraging the creator’s historical record to estimate initial quality.</li>
+</ul>
+</li>
+</ul>
+<h3 id="ecosystem-strategy"><a class="markdownIt-Anchor" href="#ecosystem-strategy"></a> Ecosystem Strategy</h3>
+<p>Ecosystem strategy is the core support framework, focusing on the <strong>positive loop between creators, content, and users</strong>.</p>
+<p>A healthy ecosystem balances all parties’ interests, fostering quality content creation, improving user experience, and driving sustainable growth. Effective ecosystem strategies create a positive loop: <strong>“high-quality creators produce premium content, premium content attracts more users, and users provide feedback and incentives to creators.”</strong></p>
+<ul>
+<li><strong>Creator / Publishing Ecosystem</strong>
+<ul>
+<li>Tools and guidelines: Sponsoring content creation tools, publishing guides, and best practices.</li>
+<li>Creator quality index: Rating creators by originality, health, and professionalism.</li>
+<li>Platform tone guidelines: Steering creation directions via recommendation biases.</li>
+<li>Creator incentives: Revenue sharing, creator funds, and honorary tier systems.</li>
+<li>Governance: Fostering new creators, anti-spam, and creator training.</li>
+</ul>
+</li>
+<li><strong>Content Ecosystem</strong>
+<ul>
+<li>Quality assurance: Audits, user reports, and automated low-quality filters.</li>
+<li>Multi-format support: Diversifying media (text, images, video, audio) and genres (knowledge, entertainment, news).</li>
+<li>Long-tail support: Providing exposure opportunities for high-quality niche content.</li>
+<li>Distribution balance: Controlling ratios of trending vs. fresh content.</li>
+<li>Safety &amp; Copyright: Filtering sensitive content, copyright protection.</li>
+</ul>
+</li>
+<li><strong>User Ecosystem</strong>
+<ul>
+<li><em>User segmentation</em>: Tailored recommendations based on user engagement levels.
+<ul>
+<li>Low-engagement users:
+<ul>
+<li><em>Definition</em>: New, low-activity, or returned users.</li>
+<li><em>Active churn-risk users</em>: Users whose activity levels are dropping.</li>
+<li><em>Strategy</em>: Content recommendation adjustments and ad exposure protection.</li>
+</ul>
+</li>
+<li>Personalization strategies:
+<ul>
+<li>Interest exploration.</li>
+<li>Diversity enhancement.</li>
+<li>Long-term interest tracking.</li>
+<li>Historical user cohort shifts analysis.</li>
+</ul>
+</li>
+<li>Off-platform users:
+<ul>
+<li>Surveys and competitive analysis.</li>
+<li>Sharing link optimizations.</li>
+<li>Trending event tracking.</li>
+</ul>
+</li>
+<li>Push optimization:
+<ul>
+<li>Multi-touch attribution: Accurately attributing app opens to push events.</li>
+<li>Activation path optimization: Tuning clicks and app startup pipelines.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>Community atmosphere</em>: Fostering healthy interactions, comment moderation.</li>
+<li><em>User feedback</em>: Weight designs for likes, favorites, and shares.
+<ul>
+<li>Understanding how trending content propagates and identifying key nodes.</li>
+</ul>
+</li>
+<li><em>User retention</em>: Personalized push, interest cultivation, and social loops.
+<ul>
+<li>User journey: Guiding new users to become power users.</li>
+<li>Diagnosing dropping activity.</li>
+<li>DAU, day-1 retention, and stay time attribution.</li>
+<li>Tracking historical shifts in user cohorts.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="layout-and-interaction-design"><a class="markdownIt-Anchor" href="#layout-and-interaction-design"></a> Layout and Interaction Design</h3>
+<p>Interaction design directly affects user experience and recommendation effectiveness. Smart designs reduce choice fatigue, improve data gathering, and naturally guide exploration:</p>
+<ul>
+<li><strong>Reducing Choice Fatigue</strong>
+<ul>
+<li><em>Example</em>: Netflix’s autoplay previews, enabling users to preview content without clicking.</li>
+<li><em>Example</em>: Spotify’s “Daily Mix” playlists, offering personalized music with a single click.</li>
+</ul>
+</li>
+<li><strong>Improving Data Sourcing Quality</strong>
+<ul>
+<li><em>Example</em>: YouTube’s “Not interested” and “Don’t recommend channel” buttons, capturing precise negative feedback.</li>
+<li><em>Example</em>: Amazon’s separation of star ratings and written reviews, lowering feedback friction.</li>
+</ul>
+</li>
+<li><strong>Guiding User Exploration</strong>
+<ul>
+<li><em>Example</em>: TikTok’s “Discover” page, highlighting new content categories using visual layouts.</li>
+<li><em>Example</em>: Pinterest’s relevant content grids, naturally steering users into related interests.</li>
+</ul>
+</li>
+<li><strong>Enhancing Recommendation Transparency</strong>
+<ul>
+<li><em>Example</em>: LinkedIn’s “Because you followed X” recommendation explanations.</li>
+<li><em>Example</em>: Facebook’s “Why am I seeing this ad?” disclosures.</li>
+</ul>
+</li>
+<li><strong>Optimizing Instant Feedback Loops</strong>
+<ul>
+<li><em>Example</em>: Instagram’s double-tap to like, simplifying feedback.</li>
+<li><em>Example</em>: Medium’s progressive reading bar, implicitly gathering content consumption speed.</li>
+</ul>
+</li>
+</ul>
+<p>These designs improve user experience and feed high-quality training logs back to recommendation models, forming a positive optimization loop.</p>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.datafuntalk.com/p/t_pc/course_pc_detail/video/v_6203c245e4b04d7e2fca6306">DataFun: Thoughts on Recommendation Strategy Framework</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/667304142">Weibo Recommendation Strategy PM, Xiu-Jian Xu</a></li>
+<li><a target="_blank" rel="noopener" href="https://weread.qq.com/web/bookDetail/f42323b0811e7870eg018610">Strategy Product Manager: Models and Methodologies, Qing Shi-Wu</a></li>
+<li><a target="_blank" rel="noopener" href="https://weread.qq.com/web/bookDetail/f42323b0811e7870eg018610">Strategy Product Manager in Practice, Qing Shi-Wu</a></li>
+<li><a target="_blank" rel="noopener" href="https://weread.qq.com/wrpage/book/share/934462?from=pingshuke">Content Algorithms: Turning Content into Value</a></li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/en/recsys/101-intro-2/">https://xinheliu.github.io/en/recsys/101-intro-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/AI-Machine-Learning/">
+                                    <span class="chip bg-color">AI &amp; Machine Learning</span>
+                                </a>
+                            
+                                <a href="/tags/Recommendation/">
+                                    <span class="chip bg-color">Recommendation</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/en/recsys/101-intro-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Recommender Systems 101 (1) Introduction to Recommender Systems">
+                        
+                        <span class="card-title">Recommender Systems 101 (1) Introduction to Recommender Systems</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-12-13
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Technology/" class="post-category">
+                                    Technology
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI-Machine-Learning/">
+                        <span class="chip bg-color">AI &amp; Machine Learning</span>
+                    </a>
+                    
+                    <a href="/tags/Recommendation/">
+                        <span class="chip bg-color">Recommendation</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/en/recsys/101-intro-3/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Recommender Systems 101 (3) Algorithmic Frontiers">
+                        
+                        <span class="card-title">Recommender Systems 101 (3) Algorithmic Frontiers</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Technology/" class="post-category">
+                                    Technology
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI-Machine-Learning/">
+                        <span class="chip bg-color">AI &amp; Machine Learning</span>
+                    </a>
+                    
+                    <a href="/tags/Recommendation/">
+                        <span class="chip bg-color">Recommendation</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

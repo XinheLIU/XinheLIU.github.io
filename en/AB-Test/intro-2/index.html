@@ -1,0 +1,1713 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="A/B Testing (2) Challenges in A/B Testing, Xinhe Liu (Charles)">
+    <meta name="description" content="A deeper look at difficult A/B testing cases such as interference, long-term effects, triggering, surrogate metrics, and cluster design.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>A/B Testing (2) Challenges in A/B Testing | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/writing/" class="">Writing</a>
+    
+        <a href="/technical-notes/" class="">Technical Notes</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <i class="fas fa-search"></i>
+    </a>
+    <a class="lang-switch" href="/AB-Test/intro-2/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/writing/">Writing</a></li>
+        
+            <li><a href="/technical-notes/">Technical Notes</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <i class="fas fa-search"></i>
+        </a>
+        <a class="lang-switch" href="/AB-Test/intro-2/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">A/B Testing (2) Challenges in A/B Testing</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/A-B-Testing/">
+                                <span class="chip bg-color">A/B Testing</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Data-Science/" class="post-category">
+                                Data Science
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2024-06-20
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="challenges-in-ab-testing"><a class="markdownIt-Anchor" href="#challenges-in-ab-testing"></a> Challenges in A/B Testing</h1>
+<ul>
+<li><a href="#challenges-in-ab-testing">Challenges in A/B Testing</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#measurement-problems-sensitivity-and-statistical-power-improvement">Measurement Problems: Sensitivity and Statistical Power Improvement</a>
+<ul>
+<li><a href="#sensitivity-improvement">Sensitivity Improvement</a></li>
+<li><a href="#triggered-analysis">Triggered Analysis</a></li>
+<li><a href="#heterogeneous-treatment-effect-hte">Heterogeneous Treatment Effect (HTE)</a></li>
+</ul>
+</li>
+<li><a href="#experimental-mechanisms-and-decision-making-problems">Experimental Mechanisms and Decision-Making Problems</a>
+<ul>
+<li><a href="#long-term-effects">Long-Term Effects</a>
+<ul>
+<li><a href="#method-1-long-term-experiments">Method 1: Long-Term Experiments</a></li>
+<li><a href="#method-2-modeling-user-learning">Method 2: Modeling User Learning</a></li>
+<li><a href="#method-3-surrogate-index-short-term-proxies-for-long-term-outcomes">Method 3: Surrogate Index (Short-term Proxies for Long-term Outcomes)</a></li>
+<li><a href="#other-methods">Other Methods</a></li>
+</ul>
+</li>
+<li><a href="#optional-stopping-continuous-testing-problem">Optional Stopping (Continuous Testing Problem)</a>
+<ul>
+<li><a href="#sequential-testing">Sequential Testing</a></li>
+<li><a href="#bayesian-ab-testing">Bayesian A/B Testing</a></li>
+</ul>
+</li>
+<li><a href="#interference-spillovernetwork-interference-between-units">Interference (Spillover/Network Interference Between Units)</a>
+<ul>
+<li><a href="#direct-interference-between-units">Direct Interference between Units</a></li>
+<li><a href="#indirect-interference-two-sided-marketplace">Indirect Interference: Two-Sided Marketplace</a>
+<ul>
+<li><a href="#solution-1-social-network-clustering--physical-isolation">Solution 1: Social Network Clustering / Physical Isolation</a></li>
+<li><a href="#solution-2-time-isolation--switchback-experiments">Solution 2: Time Isolation / Switchback Experiments</a></li>
+<li><a href="#solution-3-double-sided-experiments">Solution 3: Double-Sided Experiments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="overview"><a class="markdownIt-Anchor" href="#overview"></a> Overview</h2>
+<table>
+  <tr>
+    <th>Problem Type</th>
+    <th>Challenge</th>
+    <th>Problem Description</th>
+    <th>Solution</th>
+    <th>Examples</th>
+  </tr>
+  <tr>
+    <td rowspan="3">Sensitivity & Statistical Power</td>
+    <td>Small Treatment Effects</td>
+    <td>How to deal with small gains when the sample size is insufficient?</td>
+    <td>Variance Reduction / CUPED</td>
+    <td>Capping ad value metrics for deep conversion; using CUPED on the ad/campaign side to reduce variance.</td>
+  </tr>
+  <tr>
+    <td>Triggered Analysis</td>
+    <td>How to estimate overall platform gains from locally significant gains?</td>
+    <td>Reverse estimate ATE using ATT and penetration rate.</td>
+    <td>Combining IV and PSM under experimental scenarios to measure causal effects.</td>
+  </tr>
+  <tr>
+    <td>Heterogeneous Treatment Effects</td>
+    <td>How to identify different individual responses to the same treatment (heterogeneity)?</td>
+    <td>Linear models / KNN / Causal Forest / Double Machine Learning</td>
+    <td>User research experiment decompositions (e.g., how client loading strategy variables affect user activity across groups to identify user sensitivity to ads).</td>
+  </tr>
+  <tr>
+    <td rowspan="3">Experimental Design & Decision Mechanisms</td>
+    <td>Long-Term Effects</td>
+    <td>How to measure long-term changes in short-term experiments to avoid short-sighted decisions?</td>
+    <td>Predicting long-term outcomes using short-term experiment results</td>
+    <td>In mid-to-high ad side experiments, estimating learning effects and intermediate metrics to drive and predict long-term LTV trends, where prediction strongly relies on learning effect curves.</td>
+  </tr>
+  <tr>
+    <td>Optional Stopping</td>
+    <td>How to avoid cherry-picking results during continuous monitoring? Is simple continuous peek testing NG?</td>
+    <td>Sequential testing</td>
+    <td>No actual production application yet; plotting p-value curves over time acts as a surrogate workflow.</td>
+  </tr>
+  <tr>
+    <td>Interference</td>
+    <td>How to handle spillover and mutual interference between units?</td>
+    <td>Cluster-based experiments / Switchback / TSR method</td>
+    <td>Budget-based traffic splitting.</td>
+  </tr>
+</table>
+<h2 id="measurement-problems-sensitivity-and-statistical-power-improvement"><a class="markdownIt-Anchor" href="#measurement-problems-sensitivity-and-statistical-power-improvement"></a> Measurement Problems: Sensitivity and Statistical Power Improvement</h2>
+<h3 id="sensitivity-improvement"><a class="markdownIt-Anchor" href="#sensitivity-improvement"></a> Sensitivity Improvement</h3>
+<p>In the hypothesis testing process of A/B testing, there is an “impossible trinity”: “small effect size, high variance, and small sample size.” In practical applications, such as commercialization scenarios, this challenge is ubiquitous. For example, the sparsity of conversions in deep conversion products leads to high variance in advertiser value. The impact of a single strategy is often in the “basis point” (ten-thousandth) range, usually requiring long observation periods and massive sample sizes to achieve statistically significant results. However, most online traffic experiments are scheduled in weekly cycles and have limited traffic; dealing with small effects and insufficient sample sizes is an inevitable issue, and simply extending experiment duration hurts iteration speed.</p>
+<p>How to improve metric sensitivity? Common approaches include:</p>
+<ol>
+<li><strong>Increase Sample Size</strong>
+<ul>
+<li>For example, using <em>interleaving</em> experiment mechanisms to replace traditional A/B testing in recommendation/search rankings.</li>
+</ul>
+</li>
+<li><strong>Improve Sample Quality</strong>
+<ul>
+<li><strong>Trimming</strong> (Removing outliers): Discarding extremely anomalous observations from the data.</li>
+<li>Removing high-variance/outlier samples.</li>
+<li><strong>Triggered Analysis</strong> (detailed below).</li>
+</ul>
+</li>
+<li><strong>Modify Metric Definitions</strong>
+<ul>
+<li><strong>Discretization</strong>: Converting continuous metrics into ratio-type metrics by applying thresholds (binarizing count metrics), such as transforming raw impression counts into “proportion of content with impressions &gt; X”, or active days per capita into “active for at least 5 days”. -&gt; A key selection principle for such metrics is ensuring <em>directionality</em>—if the original metric increases in the experiment, the binarized version should also increase.</li>
+<li><strong>Fitting New Metrics</strong>: Using machine learning to find the most explanatory <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span> variables for the target metric <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span> while preserving directionality, and fitting a new proxy metric that has lower variance (Yandex and Facebook have used this approach).</li>
+</ul>
+</li>
+<li><strong>Variance Reduction</strong>
+<ul>
+<li><strong>Capping</strong>: Replacing values that exceed a certain threshold (which are logically sound but extreme) with the threshold itself. For example, capping live-stream tips over $500 at $500 to reduce the metric’s variance.
+<ul>
+<li><em>Assumption</em>: Assumes the treatment only affects uncapped values or affects capped and uncapped values proportionally.</li>
+<li><em>Challenge</em>: Thresholds are hard to define and may be unstable across different experiments.</li>
+</ul>
+</li>
+<li><strong>Utilizing Pre-Experiment Data</strong>
+<ul>
+<li><strong>CUPED</strong> (Controlled Experiments Utilizing Pre-Experiment Data)
+<ul>
+<li>Paper: Deng et al. <a target="_blank" rel="noopener" href="https://www.exp-platform.com/Documents/2013-02-CUPED-ImprovingSensitivityOfControlledExperiments.pdf">Improving the Sensitivity of Online Controlled Experiments by Utilizing Pre-Experiment Data</a>.</li>
+<li>Requires strong correlation between pre- and post-experiment metrics (e.g., user active duration).</li>
+</ul>
+</li>
+<li><strong>Post-Stratification / Variance-Weighted Estimator</strong>: Using weighted estimators based on individual-level variance estimates to reduce the variance of the treatment effect estimate. It has been proven that the coefficient of variation of the population variance is a sufficient statistic for determining the scale of achievable variance reduction.</li>
+<li><strong>Optimal Sampling Methods</strong>: Using improved sampling methods to improve sensitivity depending on the scenario.
+<ul>
+<li>Karmarkar-Karp heuristic</li>
+<li>Stratified sampling (achieves overall variance reduction when between-strata variance is much smaller than within-strata variance)</li>
+<li>Post-stratification</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Non-parametric Testing</strong>
+<ul>
+<li>For example, Mann-Whitney U test, etc.</li>
+</ul>
+</li>
+</ol>
+<p><strong>CUPED Example:</strong></p>
+<p>Let the random variable <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span> represent the user’s metric (e.g., app usage duration <code>Stay_Duration</code>) during the experiment phase. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>Y</mi><mo>ˉ</mo></mover></mrow><annotation encoding="application/x-tex">\bar{Y}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8201099999999999em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8201099999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">ˉ</span></span></span></span></span></span></span></span></span></span> represents the average usage duration. Suppose we have another random variable <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>, which in CUPED is typically the user’s pre-experiment metric (e.g., the user’s app usage duration before the experiment started). We define a new adjusted metric:</p>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;$&#039; in math mode at position 37: …X + E(\theta X)$̲$ (Formula 1)
+
+…'>Y_{adj} = Y - \theta X + E(\theta X)$$ (Formula 1)
+
+where $E(X)$ is the theoretical expectation of $X$, which is a constant parameter.
+
+At this point:
+
+$$E(Y_{adj}) = E(Y - \theta X + E(\theta X)) = E(Y) - \theta E(X) + \theta E(X) = E(Y)</p>
+<p>This means <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mrow><mi>a</mi><mi>d</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">Y_{adj}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> is an unbiased estimator of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">(</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E(Y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span></span></span></span>.</p>
+<p>Meanwhile:</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><msub><mi>Y</mi><mrow><mi>a</mi><mi>d</mi><mi>j</mi></mrow></msub><mo stretchy="false">)</mo><mo>=</mo><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>−</mo><mi>θ</mi><mi>X</mi><mo>+</mo><mi>E</mi><mo stretchy="false">(</mo><mi>θ</mi><mi>X</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>−</mo><mi>θ</mi><mi>X</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>−</mo><mi>θ</mi><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Var(Y_{adj}) = Var(Y - \theta X + E(\theta X)) = Var(Y - \theta X) = \frac{1}{n}Var(Y - \theta X)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span></span></p>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;$&#039; in math mode at position 59: …theta Cov(Y,X))$̲$ (Formula 2)
+
+…'>= \frac{1}{n}(Var(Y) + \theta^2 Var(X) - 2\theta Cov(Y,X))$$ (Formula 2)
+
+Note that the variance of the new metric is a quadratic function of $\theta$, representing an upward-opening parabola. When:
+
+$$\theta = \frac{Cov(Y,X)}{Var(X)}</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mi>a</mi><mi>r</mi><mo stretchy="false">(</mo><msub><mi>Y</mi><mrow><mi>a</mi><mi>d</mi><mi>j</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Var(Y_{adj})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> achieves its minimum value.</p>
+<h3 id="triggered-analysis"><a class="markdownIt-Anchor" href="#triggered-analysis"></a> Triggered Analysis</h3>
+<ul>
+<li>Certain strategies require active user behaviors to “opt-in,” such as signing up to receive a reward, or taking specific actions to trigger the treatment. This creates a funnel where the Average Treatment Effect (ATE) is diluted by the “penetration/trigger rate.”</li>
+<li>Triggered Analysis improves sensitivity by analyzing only the users who were actually triggered by the strategy (e.g., users who entered the payment page). Although this reduces the sample size, it prevents the treatment effect from being diluted by non-triggered users. If the proportion of triggered users is very small, ATE will be significantly underestimated. In this case, looking only at triggered users is a great way to mitigate dilution. The two main challenges are:
+<ul>
+<li>Extrapolating results from triggered users to the overall population.</li>
+<li>Reducing the variance of the ATE estimate to offset the sensitivity loss caused by the smaller sample size of triggered users.</li>
+</ul>
+</li>
+</ul>
+<img src="/en/AB-Test/intro-2/AB-Test-Trigger-Analysis.png" class="" title="Deng, A., &amp; Hu, Y. (2015, February). Diluted treatment effect estimation for trigger analysis in online controlled experiments. In Proceedings of the Eighth ACM International Conference on Web Search and Data Mining">
+<ul>
+<li><strong>Method 1: User-Triggered Analysis (Commonly used)</strong>
+<ul>
+<li><em>Sample selection</em>: Observe triggered users from their first trigger event, analyzing all events during the experiment cycle.</li>
+<li><em>Advantages</em>: No assumptions are made about the treatment effect; allows looking at user-level metrics. It has been proven to improve statistical power and reduce variance.</li>
+</ul>
+</li>
+<li><strong>Method 2: Session-Triggered Analysis</strong>
+<ul>
+<li><em>Sample selection</em>: Observe triggered users only during the sessions in which they were triggered.</li>
+<li><em>Pros/Cons</em>: Stronger variance reduction than user-triggered analysis, but relies on a strong assumption: <strong>the treatment effect only occurs within the triggered session.</strong></li>
+</ul>
+</li>
+<li><strong>Estimation: Diluted Formulas</strong>
+<ul>
+<li>Example:
+<ul>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-Trigger-Exp.png" class="" title="Trigger Experiment Example">
+</li>
+<li>ITT (Intention-to-treat): Measures the average effect on the intended population (the entire treatment group <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mn>1</mn><mo>+</mo><mi>A</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">A1 + A2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">A</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span><span class="mord">2</span></span></span></span>), which includes users who did not actually adopt the strategy.</li>
+<li>ATT (Average treatment effect on the treated): Measures the average effect on the actual adopters of the strategy.</li>
+</ul>
+</li>
+<li>Find comparable groups <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">A1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span><span class="mord">1</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">B1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord">1</span></span></span></span>, and use ATT to back-calculate ATE/ITT:
+<ul>
+<li>Absolute effect: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>T</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi>I</mi><mi>T</mi><mi>T</mi><mo>=</mo><mi>A</mi><mi>T</mi><mi>T</mi><mo>×</mo><mfrac><mi>n</mi><mi>N</mi></mfrac></mrow><annotation encoding="application/x-tex">ATE/ITT = ATT \times \frac{n}{N}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></li>
+<li>Ratio metrics: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>T</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi>I</mi><mi>T</mi><mi>T</mi><mo>=</mo><mi>A</mi><mi>T</mi><mi>T</mi><mo>×</mo><mfrac><mi>n</mi><mi>N</mi></mfrac><mo>×</mo><mover accent="true"><mi>r</mi><mo>ˉ</mo></mover></mrow><annotation encoding="application/x-tex">ATE/ITT = ATT \times \frac{n}{N} \times \bar{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.56778em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.56778em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">ˉ</span></span></span></span></span></span></span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>r</mi><mo>ˉ</mo></mover></mrow><annotation encoding="application/x-tex">\bar{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.56778em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.56778em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">ˉ</span></span></span></span></span></span></span></span></span></span> is the average trigger rate (the function of the denominator).</li>
+<li>Can be combined with methods like CUPED to reduce variance.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Common Questions</strong>
+<ul>
+<li>
+<p>Can the idea of using Instrumental Variables (IV) to estimate ATT be applied to scenarios with “always-takers”?</p>
+<ul>
+<li>
+<p>The estimators are not exactly the same. IV estimates the Local Average Treatment Effect (LATE), which is the treatment effect on the <em>compliers</em>. In the absence of always-takers, the estimate for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">T = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> is equivalent to the estimate for compliers, meaning LATE = ATT. However, when always-takers exist, the compliers estimated by IV are only a subset of the treated units, which does not represent the ATT of all adopters. Thus, estimating via 2SLS (Two-Stage Least Squares) and PSM (Propensity Score Matching) will yield different estimators.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>T = 0</th>
+<th>T = 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z = 0</td>
+<td>Never-taker + Complier</td>
+<td>Always-taker</td>
+</tr>
+<tr>
+<td>Z = 1</td>
+<td>Never-taker</td>
+<td>Always-taker + Complier</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<p>Can the ATT estimate be extrapolated to the entire population? For example, if a feature has a significant effect on compliers, can we roll out the feature to everyone (e.g., from manual click to pop-up window) and assume the effect will be equal to the estimated ATT?</p>
+<ul>
+<li>No. Compliers are self-selected, and their distribution differs from the overall population. The ATT estimated on compliers does not represent the effect on the general population. If a significant conclusion is observed on compliers and you consider changing the product logic (such as making a manual opt-in automatic), you must run a new experiment to measure the actual effect on the overall population.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>How to find a comparable sample <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">B1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord">1</span></span></span></span> in the control group for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">A1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span><span class="mord">1</span></span></span></span>?</p>
+<ol>
+<li><strong>Using Instrumental Variables (IV)</strong>
+<ul>
+<li>The random assignment in A/B testing itself is a perfect instrumental variable. We only need to know the proportion of compliers in the treatment group to estimate the causal effect.
+<ul>
+<li><em>Assumptions</em>:
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo>→</mo><mi>T</mi><mo>→</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">Z \to T \to Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span>: The effect of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span> on <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span> is mediated entirely through <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span>; no backdoor paths exist between <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span>; monotonicity assumption (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>Z</mi><mo>=</mo><mn>1</mn><mo stretchy="false">)</mo><mo>&gt;</mo><mi>T</mi><mo stretchy="false">(</mo><mi>Z</mi><mo>=</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">T(Z=1) &gt; T(Z=0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span>), meaning there are no defiers or always-takers, only compliers and never-takers.</li>
+</ul>
+</li>
+<li><em>Challenge</em>:
+<ul>
+<li>IV itself does not improve sensitivity or significance. In scenarios with a funnel, if the ITT (reduced-form estimation) from A/B testing is not significant, the LATE estimated by the instrumental variable is highly unlikely to be significant either.</li>
+<li>The significance of IV estimation is basically identical to that of the reduced-form estimation. Thus, LATE is not a tool for increasing statistical significance. The motivation for using LATE is usually driven by the business question—we care about the effect of <em>adopting</em> the strategy, not the effect of the <em>nudge</em> from random assignment.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>For the same endogenous variable/strategy, using different instrumental variables will yield different LATEs. This is because different IVs affect different sets of compliers, acting on different subgroups, which naturally leads to different treatment effects.</li>
+<li><strong>Counterfactual Logging</strong>
+<ul>
+<li>Identifying a comparable group <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span> in the control group through system logging (e.g., having the model predict twice).</li>
+<li>This can significantly reduce variance to estimate ATT.</li>
+<li>However, the engineering cost is very high.
+<ul>
+<li>Example: The “Ghost Ads” mechanism used in advertising scenarios (Reference: Johnson, G. A., Lewis, R. A., &amp; Nubbemeyer, E. I. (2017). <a target="_blank" rel="noopener" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2620078">Ghost Ads: Improving the Economics of Measuring Online Ad Effectiveness.</a>, <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_do6ACKKlnw">YouTube</a>).
+<ul>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-Ghost-Ads.png" class="">
+</li>
+</ul>
+</li>
+<li><em>Limitations</em>:
+<ul>
+<li>Ghost ad thresholds: Raises questions about whether a single ghost ad trigger is an accidental recommendation event and how many triggers are needed to be truly comparable.</li>
+<li>Strategy interference: Once a ghost ad is triggered, frequency capping and other ad pacing rules might cause the control group’s trigger probability to rise. Therefore, the experiment cannot run for too long.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Matching Methods</strong>
+<ul>
+<li>Finding a comparable control group <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">B1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord">1</span></span></span></span> using pre-experiment features (e.g., Propensity Score Matching - PSM).</li>
+<li>The estimation might have bias, but it improves sensitivity.</li>
+<li>Often used in tandem with IV (Two-stage estimation).</li>
+</ul>
+</li>
+</ol>
+<p>How to combine IV and Propensity Score Matching (PSM)?</p>
+<div class="mermaid">
+  graph TD
+    A["Goal: Evaluate ATT"] --> B["Experiment"]
+    B --> C{"Significant?"}
+    C -- Yes --> D["Output ATT = ITT / Penetration Rate"]
+    C -- No --> E["IV + X: 2SLS"]
+    E --> F{"Significant?"}
+    F -- Yes --> G["Output ATT = LATE"]
+    F -- No --> H["Directly estimate ATT using PSM <br> IV Calibration"]
+    H --> I{"Significant? <br> & Passes IV Test"}
+    I -- Yes --> J["Output ATT"]
+    I -- No --> K["No significant effect <br> Optimize strategy & restart experiment"]
+
+    style D fill:#d4efdf,stroke:#2ecc71
+    style G fill:#d4efdf,stroke:#2ecc71
+    style J fill:#d4efdf,stroke:#2ecc71
+    style K fill:#fadbd8,stroke:#e74c3c
+    style A fill:#fadbd8,stroke:#e74c3c
+</div>
+
+<p>How to combine matching methods to reduce bias? Taking Two-Stage Regression as an example:</p>
+<p>Assume a linear relationship between strategy <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span> and outcome <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span>: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mi>δ</mi><mi>T</mi><mo>+</mo><msub><mi>α</mi><mi>u</mi></msub><mi>U</mi></mrow><annotation encoding="application/x-tex">Y = \delta T + \alpha_u U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.0037em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span></span></span>.</p>
+<p>Under this assumption, the treatment effect ATT = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow><annotation encoding="application/x-tex">\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span> is the same for everyone. We can derive that using an IV can yield an unbiased estimate of the ATT under IV assumptions A1 - A4:</p>
+<p><strong>Variable Type - Unbiased Estimation Inference</strong></p>
+<p><strong>When Y and T are both binary (0, 1) variables</strong>:</p>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: No such environment: align* at position 7: \begin{̲a̲l̲i̲g̲n̲*̲}̲
+\delta&amp;=\frac{…'>\begin{align*}
+\delta&amp;=\frac{E[Y|Z = 1]-E[Y|Z = 0]}{E[T|Z = 1]-E[T|Z = 0]}\\
+E[Y|Z = 1]-E[Y|Z = 0]&amp;=E[\delta T+\alpha _u U|Z = 1]-E[\delta T+\alpha _u U|Z = 0] \ ( \text{Assumption 2 and 4} )\\
+&amp;=\delta (E[T|Z = 1]-E[T|Z = 0])+\alpha _u (E[U|Z = 1]-E[U|Z = 0])\\
+&amp;=\delta (E[T|Z = 1]-E[T|Z = 0])+\alpha _u (E[U]-E[U]) \ ( \text{Assumption 3} )\\
+&amp;=\delta (E[T|Z = 1]-E[T|Z = 0])\\
+\delta&amp;=\frac{E[Y|Z = 1]-E[Y|Z = 0]}{E[T|Z = 1]-E[T|Z = 0]}
+\end{align*}
+</p>
+<p>IV Assumption 1 ensures the denominator <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">[</mo><mi>T</mi><mi mathvariant="normal">∣</mi><mi>Z</mi><mo>=</mo><mn>1</mn><mo stretchy="false">]</mo><mo>−</mo><mi>E</mi><mo stretchy="false">[</mo><mi>T</mi><mi mathvariant="normal">∣</mi><mi>Z</mi><mo>=</mo><mn>0</mn><mo stretchy="false">]</mo><mo mathvariant="normal">≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">E[T|Z = 1] - E[T|Z = 0] \neq 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow><annotation encoding="application/x-tex">\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span> is the ATT we want to estimate. The conditional expectations in the numerator and denominator can be calculated from the conditional averages in the experimental data.</p>
+<p>If there are no always-takers in the experiment, there are no <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">T = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> users in the control group. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">[</mo><mi>T</mi><mi mathvariant="normal">∣</mi><mi>Z</mi><mo>=</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">E[T|Z = 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span> represents the penetration rate in the treatment group, in which case ATT equals ITT / penetration rate.</p>
+<p><strong>When Y and T are continuous variables</strong>:</p>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: No such environment: align* at position 7: \begin{̲a̲l̲i̲g̲n̲*̲}̲
+\delta&amp;=\frac{…'>\begin{align*}
+\delta&amp;=\frac{Cov(Y,Z)}{Cov(T,Z)}\\
+Cov(Y,Z)&amp;=E[YZ]-E[Y]E[Z]\\
+&amp;=E[(\delta T+\alpha _u U)Z]-E[\delta T+\alpha _u U]E[Z] \ ( \text{Assumption 2 and 4} )\\
+&amp;=\delta (E[TZ]-E[T]E[Z])+\alpha _u (E[UZ]-E[U]E[Z])\\
+&amp;=\delta Cov(T,Z)+\alpha _u Cov(U,Z)\\
+&amp;=\delta Cov(T,Z) \ ( \text{Assumption 3} )\\
+\delta&amp;=\frac{Cov(Y,Z)}{Cov(T,Z)}
+\end{align*}
+</p>
+<p>Assumption 1 ensures the denominator <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo mathvariant="normal">≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\neq 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>.</p>
+<p><strong>Two-Stage Least Squares (2SLS): Applicable to all variable types</strong></p>
+<ol>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">[</mo><mi>T</mi><mi mathvariant="normal">∣</mi><mi>Z</mi><mo stretchy="false">]</mo><mo>=</mo><mi>β</mi><mi>Z</mi><mo>+</mo><mi>ρ</mi><mi>X</mi></mrow><annotation encoding="application/x-tex">E[T|Z] = \beta Z + \rho X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">ρ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>, yielding predicted values <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>T</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{T}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9467699999999999em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9467699999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.16666em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span>. First stage: Regress <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span> on <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span>.</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">[</mo><mi>Y</mi><mi mathvariant="normal">∣</mi><mover accent="true"><mi>T</mi><mo>^</mo></mover><mo stretchy="false">]</mo><mo>=</mo><mi>δ</mi><mover accent="true"><mi>T</mi><mo>^</mo></mover><mo>+</mo><mi>λ</mi><mi>X</mi></mrow><annotation encoding="application/x-tex">E[Y|\hat{T}] = \delta \hat{T} + \lambda X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.19677em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mord">∣</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9467699999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.16666em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0300999999999998em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9467699999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.16666em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">λ</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>. Second stage: Regress <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span> on <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>T</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{T}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9467699999999999em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9467699999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.16666em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span>. At this point, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>T</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{T}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9467699999999999em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9467699999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.16666em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span> is mapped from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span> through the first-stage regression, inheriting <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span>’s unconfoundedness.</li>
+</ol>
+<p>Adding covariates <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span> that are highly correlated with <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span> in the two-stage regression can reduce the estimation variance (similar to the CUPED approach).</p>
+<p>The advantage of linear models is that they can utilize IV to calculate an unbiased ATT estimate of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span> on <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span>. However, their limitation is also obvious: the linear model assumes that the treatment effect is the same for everyone.</p>
+<h3 id="heterogeneous-treatment-effect-hte"><a class="markdownIt-Anchor" href="#heterogeneous-treatment-effect-hte"></a> Heterogeneous Treatment Effect (HTE)</h3>
+<p>Sometimes, focusing only on the overall treatment effect (ATE) does not meet our needs. For example:</p>
+<ul>
+<li>In an ad strategy experiment, due to user self-selection or recommendation strategies, there are differences in the target populations reached.
+<ul>
+<li>From the overall strategy effect, treatment <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span> is superior to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span></span></span></span>. However, in head-to-head subgroup comparisons, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span></span></span></span>’s content quality/conversion rate is superior to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>’s.</li>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-Targeting-Imbalance.png" class="">
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="experimental-mechanisms-and-decision-making-problems"><a class="markdownIt-Anchor" href="#experimental-mechanisms-and-decision-making-problems"></a> Experimental Mechanisms and Decision-Making Problems</h2>
+<h3 id="long-term-effects"><a class="markdownIt-Anchor" href="#long-term-effects"></a> Long-Term Effects</h3>
+<p>Due to cost and iteration speed constraints, standard experiments evaluate the short-term effects of a strategy. However, businesses ultimately care about long-term effects. We usually assume that short-term effects represent long-term effects, but this does not always hold true.</p>
+<p>Reasons why short-term effects may fail to represent long-term effects include:</p>
+<ul>
+<li><strong>User learning over time</strong> causes the treatment effect to change (i.e., ATE is a function of time).
+<ul>
+<li><em>Novelty Effect</em>: A fresh change initially captures user attention and drives engagement, but this effect fades or even reverses over time.
+<ul>
+<li>Poor search results cause users to search repeatedly. In the short term, search queries and ad revenue rise; in the long term, users leave, and revenue falls.</li>
+<li>Showing more ads increases short-term revenue, but users may churn or learn to ignore ads, causing long-term revenue to decline.</li>
+</ul>
+</li>
+<li><em>Primacy Effect</em>: A change might not show positive gains initially, but as users adapt to the change, engagement increases over time.</li>
+</ul>
+</li>
+<li><strong>The strategy effect itself takes time to manifest.</strong>
+<ul>
+<li><em>Delayed Network Effects</em>: Network effects in social or platform products take time to accumulate; short-term experiments cannot observe the value brought by reaching critical mass.</li>
+<li><em>Habit Formation Cycle</em>: Forming new habits takes weeks or even months; short-term experiments struggle to capture the establishment of stable behavior patterns.
+<ul>
+<li>On Airbnb, the time from booking to check-in is long; the impact on user retention takes a long time to measure.</li>
+</ul>
+</li>
+<li><em>Long-Tail Effects</em>: Certain strategies may impact a minority of users significantly, but it takes time for this to manifest in overall metrics.</li>
+<li><em>Cross-Platform Synergy</em>: User behavior migration and adaptation across multiple platforms take time to evaluate fully.</li>
+<li><em>Brand Perception Building</em>: Certain changes may affect brand perception, an effect that takes a long time to manifest in user behavior.</li>
+<li><em>Ecosystem/External Shifts</em>: New feature rollouts, seasonality, competitive landscape changes (e.g., competitors launching the same feature), regulatory changes (e.g., GDPR), concept drift, and software degradation can all cause strategy effects to decay.</li>
+</ul>
+</li>
+</ul>
+<h4 id="method-1-long-term-experiments"><a class="markdownIt-Anchor" href="#method-1-long-term-experiments"></a> Method 1: Long-Term Experiments</h4>
+<p>The most intuitive method is to extend the experiment duration. The following analysis methods are typically used:</p>
+<ul>
+<li><strong>Direct Analysis</strong>
+<ul>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-LT-1.png" class="">
+</li>
+<li>For attribution: <strong>Effect Dilution</strong>
+<ul>
+<li>Effect dilution caused by users using multiple devices.</li>
+<li>If assignment is based on cookies, the longer the duration, the more likely a natural person enters both the treatment and control groups.</li>
+<li>If network effects exist, the longer the duration, the greater the leakage.</li>
+</ul>
+</li>
+<li><em>Survivor Bias</em>: If user retention differs between groups, looking only at the last week of data does not accurately reflect the treatment effect.</li>
+<li><em>Interaction with other features</em>: Many new features are launched during the experiment, which affects the performance of existing features. For example, sending pushes might be highly effective initially, but if other teams also start sending pushes, the effect will decay.</li>
+<li>If the external environment changes, the experimental effect will also be affected, so the difference between the end and start of the experiment is not necessarily due to the strategy itself.</li>
+</ul>
+</li>
+<li><strong>Cohort Analysis</strong>
+<ul>
+<li>Analyzing the short-term and long-term effects of the same cohort of users can solve dilution and survivor bias, but two questions must be considered:
+<ul>
+<li>First, confirm the stability of the user identifier. The identifier (e.g., UID) must remain stable across the experiment cycle.</li>
+<li>Does this cohort represent the overall user base? If not, the external validity of the experiment will be very low (e.g., for low-frequency businesses, users who enter the experiment early might be highly active power users).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Post-Period Analysis</strong>
+<ul>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-LT-2.png" class="">
+</li>
+<li>Comparing treatment and control users after the experiment is turned off to measure user learning. During this phase, both groups receive the same treatment, so the measured difference represents the learning effect, which can be categorized into:
+<ul>
+<li><em>User learning effect</em>: For example, after showing users many low-quality ads, users learn to click ads less frequently.</li>
+<li><em>System learning effect</em>: The system “remembers” prior information, particularly for machine learning models (e.g., algorithms that show more ads to users who tend to click ads. If the experiment caused users to click more ads, they will continue to see more ads even after the experiment ends).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Time-Staggered Treatments</strong>
+<ul>
+<li>Both groups receive the same treatment, but start at different times. The effect is measured by comparing the two groups.</li>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-LT-3.png" class="">
+</li>
+</ul>
+</li>
+<li><strong>Holdback and Reverse Experiment</strong>
+<ul>
+<li>High experimental cost.</li>
+<li>The experiment runs for too long to make agile decisions.</li>
+<li>Cannot control other variables over a long period.
+<ul>
+<li>For example, users cannot be tracked continuously, or a single device is shared by different users.</li>
+<li>Or a user logs in using different devices over time, which pollutes the assignment.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Long-term experiments face several challenges compared to short-term experiments:</p>
+<ul>
+<li><strong>Cookie Stability Issues</strong>
+<ul>
+<li><em>Cookie Churn</em>: Low cookie retention (less than 25% over two months) leads to sample loss and selection bias.
+<ul>
+<li><em>Avoidance</em>: Use UID/Device ID for assignment or implement cookie backup mechanisms.</li>
+</ul>
+</li>
+<li><em>Cookie Clobbering</em>: Data loss due to non-user-initiated clears (e.g., browser bugs).
+<ul>
+<li><em>Avoidance</em>: Conduct cross-browser compatibility testing and set up redundant data storage.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Experimental Design Bias</strong>
+<ul>
+<li><em>Survivor Bias</em>: User churn makes the remaining sample unrepresentative (e.g., highly active users are more likely to remain).
+<ul>
+<li><em>Avoidance</em>: Use churn-resistant metrics (e.g., Click/User) and track users across the full lifecycle.</li>
+</ul>
+</li>
+<li><em>Selection Bias</em>: PP (Post-Period) methods might overestimate learning effects (e.g., ad underline experiments).
+<ul>
+<li><em>Avoidance</em>: Verify short-term conclusions by comparing them with direct observations from long-term experiments.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Effect Confounding</strong>
+<ul>
+<li><em>Mixing of short-term and long-term effects</em>: User learning (ad adaptation) is interwoven with system-level or seasonal changes.
+<ul>
+<li><em>Avoidance</em>: Use the CCD method (detailed below) to quantify learning effect trends.</li>
+</ul>
+</li>
+<li><em>Residual side effects</em>: The experiment might still affect user data entry or model feedback loops after it has ended.
+<ul>
+<li><em>Avoidance</em>: Design strategy rollback monitoring periods and causal impact chains.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>External Interference</strong>
+<ul>
+<li><em>Seasonality</em>: Major events can interfere with learning effect measurements (e.g., entertainment experiments during Grammy week).
+<ul>
+<li><em>Avoidance</em>: Analyze the full cohort rather than dividing observations into segments.</li>
+</ul>
+</li>
+<li><em>Spurious attribution</em>: System-level changes might be misclassified as learning effects (e.g., shifts in browser market share).
+<ul>
+<li><em>Avoidance</em>: Establish system change baselines and implement multi-dimensional attribution models.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Methodological Limitations</strong>
+<ul>
+<li><em>Naive Setup</em>: Vulnerable to system, seasonal, or interaction interference. (Optimization: Combine with counterfactual prediction models).</li>
+<li><em>PP Method</em>: Prone to sample churn and selection bias. (Optimization: Shorten the post-period observation window).</li>
+<li><em>CCD Method</em>: High engineering complexity and requires larger traffic allocation. (Optimization: Deploy phased traffic scaling strategies).</li>
+</ul>
+</li>
+<li><strong>Metric Design Pitfalls</strong>
+<ul>
+<li><em>Misleading ratio metrics</em>: Metrics like CTR can mask user churn.
+<ul>
+<li><em>Avoidance</em>: Monitor absolute count metrics (e.g., total clicks) alongside ratio metrics.</li>
+</ul>
+</li>
+<li><em>Incomplete convergence</em>: The learning effect might not fully converge within the experiment cycle.
+<ul>
+<li><em>Avoidance</em>: Use exponential decay models to extrapolate effects.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Key Validation Steps</strong>
+<ul>
+<li>Conduct A/A tests before the experiment to verify balanced traffic split.</li>
+<li>Periodically check user profile consistency between groups.</li>
+<li>Build counterfactual control groups to exclude external interference.</li>
+<li>Perform sensitivity analysis and cross-method validation on significant findings.</li>
+</ul>
+</li>
+</ul>
+<h4 id="method-2-modeling-user-learning"><a class="markdownIt-Anchor" href="#method-2-modeling-user-learning"></a> Method 2: Modeling User Learning</h4>
+<ul>
+<li>Google proposed a new experimental mechanism:
+<ul>
+<li>Reference: Hohnhold, H., O’Brien, D., &amp; Tang, D. (2015). <a target="_blank" rel="noopener" href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43887.pdf">Focusing on the Long-term: It’s Good for Users and Business.</a> KDD (pp. 1849-1858).</li>
+<li>This solves the problem of long-term effects being hard to measure (fitting learning effects with parameters) and noise issues (long experiment duration allows external interference to mix in).</li>
+</ul>
+</li>
+<li><strong>Cookie-Cookie-Day (CCD) Experimental Mechanism</strong>
+<ul>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-CCD.png" class="">
+</li>
+<li>The CCD framework combines two parallel experiments:
+<ol>
+<li><strong>Standard Cookie Experiment</strong>: Users remain in fixed treatment or control groups throughout.</li>
+<li><strong>Cookie x Day Experiment</strong>: Users are randomly reassigned to treatment or control groups every day. This dual approach isolates long-term effects by comparing cohorts with continuous exposure to those with transient exposure. The daily rerandomization in the Cookie x Day experiment creates a control group experiencing a baseline treatment, enabling researchers to distinguish immediate effects from cumulative learning.</li>
+</ol>
+</li>
+<li><em>Challenges</em>:
+<ul>
+<li>When using models to fit residual effects of longer stages, the assumption of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span> might be unreasonable. This paper assumes a learning effect parameter of 0.012, but because the intensity of exposure affects the speed of user learning (e.g., users who search more frequently or see ads more often learn faster), a long experiment duration might not be necessary.</li>
+<li>Using cookies as user identifiers introduces bias; users switch devices, use different browsers, and privacy-conscious users clear cookies regularly.</li>
+<li>If control conditions are not strict, various biases (such as word-of-mouth or user sharing) can slip in.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="method-3-surrogate-index-short-term-proxies-for-long-term-outcomes"><a class="markdownIt-Anchor" href="#method-3-surrogate-index-short-term-proxies-for-long-term-outcomes"></a> Method 3: Surrogate Index (Short-term Proxies for Long-term Outcomes)</h4>
+<p>Identify short-term “driver metrics” that have a causal impact on the long-term treatment effect, measure them, and estimate user learning to predict the long-term effect.</p>
+<p><em>Paper 1</em>: Athey, S., Chetty, R., Imbens, G. W., &amp; Kang, H. (2019). <a target="_blank" rel="noopener" href="https://www.nber.org/system/files/working_papers/w26463/w26463.pdf">The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely</a> (No. w26463). National Bureau of Economic Research.</p>
+<ul>
+<li>Formalized how to combine intermediate outcomes to estimate long-term effects efficiently, clarified the assumptions under which this method yields unbiased estimates, and formally incorporated the estimation of the relationship between short-term surrogates and long-term outcomes using secondary datasets.</li>
+<li>Developed bounds for the bias that occurs when these assumptions are violated, and out-of-sample methods to validate the assumptions.</li>
+<li>Demonstrated that using surrogates improves efficiency even when long-term effects can be estimated directly.</li>
+<li>Provided an empirical application showing that combining multiple intermediate outcomes (rather than a single predictor) can predict long-term labor market treatment effects years in advance with significantly improved precision.</li>
+<li><strong>Key Takeaways</strong>:
+<ul>
+<li>Comprehensive theoretical framework and mathematical proof.</li>
+<li>Practical execution: How to identify surrogates from observational data and validate them using experimental (or quasi-experimental) data.</li>
+<li>Methods to falsify surrogacy/mediation: Hold-out methods.</li>
+</ul>
+</li>
+</ul>
+<p><em>Paper 2</em>: Yang, J., Eckles, D., Dhillon, P., &amp; Aral, S. (2023). <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2010.15835">Targeting for long-term outcomes.</a> Management Science. (HBS)</p>
+<ul>
+<li><strong>Main Contributions</strong>: An extension of Paper 1.
+<ul>
+<li>Analytically demonstrated under what conditions the surrogate index can effectively replace unobservable long-term outcomes for policy evaluation and optimization.</li>
+<li>Empirically validated the method:
+<ul>
+<li>Conducted two large-scale experiments to determine which incentives to offer which users to maximize long-term subscription revenue for <em>The Boston Globe</em>.</li>
+<li>Combined data from the first experiment with time progression, proving that policies optimized based on the surrogate index outperformed those optimized based on short-term proxies, and performed similarly to policies optimized on actual long-term outcomes.</li>
+</ul>
+</li>
+<li>Implemented the optimized policy and added extra random exploration to handle potential non-stationarity, updating the policy after each experiment.</li>
+</ul>
+</li>
+<li><strong>Key Takeaways</strong>:
+<ul>
+<li>The theoretical assumptions required for the Surrogate Index framework:
+<ul>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-Surrogate-1.png" class="">
+</li>
+<li><em>Unconfoundedness</em> (equivalent to Ignorability, Positivity): Standard causal inference assumptions.</li>
+<li><em>Surrogacy Condition</em> (Complete Mediation): Can only be falsified; Paper 1 proposes a method.<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>A</mi><mi>i</mi></msub><mo>⊥</mo><mtext> ⁣</mtext><mtext> ⁣</mtext><mtext> ⁣</mtext><mo>⊥</mo><msub><mi>Y</mi><mi>i</mi></msub><mi mathvariant="normal">∣</mi><msub><mi>S</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>X</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>i</mi><mo>∈</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">A_i \perp\!\!\!\perp Y_i | S_i, X_i, i \in E
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊥</span><span class="mspace" style="margin-right:-0.16666666666666666em;"></span><span class="mspace" style="margin-right:-0.16666666666666666em;"></span><span class="mspace" style="margin-right:-0.16666666666666666em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mrel">⊥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span></span></p>
+</li>
+<li><em>Comparability</em>: The distribution of long-term outcomes conditional on covariates and surrogates is the same in the experimental and historical datasets.<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>Y</mi><mi>i</mi></msub><mi mathvariant="normal">∣</mi><msub><mi>S</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>X</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>i</mi><mo>∈</mo><mi>E</mi><mo>∼</mo><msub><mi>Y</mi><mi>i</mi></msub><mi mathvariant="normal">∣</mi><msub><mi>S</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>X</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>i</mi><mo>∈</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">Y_i | S_i, X_i, i \in E \sim Y_i | S_i, X_i, i \in H
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span></span></span></span></span></p>
+In practice, the distribution must not shift between model training and rule formulation.</li>
+</ul>
+</li>
+<li>Practical steps (combining Paper 1 and Paper 2).</li>
+</ul>
+</li>
+</ul>
+<p><em>Paper 3</em>: Wang, Y., Sharma, M., Xu, C., Badam, S., Sun, Q., Richardson, L., … &amp; Chen, M. (2022, August). <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3534678.3539073">Surrogate for long-term user experience in recommender systems</a> (pp. 4100-4109), Google Research.</p>
+<ul>
+<li>Studied a series of continuous user behavior patterns and standardized a workflow to pinpoint subsets of behaviors that have strong predictive power for long-term user revisit frequency.
+<ul>
+<li><em>Measurement</em>: Proposed metrics to capture sequential and temporal user consumption patterns.</li>
+<li><em>Insights</em>: Identified user behavior patterns correlated with long-term user experience.</li>
+<li><em>Surrogate Selection</em>: Standardized the selection of user behavior patterns as surrogates for long-term user experience based on robust predictive models.</li>
+<li><em>Algorithmic Improvement</em>: Validated the effectiveness of optimizing long-term user experience using surrogates in a reinforcement learning recommendation system.</li>
+</ul>
+</li>
+<li>The main challenge lies in capturing users’ true interests rather than merely inferring them from topics they previously consumed.
+<ul>
+<li>This requires defining a metric to capture true user interests to improve long-term user experience in recommendation systems.</li>
+</ul>
+</li>
+<li><strong>Key Takeaways</strong>:
+<ol>
+<li>Proxy metrics: definition of diversity, active/high-value consumption (setting thresholds for establishing “mindshare”), category discoverability, and revisit/repurchase frequency.</li>
+<li>Pre-experiment data analysis: verifying path consistency.</li>
+<li>Metric selection: using tree-based methods.</li>
+<li>Validation: reward experiments (running long-term experiments with EE/RF).</li>
+</ol>
+</li>
+</ul>
+<p><em>Paper 4</em>: Duan, W., Ba, S., &amp; Zhang, C. (2021, March). <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2106.01421">Online Experimentation with Surrogate Metrics: Guidelines and a Case Study</a>. LinkedIn.</p>
+<ul>
+<li><strong>Key Takeaways</strong>:
+<ul>
+<li>The “Surrogate Metrics” in this paper differ slightly from the “Surrogate Index” in the previous three papers, aligning closer to validating the feasibility of using predicted values (e.g., predicted LTV) in place of posterior values in experiments. It is highly practical.</li>
+</ul>
+</li>
+<li><strong>Practical Principles</strong>:
+<ol>
+<li><em>Guidelines for choosing north star metrics</em> (qualitative rules):
+<ul>
+<li>High predictive power for the true north star metric (high <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">R^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>, AUC, etc.).</li>
+<li>Focus on metrics we can change and measure in the short term (analyzing historical experiment leverage).</li>
+<li>Tailor metrics to different treatment characteristics (consistent metric definitions across channels, users, etc.).</li>
+<li>Interpretability (if using a model, fluctuations in the surrogate should be explainable).</li>
+<li>Low administrative overhead (prefer simple rules over models that require continuous training and are hard to explain).</li>
+</ul>
+</li>
+<li><em>Experiment variance must be corrected</em>: The variance of surrogate metrics is typically smaller than the actual outcome; the variance of the prediction step itself must be accounted for.
+<ul>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-Surrogate-2.png" class="">
+</li>
+</ul>
+</li>
+<li><em>How to validate the surrogacy condition</em>:
+<ul>
+<li>Verify that <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mo>→</mo><mi>S</mi><mo>→</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">W \to S \to Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span> is the sole path (complete mediation), equivalent to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>=</mo><mi>y</mi><mi mathvariant="normal">∣</mi><mi>S</mi><mo separator="true">,</mo><mi>W</mi><mo stretchy="false">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>=</mo><mi>y</mi><mi mathvariant="normal">∣</mi><mi>S</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(Y=y|S,W) = P(Y=y|S)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mclose">)</span></span></span></span> (note that the authors did not control for other variables, assuming all information is captured in the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span> model).</li>
+<li>In real-world applications, use historical experimental data to ensure the deviation is not too large.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="other-methods"><a class="markdownIt-Anchor" href="#other-methods"></a> Other Methods</h4>
+<p>Statistical solutions:</p>
+<ul>
+<li>Treating the <strong>long-term treatment effect as a bias introduced by heterogeneous treatment effects</strong>, and deriving a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Jackknife_resampling">bias-adjusted jackknife estimator</a> of the ATE based on HTE for specific groups.
+<ul>
+<li>References:
+<ul>
+<li>Günter J. Hitsch and Sanjog Misra. Heterogeneous treatment effects and optimal targeting policy evaluation. Working paper, 2018.</li>
+<li>Eva Ascarza. Retention futility: Targeting high-risk customers might be ineffective. Journal of Marketing Research, 55(1):80–98, 2018.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>In double-sided market scenarios, using sequential testing and reinforcement learning to validate long-term treatment effects.</li>
+<li>Causal inference:
+<ul>
+<li>Marshall M. Joffe and Tom Greene. 2009. Related causal frameworks for surrogate outcomes. Biometrics 65, 2 (2009), 530–538.</li>
+<li>Ross L. Prentice. 1989. Surrogate endpoints in clinical trials: definition and operational criteria. Statistics in medicine 8, 4 (1989), 431–440.</li>
+<li>Christopher J. Weir and Rosalind J. Walley. 2006. Statistical evaluation of biomarkers as surrogate endpoints: a literature review. Statistics in medicine 25, 2 (2006), 183–203.</li>
+</ul>
+</li>
+<li>Recommendation systems:
+<ul>
+<li>Wang-Cheng Kang and Julian McAuley. 2018. Self-attentive sequential recommendation. In ICDM’18. IEEE, 197–206.</li>
+<li>Raghav Pavan Karumur, Tien T. Nguyen, and Joseph A. Konstan. 2018. Personality, user preferences and behavior in recommender systems. Information Systems Frontiers 20, 6 (2018), 1241–1265.</li>
+</ul>
+</li>
+</ul>
+<p>Reference: Lassen, et al., 2022. Statistical Challenges in Online Controlled Experiments: A Review of A/B Testing Methodology.</p>
+<h3 id="optional-stopping-continuous-testing-problem"><a class="markdownIt-Anchor" href="#optional-stopping-continuous-testing-problem"></a> Optional Stopping (Continuous Testing Problem)</h3>
+<p>The continuous testing problem focuses on how to terminate experiments early without compromising statistical validity. Businesses want to rapidly filter out strategies with positive effects while abandoning negative strategies as early as possible. Because experiment results can be observed in near real-time, researchers are prone to “peeking” behaviors—continually monitoring p-values and stopping the experiment the moment significance is reached. While this reduces experimental costs, it significantly inflates the false positive rate (Type I error). Therefore, we need an early termination mechanism that controls the Type I error rate while allowing early decisions.</p>
+<p><em>Peeking Problem</em>: Continuous monitoring inflates the Type I error rate. If you perform a hypothesis test daily with a 5% significance level, the overall false positive rate over <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> days escalates to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mn>0.05</mn><msup><mo stretchy="false">)</mo><mi>n</mi></msup><mo>&gt;</mo><mn>5</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">1 - (1 - 0.05)^n &gt; 5\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">5</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">5</span><span class="mord">%</span></span></span></span>.</p>
+<h4 id="sequential-testing"><a class="markdownIt-Anchor" href="#sequential-testing"></a> Sequential Testing</h4>
+<ul>
+<li>By lowering the significance level (alpha) of each daily/individual hypothesis test, we ensure that the overall Type I error rate across multiple tests does not exceed 5%.</li>
+<li><strong>Advantages</strong>: Controls the Type I error rate, preventing the inflation of false positives caused by stopping experiments the moment they happen to look significant.</li>
+<li><strong>Disadvantages</strong>:
+<ul>
+<li>Inapplicable scenarios (e.g., testing multiple metrics simultaneously, which reduces HTE power).</li>
+<li>Sequential testing reduces statistical power. According to Optimizely’s data, this method leads to roughly a 36% loss in statistical power.</li>
+<li>To address the power loss of sequential testing, we split the experiment into two phases:
+<ol>
+<li><em>Monitoring Phase</em>: From the start of the experiment to the day before it ends, we use a conservative sequential testing method for continuous monitoring. Decisions are made early only if the effect is exceptionally significant and satisfies a minimum observation window, focusing on Type I error control.</li>
+<li><em>Decision Phase</em>: Once the experiment ends, we use traditional fixed-sample testing for comprehensive analysis and decision-making, focusing on statistical power. This approach controls Type I errors throughout the monitoring phase while maintaining high statistical power in the final decision phase, balancing safety and sensitivity.</li>
+</ol>
+</li>
+<li>This method requires prior knowledge of the underlying causal distribution, which limits its practical application.
+<ul>
+<li>In Optimizely’s paper, the prior distribution is assumed to be a normal distribution with a mean of 0 and an unknown variance, which can be estimated using the true treatment effect from historical experiments. This aligns with probability-based estimation and fits perfectly with sequential testing.</li>
+<li>Another method converts this into an optimization problem. For Type I error control, we find no restrictions on the prior distribution of parameters. Whether we use a normal distribution with arbitrary variance, a uniform distribution, or a lognormal distribution, we can control the Type I error rate effectively using martingale properties.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Specific Methods:</p>
+<img src="/en/AB-Test/intro-2/AB-Test-Sequential-Testing.png" class="">
+<ul>
+<li><strong>Sequential Probability Ratio Test (SPRT)</strong>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>B</mi><mo>&lt;</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo>=</mo><mfrac><mi>β</mi><mrow><mn>1</mn><mo>−</mo><mi>α</mi></mrow></mfrac><mo separator="true">,</mo><mi>A</mi><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><mi>β</mi></mrow><mi>α</mi></mfrac></mrow><annotation encoding="application/x-tex">0 &lt; B &lt; A, B = \frac{\beta}{1-\alpha}, A = \frac{1 - \beta}{\alpha}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.335547em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9322159999999999em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.0037em;">α</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.446108em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05278em;">β</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.277216em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9322159999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0037em;">α</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.446108em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.05278em;">β</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>; Hypotheses are defined as: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>:</mo><mi>θ</mi><mo>=</mo><msub><mi>θ</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>H</mi><mn>1</mn></msub><mo>:</mo><mi>θ</mi><mo>=</mo><msub><mi>θ</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">H_0 : \theta = \theta_0, H_1 : \theta = \theta_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.</li>
+<li>Likelihood ratio test statistic: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub><mo>=</mo><msubsup><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><mfrac><mrow><mi>f</mi><mo stretchy="false">(</mo><msub><mi>y</mi><mi>i</mi></msub><mi mathvariant="normal">∣</mi><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow><mrow><mi>f</mi><mo stretchy="false">(</mo><msub><mi>y</mi><mi>i</mi></msub><mi mathvariant="normal">∣</mi><msub><mi>θ</mi><mn>0</mn></msub><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\Lambda_n = \prod_{i = 1}^{n}\frac{f(y_i|\theta_1)}{f(y_i|\theta_0)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">Λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.53em;vertical-align:-0.52em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∏</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.804292em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span><span class="mopen mtight">(</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:-0.03588em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mord mtight">∣</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.02778em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span><span class="mopen mtight">(</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:-0.03588em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mord mtight">∣</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.02778em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>.</li>
+<li>Using boundaries <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>, the rejection region divides the sample space into three decision rules:
+<ul>
+<li>If <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub><mo>&gt;</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">\Lambda_n &gt; A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">Λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span></span></span></span>, reject <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and stop the experiment.</li>
+<li>If <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub><mo>&lt;</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">\Lambda_n &lt; B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">Λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>, fail to reject <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and stop the experiment.</li>
+<li>If <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>&lt;</mo><msub><mi mathvariant="normal">Λ</mi><mi>n</mi></msub><mo>&lt;</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">B &lt; \Lambda_n &lt; A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">Λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span></span></span></span>, accumulate more samples and compute <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Λ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\Lambda_{n+1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.891661em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord">Λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span>.</li>
+</ul>
+</li>
+<li><em>Statistical Principles</em>:
+<ul>
+<li>When <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> holds, the likelihood ratio (LR) statistic is a martingale, fluctuating randomly around 1. Thus, we can control the Type I error rate using martingale properties. Using <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">b</span></span></span></span> as the threshold to judge LR significance, LR &gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">b</span></span></span></span> indicates a significant result. Assuming significance is first reached at test <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">T_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, the Type I error rate over arbitrary multiple tests will not exceed <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mi>b</mi></mrow><annotation encoding="application/x-tex">1/b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord mathnormal">b</span></span></span></span>. When we use <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mi>α</mi></mrow><annotation encoding="application/x-tex">1/\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span> as the monitoring threshold, the Type I error rate is controlled within <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>, meaning that under <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, there is only a 5% chance of a false alarm even if we wait indefinitely.</li>
+<li>An awkward problem arises: we do not know if the strategy actually has an effect. When <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">H_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> holds, there is a 95% probability that we will never achieve significance. To address this, we use <strong>truncation</strong>—setting a maximum cutoff time. If no significant conclusion is reached by this cutoff, we assume the strategy has no effect and stop the experiment.</li>
+<li>In the chart, the upper boundary “reject null if crossed” is the <strong>Efficacy Boundary</strong>. Once crossed, the experiment stops. The lower boundary “accept null if crossed” is the <strong>Futility Boundary</strong>, used to terminate experiments early to avoid wasting resources.</li>
+</ul>
+</li>
+<li>Building on this, research has yielded <strong>mixture sequential probability ratio test (mSPRT)</strong> and <strong>generalized sequential probability ratio test (GSPRT)</strong>.
+<ul>
+<li><strong>Group Sequential Trials (GST)</strong>: In practice, it is rarely feasible to perform continuous testing (running a test for every single new data point) due to high costs. In GST, the data is divided into several chunks (groups), and tests are run at each stage before combining the results.
+<ul>
+<li><em>Choosing Decision Boundaries</em>: The more samples accumulated, the more aggressive the boundary.</li>
+<li><em>Requirement</em>: Analysis intervals must be pre-planned. For example, if conducting two analyses, the first and second must use 50% and 100% of the total information volume. If conducting four analyses, they must use 25%, 50%, 75%, and 100%. The number and timing of analyses must be determined beforehand.</li>
+<li><em>Improvements</em>: Spending functions (common in clinical trials).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Sequential testing is widely used in the industry (Netflix uses Group Sequential, Optimizely, Ant Group, and the user-side of Libra). Besides sequential testing, the industry and academia use other methods to address peeking:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Theoretical Concept</th>
+<th>Practical Scenario</th>
+<th>Advantages</th>
+<th>Disadvantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>p-value Curve</strong> (Libra’s current scheme)</td>
+<td>When continuously checking report significance over multiple days, “considering significance over multiple consecutive days before making a decision” lowers Type I errors compared to “making a decision the moment significance is reached on any single day.” Adjusting the decision logic can control Type I errors within the target alpha.</td>
+<td>Making decisions only when “the p-value curve remains stable and significant” prevents Type I error inflation. Optimal decision logic: Day 1 &lt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>α</mi></mrow><annotation encoding="application/x-tex">2\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>, Day 2 and 3 &lt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>.</td>
+<td>1. Easy to implement in engineering.<br>2. Type I error control might be slightly loose, and errors may still slightly exceed the target alpha.</td>
+<td>1. High user cognitive and training overhead.</td>
+</tr>
+<tr>
+<td><strong>mSPRT</strong> (Netflix)</td>
+<td>Within each sample group, assume all samples are independent and identically distributed (i.i.d.). Reconstruct the p-value calculation so that the observed p-value is always controlled within the target alpha, regardless of when it is checked. This is proved using martingale properties.</td>
+<td>In online A/B testing, <strong>user revisits</strong> break the i.i.d. assumption. Reconstructed p-values lose their martingale properties, introducing a risk of Type I errors exceeding the target alpha.</td>
+<td>1. Users can monitor results in real-time, making it highly user-friendly.</td>
+<td>1. Discrepancy between practical scenarios and theoretical assumptions (user revisits).</td>
+</tr>
+<tr>
+<td><strong>GST</strong></td>
+<td>Within each sample group, assume all samples are i.i.d. Given a pre-planned total number of observations <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>, adjust alpha based on the current sample size or set fixed sample sizes at each stage to control Type I errors at each step, ensuring the overall Type I error rate does not exceed alpha.</td>
+<td>User behaviors across stages are correlated, breaking the independence assumption. Furthermore, users enter the experiment sequentially over time, and user experience may shift, breaking the identical distribution assumption (user revisits: Day 1 users may reappear on Day 2 or 3).</td>
+<td>1. Users can check results periodically, providing strong control.</td>
+<td>1. Theory is built on small samples, while actual data is massive, leading to high engineering costs.<br>2. User revisit issues.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bayesian-ab-testing"><a class="markdownIt-Anchor" href="#bayesian-ab-testing"></a> Bayesian A/B Testing</h4>
+<p>Bayesian testing does not suffer from p-value hacking. In a Bayesian framework, false discoveries are described using the False Discovery Rate (FDR)—the probability that a decision to reject the null hypothesis is incorrect (false positive count / positive count).</p>
+<ul>
+<li>Bayesian methods yield the posterior distribution and corresponding posterior intervals of the parameter, aligning closer to natural human reasoning about probability. Furthermore, Bayesian testing can output metrics like “probability to be the best” and “probability to beat the baseline,” directly avoiding the risks of multiple comparisons, continuous peeking, and multi-arm selection.</li>
+<li>Because of automation, low cognitive overhead, and low experimental costs, more internet companies are adopting Bayesian A/B testing when conditions allow.</li>
+</ul>
+<h4 id="multiple-randomization-designs-mrd"><a class="markdownIt-Anchor" href="#multiple-randomization-designs-mrd"></a> Multiple Randomization Designs (MRD)</h4>
+<ul>
+<li>The outcome is observable at the pair level, and the intervention can occur at the pair level (e.g., a strategy acting on a specific creator-user pair).
+<ul>
+<li><em>Advantages</em>:
+<ul>
+<li>In the absence of spillover effects, it measures ATE with higher validity.</li>
+<li>When spillover and network interference are present, they can be measured.</li>
+<li>It can be adjusted or extended to measure more complex spillover or interference effects.</li>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-MRD-1.png" class="">
+</li>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-MRD-2.png" class="">
+</li>
+</ul>
+</li>
+<li>TSR (Time-Split Randomized) is a special case of MRD.</li>
+<li>It still cannot tell us the true effect of rolling out the strategy to the entire population. However, under the local interference assumption (each pair is only affected by pairs in the same row/column, unaffected by others), it can measure marketplace squeeze. The difference between blue, green, and red can be viewed as the spillover or squeeze effect of the strategy.</li>
+</ul>
+</li>
+<li>Similar ideas can be extended to many scenarios:
+<ul>
+<li>For example, in an e-commerce creator support <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>×</mo></mrow><annotation encoding="application/x-tex">\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">×</span></span></span></span> user experiment:
+<ul>
+<li>The difference between treatment and control in the creator treatment group = loss caused by the support strategy.</li>
+<li>The difference between creator treatment and control in the traffic blank group = gains brought by creator behavior (e.g., increased effort, supply).</li>
+<li>The difference between treatment and control in the creator blank group = squeeze effect on active users.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Sometimes double-sided isolation is superimposed:
+<ul>
+<li>For example, <a target="_blank" rel="noopener" href="https://rphilipzhang.github.io/rphilipzhang/Cold_Start_unblinded.pdf">Kuaishou Cold Start</a>: restricting a subset of cold-start items to run only on a subset of traffic, isolating the model spillover effect caused by shared samples.
+<ul>
+<li>Reference: Zikun Ye, Dennis J. Zhang, Heng Zhang, Renyu Zhang, Xin Chen, Zhiwei Xu (2023), <a target="_blank" rel="noopener" href="https://rphilipzhang.github.io/rphilipzhang/Cold_Start_unblinded.pdf">Cold Start to Improve Market Thickness on Online Advertising Platforms: Data-Driven Algorithms and Field Experiments. Management Science 69(7):3838-3860</a>.</li>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-Cold-Start.png" class="">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="interference-spillovernetwork-interference-between-units"><a class="markdownIt-Anchor" href="#interference-spillovernetwork-interference-between-units"></a> Interference (Spillover/Network Interference Between Units)</h3>
+<p>In standard A/B testing, we rely on the Stable Unit Treatment Value Assumption (SUTVA)—the potential outcome of any unit depends only on the treatment assigned to that unit, independent of the assignments of other units. However, in many practical scenarios, this assumption is violated, causing <strong>interference bias</strong>.</p>
+<p>Interference bias is very common in:</p>
+<ul>
+<li><em>Social Networks</em>: A user’s behavior is influenced by their friends (e.g., if a friend receives a feature that increases their activity, they might interact more with the user, increasing the user’s activity even if the user is in the control group).</li>
+<li><em>Shared Resource Markets / Two-Sided Marketplaces</em>: Units compete for shared resources (e.g., ad budgets, ride-hailing drivers, e-commerce buyers). If treatment ads bid more aggressively, they will squeeze out control ads, leading to an overestimation of the treatment effect.</li>
+</ul>
+<h4 id="direct-interference-between-units"><a class="markdownIt-Anchor" href="#direct-interference-between-units"></a> Direct Interference between Units</h4>
+<p>In social networks, direct interference occurs when users interact.</p>
+<ul>
+<li><strong>Solution: Cluster-based Randomized Design (CRD)</strong>
+<ul>
+<li>Detect community structures in the network and partition the network into clusters.</li>
+<li>Randomly assign entire clusters to either treatment or control.</li>
+<li>This ensures that most interactions occur within the same group, reducing spillover across groups.</li>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-Cluster-based.png" class="">
+</li>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-Ego-Centric.png" class="">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="indirect-interference-two-sided-marketplace"><a class="markdownIt-Anchor" href="#indirect-interference-two-sided-marketplace"></a> Indirect Interference: Two-Sided Marketplace</h4>
+<p>In two-sided marketplaces (e.g., Uber/Lyft, Airbnb, ad auctions), units interfere with each other indirectly through market mechanisms (competition for supply or demand).</p>
+<h5 id="solution-1-social-network-clustering-physical-isolation"><a class="markdownIt-Anchor" href="#solution-1-social-network-clustering-physical-isolation"></a> Solution 1: Social Network Clustering / Physical Isolation</h5>
+<ul>
+<li>Grouping units based on social connections or geographical locations (e.g., partitioning by city) and assigning entire cities/regions to treatment or control.</li>
+<li><em>Pros</em>: Minimizes spillover.</li>
+<li><em>Cons</em>: Limited number of cities/clusters leads to high variance and low statistical power.</li>
+</ul>
+<h5 id="solution-2-time-isolation-switchback-experiments"><a class="markdownIt-Anchor" href="#solution-2-time-isolation-switchback-experiments"></a> Solution 2: Time Isolation / Switchback Experiments</h5>
+<ul>
+<li>Partitioning the marketplace by time intervals (e.g., 30-minute windows) and switching the entire market between treatment and control states.</li>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-Switchback.png" class="">
+</li>
+<li><em>Pros</em>: Simple to implement; preserves the overall market state.</li>
+<li><em>Cons</em>: Prone to carryover effects (the effect of the strategy in one time window spills into the next). Requires optimal window length selection to balance carryover bias and variance.</li>
+</ul>
+<h5 id="solution-3-double-sided-experiments"><a class="markdownIt-Anchor" href="#solution-3-double-sided-experiments"></a> Solution 3: Double-Sided Experiments</h5>
+<ul>
+<li>Assigning both sides of the market (e.g., both buyers and sellers, or ads and users) to treatment and control.</li>
+<li><strong>TSR (Time-Split Randomized)</strong> and <strong>MRD (Multiple Randomization Designs)</strong> are common frameworks for this.</li>
+<li>
+<img src="/en/AB-Test/intro-2/AB-Test-TSR-Estimator.png" class="">
+</li>
+</ul>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ul>
+<li>Xu Jia, <a target="_blank" rel="noopener" href="https://drive.google.com/file/d/1rcqZ56lWZB2LW_pO5hJ2qlQXm8TqbC_X/view">Causal Inference Challenges in Industry, A perspective from experiences at LinkedIn</a>; <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=OoKsLAvyIYA&amp;t=2938s">Talk</a></li>
+<li>Lassen, et al., 2022. <a target="_blank" rel="noopener" href="https://www.tandfonline.com/doi/full/10.1080/00031305.2023.2257237">Statistical Challenges in Online Controlled Experiments: A Review of A/B Testing Methodology</a></li>
+<li>Johnson, G. A. (2020, April 20). <a target="_blank" rel="noopener" href="https://www.readcube.com/articles/10.2139%2Fssrn.3581396">Inferno: A guide to field experiments in online display advertising.</a></li>
+<li>Patrick Bajari, Brian Burdick, Guido W. Imbens, Lorenzo Masoero, James McQueen, Thomas Richardson, Ido M. Rosen, 2021. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.13495">Multiple Randomization Designs</a></li>
+<li>Ramesh Johari, Hannah Li, Inessa Liskovich, Gabriel Weintraub, 2020. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2002.05670">Experimental Design in Two-Sided Platforms: An Analysis of Bias</a></li>
+<li>Li, et al. <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/fullHtml/10.1145/3485447.3512063">Interference, Bias, and Variance in Two-Sided Marketplace Experimentation: Guidance for Platforms</a></li>
+<li>David Holtz, Ruben Lobel, Inessa Liskovich, Sinan Aral, 2020. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.12489">Reducing Interference Bias in Online Marketplace Pricing Experiments</a></li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/en/AB-Test/intro-2/">https://xinheliu.github.io/en/AB-Test/intro-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/A-B-Testing/">
+                                    <span class="chip bg-color">A/B Testing</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/en/AB-Test/intro-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="A/B Testing (1) A/B Testing from 0 to 1">
+                        
+                        <span class="card-title">A/B Testing (1) A/B Testing from 0 to 1</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-05-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Data-Science/" class="post-category">
+                                    Data Science
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/A-B-Testing/">
+                        <span class="chip bg-color">A/B Testing</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/en/ads/intro-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Computational Advertising (1) Introduction to Ad Business">
+                        
+                        <span class="card-title">Computational Advertising (1) Introduction to Ad Business</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Technology/" class="post-category">
+                                    Technology
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Ads/">
+                        <span class="chip bg-color">Ads</span>
+                    </a>
+                    
+                    <a href="/tags/AI-Machine-Learning/">
+                        <span class="chip bg-color">AI &amp; Machine Learning</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

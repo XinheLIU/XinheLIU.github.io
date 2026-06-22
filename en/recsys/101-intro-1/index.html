@@ -1,0 +1,1322 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Recommender Systems 101 (1) Introduction to Recommender Systems, Xinhe Liu (Charles)">
+    <meta name="description" content="A map of modern recommendation systems from retrieval and ranking to re-ranking, data layers, and evaluation.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Recommender Systems 101 (1) Introduction to Recommender Systems | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/writing/" class="">Writing</a>
+    
+        <a href="/technical-notes/" class="">Technical Notes</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <i class="fas fa-search"></i>
+    </a>
+    <a class="lang-switch" href="/recsys/101-intro-1/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/writing/">Writing</a></li>
+        
+            <li><a href="/technical-notes/">Technical Notes</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <i class="fas fa-search"></i>
+        </a>
+        <a class="lang-switch" href="/recsys/101-intro-1/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Recommender Systems 101 (1) Introduction to Recommender Systems</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/AI-Machine-Learning/">
+                                <span class="chip bg-color">AI &amp; Machine Learning</span>
+                            </a>
+                        
+                            <a href="/tags/Recommendation/">
+                                <span class="chip bg-color">Recommendation</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Technology/" class="post-category">
+                                Technology
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2023-12-13
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <ul>
+<li><a href="#modern-recommender-systems">Modern Recommender Systems</a></li>
+<li><a href="#recommender-system-architecture">Recommender System Architecture</a></li>
+<li><a href="#retrieval-module-recall">Retrieval Module (Recall)</a>
+<ul>
+<li><a href="#pre-ranking-module-coarse-ranking">Pre-ranking Module (Coarse Ranking)</a></li>
+<li><a href="#fine-ranking">Fine Ranking</a></li>
+<li><a href="#re-ranking--blending">Re-ranking / Blending</a></li>
+<li><a href="#data-layer">Data Layer</a></li>
+<li><a href="#evaluation-of-recommender-systems">Evaluation of Recommender Systems</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<h3 id="history-of-recommender-systems"><a class="markdownIt-Anchor" href="#history-of-recommender-systems"></a> History of Recommender Systems</h3>
+<p>A <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Recommender_system">recommender system</a> is an information filtering system that predicts user “ratings” or “preferences” for items.</p>
+<p>A common recommender system architecture:</p>
+<ul>
+<li><strong>Goal</strong>: Match users with information.</li>
+<li><strong>Retrieval (Recall)</strong>: Guess what content the user might like.</li>
+<li><strong>Ranking</strong>: Determine what the user likes most.</li>
+<li><strong>Re-ranking</strong>: Apply diversity controls, deduplicate close items, etc.</li>
+<li><strong>Application Scenario</strong>: Feed streams, recommendation cards, etc.</li>
+</ul>
+<div class="mermaid">
+  flowchart LR
+    subgraph "Recommendation Technical Framework"
+        direction LR
+        A1["Touchpoints"] --> B1["User Features"]
+        A2["User Info"] --> B1
+        A3["Item Formatting"] --> B2["Item Features"]
+        
+        B1 --> C["Retrieval (Recall)"]
+        B2 --> C
+        
+        C --> D["Ranking"]
+        D --> E["Re-ranking"]
+        E --> F["Application Scenario"]
+    end
+</div>
+
+<p>History of Recommender Systems:</p>
+<ol>
+<li><strong>Early Phase (Early 1990s)</strong>: Originated from library sciences, based on keyword matching and filtering. Key services: early library retrieval systems, academic paper recommendation systems.</li>
+<li><strong>Collaborative Filtering Era (Late 1990s to Early 2000s)</strong>: Introduced Collaborative Filtering algorithms, analyzing user behaviors to find similar users or items. Key systems: Amazon’s product recommendations, Netflix’s movie recommendations, <a target="_blank" rel="noopener" href="http://Last.fm">Last.fm</a>’s music recommendations.</li>
+<li><strong>Content-based Filtering Era (Mid-2000s)</strong>: Based on matching item features with user preferences. Uses metadata and profiles. Key systems: Google News recommendations, Pandora’s music recommendations, StumbleUpon’s web page recommendations.</li>
+<li><strong>Hybrid Recommendation Era (Late 2000s to Present)</strong>: Combining Collaborative Filtering and Content-based Filtering to yield more accurate and diverse results. Key systems: Taobao’s product recommendations, Spotify’s music recommendations, LinkedIn’s job recommendations.</li>
+<li><strong>Personalized Feed Era (Early 2010s)</strong>: Spearheaded by Toutiao, achieving “one thousand people, one thousand faces” using machine learning. The algorithms became industry benchmarks, driving widespread adoption of personalized feeds.</li>
+<li><strong>Deep Learning Era (Mid-2010s to Present)</strong>: Utilizing deep learning to extract rich features, incorporating user behavior sequences and contextual information. Key systems: YouTube’s video recommendations, TikTok’s short video recommendations, Instagram’s content recommendations.</li>
+<li><strong>Cloud &amp; SaaS Era (2020s to Present)</strong>: Recommendation algorithms have become standardized cloud services available via APIs. Key services: AWS Personalize, Google Recommendations AI, Azure Personalizer. These package common algorithms (CF, content-based, hybrid) while protecting user privacy.</li>
+</ol>
+<h3 id="collaborative-filtering-algorithms"><a class="markdownIt-Anchor" href="#collaborative-filtering-algorithms"></a> Collaborative Filtering Algorithms</h3>
+<p>Collaborative Filtering (CF) is a foundational algorithm in recommender systems. It operates on user behavior data to recommend items and has had a profound impact. CF established the core concept of utilizing user interaction histories, laying the theoretical foundation for matrix factorization, factorization machines (FM), and deep learning recommendation models. The User-Item interaction matrix became the standard way to organize recommendation data, and CF’s approaches to handling sparsity and cold start inspired hybrid and multimodal recommendation methods. Modern systems like YouTube’s deep neural networks and TikTok’s multi-objective recommendations still carry the legacy of CF.</p>
+<p>Most standardized recommendation services today (such as Volcano Engine) are heavily built upon collaborative filtering principles.</p>
+<p>There are three main types of Collaborative Filtering:</p>
+<ol>
+<li><strong>Content-based Recommendation</strong>: If a user consumes an item of a certain category, recommend other items within that category. For example, recommending other movies starring the same actor.</li>
+<li><strong>User-based Collaborative Filtering</strong>: Operates on the principle that “if a user has similar tastes to a group of people, they will likely enjoy items that those people like.” It finds similar users based on interaction history and recommends items they liked that the target user has not yet seen. For example: “Users who bought this also bought…”</li>
+<li><strong>Item-based Collaborative Filtering</strong>: Operates on the principle that “users are likely to enjoy items similar to what they have liked in the past.” It analyzes item similarities based on user interaction co-occurrences and recommends items similar to the user’s highly-rated items. For example, recommending accessory products that are often purchased together with a main product.</li>
+</ol>
+<h2 id="modern-recommender-systems"><a class="markdownIt-Anchor" href="#modern-recommender-systems"></a> Modern Recommender Systems</h2>
+<p>Modern recommender systems follow a <strong>data-stream-first design principle</strong>, providing high flexibility.</p>
+<p>The core workflow is:</p>
+<ol>
+<li>Collect user behavior data</li>
+<li>Join training samples</li>
+<li>Train models</li>
+<li>Generate recommendations</li>
+<li>Collect user feedback</li>
+<li>Update models</li>
+</ol>
+<p>This design supports real-time, near-instant updates, featuring:</p>
+<ol>
+<li><strong>Model Training &amp; Deployment</strong>
+<ul>
+<li>Supports multiple training frameworks: LR (Logistic Regression), FM (Factorization Machines), TensorFlow, DeepRec, etc.</li>
+<li>Proprietary model storage: Unified data stream architecture and model formats.</li>
+<li>Quick updates: The pipeline from model training to online serving completes in minutes.</li>
+<li>Multi-backend support: Flexible switching between different computing backends.</li>
+</ul>
+</li>
+<li><strong>Platformized Development</strong>
+<ul>
+<li>Compatible with standard operators from deep learning frameworks and proprietary optimized operators.</li>
+<li>Supports custom operator development.</li>
+<li>Performance tuning: Memory allocation and operator optimizations tailored for specific frameworks.</li>
+<li>Framework migration: Migrated from TensorFlow to DeepRec in 2022, confirming that performance optimization ideas are highly portable.</li>
+</ul>
+</li>
+</ol>
+<p>This architecture ensures recommender systems can respond rapidly to business needs while maintaining a flexible tech stack.</p>
+<img src="/en/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-1.png" class="" title="Image source: Data-Fun">
+<img src="/en/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-2.png" class="" title="Tiered view of Recommendation Architecture">
+<img src="/en/recsys/101-intro-1/%E5%BE%AE%E5%8D%9A-%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84.png" class="" title="Weibo" alt="s Recommendation Architecture">
+<h2 id="recommender-system-architecture"><a class="markdownIt-Anchor" href="#recommender-system-architecture"></a> Recommender System Architecture</h2>
+<h2 id="retrieval-module-recall"><a class="markdownIt-Anchor" href="#retrieval-module-recall"></a> Retrieval Module (Recall)</h2>
+<p>The goal of the retrieval module is to quickly filter out candidate subsets related to user interests from the massive candidate pool, achieving high recall at low computational costs. Main features:</p>
+<ol>
+<li><strong>Efficiency First</strong>: Processes millions or billions of candidates, requiring highly efficient algorithms.</li>
+<li><strong>Wide Coverage</strong>: Ensures that potentially relevant content is not missed, chasing high recall.</li>
+<li><strong>Diversity</strong>: Employs multi-channel retrieval strategies to guarantee content diversity.</li>
+<li><strong>Real-time</strong>: Rapidly responds to the user’s latest behaviors and interest shifts.</li>
+</ol>
+<p>Engineering implementation: Typically uses multi-channel retrieval followed by merging/fusion.</p>
+<ol>
+<li>Combine user, item, and behavioral features to fetch candidates from various channels.</li>
+<li>Utilize vector search and indexing technologies for efficient online retrieval.</li>
+<li>Merge results from multiple channels to balance efficiency and diversity.</li>
+</ol>
+<img src="/en/recsys/101-intro-1/%E5%8F%AC%E5%9B%9E-1.png" class="" title="Retrieval Module Illustration">
+<p>Common Retrieval Strategies: Retrieval techniques can be classified into four main categories: traditional, knowledge-based, representation-based, and matching-based. In practice, these methods are often blended.</p>
+<img src="/en/recsys/101-intro-1/%E5%8F%AC%E5%9B%9E-2.png" class="" title="Retrieval Technology Classification">
+<ol>
+<li><strong>Traditional Retrieval</strong>
+<ul>
+<li>Although its usage has decreased in recent years, it still holds a vital position.</li>
+<li>Includes popularity-based retrieval, collaborative filtering retrieval, and content-based retrieval.
+<ul>
+<li>Collaborative Filtering: Based on user behavior similarity.</li>
+<li>Content-based: Matching item attributes and user tags.</li>
+<li>Popularity/Recency: Based on global popularity and fresh content.</li>
+</ul>
+</li>
+<li>Representative algorithms: SVD, Slim series (gSlim, fSlim), UserCF, ItemCF, Swing, etc.</li>
+</ul>
+</li>
+<li><strong>Knowledge-based Retrieval</strong>
+<ul>
+<li>Built on knowledge graphs, featuring high interpretability and performance.</li>
+<li>Implementation: Constructed via graphs or hard rules.
+<ul>
+<li>Social network retrieval: Based on user social graphs.</li>
+<li>Explicit interest tags: Based on user selected interests.</li>
+</ul>
+</li>
+<li>Applications: Entity-based, tag-based, path-based reasoning, and logical expression matching.</li>
+</ul>
+</li>
+<li><strong>Representation-based Retrieval</strong>
+<ul>
+<li>Vector search retrieval (mapping users and items into the same vector embedding space).</li>
+<li>Evolved from simple dual-tower (two-tower) models to complex graph-based models.</li>
+<li>Key categories:
+<ul>
+<li><em>Explicit behavior modeling</em>:
+<ul>
+<li>GRU4Rec (Gated Recurrent Units for Recommendation)</li>
+<li>DUPN (Deep User Perception Network)</li>
+<li>BERT4Rec (Bidirectional Encoder Representations from Transformers for Recommendation)</li>
+</ul>
+</li>
+<li><em>Implicit behavior modeling</em>:
+<ul>
+<li>XDM (eXtreme Deep Factorization Machine)</li>
+</ul>
+</li>
+<li><em>Multi-interest representation</em>:
+<ul>
+<li>MIND (Multi-Interest Network with Dynamic routing)</li>
+<li>SASNet (Self-Attention Sequential Network)</li>
+</ul>
+</li>
+<li><em>Ultra-long sequence modeling</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Matching-based Retrieval</strong>
+<ul>
+<li>Uses higher model complexity to achieve precise behavior representation.</li>
+<li>Representative algorithms:
+<ul>
+<li>NCF (Neural Collaborative Filtering)</li>
+<li>TDM (Tree-based Deep Matching)</li>
+<li>DR (Deep Retrieval)</li>
+</ul>
+</li>
+<li>TDM and DR optimize retrieval pipelines across indexing, modeling, and searching.</li>
+<li>Requires precise negative sampling strategies.</li>
+</ul>
+</li>
+</ol>
+<h3 id="pre-ranking-module-coarse-ranking"><a class="markdownIt-Anchor" href="#pre-ranking-module-coarse-ranking"></a> Pre-ranking Module (Coarse Ranking)</h3>
+<p>The goal of the pre-ranking module is to perform a more refined scoring on the candidates filtered out during retrieval, bridging the gap between retrieval and ranking.</p>
+<p>Pre-ranking balances model complexity and computational efficiency, processing hundreds to thousands of candidates and outputting the top subset for the fine ranking stage. Main features:</p>
+<ol>
+<li><strong>Accuracy-Efficiency Balance</strong>: More accurate than retrieval, more efficient than fine ranking.</li>
+<li><strong>Feature Utilization</strong>: Uses a richer feature set than retrieval, but much more streamlined than fine ranking.</li>
+<li><strong>Model Complexity</strong>: Medium complexity, typically using lightweight deep learning models.</li>
+<li><strong>Candidate Scale</strong>: Processes hundreds to thousands of candidates, outputting dozens to hundreds of results.</li>
+</ol>
+<p>Evolution of Pre-ranking:</p>
+<ul>
+<li><strong>Early Phase</strong>: Based on manual rules or posterior probabilities—simple but limited in expressive power.</li>
+<li><strong>Mid-term Phase</strong>: Introduced lightweight linear models like LR, XFTRL, and GBDT, providing basic feature representation.</li>
+<li><strong>Modern Phase</strong>: Lightweight deep learning models (such as two-tower, three-tower, and FSCD models) that represent users and items separately before matching them, significantly improving expressive power.</li>
+<li><strong>Latest Trends</strong>: End-to-end deep pre-ranking, co-optimizing with the fine ranking model.
+<ul>
+<li>Models like COLD and AutoFAS optimize features and model structures to chase higher accuracy.</li>
+<li><em>Model Distillation</em>: Using knowledge distillation so the pre-ranking model learns the capabilities of the fine ranking model, maintaining decision consistency.</li>
+<li><em>Objective Alignment</em>: Aligning the pre-ranking objective with the overall system objectives.</li>
+<li><em>Engineering Efficiency</em>: Optimizing inference speeds to handle increasing model complexity in real-time.</li>
+</ul>
+</li>
+</ul>
+<p>Key Challenges in Pre-ranking:</p>
+<ol>
+<li>Maintaining consistency between retrieval, pre-ranking, and fine ranking.</li>
+<li>Enhancing model representation within tight computing budgets.
+<ul>
+<li>Feature interaction design: achieving effective feature interaction in lightweight models.</li>
+<li>Inference-accuracy tradeoffs: boosting accuracy without violating online latency bounds.</li>
+<li>Sample Selection Bias (SSB): Mitigating data distribution shifts caused by filtering in earlier stages.</li>
+</ul>
+</li>
+</ol>
+<img src="/en/recsys/101-intro-1/%E7%B2%97%E6%8E%92.png" class="" title="Pre-ranking Model Evolution and Fusion">
+<h3 id="fine-ranking"><a class="markdownIt-Anchor" href="#fine-ranking"></a> Fine Ranking</h3>
+<p>The fine ranking module is the core sorting layer. It scores the candidates output by the pre-ranking stage, directly determining the quality of the final recommendation list. Main features:</p>
+<ol>
+<li><strong>High Precision First</strong>: Prioritizes predictive accuracy; it is the core decision node.</li>
+<li><strong>Rich Features</strong>: Employs the most comprehensive feature set, including user, item, context, and cross features.</li>
+<li><strong>High Model Complexity</strong>: Employs complex deep learning architectures to capture non-linear relationships.</li>
+<li><strong>Candidate Scale</strong>: Processes dozens to hundreds of candidates, outputting the final sorted list.</li>
+</ol>
+<p>Core Objectives of Fine Ranking:</p>
+<ol>
+<li><strong>Accurate User Behavior Prediction</strong>: Accurately predicting CTR, CVR, and other key user interaction probabilities.</li>
+<li><strong>Multi-objective Balance</strong>: Jointly optimizing click-through rate, conversion rate, stay time, and user experience.</li>
+<li><strong>Real-time Responsiveness</strong>: Executing complex model inferences within strict latency budgets.</li>
+<li><strong>Explainability</strong>: Generating explanations for recommendations to build user trust.</li>
+</ol>
+<p>Evolution of Fine Ranking Models:</p>
+<ol>
+<li><strong>Traditional Machine Learning Phase</strong>
+<ul>
+<li>Linear Models: LR (Logistic Regression), MLR (Mixed Logistic Regression).</li>
+<li>Tree Models: GBDT (Gradient Boosting Decision Tree), XGBoost.</li>
+<li>Factorization: FM (Factorization Machines), FFM (Field-aware Factorization Machines).</li>
+<li>Implementations: Using MLR for subgroup modeling, FM for feature interactions, and GBDT/XGBoost for sequence processing. Used FTRL/XFTRL for online learning.</li>
+<li><em>Pros</em>: High training and inference efficiency, strong interpretability.</li>
+<li><em>Cons</em>: Limited representation power; struggles to capture high-order feature interactions.</li>
+</ul>
+</li>
+<li><strong>Early Deep Learning Phase</strong>
+<ul>
+<li>Foundational Deep Networks: DNN (Deep Neural Network), Wide &amp; Deep.</li>
+<li>Enhanced Feature Interactions: DeepFM, DCN (Deep &amp; Cross Network), xDeepFM.</li>
+<li><em>Pros</em>: Automated high-order feature interactions; boosted model expressive power.</li>
+<li><em>Cons</em>: Insufficient modeling for user sequence and temporal dynamics.</li>
+</ul>
+</li>
+<li><strong>Attention Mechanism Phase</strong>
+<ul>
+<li>Behavior Sequence Modeling: DIN (Deep Interest Network), DIEN (Deep Interest Evolution Network).</li>
+<li>Multi-interest Modeling: MIND (Multi-Interest Network), ComiRec.</li>
+<li><em>Pros</em>: Captures dynamic shifts in user interests, boosting personalization.</li>
+<li>Representative Models:
+<ul>
+<li><strong>DIN</strong>: Weights history items using an attention mechanism, highlighting historical behaviors relevant to the candidate item.</li>
+<li><strong>DIEN</strong>: Introduces an interest evolution network on top of DIN to model the dynamic shifts in user interests over time.</li>
+<li><strong>SIM (Search Interest Model)</strong>: Blends search and browsing history to capture comprehensive user interest.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Multi-Task Learning Phase</strong>
+<ul>
+<li>Shared Representation Learning: Shared-Bottom, MMoE (Multi-gate Mixture-of-Experts).</li>
+<li>Task Relationship Modeling: PLE (Progressive Layered Extraction), Adaptive Information Transfer Multi-task (AITM).</li>
+<li><em>Pros</em>: Jointly optimizes multiple business objectives, boosting overall performance.</li>
+<li>Representative Models:
+<ul>
+<li><strong>MMoE</strong>: Shares bottom expert networks and designs separate gating networks for each task to balance sharing and specialization.</li>
+<li><strong>PLE</strong>: Utilizes layered extraction to decouple task-specific and shared expert networks, addressing negative transfer.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Pre-training &amp; Transfer Learning Phase</strong>
+<ul>
+<li>Large-scale Pre-training: BERT4Rec, P5 (Personalized Prompt Learning for Product Search).</li>
+<li>Cross-domain Transfer: STAR (Sparse Transfer Learning for Recommendation).</li>
+<li><em>Pros</em>: Leverages massive datasets and cross-domain knowledge to solve cold-start and data sparsity.</li>
+<li><em>Cons</em>: High computing requirements; complex engineering infrastructure.</li>
+</ul>
+</li>
+</ol>
+<p>Core Challenges in Fine Ranking:</p>
+<ol>
+<li><strong>Multi-objective Optimization</strong>: Balancing click-through rates, conversion rates, and user retention.
+<ul>
+<li>Solutions: Multi-task learning, Pareto efficiency, constrained optimization.</li>
+</ul>
+</li>
+<li><strong>Sample Bias Mitigation</strong>: Dealing with selection bias, position bias, and exposure bias.
+<ul>
+<li>Solutions: Counterfactual learning, causal inference, debiasing techniques.</li>
+</ul>
+</li>
+<li><strong>Cold Start</strong>: Recommending new items or serving new users with sparse data.
+<ul>
+<li>Solutions: Meta-learning, transfer learning, content feature enhancement.</li>
+</ul>
+</li>
+<li><strong>Computational Efficiency</strong>: Serving complex model inferences in milliseconds.
+<ul>
+<li>Solutions: Model compression, knowledge distillation, distributed computing.</li>
+</ul>
+</li>
+<li><strong>Explainability</strong>: Generating clear reasons for recommendations.
+<ul>
+<li>Solutions: Attention visualization, feature importance analysis, local surrogate models.</li>
+</ul>
+</li>
+</ol>
+<img src="/en/recsys/101-intro-1/%E7%B2%BE%E6%8E%92.png" class="" title="Fine Ranking Model Evolution and Fusion">
+<p>The evolution diagram can be divided into four tracks:</p>
+<ul>
+<li><strong>Bottom Track</strong>: MLP to Wide &amp; Deep evolution line, including Deep &amp; Cross Network (DCN), DeepFM, Attentional Factorization Machine (AFM), and Neural Factorization Machine (NFM), optimizing specific structures.</li>
+<li><strong>Top Track</strong>: Enhancements to the MLP architecture, introducing Attention, Product Layers, and Graph Neural Networks (GNN).</li>
+<li><strong>Right Track</strong>: Variations and improvements based on Autoencoders (AE), Reinforcement Learning, and Neural Collaborative Filtering (NCF).</li>
+<li><strong>Left Track</strong>: Attention-based sequence models, including Deep Interest Network (DIN), Deep Interest Evolution Network (DIEN), Multi-channel Interest Merge Network (MIMN), Deep Session Interest Network (DSIN), and Search Interest Model (SIM), focusing on long-sequence modeling.</li>
+</ul>
+<p>Fine ranking models are heading towards multi-module, multi-task, multi-objective, and multi-modal integration.</p>
+<h3 id="re-ranking-blending"><a class="markdownIt-Anchor" href="#re-ranking-blending"></a> Re-ranking / Blending</h3>
+<p>Re-ranking is the final stage. It adjusts and optimizes the candidate list output by the fine ranking stage to maximize overall platform metrics. Unlike fine ranking, re-ranking handles:</p>
+<ol>
+<li><strong>Global Optimization</strong>: Considering the diversity, novelty, and coverage of the list as a whole.
+<ul>
+<li>Solutions: Greedy algorithms, Integer Programming, Reinforcement Learning.</li>
+</ul>
+</li>
+<li><strong>Context Awareness</strong>: Factoring in the user’s current session state, past interactions, and visual layout constraints.
+<ul>
+<li>Solutions: Sequence models, attention mechanisms, graph neural networks.</li>
+</ul>
+</li>
+<li><strong>Real-time Feedback</strong>: Adapting rapidly based on the user’s immediate feedback signals.
+<ul>
+<li>Solutions: Online learning, incremental updates, edge computing.</li>
+</ul>
+</li>
+</ol>
+<p>Re-ranking Approaches:</p>
+<ol>
+<li><strong>Rule-based Re-ranking</strong>
+<ul>
+<li>Diversity Rules: Limiting the proportion of identical categories, scattering similar items.</li>
+<li>Constrained Rules: Business rules, compliance filters, editorial controls.</li>
+<li><em>Pros</em>: Strong interpretability; easy to implement and adjust.</li>
+<li><em>Cons</em>: Struggles to capture complex, dynamic patterns; high maintenance cost.</li>
+</ul>
+</li>
+<li><strong>Model-based Re-ranking</strong>
+<ul>
+<li>Global Listwise Models: DLCM (Deep Listwise Context Model), PRM (Personalized Re-ranking Model).</li>
+<li>Sequence-aware Models: SetRank, Intent-aware Re-ranking with Graph Neural Networks (IRGPR).</li>
+<li><em>Pros</em>: Learns global dependencies across the candidate list, boosting list quality.</li>
+<li><em>Cons</em>: High computational complexity under tight latency budgets.</li>
+</ul>
+</li>
+<li><strong>Reinforcement Learning-based Re-ranking</strong>
+<ul>
+<li>Policy Gradient: REINFORCE, Actor-Critic.</li>
+<li>Value-based: DQN, Double DQN.</li>
+<li><em>Pros</em>: Directly optimizes long-term rewards; handles delayed feedback.</li>
+<li><em>Cons</em>: Unstable training; low sample efficiency.</li>
+</ul>
+</li>
+<li><strong>Edge Computing Re-ranking</strong>
+<ul>
+<li>Lightweight Models: EdgeRec (Alibaba), MobileRec.</li>
+<li>Model Compression: Quantization, pruning, knowledge distillation.</li>
+<li><em>Pros</em>: Ultra-low latency; leverages real-time on-device signals.</li>
+<li><em>Cons</em>: Limited computational capacity on client devices.</li>
+</ul>
+</li>
+</ol>
+<p>Re-ranking Challenges:</p>
+<ol>
+<li><strong>Latency Constraints</strong>: Running complex global listwise optimizations in milliseconds.
+<ul>
+<li>Solutions: Model compression, calculation optimization, distributed processing.</li>
+</ul>
+</li>
+<li><strong>Metric Multiplicity</strong>: Balancing conversions, diversity, and long-term user satisfaction.
+<ul>
+<li>Solutions: Multi-objective optimization, weighted scoring, A/B testing.</li>
+</ul>
+</li>
+<li><strong>Exploration vs. Exploitation</strong>: Introducing exploration mechanisms to prevent recommendation feedback loops.
+<ul>
+<li>Solutions: Thompson sampling, contextual multi-armed bandits.</li>
+</ul>
+</li>
+<li><strong>Fairness</strong>: Ensuring content diversity and algorithmic fairness.
+<ul>
+<li>Solutions: Fairness constraints, audit checks.</li>
+</ul>
+</li>
+</ol>
+<img src="/en/recsys/101-intro-1/%E9%87%8D%E6%8E%92.png" class="" title="Re-ranking Model Evolution">
+<h3 id="data-layer"><a class="markdownIt-Anchor" href="#data-layer"></a> Data Layer</h3>
+<p>The data layer is the foundation, collecting, processing, and storing data to support upstream algorithms. A mature data layer contains:</p>
+<ol>
+<li><strong>Data Collection System</strong>
+<ul>
+<li>Event tracking design, collection protocols, and pipelines.</li>
+<li><em>User behavior data</em>: Clicks, impressions, stay time, favorites, shares, comments, etc.</li>
+<li><em>Content features</em>: Structured and unstructured features for text, images, video, and audio.</li>
+<li><em>Contextual data</em>: Time, location, device, network conditions, etc.</li>
+<li><em>Transactional data</em>: Purchases, payments, refunds, customer support, etc.</li>
+</ul>
+</li>
+<li><strong>Data Processing Framework</strong>
+<ul>
+<li><em>Real-time</em>: Kafka, Flink, Spark Streaming, etc.</li>
+<li><em>Offline</em>: Hadoop, Spark, Hive, etc.</li>
+<li><em>Feature Storage</em>: Redis, HBase, Cassandra, Feature Store (e.g., Alibaba’s FeatureStore).</li>
+</ul>
+</li>
+<li><strong>Feature Engineering System</strong>
+<ul>
+<li><em>Extraction</em>: Extracting high-value signals from raw logs.</li>
+<li><em>Transformation</em>: Normalization, standardization, bucketization, encoding, etc.</li>
+<li><em>Selection</em>: Filtering, embedding, wrapper methods.</li>
+<li><em>Crossing</em>: Cross-features, multi-domain feature fusion.</li>
+</ul>
+</li>
+<li><strong>User Understanding System</strong>
+<ul>
+<li><em>Data Layer</em>: Collecting user demographics, behaviors, contexts, and device logs. Requires robust real-time tracking.</li>
+<li><em>Insight Layer</em>: Deep analysis of user characteristics (LTV, churn risk, purchase cycles, interest shifts, user lifecycle stage).</li>
+<li><em>Understanding Layer</em>:
+<ul>
+<li><em>Explicit</em>: Extracting interest tags, category preferences, and user clusters (Lookalike models).</li>
+<li><em>Implicit</em>: Vectorizing user histories, modeling sequence patterns across short, long, and ultra-long lifecycles.</li>
+</ul>
+</li>
+<li><em>Explainability</em>: Generating recommendation reasons based on user/item similarities and social graphs.</li>
+</ul>
+</li>
+</ol>
+<img src="/en/recsys/101-intro-1/%E6%95%B0%E6%8D%AE%E5%B1%82.png" class="" title="Data Layer Architecture">
+<p>Key Challenges:</p>
+<ol>
+<li><strong>Data Quality</strong>: Ensuring completeness, accuracy, and fresh, latency-free updates.</li>
+<li><strong>Scale</strong>: Storing petabytes of historical logs and supporting millions of QPS under millisecond read latencies.</li>
+<li><strong>Privacy</strong>: Data masking, access control, and compliance with GDPR, CCPA, etc.</li>
+</ol>
+<h3 id="evaluation-of-recommender-systems"><a class="markdownIt-Anchor" href="#evaluation-of-recommender-systems"></a> Evaluation of Recommender Systems</h3>
+<p>Evaluation ensures system efficacy and guides iterative optimization, split into online business metrics and离线 model metrics:</p>
+<p>Online / Business Metrics</p>
+<p>Directly measures real-world impact and platform value:</p>
+<ol>
+<li><strong>Conversion Metrics</strong>
+<ul>
+<li>Click-Through Rate (CTR): Proportion of recommendations clicked.</li>
+<li>Conversion Rate (CVR): Proportion of clicks resulting in conversion.</li>
+<li>Order Rate: Proportion of sessions resulting in orders.</li>
+<li>Retention Rate: The long-term retention impact of recommendations.</li>
+</ul>
+</li>
+<li><strong>Recommendation Quality</strong>
+<ul>
+<li>Coverage: The proportion of unique items recommended out of the total catalog.</li>
+<li>Diversity: Category richness across the recommendation list.</li>
+<li>Novelty: The proportion of fresh/unseen items recommended.</li>
+<li>Relevance: The degree of match with the user’s active interests.</li>
+<li>Recency/Timeliness: Real-time update capacity.</li>
+</ul>
+</li>
+<li><strong>User Satisfaction</strong>
+<ul>
+<li>User Ratings: Direct explicit feedback.</li>
+<li>Dwell/Stay Time: Dwell duration on recommended content.</li>
+<li>Interaction Depth: Deep interactions like shares, comments, favorites.</li>
+<li>NPS (Net Promoter Score).</li>
+<li>User Churn/Hide Rate: Negative feedback signals.</li>
+</ul>
+</li>
+</ol>
+<p>Offline / Model Metrics</p>
+<p>Used for fast algorithmic iteration and model tuning across different stages:</p>
+<ol>
+<li><strong>Retrieval Stage Metrics</strong>
+<ul>
+<li>Recall: Proportion of relevant items retrieved out of all relevant items.</li>
+<li>Precision: Proportion of relevant items retrieved out of all retrieved items.</li>
+<li>F1 Score: Harmonic mean of Recall and Precision.</li>
+<li>Hit Rate: Proportion of lists containing at least one positive item.</li>
+<li>NS-recall/NS-precision: Recall/precision under negative sampling.</li>
+<li>KL Divergence: Distribution difference between recommendations and ground truth.</li>
+<li>Long-tail Coverage: Ability to retrieve non-popular items.</li>
+</ul>
+</li>
+<li><strong>Pre-ranking Stage Metrics</strong>
+<ul>
+<li>AUC (Area Under Curve): Classification capability between positive and negative samples.</li>
+<li>GAUC (Group AUC): Weighted AUC grouped by users.</li>
+<li>MAP (Mean Average Precision): Precision accounting for ranking positions.</li>
+<li><strong>Consistency with Fine Ranking</strong>: Correlation between pre-ranking and fine ranking scores.</li>
+<li>Computational Efficiency: Resource consumption and latency.</li>
+</ul>
+</li>
+<li><strong>Fine Ranking &amp; Re-ranking Stage Metrics</strong>
+<ul>
+<li>Scenario-specific AUC/GAUC.</li>
+<li>Category/User subgroup AUC.</li>
+<li>NDCG (Normalized Discounted Cumulative Gain): Ranking quality accounting for position weights.</li>
+<li>MRR (Mean Reciprocal Rank): Reciprocal rank of the first relevant item.</li>
+<li>Commercial Goal Achievement: Impact on GMV, revenue, and budget pacing.</li>
+<li>Fairness: Balanced quality across different user cohorts.</li>
+</ul>
+</li>
+</ol>
+<p>Evaluation Principles:</p>
+<ol>
+<li><strong>Multi-dimensional Evaluation</strong>: Employing a balanced scorecard instead of chasing a single metric.</li>
+<li><strong>Online-Offline Alignment</strong>: Using offline metrics for fast iteration and online A/B tests for final validation.</li>
+<li><strong>Short-Long Balance</strong>: Chasing immediate conversions while protecting long-term retention.</li>
+<li><strong>Continuous Monitoring</strong>: Detecting model drift and data anomalies in real-time.</li>
+</ol>
+<img src="/en/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F-%E6%8C%87%E6%A0%87.png" class="" title="Recommender System Metrics">
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.datafuntalk.com/p/t_pc/course_pc_detail/image_text/i_64365c0ae4b0cf39e6ba78bc">DataFunTalk: Recommender System Survey</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.datafuntalk.com/live_pc/l_643b8cbae4b09d72378d91d0">DataFunTalk: Weibo Real-time Large Model Evolution</a></li>
+<li><a target="_blank" rel="noopener" href="https://d2l.ai/chapter_recommender-systems/index.html#">D2L.AI: Recommender Systems</a></li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/en/recsys/101-intro-1/">https://xinheliu.github.io/en/recsys/101-intro-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/AI-Machine-Learning/">
+                                    <span class="chip bg-color">AI &amp; Machine Learning</span>
+                                </a>
+                            
+                                <a href="/tags/Recommendation/">
+                                    <span class="chip bg-color">Recommendation</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
+            <div class="card">
+                <a href="/en/recsys/101-intro-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Recommender Systems 101 (1) Introduction to Recommender Systems">
+                        
+                        <span class="card-title">Recommender Systems 101 (1) Introduction to Recommender Systems</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-13
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Technology/" class="post-category">
+                                    Technology
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI-Machine-Learning/">
+                        <span class="chip bg-color">AI &amp; Machine Learning</span>
+                    </a>
+                    
+                    <a href="/tags/Recommendation/">
+                        <span class="chip bg-color">Recommendation</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/en/recsys/101-intro-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Recommender Systems 101 (2) Recommendation Strategy">
+                        
+                        <span class="card-title">Recommender Systems 101 (2) Recommendation Strategy</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Technology/" class="post-category">
+                                    Technology
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI-Machine-Learning/">
+                        <span class="chip bg-color">AI &amp; Machine Learning</span>
+                    </a>
+                    
+                    <a href="/tags/Recommendation/">
+                        <span class="chip bg-color">Recommendation</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

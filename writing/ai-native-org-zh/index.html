@@ -1,0 +1,970 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="AI 原生组织：从传统架构到超级杠杆, Xinhe Liu (Charles)">
+    <meta name="description" content="A blueprint for designing and transforming an AI-native organization—from &#34;+AI&#34; to &#34;AI+&#34;, the four-layer operating system, and a one-year roadmap.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>AI 原生组织：从传统架构到超级杠杆 | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/home-zh/" aria-label="昕和首页">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>昕和</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="主导航">
+    
+        <a href="/home-zh/" class="">首页</a>
+    
+        <a href="/writing-zh/" class="">写作</a>
+    
+        <a href="/technical-notes-zh/" class="">技术笔记</a>
+    
+        <a href="/projects-zh/" class="">项目</a>
+    
+        <a href="/about-zh/" class="">个人信息和联系方式</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="搜索" aria-label="搜索">
+        <i class="fas fa-search"></i>
+    </a>
+    <a class="lang-switch" href="/writing/ai-native-org/" title="English" aria-label="English">EN</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="主题切换" aria-label="主题切换">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="打开菜单">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/home-zh/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>昕和</strong>
+            </span>
+        </a>
+        <p>昕和的个人主页、写作与技术笔记。</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/home-zh/">首页</a></li>
+        
+            <li><a href="/writing-zh/">写作</a></li>
+        
+            <li><a href="/technical-notes-zh/">技术笔记</a></li>
+        
+            <li><a href="/projects-zh/">项目</a></li>
+        
+            <li><a href="/about-zh/">个人信息和联系方式</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="搜索">
+            <i class="fas fa-search"></i>
+        </a>
+        <a class="lang-switch" href="/writing/ai-native-org/">EN</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">标签</a>
+        <a href="/categories/">分类</a>
+        <a href="/archives-zh/">归档</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">AI 原生组织：从传统架构到超级杠杆</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">人工智能和机器学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%BB%84%E7%BB%87%E8%AE%BE%E8%AE%A1/">
+                                <span class="chip bg-color">组织设计</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%86%99%E4%BD%9C/" class="post-category">
+                                写作
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2026-06-08
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="ai-原生组织从传统架构到超级杠杆"><a class="markdownIt-Anchor" href="#ai-原生组织从传统架构到超级杠杆"></a> AI 原生组织：从传统架构到超级杠杆</h1>
+<p>当执行成本趋近于零，组织的瓶颈就不再是&quot;能不能做出来&quot;，而是&quot;该不该做、谁来背责、经验有没有沉淀下来&quot;。这篇文章想回答一个具体问题：一家几十人的科技或咨询公司，如何在一年内真正变成 AI 原生组织——不是上几个 AI 工具，而是把经营操作系统整个换掉。</p>
+<img src="/writing/ai-native-org-zh/architecture.png" class="" title="AI 原生组织变革指南：从传统架构到超级杠杆">
+<h2 id="tldr"><a class="markdownIt-Anchor" href="#tldr"></a> TL;DR</h2>
+<p><strong>“AI+” 不等于 “+AI”。</strong> “+AI” 的特征是工具渗透、效率提升——在旧流程上叠加一层 AI，干得更快。“AI+” 的特征是 AI 决策率、组织私有知识与数据、以及组织级的持续迭代能力——AI 成为业务的核心引擎，而非辅助工具。两者的区别不在工具多少，而在组织逻辑是否被重构。</p>
+<p><strong>转型最大的难点不是技术，是工作习惯和激励机制。</strong> 阻力主要来自三处：</p>
+<ul>
+<li>每个人对转型的<strong>认同度、认知度、意愿度</strong>天然存在差异；</li>
+<li>AI 需要数据，而这要求每个人<strong>主动让自己的工作流被看清楚</strong>——把个人经验和判断贡献给系统，这本身反人性；</li>
+<li>开会方式、时间控制、会后纪要这些<strong>微观工作习惯</strong>的改变，叠加&quot;责任承担&quot;&quot;定义而非被定义&quot;带来的心理负担，都需要全新的协同机制和激励机制来承接。</li>
+</ul>
+<p><strong>转型最关键的认知有两条：</strong></p>
+<ol>
+<li>它不是引入 AI 工具的&quot;加法&quot;，而是剥离旧组织惯性、重构运营逻辑的&quot;减法 + 重构&quot;。</li>
+<li>它不是技术升级，而是经营操作系统升级——业务团队必须深度参与，否则转型会脱离实际业务。</li>
+</ol>
+<p>下面分三部分展开：先讲 AI 原生组织&quot;长什么样&quot;（设计原理），再讲&quot;怎么变成它&quot;（一年路线图），最后给出可以马上动手的落地建议。</p>
+<h2 id="一-ai-原生组织的设计原理"><a class="markdownIt-Anchor" href="#一-ai-原生组织的设计原理"></a> 一、AI 原生组织的设计原理</h2>
+<p>设计 AI 原生公司，核心是跳出传统组织框架，用第一性思考锚定 AI 时代的组织本质。目标是用极少数核心团队，通过 AI 杠杆实现传统几十上百人团队的商业价值，打造低熵增、高迭代的自适应组织。</p>
+<h3 id="底层逻辑从交易成本最小化到责任承载最大化"><a class="markdownIt-Anchor" href="#底层逻辑从交易成本最小化到责任承载最大化"></a> 底层逻辑：从&quot;交易成本最小化&quot;到&quot;责任承载最大化&quot;</h3>
+<p>传统组织的底层逻辑源于科斯的&quot;交易成本最小化&quot;——组织作为&quot;降低交易成本的效率容器&quot;而存在。AI 已经把执行成本无限趋近于 0，执行能力彻底普惠化，这个前提就不成立了。</p>
+<p>AI 原生组织的新逻辑是&quot;责任承载最大化&quot;。组织不再以&quot;提升人力效率、管控风险&quot;为核心，而是成为承载超级个体无法独自承担的商业、法律、资本风险的<strong>责任容器</strong>。这一逻辑决定了它的核心方向：最大化认知复利的涌现速度，最小化非必要的系统熵增。对小公司而言这是优势——无需背负大公司的行政骨架，可以按&quot;本质优先、最小闭环、极致杠杆&quot;实现更快的迭代。</p>
+<h3 id="核心前提先划清人与-ai-的边界"><a class="markdownIt-Anchor" href="#核心前提先划清人与-ai-的边界"></a> 核心前提：先划清人与 AI 的边界</h3>
+<p>设计的第一步不是划分部门、明确汇报关系，而是先定义&quot;什么必须由人承担，什么必须交给 AI&quot;。划分标准是<strong>责任和意义</strong>，而非传统的执行和管理：</p>
+<ul>
+<li><strong>AI 接管高频执行与局部决策</strong>：信息收集、内容生成、代码实现、数据分析、任务拆解、SOP 执行、初步判断与建议，以及大部分运营动作的自动触发——所有可标准化、可重复的工作。</li>
+<li><strong>人只保留三类高杠杆职能</strong>：方向定义（做什么、不做什么）、责任承担（关键风险、关键承诺、关键取舍）、非理性创造（审美、判断、战略直觉、价值观）。</li>
+</ul>
+<p>基于这个分工，组织设计真正要追问的是：哪些决策必须有人签字背责？哪些流程可以 AI-to-AI 直接握手？哪些经验必须沉淀成组织记忆，而非停留在个人脑中？</p>
+<h3 id="组织架构按系统层搭建而非按部门"><a class="markdownIt-Anchor" href="#组织架构按系统层搭建而非按部门"></a> 组织架构：按&quot;系统层&quot;搭建，而非按部门</h3>
+<p>AI 原生公司不沿用&quot;产品部、技术部、运营部、市场部&quot;的职能划分，而是像搭建一套最小可运行的操作系统，分为四层：</p>
+<p><strong>意图层（Intent Layer）——组织的&quot;总提示词&quot;。</strong> 最核心的人类层，通常只有 1–3 个关键人。它不是传统意义上的&quot;老板层&quot;，而是组织的总提示词层：定义目标与边界、决定优先级、做关键取舍、设定&quot;什么是好结果&quot;，并承担最终责任。要求极强的抽象、目标定义和判断力，做到&quot;极少但极清晰&quot;——AI 时代方向一旦出错，AI 只会把错误无限放大。</p>
+<p><strong>模型层（Model Layer）——组织的&quot;决策引擎&quot;。</strong> 这是小公司真正的中台，本质是认知与决策中台，决定 AI 如何理解世界、如何做局部决策。包含用户模型、业务规则、定价/增长模型、内容策略、风险规则、任务路由规则、评估指标体系、提示词/工作流模板库。它相当于传统公司的推荐算法、增长算法、数据中台，在小公司里收缩为统一的决策引擎——小公司不能靠人脑传经验，必须靠模型传经验。</p>
+<p><strong>Agent 执行层（Agent Layer）——组织的&quot;数字员工层&quot;。</strong> 不是单一 AI，而是一组角色化 Agent：研究、产品、工程、运营、客服/销售。其核心价值不在数量，而在能否端到端直连——研究 Agent 输出的结构化洞察直接喂给产品 Agent 生成方案，再由工程 Agent 落地，上线后由分析 Agent 回收数据，最终回写模型层。整个流转无需人类&quot;传球&quot;，彻底避免&quot;人作为低效路由器&quot;的浪费。</p>
+<p><strong>接口层（Human / Market Interface）——连接真实世界的&quot;信用窗口&quot;。</strong> AI 无法替组织承担所有外部信用，所以保留少量高质量真人接口：对客户承诺、与合作方谈判、对外关键表达、招聘与文化传递、重大危机处理。这是组织与真实世界连接的节点。</p>
+<h3 id="三大落地原则"><a class="markdownIt-Anchor" href="#三大落地原则"></a> 三大落地原则</h3>
+<p><strong>技术与运营融合，构建统一业务闭环单元。</strong> 在 AI 时代技术与运营不再是并列职能，而是同一闭环的两个状态：技术把业务逻辑产品化、自动化、可复制，运营用真实世界交互为系统提供训练数据和目标约束。因此不设独立的技术部和运营部，而是组建统一的&quot;业务闭环单元&quot;，每个单元对某个具体结果负责（提高留存、提升转化、降低履约成本），单元内部同时拥有洞察、实现、实验、调整能力，无需跨部门同步。</p>
+<p><strong>压缩管理层级，厚植上下文系统。</strong> 传统中层的核心工作——传达信息、协调资源、跟进进度、初级判断——恰好是 AI 最易替代的部分。所以把管理层压到极薄，转而建设强大的组织上下文基础设施，实现&quot;弱层级 + 强上下文 + 强规则 + 强可观测性&quot;。上下文系统包括全量透明的目标系统、统一可读写的文档与记忆系统、显式化的规则体系、实时化的任务状态，确保信息可追溯、可调用，新人或新 Agent 能快速继承历史上下文。</p>
+<p><strong>重视组织记忆，打造核心资产。</strong> AI 时代组织的核心资产不再是人力，而是&quot;可参与决策的组织记忆&quot;——没有记忆的智能只是算法，有记忆的智能才是物种。要求所有关键决策有结构化记录（输入信息、判断过程、取舍原因、结果反馈），所有业务动作（销售对话、用户反馈、实验结果、失败案例）都成为训练样本。记忆不是静态知识库，而是能被 Agent 调用、提醒历史教训、复用成功模式、避免重复犯错的&quot;机器记忆&quot;，构成公司的核心护城河。</p>
+<h3 id="人才与绩效重构招聘与考核逻辑"><a class="markdownIt-Anchor" href="#人才与绩效重构招聘与考核逻辑"></a> 人才与绩效：重构招聘与考核逻辑</h3>
+<p><strong>招聘&quot;高判断密度的人&quot;，而非职能填空者。</strong> 优先招三类人：</p>
+<ul>
+<li><strong>问题定义者</strong>——能将模糊的业务问题转化为清晰的目标、约束和指标，拆解优先级；</li>
+<li><strong>系统设计者</strong>——能将业务闭环转化为可模块化、可自动化、可观测、可迭代的系统，既懂业务也懂技术抽象；</li>
+<li><strong>高带宽执行者</strong>——能驾驭 Agent、快速验证想法、快速修正，成为&quot;人类 orchestrator&quot;。</li>
+</ul>
+<p>用人标准从&quot;会不会做某个岗位&quot;转向&quot;能不能在高信息密度下做判断，并驱动系统自跑&quot;。</p>
+<p><strong>考核&quot;系统贡献&quot;，而非个人产出。</strong> 避免&quot;AI 放大个人产出，但系统未变强&quot;的无效忙碌。绩效聚焦四类底层指标：</p>
+<ol>
+<li><strong>目标质量</strong>——定义的问题是否准确、是否抓住本质矛盾；</li>
+<li><strong>系统化贡献</strong>——工作是否沉淀为可复用模块、是否减少未来重复劳动；</li>
+<li><strong>反馈速度</strong>——从假设到验证的周期、是否能快速暴露并修正问题；</li>
+<li><strong>记忆增量</strong>——工作是否让组织更聪明、是否形成可复用的经验。</li>
+</ol>
+<p>核心是奖励&quot;让组织智能水位上升&quot;的人，而非&quot;干活多&quot;的人。</p>
+<h3 id="八条可落地的设计原则"><a class="markdownIt-Anchor" href="#八条可落地的设计原则"></a> 八条可落地的设计原则</h3>
+<ol>
+<li>先定义责任边界，再定义岗位分工；</li>
+<li>按结果闭环建 Pod，不按职能建部门；</li>
+<li>中层尽量薄，上下文系统尽量厚；</li>
+<li>所有执行尽量 Agent 化，所有关键判断必须由人追责；</li>
+<li>把文档、数据、决策沉淀为长期记忆，而非临时沟通；</li>
+<li>考核&quot;让系统变强&quot;，而非单纯的个人产出；</li>
+<li>推动 AI-to-AI 直接流转，减少人作为传球节点；</li>
+<li>把组织当成模型持续训练迭代，而非固定结构。</li>
+</ol>
+<p>一句话概括：<strong>AI 原生公司，是由极少数高判断密度的人设定意图、由统一记忆与规则系统承载上下文、由多 Agent 直接完成端到端执行、并通过持续反馈自我优化的责任型分布式智能组织。</strong></p>
+<h3 id="从-skills-沉淀到企业本体"><a class="markdownIt-Anchor" href="#从-skills-沉淀到企业本体"></a> 从 Skills 沉淀到企业本体</h3>
+<p>落到工程层面，组织记忆和决策引擎靠什么承载？一个有效的设计模式是 <strong>Skills</strong>——把专业流程、领域知识和行动判断封装成可复用的能力单元，让智能体按需加载和调用。这类模块化能力已经被用在数据分析、校验、报告生成等任务上，把自然语言指令转化为结构化的专业工作流；也可以把企业组件库、开发规范封装成&quot;技能包&quot;，让模型自动发现、理解并正确应用。</p>
+<img src="/writing/ai-native-org-zh/skills-layer.png" class="" title="Skills 作为连接行动能力与语义世界的中间层">
+<p>多个工作流组合起来，最终会沉淀出一套统一的话语体系，也就是<strong>企业本体（Ontology）</strong>：约定什么是&quot;客户&quot;、什么是&quot;流程&quot;、什么是&quot;风险&quot;。Skills 在其中扮演中间层的角色——</p>
+<ul>
+<li>向下连接&quot;行动能力&quot;（Tools / Agents），向上连接&quot;语义世界&quot;（Ontology）；</li>
+<li>把企业本体里的概念、规范、流程，转译为可执行的行为模式；</li>
+<li>在有限的上下文窗口里，让&quot;组织的做事方式&quot;第一次以结构化形式存在于模型的认知空间中。</li>
+</ul>
+<img src="/writing/ai-native-org-zh/skills-ontology.png" class="" title="从 Skills 到企业本体：统一的话语体系">
+<h2 id="二-一年内完成-ai-原生转型"><a class="markdownIt-Anchor" href="#二-一年内完成-ai-原生转型"></a> 二、一年内完成 AI 原生转型</h2>
+<p>把一家 30 人规模的公司（轻资产科技公司或咨询公司）在一年内转成真正的 AI 原生组织，核心不是&quot;上 AI 工具&quot;，而是组织操作系统级的升级。最现实的目标不是&quot;全员 AI 化&quot;，而是把公司从&quot;人传人、经验靠人记、管理靠催、执行靠堆人&quot;，转变为&quot;任务流可机器接手、经验进系统沉淀、管理靠上下文和规则、人主要做判断/设计/兜底&quot;。</p>
+<p>转型遵循三条节奏：先重构工作流，再重构组织；先做试点，再改考核；先建记忆中枢，再谈规模放大。</p>
+<h3 id="转型北极星一年内的四个核心目标"><a class="markdownIt-Anchor" href="#转型北极星一年内的四个核心目标"></a> 转型北极星：一年内的四个核心目标</h3>
+<ol>
+<li><strong>50%+ 的高频重复工作被 AI/自动化接管</strong>——信息整理、初步分析、文档产出、方案初稿、客户跟进准备、内部知识检索，以及代码/测试/数据处理中的标准化部分。</li>
+<li><strong>至少 3 条核心业务链路实现&quot;人机协同闭环&quot;</strong>——优先突破：销售/商机 → 方案 → 交付启动；研究/洞察 → 方法论 → 对客输出；项目执行 → 复盘 → 资产沉淀。</li>
+<li><strong>搭建一个真正可用的&quot;组织记忆中枢&quot;</strong>——不是文档堆积，而是能回答：我们过去怎么做过类似项目？哪种方案对哪类客户有效？哪些坑踩过？哪套模板能复用？哪些判断后来被证明对/错？</li>
+<li><strong>管理者角色完成转型</strong>——从&quot;盯过程的人&quot;变成定义目标、设规则、提供上下文、做最终判断和复盘校准的&quot;系统设计者&quot;。</li>
+</ol>
+<h3 id="一年路线图按季度推进"><a class="markdownIt-Anchor" href="#一年路线图按季度推进"></a> 一年路线图：按季度推进</h3>
+<p><strong>Q1（第 1–3 月）：看清系统，试点破局。</strong> 不急于大改组织，核心是&quot;看清问题、选对战场&quot;。</p>
+<ul>
+<li>成立 3–5 人的转型核心组（最终负责人 + 技术/AI 负责人 + 业务/交付负责人 + 运营/流程负责人），只负责三件事：选战场、定标准、推试点。</li>
+<li>按链路而非部门拆解工作流，把每条链路的环节分四类：A 类（高判断、低频、强责任，暂不自动）、B 类（高判断、高频，优先 AI 辅助）、C 类（低判断、高频，优先自动化）、D 类（低价值耗时，优先删除）。</li>
+<li>让团队连续两周记录&quot;时间黑洞&quot;：重复整理信息、重复开会、找资料、改格式、写重复文档、反复解释上下文、手工汇总数据。</li>
+<li>选 2–3 条同时满足&quot;高频、跨人协作多、有可沉淀模板、错误成本可控&quot;的试点链路。</li>
+<li>建最小统一工具栈：一个协作文档系统、一个知识/记忆库、一个任务管理系统、一个 AI 工作台（可接 LLM/prompt/agent/模板）、一个数据归档入口。</li>
+</ul>
+<p><strong>Q1 交付物：</strong> 核心工作流地图、前 10 大时间黑洞清单、2–3 条试点链路、统一工具栈、第一版知识沉淀规范（怎么记录、怎么命名、怎么复用）。</p>
+<p><strong>Q2（第 4–6 月）：跑通试点，固化新流程。</strong> 让试点真正运转，而非停留在演示。</p>
+<ul>
+<li>重构 SOP 为&quot;机器可执行 + 人可审核&quot;的双层结构：机器层（输入、步骤、规则、输出格式）、人类层（判断点、审核点、升级点）。</li>
+<li>明确人机边界：哪些环节 AI 可直接做、哪些必须人工 review、哪些必须升级、出错谁负责。这是防止&quot;AI 快速放大错误&quot;的关键。</li>
+<li>搭建组织记忆中枢第一版：优先沉淀历史项目案例、标准模板/优秀样例、复盘中的经验与坑，确保可检索、可按场景调用、可回写。</li>
+<li>试点团队改&quot;小队制&quot;：1 个负责人 + 1–2 个关键执行者 + 若干 AI 节点，明确输入输出与核心指标。</li>
+<li>周会从&quot;汇报进度&quot;改为&quot;看流量和堵点&quot;：哪条链路吞吐变快、哪个环节还在人工传球、哪些内容进了记忆、哪些错误在重复。</li>
+</ul>
+<p><strong>Q2 成功标志：</strong> 2–3 条链路明显提速，至少一条交付周期缩短 20–40%，至少一条实现文档/方案初稿的标准化生成，有可用的案例/模板/复盘库。</p>
+<p><strong>Q3（第 7–9 月）：扩大试点，重构组织。</strong> 转型中最阵痛的阶段，从&quot;局部试点&quot;到&quot;公司默认操作系统&quot;。</p>
+<ul>
+<li>正式重构组织：从&quot;职能部门制&quot;转向&quot;业务小队 + 共享中枢&quot;。前台为围绕客户/项目/产品目标的业务小队，对最终结果负责；中枢为共享能力层，集中维护 AI 工作台/agent、记忆中枢、模板资产、数据与分析、自动化流程、质量规则。</li>
+<li>重写岗位定义：按&quot;负责什么认知/结果&quot;而非&quot;做什么手工活&quot;定义。例如方案顾问 → “行业上下文建模 + 方案判断 + AI 方案编排”；数据分析 → “决策支持 + 洞察结构化 + 数据工作流自动化”；项目经理 → “流程编排 + 风险升级 + 跨节点协调”。</li>
+<li>调整绩效：加入结果指标、效率指标、复利指标（模板/资产/自动化沉淀）、协同指标（上下文质量、跨团队复用）。</li>
+<li>角色再培训/再分配：A 类（高判断力高潜力）升级为负责人/架构型角色；B 类（执行强可迁移）培养为 AI 操作员/质检/流程编排；C 类（长期依赖重复劳动）转型或边缘化。</li>
+</ul>
+<p><strong>Q3 成功标志：</strong> 组织图转向&quot;小队 + 中枢&quot;，绩效开始反映复利贡献，至少 30–40% 重复工作不再依赖纯人工，核心方法论真正进入系统。</p>
+<p><strong>Q4（第 10–12 月）：固化文化，完成转型。</strong> 从&quot;有几个 AI 试点&quot;到&quot;公司默认就是这样运作&quot;。</p>
+<ul>
+<li>确立 AI 工作流为默认入口：新项目、新方案、新分析、新复盘默认走人机协同流程。</li>
+<li>开展组织记忆治理：区分标准模板、过时内容、高质量案例、有效 agent/prompt/流程版本。</li>
+<li>重构招聘标准：优先招会定义问题、会拆工作流、会与 AI 协同、会沉淀资产、能承担结果的人。</li>
+<li>形成新文化语言：默认提问&quot;这是一次性劳动还是可沉淀能力？&quot;“这件事谁在做，还是系统在做？”“为什么还需要人工传球？”“这个经验进记忆中枢了吗？”“这是本质复杂度还是偶然复杂度？”</li>
+</ul>
+<p><strong>Q4 成功标志：</strong> AI 工作流成为全员默认，记忆中枢规范可用，招聘和绩效完全适配，新文化形成共识——哪怕公司从 30 人缩到 15 人，整体吞吐和利润率仍倍数级增长。</p>
+<h2 id="三-马上动手落地建议"><a class="markdownIt-Anchor" href="#三-马上动手落地建议"></a> 三、马上动手：落地建议</h2>
+<h3 id="组织层面必须落地的-6-件事"><a class="markdownIt-Anchor" href="#组织层面必须落地的-6-件事"></a> 组织层面必须落地的 6 件事</h3>
+<p>无论进度快慢，这 6 件事不做，转型就会沦为&quot;表面 AI 化&quot;：</p>
+<ol>
+<li><strong>先改工作流，不先改部门</strong>——AI 改变的是工作的&quot;流动方式&quot;，先理顺流程再调架构。</li>
+<li><strong>搭建统一记忆中枢</strong>——没有记忆，所有 AI 化都是一次性提效，无法形成复利。</li>
+<li><strong>明确人机边界</strong>——越自动化越要明确责任边界，避免 AI 出错无人兜底。</li>
+<li><strong>建共享中枢，不建臃肿中台</strong>——30 人公司最怕一上来搞重平台部门，中枢要轻量。</li>
+<li><strong>同步调整绩效</strong>——不改激励，员工一定回到旧习惯。</li>
+<li><strong>从&quot;汇报管理&quot;转向&quot;流量管理&quot;</strong>——关注链路吞吐、堵点、返工、复用，而非谁忙。</li>
+</ol>
+<h3 id="不同角色的转型方向"><a class="markdownIt-Anchor" href="#不同角色的转型方向"></a> 不同角色的转型方向</h3>
+<ul>
+<li><strong>老板/核心合伙人：从&quot;管理者&quot;到&quot;架构师&quot;。</strong> 戒断微观管理，停止追问&quot;今天大家干了什么&quot;，开始追问&quot;这个决策的边界在哪、风险兜底机制是什么&quot;。今年最重要的 KPI 不是再拿一个项目，而是让公司出现 2–3 条不依赖个人英雄主义的高质量工作流。核心工作是打磨&quot;组织提示词&quot;——系统会无脑放大你的意图。</li>
+<li><strong>管理层：从&quot;派活者&quot;到&quot;上下文提供者&quot;。</strong> 从派活转向定义问题、从盯人转向提供上下文、从经验藏在脑子里转向结构化沉淀。必须能回答：“如果不靠催人，我这个岗位的真正价值是什么？”</li>
+<li><strong>核心骨干：从&quot;执行猛将&quot;到&quot;系统编排者&quot;。</strong> 从&quot;我会做&quot;转向&quot;我能让系统也会做&quot;，从&quot;完成任务&quot;转向&quot;沉淀资产&quot;。每天不仅用 AI，还要构建 AI。</li>
+<li><strong>普通成员：从&quot;执行者&quot;到&quot;系统贡献者&quot;。</strong> 学会把工作写清楚（输入、步骤、输出），学会审核 AI 结果而非从零手做。公开思考过程：所有会议纪要和决策包含背景、替代方案、决定和理由，喂给记忆中枢。</li>
+</ul>
+<h3 id="前-30-天行动清单"><a class="markdownIt-Anchor" href="#前-30-天行动清单"></a> 前 30 天行动清单</h3>
+<ul>
+<li><strong>第 1 周：</strong> 明确转型负责人（老板亲自挂帅或指定核心负责人）；组建 3–5 人核心组；确定一句转型目标（聚焦提升判断密度和组织复利，而非省人）。</li>
+<li><strong>第 2 周：</strong> 全公司开展两周&quot;时间黑洞记录&quot;；盘点 5 条最核心业务链路。</li>
+<li><strong>第 3 周：</strong> 选定 2–3 条试点链路，明确负责人、核心指标、人机边界。</li>
+<li><strong>第 4 周：</strong> 制定第一版核心规范：知识沉淀规范、AI 使用规范、试点复盘机制。</li>
+</ul>
+<h3 id="5-个最易踩的坑"><a class="markdownIt-Anchor" href="#5-个最易踩的坑"></a> 5 个最易踩的坑</h3>
+<ol>
+<li><strong>工具先行</strong>——买一堆工具但流程没变，只是更花哨地低效。先改流程，再配工具。</li>
+<li><strong>一上来全员推</strong>——30 人公司全员折腾会业务失速。先试点、再复制。</li>
+<li><strong>只让技术团队负责</strong>——这是经营操作系统升级，不是技术升级，业务团队必须深度参与。</li>
+<li><strong>不改绩效</strong>——激励不变，员工会本能回到旧习惯。</li>
+<li><strong>只提效，不沉淀</strong>——短期看效率，长期无法形成复利。每次优化都要同步沉淀模板、经验。</li>
+</ol>
+<h3 id="招聘体系重构"><a class="markdownIt-Anchor" href="#招聘体系重构"></a> 招聘体系重构</h3>
+<p>招聘逻辑要同步重构，核心不是&quot;多招会用 AI 的人&quot;，而是&quot;只招能放大组织复利的人&quot;。每次招人先追问：这个人加入后，是在替代重复劳动，还是在创造新的组织能力？</p>
+<p><strong>优先招的 4 类人：</strong></p>
+<ul>
+<li><strong>AI/Workflow Architect（最关键）</strong>——能把工作流拆成输入、步骤、规则、人机边界、质量校验、回写记忆，把手工工作转化为系统可跑的流程。这是一年转型的核心瓶颈。</li>
+<li><strong>高判断力的 Product/Solution Owner</strong>——能定义客户/业务问题、拆成可交付模块、给足上下文、设验收标准、做最终判断。核心是&quot;能定义问题，而非只接任务&quot;。</li>
+<li><strong>业务一线的&quot;AI 放大器型运营&quot;</strong>——熟悉真实场景，知道哪里是重复劳动，愿意把动作模板化，能把一线经验回写系统。</li>
+<li><strong>全栈型产品工程师/数据产品化工程师</strong>——能快速搭原型、接 AI 能力、接知识库/数据流、快速验证迭代。</li>
+</ul>
+<p><strong>不优先招的 3 类人：</strong> 只会重复执行、不会抽象的人；强依赖&quot;经验黑箱&quot;的管理者；只会单点做事、不愿共享上下文的人。</p>
+<p><strong>招聘节奏：</strong> Q1 内部盘点，识别可升级/可转型的员工，不急于招新；Q2 补 1–2 个核心系统型角色；Q3–Q4 按&quot;小队 + 中枢&quot;新形态补人——先定义新组织，再按新组织招人。</p>
+<h2 id="附三个参考视角"><a class="markdownIt-Anchor" href="#附三个参考视角"></a> 附：三个参考视角</h2>
+<p>这篇文章的框架综合了三个值得单独读的视角。</p>
+<h3 id="参考-1陈天桥ai-原生组织是什么"><a class="markdownIt-Anchor" href="#参考-1陈天桥ai-原生组织是什么"></a> 参考 1：陈天桥——AI 原生组织是什么</h3>
+<p>陈天桥提出判断一家组织是否 AI 原生的<strong>三大测试</strong>：拿掉 AI，业务是&quot;变慢&quot;还是&quot;不存在&quot;？（AI 是核心引擎而非辅助工具）；业务链条中 AI 能否直接&quot;握手&quot;，无需人类中间&quot;传球&quot;？系统是&quot;消耗数据&quot;，还是能把人类经验&quot;吞噬&quot;并转化为机器直觉？</p>
+<p>以及五大根性特征：<strong>架构即智能</strong>（组织是分布式计算图，部门是功能节点，汇报线是数据总线）；<strong>增长即复利</strong>（依赖认知复利而非线性人力堆叠，企业价值取决于认知结构复利的速度而非 headcount）；<strong>记忆即演化</strong>（没有记忆的智能只是算法，有记忆的智能才是物种）；<strong>执行即训练</strong>（所有部门本质都是模型训练部门，业务流就是训练流，每次交互都是对企业&quot;世界模型&quot;的一次贝叶斯更新）；<strong>人即意义</strong>（人从执行者升维为意图策展人与认知架构师，不可替代性在于承担责任与非理性选择两大碳基能力）。</p>
+<p>底层逻辑同样是从科斯的&quot;交易成本最小化&quot;转向&quot;责任承载最大化&quot;，并指向&quot;液态商业&quot;与&quot;超级个体&quot;——组织不再需要厚重的行政骨架，数据、人才、资源像水一样随需聚合、随需分流。</p>
+<h3 id="参考-2张一鸣如何设计算法原生的组织"><a class="markdownIt-Anchor" href="#参考-2张一鸣如何设计算法原生的组织"></a> 参考 2：张一鸣——如何设计算法原生的组织</h3>
+<p>张一鸣的组织设计，本质是把&quot;系统思维 + 算法思维&quot;直接映射到公司治理：把字节当成一个分布式、可迭代、高吞吐的自适应系统来跑。</p>
+<p>几条核心：<strong>系统第一性</strong>——不追求人治，追求机制，让系统自动跑出好结果（高可用、可扩展、自恢复、弱依赖单点）；<strong>模块化、低耦合、高内聚</strong>——业务单元如微服务，中台是基础组件（推荐、增长、审核、数据），前台快速组合；<strong>Context, not Control</strong>——给每个节点完整信息 + 清晰目标 + 规则，让节点自己最优决策，组织变成分布式推理系统；<strong>反馈闭环</strong>——输入（数据与事实）→ 计算（分布式决策）→ 反馈（快速闭环）→ 迭代，组织是持续迭代的版本系统；<strong>熵减思维</strong>——用极致透明、始终创业、动态调整、坦诚清晰对抗熵增，像算法做正则化防止僵化。</p>
+<h3 id="参考-3执行成本归零差距会拉大而非缩小"><a class="markdownIt-Anchor" href="#参考-3执行成本归零差距会拉大而非缩小"></a> 参考 3：执行成本归零，差距会拉大而非缩小</h3>
+<p>在 AI 把代码实现成本降为 0、速度变为无限大的时代，程序员（和组织）之间的效率差距不会缩小，反而会指数级拉大。原因是<strong>瓶颈从&quot;执行力&quot;转移到&quot;决策力&quot;</strong>。</p>
+<p>传统时代，敲代码的速度天然是一个&quot;减速带&quot;，客观上限制了系统变混乱的速度。当执行成本归零：普通组织会用 AI 瞬间生成海量不需要、甚至互相冲突的功能，“偶然复杂度&quot;以光速爆炸，系统迅速变成无人能理解的&quot;数字垃圾填埋场”；而 10x 组织从&quot;打字机&quot;中解放出来，把 100% 精力投入&quot;本质复杂度&quot;——现状是什么、目标是什么、路径是什么。</p>
+<p>四个原则在 AI 时代被放大：<strong>以终为始</strong>（AI 没有商业直觉，方向错了它就以无限速度狂奔到南辕北辙）、<strong>任务分解</strong>（LLM 有上下文和推理极限，核心能力变成把庞大业务链条拆成 AI 能 100% 正确理解的独立模块）、<strong>沟通反馈</strong>（用 AI 当场生成可运行 MVP，把反馈周期从周/月压缩到分钟）、<strong>自动化</strong>（一个人指挥一支由 AI 组成的虚拟开发团队）。</p>
+<p>结论：代码编写能力会被彻底大宗商品化，而对复杂业务的洞察力、对系统的架构力、批判性思考能力，将成为极其稀缺的顶级溢价能力。决定差距的，不再是你和 AI 谁打字快，而是你是否具有定义正确问题的能力。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/writing/ai-native-org-zh/">https://xinheliu.github.io/writing/ai-native-org-zh/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">人工智能和机器学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%BB%84%E7%BB%87%E8%AE%BE%E8%AE%A1/">
+                                    <span class="chip bg-color">组织设计</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/books/coding-with-agents-intro-zh/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Coding with Agents 导读">
+                        
+                        <span class="card-title">Coding with Agents 导读</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-06-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%86%99%E4%BD%9C/" class="post-category">
+                                    写作
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/">
+                        <span class="chip bg-color">智能体</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
+                        <span class="chip bg-color">软件工程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Current&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/writing/ai-native-org-zh/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="AI 原生组织：从传统架构到超级杠杆">
+                        
+                        <span class="card-title">AI 原生组织：从传统架构到超级杠杆</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-06-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%86%99%E4%BD%9C/" class="post-category">
+                                    写作
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能和机器学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BB%84%E7%BB%87%E8%AE%BE%E8%AE%A1/">
+                        <span class="chip bg-color">组织设计</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>昕和 · 个人网站、写作与技术笔记</span>
+        <div class="footer-links">
+            <a href="/writing-zh/">写作</a>
+            <a href="/projects-zh/">项目</a>
+            <a href="/about-zh/">个人信息和联系方式</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">标签</a>
+            <a href="/categories/">分类</a>
+            <a href="/archives-zh/">归档</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

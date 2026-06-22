@@ -1,0 +1,1385 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Computational Advertising (1) Introduction to Ad Business, Xinhe Liu (Charles)">
+    <meta name="description" content="A business and systems introduction to internet advertising, including the marketplace, advertiser incentives, and platform constraints.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Computational Advertising (1) Introduction to Ad Business | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/writing/" class="">Writing</a>
+    
+        <a href="/technical-notes/" class="">Technical Notes</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <i class="fas fa-search"></i>
+    </a>
+    <a class="lang-switch" href="/ads/intro-1/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/writing/">Writing</a></li>
+        
+            <li><a href="/technical-notes/">Technical Notes</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <i class="fas fa-search"></i>
+        </a>
+        <a class="lang-switch" href="/ads/intro-1/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Computational Advertising (1) Introduction to Ad Business</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Ads/">
+                                <span class="chip bg-color">Ads</span>
+                            </a>
+                        
+                            <a href="/tags/AI-Machine-Learning/">
+                                <span class="chip bg-color">AI &amp; Machine Learning</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Technology/" class="post-category">
+                                Technology
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2024-07-15
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="internet-advertising-1-introduction-to-ad-business"><a class="markdownIt-Anchor" href="#internet-advertising-1-introduction-to-ad-business"></a> Internet Advertising (1) Introduction to Ad Business</h1>
+<ul>
+<li><a href="#internet-advertising-1-introduction-to-ad-business">Internet Advertising (1) Introduction to Ad Business</a>
+<ul>
+<li><a href="#the-business-logic-of-advertising">The Business Logic of Advertising</a>
+<ul>
+<li><a href="#three-party-game">Three-Party Game</a></li>
+</ul>
+</li>
+<li><a href="#advertising-logic-from-the-advertisers-perspective">Advertising Logic from the Advertiser’s Perspective</a>
+<ul>
+<li><a href="#advertiser-budget-decision-logic">Advertiser Budget Decision Logic</a></li>
+<li><a href="#the-role-of-marketing-science--marketing-technology-martech--data-science">The Role of Marketing Science / Marketing Technology (MarTech) / Data Science</a></li>
+</ul>
+</li>
+<li><a href="#advertising-business-from-the-platforms-perspective">Advertising Business from the Platform’s Perspective</a>
+<ul>
+<li><a href="#what-happened-in-the-internet-ad-market-in-the-last-10-years-2013-2023">What Happened in the Internet Ad Market in the Last 10 Years (2013-2023)</a></li>
+<li><a href="#future-trends">Future Trends</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="the-business-logic-of-advertising"><a class="markdownIt-Anchor" href="#the-business-logic-of-advertising"></a> The Business Logic of Advertising</h2>
+<p>Internet advertising began in 1978 when Digital Equipment Corporation sent the first email ad on ARPAnet. In 1994, <em>Wired</em> magazine’s website, Hotwired, launched the first banner ad, achieving an initial click-through rate of 44%, which quickly declined as banner ads became widespread. China’s internet ad market started in March 1997 when IBM and Intel placed banner ads on Chinabyte. Search advertising was introduced by Yahoo in 1995, and in 1998, <a target="_blank" rel="noopener" href="http://Goto.com">Goto.com</a> (later renamed Overture) introduced pay-per-click and keyword bidding models. This company was later acquired by Yahoo, becoming the precursor to search ad bidding systems for Google and Baidu. Search advertising has high relevance because it is based on users’ active queries. In 1997, pop-up ads were created to capture immediate user attention. Subsequently, rich media technology was widely applied to display ads, using animations, sound, video, and interactive elements to boost engagement. Mainstream websites usually configure these ads to auto-close or shrink, providing close options for users.</p>
+<img src="/en/ads/intro-1/ads-history.png" class="" title="History of Internet Advertising">
+<p>Today, advertising has become one of the most vital business models on the internet. Taking 2023 data as an example:</p>
+<ul>
+<li><strong>Google (Alphabet)</strong>: Ad revenue accounts for approximately 80% of total revenue, making it the largest digital ad platform globally.</li>
+<li><strong>Meta (Facebook)</strong>: Ad revenue accounts for approximately 98% of total revenue, primarily driven by Facebook and Instagram.</li>
+<li><strong>Alibaba</strong>: Ad revenue accounts for approximately 40% of total revenue, primarily driven by Taobao and Tmall.</li>
+<li><strong>ByteDance</strong>: Ad revenue accounts for approximately 80% of total revenue, primarily driven by Douyin and Toutiao.</li>
+<li><strong>Baidu</strong>: Ad revenue accounts for approximately 60% of total revenue, primarily driven by search bidding.</li>
+<li><strong>Tencent</strong>: Ad revenue accounts for approximately 15% of total revenue, primarily driven by WeChat.</li>
+</ul>
+<h3 id="three-party-game"><a class="markdownIt-Anchor" href="#three-party-game"></a> Three-Party Game</h3>
+<p>Essentially, advertising is packaging and selling users’ attention to merchants, commonly referred to as the “traffic business.” The main participants include advertisers, publishers (media platforms), and various upstream and downstream third parties.</p>
+<img src="/en/ads/intro-1/Ads-Biz.png" class="" title="Advertising Business Ecosystem">
+<img src="/en/ads/intro-1/Online-Ads-Biz-Canvas.png" class="" title="Internet Advertising Business Canvas">
+<p>The three core roles in the traffic monetization business are: <strong>Advertisers</strong> (who spend money), <strong>Media Platforms</strong> (who make money), and <strong>Users</strong> (who spend time). The platform’s goal is to maximize ad revenue; the advertiser’s goal is to maximize ROI and scale; and users care about their app experience and content satisfaction (ads are not always entirely negative). The business model of internet advertising is essentially using computing power to facilitate the most efficient transactions among these three parties (matching business). Large tech companies dedicate major efforts to building systems that efficiently balance the interests of these three parties to achieve maximum transactions.</p>
+<div class="mermaid">
+  graph LR
+    A["Ad Delivery: A Constrained Optimization Problem"]
+    
+    A --> B["Constraint: User Experience"]
+    A --> C["Constraint: Client Experience"]
+    A --> D["Maximize: Matching Efficiency (User × Ad)"]
+    
+    B --> B1["Block unsafe/non-compliant ads (Risk Control)"]
+    B --> B2["Ad load control (adload/adgap)"]
+    B --> B3["Frequency capping on similar ads"]
+    B --> B4["Cap exposure of low-quality ads"]
+    
+    C --> C1["Frequency control (Frequency / Total conversions / Single campaign conversions)"]
+    C --> C2["Cost and ROI delivery"]
+    C --> C3["Bidding strategies"]
+    C --> C4["Compensation policies"]
+    
+    D --> D1["Exploration & Exploitation (EE) problem"]
+    D1 --> D2["Precise models (CTR/CVR/DeepCVR)"]
+    D1 --> D3["Cold start strategies (Exploration)"]
+    D --> D4["Constraint: Machine overhead (Diminishing marginal returns)"]
+    D --> D5["Multi-stage matching (Retrieval/Pre-ranking/Fine-ranking)"]
+</div>
+
+<p>In this game, the factors determined by each party are:</p>
+<h4 id="what-advertisers-determine"><a class="markdownIt-Anchor" href="#what-advertisers-determine"></a> What Advertisers Determine:</h4>
+<ul>
+<li><strong>Bidding</strong>
+<ul>
+<li>The ad system is essentially an auction system where the platform sells each user impression to advertisers through auction mechanisms. Therefore, bidding is the most vital way for advertisers to express their value.</li>
+<li>Advertisers need to balance ROI and volume: higher ROI targets (cost control) usually lead to less traffic (lower bid competitiveness).</li>
+<li><em>Attribution Problem</em>: The hardest task for advertisers is calculating their true ROI, which involves attribution—calculating how many conversions were actually caused by the ad. Advertisers can choose self-attribution, publisher-side attribution, or third-party attribution. The main difficulty is that the media platform and the advertiser each hold only a subset of the data.</li>
+</ul>
+</li>
+<li><strong>Creative / Material</strong>: Videos, images, copywriting, etc.
+<ul>
+<li>The advertiser’s most vital tool, which usually determines over 50% of the ad campaign’s success.</li>
+<li>With the rise of marketing content, integration of ads and organic feeds, and AIGC, platforms encourage high-quality materials, elevating the importance of creatives.</li>
+</ul>
+</li>
+<li><strong>Infrastructure (Campaigns)</strong>
+<ul>
+<li>Refers to creating and pausing ad campaigns/groups. Large advertisers copy campaigns to capture more traffic (due to system variance), but platforms prefer bidding to be driven by price and creative quality, implementing strategies to combat campaign duplication.</li>
+<li>Platforms utilize soft and hard penalties to suppress duplicate campaigns and optimize algorithms to reduce systematic variance (e.g., reducing the weight of ID-based features).</li>
+</ul>
+</li>
+<li><strong>Targeting</strong>
+<ul>
+<li>Primarily used by advertisers to select specific traffic and audiences when their bidding target does not align perfectly with their ultimate business goals. Advanced advertisers use ADX/RTA, while small clients rely on pre-built audience segments.</li>
+<li>In deep bidding scenarios, manual targeting has diminished in value, as models automatically align conversion costs.</li>
+</ul>
+</li>
+<li><strong>Data Exchange</strong>: Passing advertiser logs (such as real-time conversions) back to platforms or using joint modeling and federated learning to boost platform matching efficiency.</li>
+<li><strong>Product Portfolio</strong>: Optimizing budget allocations across multiple channels to maximize global ROI and acquisition scale.</li>
+</ul>
+<h4 id="what-platforms-determine"><a class="markdownIt-Anchor" href="#what-platforms-determine"></a> What Platforms Determine:</h4>
+<ul>
+<li><strong>Improving Matching Efficiency</strong>
+<ul>
+<li>Optimizing ad systems, including ranking algorithms, engineering infrastructure, and computing costs. Essentially, it is an optimization of recommendation and search systems.</li>
+<li>Auction design: structuring better ranking objectives (such as incorporating user experience and ecosystem health) and fusion strategies.</li>
+<li>Non-algorithmic interventions: using manual boost strategies for targets that machine learning cannot predict well (e.g., ad cold start, user experience protection).</li>
+</ul>
+</li>
+<li><strong>Bidding (Products &amp; Strategies)</strong>: Heading towards automation.
+<ul>
+<li>After receiving the advertiser’s bid, the platform applies various products and strategies, such as:
+<ul>
+<li><em>Risk Control</em>: Since bidding and billing points are often separate, the platform calculates the advertiser’s true value and dynamically adjusts bids to ensure costs do not deviate too far.</li>
+<li><em>Pacing (Flow Control)</em>: Controlling ad budget delivery to ensure it is spent smoothly and reasonably throughout the day based on traffic predictions.</li>
+<li><em>Auto-bidding</em>: Advertisers specify only their budgets instead of bids, and the platform optimizes bidding dynamically. This shifts bidding power from advertisers to the platform, leveraging the platform’s data advantages. Highly popular globally.</li>
+<li><em>Bid Disturbance</em>: Correcting for system-level CTR/CVR over- or under-estimations to protect advertiser experience.</li>
+<li>Combined ranking and bidding strategies (e.g., ad cold start, pacing).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Ad Attribution</strong>
+<ul>
+<li>While advertisers use attribution to measure ROI and allocate budgets, platforms use it for model training (sample joining) and measuring ROI to guide product iterations. Platforms also productize attribution tools for clients (Incremental Value Measurement services).</li>
+</ul>
+</li>
+<li><strong>Ad Product Design</strong>: Deepening conversion targets.
+<ul>
+<li>Internet ad products tend to <strong>guide advertisers to bid for targets closer to the final transaction</strong>.
+<ul>
+<li>Deeper targets align better with the advertiser’s true ROI, simplifying campaign management and enhancing platform control.</li>
+<li>This requires stronger predictive and data capabilities on the platform, as bidding occurs before impressions. The platform must predict CTR, CVR, and ROI accurately. Historically, ads were sold by impressions (CPM). As technology advanced, bidding progressed to clicks (CPC), conversions (CPA), and ROI (oCPC/oCPM).</li>
+<li>Platforms push advertisers to adopt closed-loop transactions and ROI-based bidding. This boosts transaction efficiency and locks advertisers into the platform’s ecosystem due to high data migration costs.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Ad Type</th>
+<th>Bid Type</th>
+<th>Name</th>
+<th>Bid</th>
+<th>Billing Point</th>
+<th>eCPM (Revenue per Mille)</th>
+<th>Billing Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Performance Ads</strong></td>
+<td>CPM</td>
+<td>Cost per Mille</td>
+<td>CPM_bid</td>
+<td>send/show</td>
+<td>CPM_bid * 1000</td>
+<td>eCPM / 1000</td>
+</tr>
+<tr>
+<td></td>
+<td>CPC</td>
+<td>Cost per Click</td>
+<td>CPC_bid</td>
+<td>click</td>
+<td>CPC_bid * CTR * 1000</td>
+<td>eCPM / (CTR * 1000) = CPC_bid</td>
+</tr>
+<tr>
+<td></td>
+<td>CPA</td>
+<td>Cost per Action</td>
+<td>CPA_bid</td>
+<td>convert</td>
+<td>CPA_bid * CTR * CVR * 1000</td>
+<td>eCPM / (CTR * CVR * 1000) = CPA_bid</td>
+</tr>
+<tr>
+<td></td>
+<td>oCPC</td>
+<td>Optimized CPC</td>
+<td>CPA_bid</td>
+<td>click</td>
+<td>Stage 1: CPC_bid * CTR * 1000 <br> Stage 2: CPA_bid * CTR * CVR * 1000</td>
+<td>eCPM / (CTR * 1000) = CPA_bid * CVR</td>
+</tr>
+<tr>
+<td></td>
+<td>oCPM</td>
+<td>Optimized CPM</td>
+<td>CPA_bid</td>
+<td>send/show</td>
+<td>Stage 1: CPM_bid <br> Stage 2: CPA_bid * CTR * CVR * 1000</td>
+<td>eCPM / (CTR * CVR * 1000) = CPA_bid * CTR * CVR</td>
+</tr>
+<tr>
+<td><strong>Brand Ads</strong></td>
+<td>CPT</td>
+<td>Cost per Time</td>
+<td>Contract</td>
+<td>Contract</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td></td>
+<td>GD</td>
+<td>Guaranteed Delivery</td>
+<td>Contract</td>
+<td>Contract</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h4 id="what-users-determine"><a class="markdownIt-Anchor" href="#what-users-determine"></a> What Users Determine:</h4>
+<ul>
+<li><strong>Positive and Negative Feedback</strong>
+<ul>
+<li>Platforms protect user experience while probing users’ tolerance limits for commercial content. They collect feedback through various mechanisms:
+<ul>
+<li><em>Explicit</em>: Likes, favorites, shopping cart adds, dislikes, reports.</li>
+<li><em>Implicit</em>: Dwell time, bounce rates, query reformulations.</li>
+<li>Surveys (NPS) and customer service logs.</li>
+<li><em>Ultimate behavior</em>: User churn.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Incentives</strong>
+<ul>
+<li>With personalized couponing, platforms have designed ad products integrated with shopping coupons, sharing costs with advertisers to stimulate user purchases.</li>
+</ul>
+</li>
+</ul>
+<h2 id="advertising-logic-from-the-advertisers-perspective"><a class="markdownIt-Anchor" href="#advertising-logic-from-the-advertisers-perspective"></a> Advertising Logic from the Advertiser’s Perspective</h2>
+<h3 id="advertiser-budget-decision-logic"><a class="markdownIt-Anchor" href="#advertiser-budget-decision-logic"></a> Advertiser Budget Decision Logic</h3>
+<p>Advertising is a B2B business. Budget allocations involve business cases, organizational approvals, and buy-ins. The cycle is long, and stakeholders tend to make conservative decisions, which gives leading traffic platforms strong scale effects and barriers to entry.</p>
+<ol>
+<li><strong>Two Budget Systems</strong>:
+<ul>
+<li><em>Planned Budget</em>:
+<ul>
+<li><em>Target</em>: Large corporations, listed and pre-IPO companies.</li>
+<li><em>Features</em>: Decision-making is based on <strong>precision rather than real-time efficiency</strong> on an annual or quarterly basis.</li>
+<li><em>Focus</em>: The top priority is spending the allocated budget under each line item, followed by efficiency.</li>
+<li><em>Example</em>: From a sales perspective, meeting clients around the third-to-last week of each fiscal quarter is the optimal time to capture unspent budgets.</li>
+</ul>
+</li>
+<li><em>Rolling Budget</em>:
+<ul>
+<li><em>Target</em>: Companies with fast product-sales-cash cycles, especially e-commerce and internet startups.</li>
+<li><em>Features</em>: Allocating a specific proportion (XX%) of the previous cycle’s revenue to the next cycle (usually on a weekly basis).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Two Elements of Budget Decision Processes</strong>:
+<ul>
+<li><em>Organizational Structure</em>:
+<ul>
+<li><em>Principle</em>: Budget decisions follow a “top-down” decomposition.</li>
+<li><em>Features</em>: Different organizational levels decide budget allocations at different nodes.</li>
+<li><em>Impact</em>: Decision-making paths vary widely based on client organizational setups.</li>
+</ul>
+</li>
+<li><em>Evaluation Elements</em>:
+<ul>
+<li><em>Principle</em>: Budgets are tied to performance targets.</li>
+<li><em>Key</em>: Chasing short-term returns on spend is a political necessity.</li>
+<li><em>Reality</em>: Not all budgets yield clear short-term revenue.</li>
+<li><em>Example</em>: The industry debated “brand vs. performance balance”—how much to invest in long-term brand building vs. short-term conversion ads.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="budget-decision-workflow"><a class="markdownIt-Anchor" href="#budget-decision-workflow"></a> Budget Decision Workflow:</h4>
+<ol>
+<li><strong>Node 1: Business Goals to Marketing Budgets</strong>
+<ul>
+<li>Advertisers adjust marketing budgets annually based on strategic business goals (combining competitor benchmarks and third-party market research). Decisions lean towards three directions:
+<ul>
+<li><em>Revenue First</em>: Suitable for pre-IPO companies focusing on valuation, targeting X times revenue growth.</li>
+<li><em>Profit First</em>: Suitable for mature or declining companies focusing on cost control, targeting X% cost reduction under similar efficiency.</li>
+<li><em>Market Share First</em>: Since a 1% increase in market share can bring a 5-10% price premium, budgets are calculated based on the investment needed to capture targeted market share.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Node 2: Brand vs. Performance Allocation</strong>
+<ul>
+<li>Typically the first cut in budget allocation:
+<ul>
+<li><em>Brand budget</em>: Allocated to the traditional CMO (primarily media buying).</li>
+<li><em>Performance budget</em>: Allocated to E-commerce/Trade Marketing teams.</li>
+<li><em>Special budget</em>: CEO/COO-level decisions for major events (e.g., Olympic sponsorships).</li>
+<li>Recently, a fourth path has emerged: specialized budgets for all-in-one mega platforms (Tencent, ByteDance, Alibaba).</li>
+<li><em>Decision Logic</em>:
+<ul>
+<li>Driven by senior executives utilizing data to measure channel-specific ROIs.</li>
+<li>Performance ads are easier to compute using attribution or Marketing Mix Models (MMM).</li>
+<li>Brand ads are notoriously hard to calculate; traditional marketing theories do not link cleanly with “growth.” CMOs face shrinking brand budgets in favor of trade/e-commerce performance.</li>
+<li>Struggling advertisers increase performance budgets for quick cash, while successful ones maintain brand investments. Brand budgets will not be wiped out; the pendulum swing between brand and performance aligns with economic cycles.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Node 3: Marketing Mix Model (MMM) Channel Allocation</strong>
+<ul>
+<li>Performance budgets are split into online (e-commerce channels) and offline retail (aligned with sales distribution structures).</li>
+<li>Brand budgets are split across different tracks, partnering with agencies to identify the optimal mix of channels to maximize overall ROI.
+<ul>
+<li><em>Tracks</em>:
+<ul>
+<li><strong>Traditional Media</strong>: TV, newspapers, magazines, radio. Measured by ratings. Benchmarks: CCTV, top 5 satellite TV channels.</li>
+<li><strong>Digital Media (Hard Ads)</strong>: Display ads, bidding. Measured by iGRP (N+Reach). Benchmarks: Ocean Engine, Tencent.</li>
+<li><strong>Social Media (Soft Ads)</strong>: Influencers, stars, content. Measured by followers, likes, shares. Benchmarks: Weibo, Xiaohongshu.</li>
+<li><strong>Out-of-Home (OOH)</strong>: Elevators, cinemas, subways, airports. Measured by OTS (Opportunity to See) and OTC (Opportunity to Contact). Benchmark: Focus Media.</li>
+<li><strong>Search</strong>: Baidu, 360, Sogou. Measured by CTR, click volume. Benchmark: Baidu.</li>
+<li><strong>AIoT</strong>: OTT, smart speakers, smart home appliances. Benchmarks: Huawei, Xiaomi.</li>
+</ul>
+</li>
+<li><em>Difficulties</em>: Each track has its own measurement system, making cross-channel integration exceptionally difficult.</li>
+<li>Advertisers usually reserve a small portion (5%) of budget for exploring new media channels without strict KPIs.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Node 4: Media Selection Within Channels</strong>
+<ul>
+<li>Jointly decided by the Media Head and Procurement Head. Budget splits within the same track are zero-sum.</li>
+<li>Requires balancing price, volume, and performance across different media publishers.</li>
+<li>Digital hard ads are assessed and settled based on Reach.</li>
+</ul>
+</li>
+<li><strong>Node 5: Traffic Selection</strong>
+<ul>
+<li>After determining a specific media publisher’s budget, advertisers evaluate different ad formats (bidding, CPT dot bookings), placements, and price options.</li>
+<li>The final plan establishes the marketing mix (horizontal allocation) and serialization (vertical frequency sequencing per user).</li>
+<li>Media platforms optimize their systems to deliver targeted value to advertisers using minimum impressions (efficiency).</li>
+</ul>
+</li>
+</ol>
+<h4 id="budget-pool-illustration"><a class="markdownIt-Anchor" href="#budget-pool-illustration"></a> Budget Pool Illustration:</h4>
+<div class="mermaid">
+  graph LR
+    Start["Business Goals"] --> Budget["Marketing Budget"]
+    
+    Budget --> Brand["Brand Ads"]
+    Budget --> Effect["Performance Ads"]
+    Budget --> Mega["Special Campaigns (Mega)"]
+    Budget --> Platform["Platform Budget"]
+    
+    Brand --> Traditional["Traditional Media"]
+    Brand --> Digital["Digital Media (Hard)"]
+    Brand --> Social["Social Media (Soft)"]
+    Brand --> Outdoor["Out-of-Home (OOH)"]
+    Brand --> Search["Search"]
+    Brand --> AIOT["AIoT"]
+    
+    Effect --> Ecommerce["E-commerce Ads"]
+    Effect --> Trade["Trade Marketing"]
+    
+    Mega --> Sports["Sports Marketing"]
+    Mega --> Events["Major Events"]
+    
+    Social --> MediaA["Media A"]
+    Social --> MediaB["Media B"]
+    Social --> MediaC["Media C"]
+    
+    MediaA --> FlowA["Placement A"]
+    MediaB --> FlowB["Placement B"]
+    MediaC --> FlowC["Placement C"]
+
+    classDef red fill:#ff0000,color:#fff
+    class Platform,AIOT red
+</div>
+
+<h3 id="the-role-of-marketing-science-marketing-technology-martech-data-science"><a class="markdownIt-Anchor" href="#the-role-of-marketing-science-marketing-technology-martech-data-science"></a> The Role of Marketing Science / Marketing Technology (MarTech) / Data Science</h3>
+<p>Historically, these technical tools solved the following advertiser budget challenges:</p>
+<ul>
+<li><strong>Business Goals to Marketing Budgets</strong>: Combining historical, macroeconomic, and competitor data to forecast future GMV, revenue, and market share, utilizing business analysis and time-series forecasting.</li>
+<li><strong>Brand vs. Performance Allocation</strong>
+<ul>
+<li><em>Synergy strategies</em>: Custom research to identify optimal budget splits, maximizing returns (accounting for attribution, optimization, frequency, etc.).</li>
+<li><em>Measurement</em>: Bridging brand and performance metrics (e.g., Douyin’s 5A framework—translating GMV targets into required reach across audience relationship stages).</li>
+<li><em>Incremental value</em>: Measuring true ad lift via incrementality testing (withholding ads from a control group) or offline models.</li>
+<li><em>Brand equity</em>: Measuring share-of-voice (Baidu index, BrandZ).</li>
+</ul>
+</li>
+<li><strong>Marketing Mix / Traffic Selection</strong>: Solved by Marketing Mix Modeling and attribution.
+<ul>
+<li>Attribution maps conversions at the individual user level, identifying which touchpoint led to a specific transaction.</li>
+<li>MMM analyzes data at the aggregate level (e.g., by publisher or channel), assessing the impact of marketing combinations on final transactions.</li>
+</ul>
+</li>
+<li><strong>Media Selection</strong>
+<ul>
+<li>Reach-based optimization is primarily used in digital hard ads:
+<ul>
+<li><em>Cross-media synergy</em> is triggered when the target Reach is huge and a single publisher lacks sufficient inventory.</li>
+</ul>
+</li>
+<li>Core algorithms:
+<ul>
+<li>MixReach (cross-media Reach curves).</li>
+<li>Reach Curve (cross-screen Reach curves).</li>
+<li><em>Goal</em>: Optimization algorithms to help advertisers capture maximum Reach at minimum budgets.</li>
+</ul>
+</li>
+<li><em>Challenges</em>: Reach complexity, label inconsistencies (e.g. publisher A rates an ID as male, publisher B as female), and data isolation across platforms.</li>
+<li><em>Solutions</em>: Data fusion across small panel datasets and large platform datasets.</li>
+</ul>
+</li>
+</ul>
+<h4 id="key-technologies"><a class="markdownIt-Anchor" href="#key-technologies"></a> Key Technologies</h4>
+<ol>
+<li><strong>Incrementality Testing</strong>
+<ul>
+<li>Large advertisers run A/B tests via data matching (DMP integrations).</li>
+<li>Small advertisers run pause-and-resume tests to estimate ROI.</li>
+<li>Brand ads combine this with Brand Lift Studies.</li>
+</ul>
+</li>
+<li><strong>Attribution</strong>: Mapping Touchpoints to Conversion Decisions
+<ul>
+<li><strong>Last Click Attribution</strong>
+<ul>
+<li>Favors search/lower-funnel channels.</li>
+<li>Tracks conversions via link tagging.</li>
+<li>Easy to implement; suited for short decision cycles (gaming, finance).</li>
+</ul>
+</li>
+<li><strong>Multi-Touch Attribution (MTA)</strong>
+<ul>
+<li>Favors display/upper-funnel channels.</li>
+<li>Collects user footprints across touchpoints to analyze conversion paths.</li>
+<li>Distributes credit across touchpoints using various rules (logistic regression, linear, time-decay, etc.).</li>
+<li>Requires strong identity resolution capabilities.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Marketing Mix Modeling (MMM)</strong>
+<ul>
+<li>Analyzes market-level input-output relationships to assess short- and long-term marketing impacts.</li>
+<li>Accounts for baseline sales, competitor spends, and ad saturation.</li>
+<li>Low technical data barrier: operates on aggregated weekly data rather than individual logs.</li>
+<li><em>Methods</em>:
+<ul>
+<li>Parameter-based: Fitting ad spend and GMV using marketing response functions, usually based on log-linear forms describing diminishing returns. Can incorporate time-decay (Adstock) and carryover effects. Open-source benchmarks: Facebook’s Robyn.</li>
+<li>Non-parametric: Using Shapley value or Markov chain attribution to calculate marginal ROIs, adjusting channels dynamically.</li>
+<li>Financial models: Applying portfolio optimizations (Markowitz, Black-Litterman) to allocate marketing budgets.</li>
+<li>Advanced: Integrating MMM with incrementality tests and causal inference.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>Recently, marketing science teams partner with clients to provide:</p>
+<ul>
+<li><strong>Advertiser Automation</strong>: Automatically identifying high-performing ad creatives and automating budget allocations.</li>
+<li><strong>Enterprise Digital Solutions</strong>: Helping clients deploy machine learning models locally to forecast user LTV, churn risk, and key conversion behaviors.</li>
+<li><strong>Productized Solutions</strong>: Manuals, whitepapers, showcase case studies, and cloud products.</li>
+</ul>
+<h2 id="advertising-business-from-the-platforms-perspective"><a class="markdownIt-Anchor" href="#advertising-business-from-the-platforms-perspective"></a> Advertising Business from the Platform’s Perspective</h2>
+<ul>
+<li><strong>Platform Tools</strong>
+<ul>
+<li>Bidding Products &amp; Strategies: The most vital lever, implemented by modifying bidding formulas (e.g., dual bidding, ROI bidding).</li>
+<li>Bid disturbance (GMV, refund rates, interaction rates).</li>
+<li>Models: Scenario-specific models, data optimization, joint modeling (second-party data), and third-party integrations.</li>
+<li>Traffic: Flow control (filtering low-quality traffic), manual matching, exploration-exploitation strategies, and inventory expansion.</li>
+<li>UI/UX: Optimizing native placements, video styles, interactive buttons, and coupons.</li>
+</ul>
+</li>
+<li><strong>Hidden Cost</strong>: Incorporating user experience constraints, ad-load control, and long-term ecosystem value into ranking.</li>
+<li><strong>Conversions: Deep vs. Shallow</strong>
+<ul>
+<li>Determined by advertiser demands and the platform’s ability to model and track conversions.
+<ul>
+<li><em>Closed-loop</em>: Entirely within the platform (e.g. e-commerce shops).</li>
+<li><em>Online closed-loop</em>: Games, web novels, utilities—tracked and passed back via API by advertisers.</li>
+<li><em>Lead generation</em>: Long path to final ROI—difficult to optimize (now using deep conversions and offline ROI models).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Attribution</strong>: Determines ROI calculation.
+<ul>
+<li>Platforms chase self-attribution to lock in budgets and model logs, competing against third-party tools.</li>
+<li>Incrementality testing: CLS/BLS experiments; offline uplift models.</li>
+</ul>
+</li>
+<li><strong>Advertiser Levers</strong>: In feed feeds, advertisers focus on creative materials; in search, they focus on bidding on keywords.
+<ul>
+<li>Creatives: The ultimate lever (high quality = broad appeal + high conversion).</li>
+<li>Campaign creation: Platforms govern campaign duplication to prevent auction congestion.</li>
+<li>Bidding: Balancing volume and cost. Bids vary widely based on margins.</li>
+<li>Targeting: Less vital in oCPX scenarios, as models automatically align CPC/CPA.</li>
+</ul>
+</li>
+</ul>
+<h3 id="what-happened-in-the-internet-ad-market-in-the-last-10-years-2013-2023"><a class="markdownIt-Anchor" href="#what-happened-in-the-internet-ad-market-in-the-last-10-years-2013-2023"></a> What Happened in the Internet Ad Market in the Last 10 Years (2013-2023)</h3>
+<ul>
+<li><strong>Ad Product Transformation</strong>
+<ul>
+<li><em>Internet ads surpassed TV ads</em>: Achieved globally in 2018; achieved in China in 2014.</li>
+<li><em>Mobile migration</em>: Driven by smart devices, the Chinese digital ad market reached 550 billion RMB in 2021.</li>
+</ul>
+</li>
+<li><strong>Evolving Placements and Formats</strong>
+<ul>
+<li><strong>PC Era</strong>:
+<ul>
+<li>Primary formats: Text links, static banners, image-text. Example: Baidu search results.</li>
+<li>Text link advantages: Small file sizes, fast loading, low user intrusion.</li>
+<li>Rise of banner ads to capture visual attention.</li>
+</ul>
+</li>
+<li><strong>Video Ads</strong>: Richer information capacity.
+<ul>
+<li>PC video ads: Focused on video portals (Youku, iQIYI) with large player skins.</li>
+</ul>
+</li>
+<li><strong>Mobile Era</strong>:
+<ul>
+<li>Smart devices drove video ad growth.</li>
+<li>Short videos (under 1 minute) surpassed mid-to-long videos due to user short-term memory limits and fragmented attention spans in mobile app usage. Ads must deliver high stimulus quickly.</li>
+</ul>
+</li>
+<li><strong>Rise of Short Video Platforms</strong>: ByteDance captured the mobile and short video wave, becoming the second largest ad player in China, trailing only Alibaba.</li>
+</ul>
+</li>
+<li><strong>User Interactions</strong>
+<ul>
+<li><em>Web 1.0 (Read-Only)</em>: One-way ad broadcast. Players: search engines, portals (Sina, Sohu), video portals.</li>
+<li><em>Web 2.0 (Read-Write)</em>: User-Generated Content (UGC) and social graphs. Users like, comment, and share. Players: WeChat, Weibo, Douyin, Bilibili, Xiaohongshu.</li>
+<li><em>E-commerce Platforms</em>: Integrated purchase-payment-shipping flows. Players: Taobao, Meituan.</li>
+<li><em>Web 3.0</em>: AI-driven, semantic networks.</li>
+</ul>
+</li>
+<li><strong>Content Delivery Logic</strong>
+<ul>
+<li>One-way Web 1.0 ad formats declined.</li>
+<li>Precision targeting surged, driven by mobile device logs (location, IP) and deep profiles (Tencent’s social graph, Alibaba’s purchase data, ByteDance’s content consumption footprints).</li>
+<li>Transition from “one size fits all” to “one thousand people, one thousand faces.”</li>
+<li>Data application, dynamic creative optimization, and Data Management Platforms (DMPs) created strong barriers to entry. Four players (Alibaba, ByteDance, Tencent, Baidu) capture over 75% of the Chinese ad market.</li>
+</ul>
+</li>
+</ul>
+<h3 id="future-trends"><a class="markdownIt-Anchor" href="#future-trends"></a> Future Trends</h3>
+<ul>
+<li><strong>Ad Monetization Bottlenecks</strong>
+<ul>
+<li><em>External shifts</em>: Portals and text feeds declined in favor of short video.Platforms must build new user products to break through bottlenecks (e.g., Douyin branching into e-commerce, local services, payments).</li>
+<li><em>Unit price caps</em>: Platforms face ceiling prices for single-placements, requiring multiple monetization streams.</li>
+</ul>
+</li>
+<li><strong>Key Directions</strong>
+<ol>
+<li><em>Diminishing technology dividends</em>: Search/feed formats are fully developed. Market growth relies on refined, data-driven multi-format blending (blending shopping malls, live streams, and organic feeds).</li>
+<li><em>Operational automation</em>: Automated bidding, diagnostics, and auto-piloted pacing tools.</li>
+</ol>
+</li>
+<li><strong>Closed-Loop Platform Domination</strong>
+<ul>
+<li>Ad marketplaces display strong scale effects (similar to financial exchanges).</li>
+<li>Platforms squeeze intermediaries (traditional ad agencies have lost their core value).</li>
+</ul>
+</li>
+<li><strong>Advertiser Levers</strong>
+<ul>
+<li>Advertisers have fewer manual levers; success is heavily determined by creative quality and AIGC production speed.</li>
+</ul>
+</li>
+<li><strong>Evolving Interfaces</strong>
+<ul>
+<li>Terminals expanding from smart phones to connected cars (smart cockpits) and IoT.</li>
+<li>Placement formats transitioning into augmented reality (AR/VR/MR).</li>
+<li>User interactions involving body movements and smart sensors.</li>
+<li>Content delivery balancing precision targeting with user privacy protection laws. Users demand more control over their personal data usage.</li>
+</ul>
+</li>
+</ul>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ul>
+<li>Ad Product Heart-Method, GeekTime.</li>
+<li>Computational Advertising, GeekTime.</li>
+<li><a target="_blank" rel="noopener" href="https://wallstreetcn.com/articles/3682247">Who is growing? Who is falling behind in the ad market? 2023</a></li>
+<li><a target="_blank" rel="noopener" href="https://m.zhitongcaijing.com/content/detail/270069.html">Why is ByteDance doing so well in the ad platform business?</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.woshipm.com/it/4436143.html">How does ByteDance do commercialization?</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.woshipm.com/it/3013817.html">Some highly valuable facts and gossip about ByteDance</a></li>
+<li><a target="_blank" rel="noopener" href="https://bytedance.larkoffice.com/file/boxcnwufM4kxuwUGc3H50Qyp9Pb">Ocean Engine Short Video Value Research Report</a></li>
+<li><em>Marketing Technology</em></li>
+<li><em>Big Data Marketing</em></li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/en/ads/intro-1/">https://xinheliu.github.io/en/ads/intro-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Ads/">
+                                    <span class="chip bg-color">Ads</span>
+                                </a>
+                            
+                                <a href="/tags/AI-Machine-Learning/">
+                                    <span class="chip bg-color">AI &amp; Machine Learning</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/en/AB-Test/intro-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="A/B Testing (2) Challenges in A/B Testing">
+                        
+                        <span class="card-title">A/B Testing (2) Challenges in A/B Testing</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-06-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Data-Science/" class="post-category">
+                                    Data Science
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/A-B-Testing/">
+                        <span class="chip bg-color">A/B Testing</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/en/ads/intro-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Computational Advertising (2) Computational Ad System">
+                        
+                        <span class="card-title">Computational Advertising (2) Computational Ad System</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-30
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Technology/" class="post-category">
+                                    Technology
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Ads/">
+                        <span class="chip bg-color">Ads</span>
+                    </a>
+                    
+                    <a href="/tags/AI-Machine-Learning/">
+                        <span class="chip bg-color">AI &amp; Machine Learning</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

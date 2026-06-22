@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="AB实验（2）AB实验中的难题, Charles">
+    <meta name="keywords" content="AB实验（2）AB实验中的难题, Xinhe Liu (Charles)">
     <meta name="description" content="A deeper look at difficult A/B testing cases such as interference, long-term effects, triggering, surrogate metrics, and cluster design.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -18,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>AB实验（2）AB实验中的难题 | Charles</title>
+    <title>AB实验（2）AB实验中的难题 | Xinhe Liu (Charles)</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -70,10 +70,11 @@
             
 
 <a class="brand-lockup" href="/home-zh/" aria-label="昕和首页">
-    <span class="brand-mark">X</span>
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
     <span class="brand-name">
         <strong>昕和</strong>
-        <span>个人网站</span>
     </span>
 </a>
 
@@ -95,7 +96,7 @@
     <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="搜索" aria-label="搜索">
         <i class="fas fa-search"></i>
     </a>
-    <a class="lang-switch" href="/" title="English" aria-label="English">EN</a>
+    <a class="lang-switch" href="/en/AB-Test/intro-2/" title="English" aria-label="English">EN</a>
     <button class="theme-toggle" type="button" data-theme-toggle title="主题切换" aria-label="主题切换">●</button>
     <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="打开菜单">
         <i class="fas fa-bars"></i>
@@ -106,10 +107,11 @@
 <div id="mobile-nav" class="sidenav site-mobile-nav">
     <div class="mobile-nav-head">
         <a class="brand-lockup" href="/home-zh/">
-            <span class="brand-mark">X</span>
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
             <span class="brand-name">
                 <strong>昕和</strong>
-                <span>个人网站</span>
             </span>
         </a>
         <p>昕和的个人主页、写作与技术笔记。</p>
@@ -133,14 +135,14 @@
         <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="搜索">
             <i class="fas fa-search"></i>
         </a>
-        <a class="lang-switch" href="/">EN</a>
+        <a class="lang-switch" href="/en/AB-Test/intro-2/">EN</a>
         <button class="theme-toggle" type="button" data-theme-toggle>●</button>
     </div>
 
     <div class="mobile-secondary-links">
         <a href="/tags/">标签</a>
         <a href="/categories/">分类</a>
-        <a href="/archives/">归档</a>
+        <a href="/archives-zh/">归档</a>
     </div>
 </div>
 
@@ -1447,13 +1449,7 @@ c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z'/></svg><
 </ul>
 </li>
 <li>TSR是MRD的一个特例</li>
-<li>仍然没办法告诉策略推进全的真实effect，但基于local interference假设（每一pair只受同行/同列pair的影响，不受其他影响）可以度量挤压问题；蓝色，绿色与红色的差异可以视为策略的溢出或者挤压效果
-<ul>
-<li>
-
-</li>
-</ul>
-</li>
+<li>仍然没办法告诉策略推进全的真实effect，但基于local interference假设（每一pair只受同行/同列pair的影响，不受其他影响）可以度量挤压问题；蓝色，绿色与红色的差异可以视为策略的溢出或者挤压效果</li>
 </ul>
 </li>
 </ul>
@@ -1518,7 +1514,7 @@ Online Advertising Platforms: Data-Driven Algorithms and Field Experiments. Mana
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">Charles</a>
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -1528,7 +1524,7 @@ Online Advertising Platforms: Data-Driven Algorithms and Field Experiments. Mana
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/AB-Test/intro-2/">http://example.com/AB-Test/intro-2/</a>
+                    <a href="https://xinheliu.github.io/AB-Test/intro-2/">https://xinheliu.github.io/AB-Test/intro-2/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1541,7 +1537,7 @@ Online Advertising Platforms: Data-Driven Algorithms and Field Experiments. Mana
                     All articles in this blog are used except for special statements
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     reprint policy. If reproduced, please indicate source
-                    <a href="/about" target="_blank">Charles</a>
+                    <a href="/about" target="_blank">Xinhe Liu</a>
                     !
                 </span>
             </div>
@@ -1617,6 +1613,55 @@ Online Advertising Platforms: Data-Driven Algorithms and Field Experiments. Mana
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
+                <a href="/AB-Test/intro-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="AB实验（1）AB实验从0到1">
+                        
+                        <span class="card-title">AB实验（1）AB实验从0到1</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-05-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" class="post-category">
+                                    数据科学
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AB%E5%AE%9E%E9%AA%8C/">
+                        <span class="chip bg-color">AB实验</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/ads/intro-1/">
                     <div class="card-image">
                         
@@ -1633,9 +1678,9 @@ Online Advertising Platforms: Data-Driven Algorithms and Field Experiments. Mana
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-15
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1657,55 +1702,6 @@ Online Advertising Platforms: Data-Driven Algorithms and Field Experiments. Mana
                     
                     <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
                         <span class="chip bg-color">人工智能和机器学习</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/AB-Test/intro-1/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="AB实验（1）AB实验从0到1">
-                        
-                        <span class="card-title">AB实验（1）AB实验从0到1</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-05-18
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" class="post-category">
-                                    数据科学
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/AB%E5%AE%9E%E9%AA%8C/">
-                        <span class="chip bg-color">AB实验</span>
                     </a>
                     
                 </div>
@@ -1846,11 +1842,11 @@ Online Advertising Platforms: Data-Driven Algorithms and Field Experiments. Mana
         <div class="footer-links secondary-links">
             <a href="/tags/">标签</a>
             <a href="/categories/">分类</a>
-            <a href="/archives/">归档</a>
+            <a href="/archives-zh/">归档</a>
         </div>
         <div class="footer-links secondary-links">
             <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="mailto:xinhe_l@163.com">Email</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
         </div>
     </div>
 </footer>

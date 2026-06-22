@@ -1,0 +1,1013 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Causal Inference (1) What is Causal Inference, Xinhe Liu (Charles)">
+    <meta name="description" content="An introduction to causal inference, including confounding, selection bias, counterfactual thinking, and the role of randomized experiments.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Causal Inference (1) What is Causal Inference | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/writing/" class="">Writing</a>
+    
+        <a href="/technical-notes/" class="">Technical Notes</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <i class="fas fa-search"></i>
+    </a>
+    <a class="lang-switch" href="/causal/intro-1/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/writing/">Writing</a></li>
+        
+            <li><a href="/technical-notes/">Technical Notes</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <i class="fas fa-search"></i>
+        </a>
+        <a class="lang-switch" href="/causal/intro-1/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Causal Inference (1) What is Causal Inference</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Causal-Inference/">
+                                <span class="chip bg-color">Causal Inference</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Data-Science/" class="post-category">
+                                Data Science
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2024-01-18
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <ul>
+<li><a href="#history-of-causal-inference">History of Causal Inference</a></li>
+<li><a href="#why-correlation--causation">Why: Correlation ≠ Causation</a>
+<ul>
+<li><a href="#sources-of-difference-between-correlation-and-causation">Sources of Difference Between Correlation and Causation</a></li>
+</ul>
+</li>
+<li><a href="#what-the-counterfactual-problem">What: The Counterfactual Problem</a></li>
+<li><a href="#how-experiments--learning-causal-effects-from-observational-data">How: Experiments &amp; Learning Causal Effects from Observational Data</a>
+<ul>
+<li><a href="#ab-testing">A/B Testing</a></li>
+<li><a href="#learning-causal-effects-from-observational-data">Learning Causal Effects from Observational Data</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="history-of-causal-inference"><a class="markdownIt-Anchor" href="#history-of-causal-inference"></a> History of Causal Inference</h2>
+<ul>
+<li><strong>Philosophical Exploration Phase (Ancient to 19th Century):</strong>
+<ul>
+<li>Causal inference originated from philosophers speculating on causal relationships (such as Aristotle and Hume). This period focused on the nature of causation but lacked systematic mathematical methods.</li>
+</ul>
+</li>
+<li><strong>Statistical Correlation Phase (19th to Mid-20th Century):</strong>
+<ul>
+<li>With the development of statistics, correlation analysis and control variables gradually emerged. Regression analysis and randomized controlled trials (RCT) brought the first batch of quantitative tools to causal inference, but causation was still easily confused with correlation.</li>
+</ul>
+</li>
+<li><strong>Formalization Phase of Causal Inference (Late 20th Century to Present):</strong>
+<ul>
+<li>Rubin’s “Potential Outcomes Framework” and Pearl’s “Causal Diagrams” mathematicalized and algorithmized causal inference, laying the foundation for modern causal inference theory. In the 21st century, combining causal inference with machine learning and artificial intelligence has made it an important interdisciplinary research tool.</li>
+</ul>
+</li>
+</ul>
+<h2 id="why-correlation-causation"><a class="markdownIt-Anchor" href="#why-correlation-causation"></a> Why: Correlation ≠ Causation</h2>
+<p>Why we need causal relationships: inference based on correlation can make high-precision predictions, but in some cases, causal relationships are required to guide decision-making.</p>
+<ul>
+<li><strong>Prediction Problems</strong>
+<ul>
+<li>If we push this content to certain users, will they be more willing to consume?</li>
+<li>Churn prediction: For example, users who click negative feedback on an app have higher retention. Using this for a retention/churn prediction model to target users who are likely to remain or churn is perfectly fine (though not necessarily highly efficient).</li>
+</ul>
+</li>
+<li><strong>Intervention Problems</strong>
+<ul>
+<li>Churn user recovery: How do we win back churned users? Simply forcing users who haven’t given negative feedback to do so will definitely not work.</li>
+<li>User incentive design / ROI calculation: What kind of subsidy strategy can cultivate new live streaming viewers?</li>
+<li>Recommendation strategy: Will increasing exposure for high-quality creators promote long-term user watch time and tipping?</li>
+<li>Product feature iteration: Will improving features in PK battles drive an overall increase in live streaming tipping?</li>
+<li>Estimating the long-term value of products and directions (relationship between metrics): Will changing the product framework enhance users’ live streaming consumption habits and increase the platform’s overall long-term revenue?</li>
+</ul>
+</li>
+</ul>
+<h3 id="sources-of-difference-between-correlation-and-causation"><a class="markdownIt-Anchor" href="#sources-of-difference-between-correlation-and-causation"></a> Sources of Difference Between Correlation and Causation</h3>
+<ol>
+<li>
+<p><strong>Spurious correlation</strong><br />
+<a target="_blank" rel="noopener" href="https://www.tylervigen.com/spurious-correlations">Spurious Correlations</a></p>
+<img src="/en/causal/intro-1/spurious-correlation.png" class="" title="Spurious Correlation">
+</li>
+<li>
+<p><strong>Simpson’s Paradox</strong>: The correlation at the subgroup level is inconsistent with the correlation at the overall level.</p>
+<ul>
+<li>For example:
+<ul>
+<li>Gender / Treatment vs Recovery Rate<img src="/en/causal/intro-1/simpsons-1.png" class="" title="Simpson" alt="s Paradox Example">
+</li>
+<li>Similarly: Gender / Watch Time vs Purchase Rate</li>
+</ul>
+</li>
+<li>When should we look at subgroup conclusions, and when should we look at overall conclusions?
+<ul>
+<li><strong>Confounding Bias</strong>: Correlation caused by a common cause (Fork).
+<ul>
+<li>It affects both the treatment and the effect, but is not affected by either. For example, gender affects whether someone takes medication and also affects the disease rate; but taking medication cannot affect gender.<img src="/en/causal/intro-1/confounding-bias.png" class="" title="Confounding Bias">
+</li>
+<li>In this case, we should look at the <strong>subgroup</strong> data.</li>
+</ul>
+</li>
+<li><strong>Selection Bias</strong>: Correlation caused by a common effect (Collider).
+<ul>
+<li>It is affected by the treatment and also affects the result (known as a “Mediator”). For example, blood pressure is a mediator through which a drug acts; taking the drug may cause changes in blood pressure, which in turn affects whether one recovers.<img src="/en/causal/intro-1/selection-bias.png" class="" title="Selection Bias">
+</li>
+<li>In this case, to determine the effect of the drug on recovery, we should look at the <strong>overall</strong> data, rather than dividing the data by blood pressure. Dividing the data here would introduce “selection bias.”</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Berkson’s Paradox</strong>: An example of selection bias.</p>
+<ul>
+<li>The better the resume, the worse the ability: candidates who are bad at both will be filtered out, while companies cannot afford candidates who are excellent at both, so they won’t be hired either.<img src="/en/causal/intro-1/berksons-paradox.png" class="" title="Berkson" alt="s Paradox">
+</li>
+<li>Similarly, filtering married individuals by IQ and appearance, or “poor families producing noble sons,” are all under the influence of this paradox.</li>
+</ul>
+</li>
+</ol>
+<p>In practical problems, causal relationships may not be so simple and clear:</p>
+<ul>
+<li>For example, the relationship between gender, position, and salary.</li>
+<li>Causal feedback loops: For example:
+<ul>
+<li>Search affects social networking, social networking affects content consumption, content consumption affects search;</li>
+<li>Likes affect traffic, traffic affects GMV, GMV affects traffic, traffic affects likes;</li>
+<li>Mathew Effect: Highly popular content receives further exposure, creating a mutually reinforcing loop.</li>
+</ul>
+</li>
+</ul>
+<p><strong>The Attribution Dilemma</strong>: In many models or data analyses, we look backward from the result to find the cause, often optimizing for explanatory power. However, high explanatory power does not mean the attribution is correct.</p>
+<ul>
+<li>For example:
+<ul>
+<li>Explaining sleep quality: Sleeping with shoes on vs. sleeping without shoes on has high explanatory power for sleep quality, but the real cause is that people who get drunk sleep with their shoes on.</li>
+<li>Does providing more content to active community users further increase their community consumption? The causal relationship to be answered here is whether users being more active and liking exploration leads to (causes) consumption.
+<ul>
+<li>For example: it might be that users simply like the app in the first place, which causes them to both consume more and leave more comments in the community. We cannot simply attribute consumption to content and draw a business conclusion.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Finding the cause backward from the result is a problem with no perfect solution.
+<ul>
+<li>Paper 1: Pearl, J. (2015). Causes of Effects and Effects of Causes. <em>Sociological Methods &amp; Research</em>, 44(1), 149-164. <a target="_blank" rel="noopener" href="https://doi.org/10.1177/0049124114562614">https://doi.org/10.1177/0049124114562614</a></li>
+<li>Paper 2: Mueller, S., Li, A., &amp; Pearl, J. (2021). Causes of effects: Learning individual responses from population data. <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2104.13730.pdf">https://arxiv.org/pdf/2104.13730.pdf</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="what-the-counterfactual-problem"><a class="markdownIt-Anchor" href="#what-the-counterfactual-problem"></a> What: The Counterfactual Problem</h2>
+<p>Setting aside complex philosophical definitions, let’s focus on the most practical part of the definition of causality (the part that helps your work the most).</p>
+<ul>
+<li>In one sentence: causality attempts to answer “what-if” questions. That is, if everything else remains unchanged, and we only change <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>, does the value of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span> change? If so, we consider that <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>→</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">X \to Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span> has a causal relationship, or more accurately, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span> causes <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span>.
+<ul>
+<li>Let <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span> be “whether to undergo surgery” and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span> be “whether the individual survives after one year”. Each individual has two potential outcomes: the outcome after undergoing surgery, and the outcome without undergoing surgery. The difference between these two outcomes is the causal effect of the surgery on survival.</li>
+</ul>
+</li>
+<li>In reality, we can only observe one potential outcome for an individual. Therefore, individual-level causal effects cannot be determined. This dilemma is called the Fundamental Problem of Causal Inference, which is essentially a missing data problem.</li>
+</ul>
+<p>The goals of causal inference methods and models are to solve this counterfactual problem.</p>
+<h2 id="how-experiments-learning-causal-effects-from-observational-data"><a class="markdownIt-Anchor" href="#how-experiments-learning-causal-effects-from-observational-data"></a> How: Experiments &amp; Learning Causal Effects from Observational Data</h2>
+<h3 id="ab-testing"><a class="markdownIt-Anchor" href="#ab-testing"></a> A/B Testing</h3>
+<p>Why can randomized A/B testing overcome the missing data barrier? In one sentence: because randomization guarantees that the potential outcomes of both groups are identical in expectation.</p>
+<ul>
+<li>The essence of a randomized trial is that the assignment mechanism (i.e., user assignment) is independent of the potential outcomes. In reality, countless factors affect each person’s potential outcomes, many of which are unobservable. But we no longer need to worry about this, because randomization itself guarantees that user grouping is independent of potential outcomes. In other words, the treatment and control groups are exchangeable, so each group’s potential outcomes can be considered as the overall potential outcomes. Therefore, direct comparison yields the causal effect (assuming a large sample size, ignoring sampling variance).</li>
+<li>This is why internet companies attach great importance to A/B testing. Compared to other methods, A/B testing gives us the opportunity to capture causal effects, thereby helping make business decisions. Although everyone says “data-driven,” having data is not enough to drive decisions! Only data obtained through A/B testing can better drive the business.</li>
+</ul>
+<p>Limitations of Experiments:</p>
+<ol>
+<li>When the goal is set, it can tell us which of two paths is better (local optimization), but it cannot tell us where the paths lead.</li>
+<li>Experiments cannot directly answer questions about causal mechanisms: the observed metric difference only shows the effect of the strategy change, not how the effect came about or what the intermediate process was. To understand mediators or mechanisms, we may need to design separate experiments, which can be difficult when the mediators cannot be directly manipulated.</li>
+<li>Effect of cause and cause of effect: Similar to the above, this is not unique to experiments. The estimation methods we introduce all estimate the “effect of a cause,” rather than the “cause of an effect” (the attribution of a phenomenon or result).</li>
+</ol>
+<h3 id="learning-causal-effects-from-observational-data"><a class="markdownIt-Anchor" href="#learning-causal-effects-from-observational-data"></a> Learning Causal Effects from Observational Data</h3>
+<p>However, in many scenarios, we cannot run experiments. How do we perform causal inference on observational data?</p>
+<p>Core: Answer causal questions from observed data through estimation.</p>
+<ul>
+<li><strong>What is estimation</strong>: Estimating the estimand using an estimator.
+<ul>
+<li><strong>Estimand</strong>: The quantity to be estimated (the question we really want to answer): it is a “what if” question. Due to the counterfactual dilemma, we cannot observe the missing part of the data.</li>
+<li><strong>Estimate</strong>: The approximation of the estimand using a finite data sample. It is the actual result obtained, which can only rely on the existing data.</li>
+<li><strong>Estimator</strong>: The method or formula used to derive the estimate of the estimand. Its core is to estimate unknown data or parameters.</li>
+</ul>
+</li>
+<li><strong>How to estimate</strong>: Build statistical, machine learning, or various models to remove bias, simulate missing data, or simulate the data generation process to approximate counterfactual questions.</li>
+<li><strong>Whether it can be answered</strong>: Identifiability—whether the causal effect can be identified from the data.
+<ul>
+<li>In a general sense, “identifiability” refers to whether a model can yield an output or “has a solution.” For example, in a linear regression model, if there is no data for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">x=5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span></span></span> in all training data, no matter how much data there is, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">x=5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span></span></span> cannot be estimated.</li>
+</ul>
+</li>
+</ul>
+<p>Two Frameworks:</p>
+<ul>
+<li><strong>Rubin Causal Model (RCM)</strong> or Potential Outcomes Framework, proposed by Rubin in the 1970s.
+<ul>
+<li><strong>Advantages</strong>: RCM defines causal relationships as the comparison between facts and counterfactuals, which is relatively easy to understand and apply. It is suitable for causal inference on observational data and is widely used in social sciences, econometrics, etc.</li>
+<li><strong>Disadvantages</strong>: RCM assumes that potential counterfactuals are comparable, meaning the treatment and control groups are similar in other aspects. Its series of assumptions are generally quite strong.</li>
+</ul>
+</li>
+<li><strong>Structural Causal Model (SCM)</strong> or Causal Diagram, proposed by Judea Pearl in the 1980s.
+<ul>
+<li><strong>Advantages</strong>: SCM provides intuitive causal diagram representations, helping researchers visualize and understand relationships between variables. It is suitable for complex causal modeling and is widely used in computer science, causal discovery, etc.</li>
+<li><strong>Disadvantages</strong>: SCM can be difficult to model for very complex causal relationships, and its causal inference capability on observational data can be limited. Additionally, SCM faces difficulties when dealing with unobserved confounding variables.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Rubin Causal Model (RCM)</th>
+<th>Structural Causal Model (SCM)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Proposed Time</strong></td>
+<td>1970s</td>
+<td>1980s</td>
+</tr>
+<tr>
+<td><strong>Core Concept</strong></td>
+<td>Potential outcomes framework, focusing on the comparison of facts and counterfactuals</td>
+<td>Causal diagrams, focusing on structural relationships between variables</td>
+</tr>
+<tr>
+<td><strong>Applicable Fields</strong></td>
+<td>Social sciences, econometrics, observational causal inference</td>
+<td>Computer science, artificial intelligence, causal discovery</td>
+</tr>
+<tr>
+<td><strong>Mathematical Basis</strong></td>
+<td>Probability theory, statistics</td>
+<td>Graph theory, probability theory</td>
+</tr>
+<tr>
+<td><strong>Main Advantages</strong></td>
+<td>1. Intuitive concept, easy to understand and apply<br>2. Suitable for processing observational data<br>3. Closely related to RCT theory<br>4. Mature estimation methods</td>
+<td>1. Provides intuitive causal diagram representations<br>2. Suitable for processing complex causal relationships<br>3. Can handle intervention and counterfactual reasoning<br>4. Helps understand causal mechanisms</td>
+</tr>
+<tr>
+<td><strong>Main Limitations</strong></td>
+<td>1. Strong assumptions<br>2. Difficult to handle complex interactions<br>3. Sensitive to unobserved confounders<br>4. Not suitable for dynamic systems</td>
+<td>1. Difficult to model complex systems<br>2. Limited inference capability on observational data<br>3. Difficult to handle unobserved confounders<br>4. High computational complexity</td>
+</tr>
+<tr>
+<td><strong>Application Scenarios</strong></td>
+<td>1. Policy evaluation<br>2. Medical research<br>3. Social science experiments<br>4. Economic research</td>
+<td>1. Machine learning<br>2. Artificial intelligence<br>3. Complex system analysis<br>4. Causal discovery</td>
+</tr>
+<tr>
+<td><strong>Tool Support</strong></td>
+<td>1. R packages<br>2. Stata and other statistical software<br>3. Traditional statistical methods</td>
+<td>1. Python causal inference libraries<br>2. Bayesian network tools<br>3. Graphical model software</td>
+</tr>
+</tbody>
+</table>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/en/causal/intro-1/">https://xinheliu.github.io/en/causal/intro-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Causal-Inference/">
+                                    <span class="chip bg-color">Causal Inference</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/en/recsys/101-intro-3/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Recommender Systems 101 (3) Algorithmic Frontiers">
+                        
+                        <span class="card-title">Recommender Systems 101 (3) Algorithmic Frontiers</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-12-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Technology/" class="post-category">
+                                    Technology
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI-Machine-Learning/">
+                        <span class="chip bg-color">AI &amp; Machine Learning</span>
+                    </a>
+                    
+                    <a href="/tags/Recommendation/">
+                        <span class="chip bg-color">Recommendation</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/en/AB-Test/intro-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="A/B Testing (1) A/B Testing from 0 to 1">
+                        
+                        <span class="card-title">A/B Testing (1) A/B Testing from 0 to 1</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-05-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Data-Science/" class="post-category">
+                                    Data Science
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/A-B-Testing/">
+                        <span class="chip bg-color">A/B Testing</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>
