@@ -25,7 +25,9 @@
         <script src='<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.mermaid) %>'></script>
         <script>
           if (window.mermaid) {
-            mermaid.initialize({theme: 'forest'});
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
           }
         </script>
     <% } %>

@@ -2,7 +2,7 @@
     var isChinese = (page.site_locale || '').indexOf('zh') === 0;
     var notes = [];
     site.posts.each(function(post) {
-        if (post.hide !== true && post.note_type && post.featured_asset) {
+        if (post.hide !== true && post.note_type && post_preview_asset(post)) {
             var postIsChinese = (post.site_locale || 'zh-CN').indexOf('zh') === 0;
             if (postIsChinese === isChinese) {
                 notes.push(post);
@@ -93,9 +93,10 @@
             </aside>
             <div class="archive-list">
                 <% notes.forEach(function(post) { %>
+                    <% var previewAsset = post_preview_asset(post); %>
                     <article class="archive-row has-preview">
                         <a class="post-preview post-preview-image" href="<%- url_for(post.path) %>">
-                            <img src="<%- url_for(post.featured_asset) %>" alt="<%= post.title %>">
+                            <img src="<%- url_for(previewAsset) %>" alt="<%= post.title %>">
                         </a>
                         <div class="summary-stack">
                             <span class="meta"><%= date(post.date, 'YYYY-MM-DD') %> · <%= clusterLabels[post.topic_cluster] || post.note_type %></span>

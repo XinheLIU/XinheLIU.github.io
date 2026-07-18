@@ -121,7 +121,7 @@ body {
 }
 
 .site-header-wrap {
-  height: auto;
+  height: 73px;
 }
 
 .site-header-shell {
@@ -1428,6 +1428,10 @@ body {
   margin: 0;
 }
 
+.pd-header {
+  margin-top: 0;
+}
+
 .post-cover {
   min-height: 260px;
 }
@@ -1467,6 +1471,11 @@ body {
   background-image: none;
   background: var(--surface);
   color: var(--muted);
+  height: auto;
+  line-height: 1.35;
+  padding: 7px 12px;
+  vertical-align: top;
+  white-space: normal;
 }
 
 #articleContent,
@@ -1593,6 +1602,18 @@ body {
     width: min(var(--container-max), calc(100% - var(--container-gutter-phone) * 2));
   }
 
+  .post-cover {
+    height: auto !important;
+    min-height: 260px;
+    padding: 56px 0;
+  }
+
+  .bg-cover .post-title {
+    font-size: 32px;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
   .about-hero-avatar {
     max-width: 240px;
   }
@@ -1644,4 +1665,79 @@ body {
   .site-mobile-trigger {
     display: inline-flex;
   }
+}
+
+/* Slide deck embeds ({% slides %} tag) */
+.slides-embed {
+  margin: var(--space-8) 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.slides-embed-frame {
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.slides-embed-frame iframe {
+  border: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.slides-embed-bar {
+  align-items: center;
+  border-top: 1px solid var(--border-soft);
+  display: flex;
+  font-size: 13px;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+}
+
+.slides-embed-title {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.slides-embed-hint {
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.slides-embed-open {
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.slides-embed-open:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+  .slides-embed-hint {
+    display: none;
+  }
+
+  .slides-embed-bar {
+    flex-wrap: wrap;
+  }
+}
+
+/* Dark-theme fix for article tables (matery.css hardcodes light backgrounds) */
+:root[data-theme="dark"] table tr:nth-child(2n),
+:root[data-theme="dark"] thead {
+  background-color: var(--surface);
+}
+
+:root[data-theme="dark"] #articleContent table th {
+  background-color: var(--surface);
+  border-color: var(--border);
+}
+
+:root[data-theme="dark"] #articleContent table td {
+  border-color: var(--border);
 }

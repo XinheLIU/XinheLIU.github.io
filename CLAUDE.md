@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Last updated: 2026-06-06
+Last updated: 2026-07-18
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -43,6 +43,8 @@ source/projects/     # projects landing pages
 source/about/        # merged About & Contact entry
 source/about-zh/     # Chinese personal information and contact entry
 source/contact/      # compatibility redirect to /about/
+source/slides/       # standalone HTML slide decks, copied verbatim via skip_render
+source/images/       # shared images (images/<topic>/ used by both a post pair and its decks)
 themes/xinhe-site/   # active theme; customizations go here
 scaffolds/           # templates for new posts/pages
 public/              # generated output (gitignored on source branch)
@@ -51,8 +53,20 @@ public/              # generated output (gitignored on source branch)
 
 Key rendering stack (configured in `_config.yml`):
 - **Markdown**: `hexo-renderer-markdown-it-plus` with KaTeX math and emoji
-- **Diagrams**: `hexo-tag-mermaid` — use `{% mermaid %}...{% endmermaid %}` tags
+- **Diagrams**: `hexo-tag-mermaid` — use `{% mermaid %}...{% endmermaid %}` tags (fenced ```mermaid blocks do NOT render)
 - **Code highlighting**: `hexo-prism-plugin` with line numbers
+
+## HTML Slide Decks
+
+Self-contained HTML decks live under `source/slides/<deck-name>/<en|zh>/index.html` and are copied to the site verbatim (`skip_render: ['slides/**']` in `_config.yml`), so their own CSS/JS is untouched by Hexo. Deck-internal image paths must be site-absolute (e.g. `/images/<topic>/...`).
+
+Embed a deck in a post with the theme's `slides` tag (renders a responsive 16:9 iframe card with a fullscreen link; implemented in `themes/xinhe-site/scripts/tags/slides.js`, styles at the bottom of `xinhe-site.css`):
+
+```
+{% slides /slides/deck-name/en/, Deck title · 30 slides, en %}
+```
+
+Arguments are comma-separated: URL, title (no commas), locale (`en`/`zh`).
 
 ## Writing Posts
 

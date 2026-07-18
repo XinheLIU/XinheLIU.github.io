@@ -56,10 +56,11 @@
         <div class="container">
             <div class="archive-list">
                 <% archivePosts.forEach(function(post) { %>
+                    <% var previewAsset = post_preview_asset(post); %>
                     <article class="archive-row has-preview">
-                        <% if (post.featured_asset) { %>
+                        <% if (previewAsset) { %>
                             <a class="post-preview post-preview-image" href="<%- url_for(post.path) %>">
-                                <img src="<%- url_for(post.featured_asset) %>" alt="<%= post.title %>">
+                                <img src="<%- url_for(previewAsset) %>" alt="<%= post.title %>">
                             </a>
                         <% } else { %>
                             <a class="post-preview preview-grid" href="<%- url_for(post.path) %>">
