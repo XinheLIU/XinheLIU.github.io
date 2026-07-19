@@ -12,7 +12,8 @@
         return new Date(b.date) - new Date(a.date);
     });
 
-    var books = site.data && site.data.books ? site.data.books : [];
+    var allWorks = site.data && site.data.works ? site.data.works : [];
+    var books = allWorks.filter(function(work) { return work.type === 'book'; });
     var clusterOrder = ['ads-systems', 'recommendation', 'experimentation', 'causal-measurement'];
     var clusterLabels = isChinese
         ? {

@@ -1,40 +1,26 @@
-<style type="text/css">
-    /* don't remove. */
-    .about-cover {
-        height: 90.2vh;
-    }
-</style>
-<div class="bg-cover pd-header about-cover">
-    <div class="container">
-        <div class="row">
-            <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-                <div class="brand">
-                    <div class="title center-align">
-                        404 Sorry 您找的页面不存在！
-                    </div>
-                    <div class="title center-align">
-                        试试右上角的<span style="color:blue;font-weight:bold">搜索</span>功能？
-                    </div>
-                    <div class="title center-align">
-                        <a href="/" target="_blank">返回首页</a>
-                    </div>
-                    <div class="description center-align">
-                        <%= page.description %>
-                    </div>
-                </div>
+<%
+    // Bilingual 404 — this single page serves both language trees, so it shows
+    // English and Chinese together and stays inside the site design system.
+%>
+<main class="content site-page-main">
+    <section class="container hero-narrow">
+        <p class="eyebrow">404</p>
+        <h1 class="page-title">This page doesn’t exist. · 页面不存在。</h1>
+        <p class="lead">
+            The link may be old or mistyped. Head back home or search the writing archive.<br>
+            链接可能已过期或输入有误。返回首页，或搜索写作档案。
+        </p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="<%- url_for('/') %>">Back to home · 返回首页</a>
+            <a class="btn btn-secondary modal-trigger" href="#searchModal">Search · 搜索</a>
+        </div>
+        <div class="archive-utilities">
+            <div class="footer-links">
+                <a href="<%- url_for('/writing/') %>">Writing</a>
+                <a href="<%- url_for('/writing-zh/') %>">写作</a>
+                <a href="<%- url_for('/about/') %>">About &amp; Contact</a>
+                <a href="<%- url_for('/about-zh/') %>">个人信息和联系方式</a>
             </div>
         </div>
-    </div>
-</div>
-
-<% if (theme.banner.enable) { %>
-    <script>
-        // 每天切换 banner 图.  Switch banner image every day.
-        var bannerUrl = "<%- theme.jsDelivr.url %><%- url_for('/medias/banner/') %>" + new Date().getDay() + '.jpg';
-        $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
-    </script>
-<% } else { %>
-    <script>
-        $('.bg-cover').css('background-image', 'url(<%- theme.jsDelivr.url %><%- url_for('/medias/banner/0.jpg') %>)');
-    </script>
-<% } %>
+    </section>
+</main>

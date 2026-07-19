@@ -1,38 +1,32 @@
 <%
-var featureimg = url_for('/medias/bg.jpg');
-if (page.img) {
-    featureimg = url_for(page.img);
-} else {
-    var hashCode = function (str) {
-        if (!str && str.length === 0) {
-            return 0;
-        }
-
-        var hash = 0;
-        for (var i = 0, len = str.length; i < len; i++) {
-            hash = ((hash << 5) - hash) + str.charCodeAt(i);
-            hash |= 0;
-        }
-        return hash;
-    };
-
-    var len = theme.featureImages.length;
-    var num = Math.abs(hashCode(page.title) % len);
-
-    featureimg = theme.jsDelivr.url
-            ? theme.jsDelivr.url + url_for(theme.featureImages[num])
-            : url_for(theme.featureImages[num]);
-}
+    // Quiet typographic post header (replaces the old full-bleed photo banner).
+    var isChinese = (page.site_locale || '').indexOf('zh') === 0;
+    var categoryName = '';
+    if (page.categories && page.categories.length) {
+        page.categories.forEach(function (c) { if (!categoryName) categoryName = c.name; });
+    }
+    var readMins = (typeof min2read === 'function') ? min2read(page.content) : null;
 %>
-
-<div class="bg-cover pd-header post-cover" style="background-image: url('<%- featureimg %>')">
-    <div class="container" style="right: 0px;left: 0px;">
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title"><%= page.title %></h1>
-                </div>
-            </div>
+<header class="post-hero content">
+    <div class="container">
+        <% if (categoryName) { %>
+            <p class="eyebrow"><%= categoryName %></p>
+        <% } %>
+        <h1 class="page-title"><%= page.title %></h1>
+        <div class="post-meta">
+            <time datetime="<%= date(page.date, 'YYYY-MM-DD') %>"><%= date(page.date, 'YYYY-MM-DD') %></time>
+            <% if (readMins) { %>
+                <span class="dot">·</span>
+                <span><%= readMins %> <%= isChinese ? '分钟' : 'min read' %></span>
+            <% } %>
+            <% if (page.tags && page.tags.length) { %>
+                <span class="post-hero-tags">
+                    <% page.tags.forEach(function (tag) { %>
+                        <a class="chip" href="<%- url_for(tag.path) %>"><%= tag.name %></a>
+                    <% }); %>
+                </span>
+            <% } %>
         </div>
+        <hr class="post-hero-rule">
     </div>
-</div>
+</header>

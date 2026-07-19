@@ -17,6 +17,7 @@ confidentiality_safe: true
 site_locale: en
 lang_switch: /books/coding-with-agents-intro-zh/
 last_updated: 2026-06-06
+work_key: coding-with-agents
 ---
 
 # Coding with Agents: Intro

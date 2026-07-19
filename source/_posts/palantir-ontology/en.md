@@ -18,6 +18,7 @@ site_locale: en
 lang_switch: /writing/palantir-ontology-zh/
 featured_asset: /images/palantir-ontology/ontology-system.png
 last_updated: 2026-07-18
+work_key: palantir-article
 ---
 
 # Deconstructing Palantir Ontology: When an Ontology Moves From "Describing the World" to "Driving It"

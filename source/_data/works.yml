@@ -1,0 +1,51 @@
+- key: palantir-article
+  type: article
+  topic_cluster: enterprise-ai
+  title_en: Deconstructing Palantir Ontology
+  title_zh: Palantir Ontology 深度解构
+  summary_en: A deep deconstruction of Palantir Ontology — why enterprises need a third kind of ontology, what makes it different from OWL and knowledge graphs, how it is implemented, and its costs and controversies.
+  summary_zh: 深度解构 Palantir Ontology——为什么企业需要第三种本体、它与 OWL 和知识图谱的差异、技术实现与构建方法，以及代价与争议。
+  url_en: /writing/palantir-ontology/
+  url_zh: /writing/palantir-ontology-zh/
+  date: 2026-07-18
+  featured_asset: /images/palantir-ontology/ontology-system.png
+  related:
+    - palantir-deck-1
+    - palantir-deck-2
+
+- key: palantir-deck-1
+  type: slides
+  topic_cluster: enterprise-ai
+  title_en: Palantir Ontology — Deep Deconstruction
+  title_zh: Palantir Ontology — 深度解构
+  url_en: /slides/palantir-ontology/en/
+  url_zh: /slides/palantir-ontology/zh/
+  slide_count: 30
+  related:
+    - palantir-article
+    - palantir-deck-2
+
+- key: palantir-deck-2
+  type: slides
+  topic_cluster: enterprise-ai
+  title_en: Palantir Ontology — From Semantics to Action
+  title_zh: Palantir Ontology — 从语义到行动
+  url_en: /slides/palantir-semantic-to-action/en/
+  url_zh: /slides/palantir-semantic-to-action/zh/
+  slide_count: 29
+  related:
+    - palantir-article
+    - palantir-deck-1
+
+- key: coding-with-agents
+  type: book
+  topic_cluster: agentic-engineering
+  title_en: Coding with Agents
+  title_zh: Coding with Agents
+  summary_en: A practical guide to building software with coding agents.
+  summary_zh: 一本关于如何和编程智能体协作构建软件的实践指南。
+  url_en: /Coding-with-Agents/
+  url_zh: /Coding-with-Agents/
+  status_en: Complete book
+  status_zh: 完整书稿
+  external: true

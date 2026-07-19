@@ -4,12 +4,18 @@ Last updated: 2026-07-19
 
 Status: Active, implementation not started
 
+> **Model revision (2026-07-19):** Exploration against the real inventory
+> (one multi-format case) moved this plan from a nested "one work, many
+> outputs" model to a flat "one artifact per work, peer-linked through
+> `related`" model. Formal specs live in the OpenSpec change
+> `openspec/changes/add-library/`. This document is the living narrative;
+> the OpenSpec change is the spec record.
+
 ## Objective
 
-Organize articles, technical notes, HTML slide decks, external books, and future
-video or audio as formats of a shared intellectual work. Readers must be able to
-discover a work by topic or format and move in both directions between its
-available outputs.
+Organize articles, technical notes, HTML slide decks, external books, and
+future video or audio as works in a shared Library. Readers must be able to
+discover a work by topic or format and move between related formats.
 
 ## Why
 
@@ -18,26 +24,31 @@ slides as assets discoverable only from inside an article. Adding a top-level
 section for every future format would fragment related material and make the
 primary navigation grow with the publishing medium.
 
-The stable entity should be the work. Format is a way to consume that work.
+The stable entity is the work. Format is a property of the work, not a separate
+destination. Related works link to each other as peers.
 
 ## Product Decisions
 
 1. Replace the reader-facing `Writing` destination with `Library`.
-2. Fold technical notes into Library as a content format while preserving their
+2. Fold technical notes into Library as a work `type` while preserving their
    existing public URLs.
 3. Keep `Projects` separate because it describes technical work rather than a
    publishing format.
-4. Show one Library row per work, not one row per output.
+4. Show one Library row per artifact, not one row per intellectual topic. A
+   topic that has an article and two slide decks produces three rows.
 5. Provide independent topic and format filters.
-6. Designate one primary output for each work. The work title links to it.
-7. Render the same format rail on every site-rendered output.
-8. Give standalone slide decks direct links to their article and other formats.
-9. Mark external outputs, such as books or hosted media, with an external-link
-   indicator.
+6. Link related works as peers through a `related` field. No primary output,
+   no format rail with current state.
+7. Render an "ALSO AVAILABLE AS" related-works section on article and note
+   pages when related works exist for the current locale.
+8. Give standalone slide decks direct related-works links, hardcoded into
+   each deck's static HTML at authoring time.
+9. Mark external outputs, such as books or hosted media, with an
+   external-link indicator.
 10. Keep `/slides/` as an asset route, not a primary navigation destination.
-11. Store work relationships in one structured manifest.
-12. Replace live slide iframes in article introductions with a format rail and a
-    static deck-cover preview.
+11. Store works in one flat structured manifest, `source/_data/works.yml`.
+12. Keep the existing `{% slides %}` iframe in article introductions. Do not
+    replace it with a cover preview. The related-works section is additive.
 
 ## Navigation And Routes
 
@@ -47,21 +58,20 @@ Target primary navigation:
 Home | Library | Projects | About
 ```
 
-Target canonical archive routes:
+Target canonical Library routes:
 
 ```text
 /library/
 /library-zh/
 ```
 
-Preserve these existing routes as compatibility redirects or equivalent stable
-entry points:
+Preserve these existing routes as compatibility redirects:
 
 ```text
-/writing/
-/writing-zh/
-/technical-notes/
-/technical-notes-zh/
+/writing/            -> /library/
+/writing-zh/         -> /library-zh/
+/technical-notes/    -> /library/
+/technical-notes-zh/ -> /library-zh/
 ```
 
 Do not change existing article, book, slide, or language-switch URLs during the
@@ -69,66 +79,75 @@ initial migration.
 
 ## Content Model
 
-Create `source/_data/works.yml` as the source of truth for Library discovery and
-cross-format relationships. Migrate the current book entry from
-`source/_data/books.yml` into this manifest after all consumers use the new data.
+Create `source/_data/works.yml` as the flat source of truth for Library
+discovery and cross-format relationships. Migrate the current book entry from
+`source/_data/books.yml` into this manifest after all consumers use the new
+data.
 
-Proposed shape:
+Proposed shape (one entry per publishable artifact):
 
 ```yaml
-- key: palantir-ontology
+- key: palantir-article
+  type: article
   topic_cluster: enterprise-ai
-  primary_output: article
-  title_en: Palantir Ontology
-  title_zh: Palantir Ontology
+  title_en: Deconstructing Palantir Ontology
+  title_zh: 深度解构 Palantir Ontology
   summary_en: How semantics becomes an operational system.
   summary_zh: 语义如何成为可执行的业务系统。
   featured_asset: /images/palantir-ontology/ontology-system.png
-  outputs:
-    - id: article
-      type: article
-      url_en: /writing/palantir-ontology/
-      url_zh: /writing/palantir-ontology-zh/
-      minutes_en: 45
-      minutes_zh: 45
-    - id: deep-dive
-      type: slides
-      label_en: Deep deconstruction
-      label_zh: 深度解构
-      url_en: /slides/palantir-ontology/en/
-      url_zh: /slides/palantir-ontology/zh/
-      minutes_en: 8
-      minutes_zh: 8
-      slide_count: 30
+  url_en: /writing/palantir-ontology/
+  url_zh: /writing/palantir-ontology-zh/
+  related: [palantir-deck-1, palantir-deck-2]
+
+- key: palantir-deck-1
+  type: slides
+  title_en: Palantir Ontology - Deep Deconstruction
+  title_zh: Palantir Ontology · 深度解构
+  url_en: /slides/palantir-ontology/en/
+  url_zh: /slides/palantir-ontology/zh/
+  slide_count: 30
+  related: [palantir-article, palantir-deck-2]
+
+- key: palantir-deck-2
+  type: slides
+  title_en: Palantir Ontology - From Semantics to Action
+  title_zh: Palantir Ontology · 从语义到行动
+  url_en: /slides/palantir-semantic-to-action/en/
+  url_zh: /slides/palantir-semantic-to-action/zh/
+  slide_count: 29
+  related: [palantir-article, palantir-deck-1]
+
+- key: coding-with-agents
+  type: book
+  topic_cluster: agentic-engineering
+  title_en: Coding with Agents
+  title_zh: Coding with Agents
+  summary_en: A practical guide to building software with coding agents.
+  summary_zh: 一本关于如何和编程智能体协作构建软件的实践指南。
+  url_en: /Coding-with-Agents/
+  external: true
 ```
 
-Supported output types initially:
+Supported work types initially:
 
 ```text
 article | note | slides | book | video | audio
 ```
 
-Each output has a stable `id` because a work may have multiple outputs of the
-same type. Optional fields may include `cover`, `external`, `status_en`,
-`status_zh`, and format-specific counts or duration.
+Each work has a stable `key`. The two Palantir decks stay separate because they
+have distinct editorial angles. Optional fields include `featured_asset`,
+`external`, `slide_count`, `status_en`, `status_zh`, and format-specific counts
+or duration.
 
-Posts reference the manifest through an explicit front-matter field:
+Posts reference the manifest through a single front-matter field:
 
 ```yaml
-work_key: palantir-ontology
-output_id: article
+work_key: palantir-article
 ```
 
-Standalone slide decks identify themselves through their existing `window.DECK`
-metadata:
-
-```js
-window.DECK = {
-  workKey: "palantir-ontology",
-  outputId: "deep-dive",
-  locale: "en"
-};
-```
+There is no `output_id` - the post is the artifact. Standalone slide decks
+identify their work through their existing `window.DECK` metadata and carry
+hardcoded related-works links in their own HTML.
 
 ## Reader Experience
 
@@ -139,141 +158,158 @@ The Library intro remains compact and archive-focused. Below it, provide:
 - Topic filters using the existing topic clusters.
 - Format filters for All, Articles, Notes, Slides, Books, Video, and Audio.
 - Search across localized work titles, summaries, and topics.
-- One row per work with preview, localized summary, topic, date, and available
-  format links.
+- One row per artifact with preview, localized summary, topic, date, type
+  label, and a direct link to the work's URL for the current locale.
 
-Selecting a format filter keeps the work grouped but promotes the matching
-output link. It must not duplicate the work into separate rows.
+Selecting a format filter narrows the list to works of that type. A topic with
+an article and two decks renders three rows; the format filter collapses to one
+format at a time.
 
-### Format Rail
+### Related-Works Section
 
-Place the format rail below the title and metadata and before the main content:
+Place the "ALSO AVAILABLE AS" section on article and note pages after the
+existing slide iframe (when present) and before the main content:
 
 ```text
-AVAILABLE AS
+ALSO AVAILABLE AS
 
-[ Article - 45 min ] [ Slides - 8 min ] [ Visual deck - 7 min ]
-       CURRENT
+  · Deep Deconstruction (slides, 30)  · From Semantics to Action (slides, 29)
 ```
 
 Behavior:
 
-- The current output is visibly selected and is not a redundant link.
-- Other outputs are direct links.
-- External outputs open in a new tab and show an external-link icon.
-- Labels use localized reader language: Read, View slides, Watch, or Listen.
-- On narrow screens, items wrap into stable full-width or two-column rows rather
-  than horizontal scrolling.
+- Render the section only when the work has one or more related entries that
+  exist in the current locale. Omit it entirely otherwise.
+- Each related work is a direct link to its URL for the current locale.
+- External works open in a new tab and show an external-link icon.
+- Link verbs localize by related work type: Read, View slides, Watch, Listen.
+- On narrow screens, links wrap into stable rows rather than horizontal
+  scrolling.
 - Use existing theme typography, spacing, colors, and icon assets. Add no new
   dependency.
 
 ### Articles And Notes
 
-- Render the format rail from `work_key` and `output_id`.
-- Replace the opening live slide iframe with a linked static 16:9 cover preview.
+- Render the related-works section from the post's `work_key` and the manifest.
+- Keep the opening `{% slides %}` iframe as-is. Do not replace it with a cover
+  preview.
 - Keep an inline deck reference only where it contributes editorial context.
-- Use the output-specific cover when supplied; otherwise fall back to the work's
-  featured asset.
 
 ### Slide Decks
 
-- Add a quiet companion-output control to the deck interface.
-- Include `Read article` or the appropriate primary-output action on the closing
-  slide.
+- Add a quiet related-works control to each deck's static HTML, with links
+  hardcoded at authoring time.
+- Include `Read article` or the appropriate peer link on the closing slide.
 - Preserve full-screen keyboard controls and the 16:9 stage.
-- Do not let the companion control overlap slide content, the HUD, or overview.
-- When a deck is embedded, companion links must target the top-level page or a
-  new tab rather than navigating only inside the iframe.
+- Do not let the related-works control overlap slide content, the HUD, or
+  overview mode.
+- Related links target the top-level page (`target="_top"` or `_blank`), never
+  navigating only inside the deck's own DOM.
 
 ### External Books And Future Media
 
-- Use a local overview or introduction as the primary output when one exists.
-- Keep the complete external book, video, or audio as a sibling output.
+- Use a local overview or introduction as a work when one exists.
+- Keep the complete external book, video, or audio as a sibling work with
+  `external: true`.
 - Clearly show host and external-link behavior without visually demoting the
-  external output.
+  external work.
 - Do not require a local proxy page solely to hide an external URL.
+
+## Bilingual Visibility
+
+A work appears in the EN Library only if it has `url_en`, and in the ZH
+Library only if it has `url_zh`. Monolingual works are hidden from the locale
+they lack a URL for. Related-works links follow the same rule: a related work
+without a URL for the current locale is omitted from the section in that locale.
 
 ## Implementation Phases
 
 ### Phase 1: Manifest Foundation
 
-1. Add `source/_data/works.yml` with the existing book and Palantir outputs.
-2. Add explicit `work_key` and `output_id` metadata to related posts.
-3. Add work identity metadata to each related deck.
-4. Add a small theme helper that resolves a work, locale, current output, and
-   primary output without duplicating lookup logic across templates.
+1. Add `source/_data/works.yml` with the Palantir article, both Palantir
+   decks, and the Coding with Agents book as flat entries.
+2. Add a single `work_key` field to the Palantir article's front matter.
+3. Add a theme helper that resolves a work by key and locale, returning
+   title, URL, type, and related works filtered to the current locale.
+4. Add a build-time validator (Hexo helper, no new dependency) that checks
+   key uniqueness, related-key existence, post `work_key` binding, URL
+   resolution, and warns on missing bidirectional reverse links.
 
 Verify:
 
-- Every manifest key and output ID is unique.
+- Every manifest key is unique.
+- Every `related` key exists as a work.
+- Every post `work_key` references an existing work.
 - Every local URL resolves in generated output.
-- Every localized output falls back explicitly when a translation is absent.
 - Existing book and article URLs remain unchanged.
 
 ### Phase 2: Unified Library
 
 1. Build localized `/library/` and `/library-zh/` pages from the manifest.
-2. Render one row per work with direct format links.
-3. Extend the existing filter/search behavior to support topic and format.
+2. Render one row per artifact with a direct link to the work's locale URL.
+3. Extend the existing filter/search behavior to support topic and format
+   filters that compose with search.
 4. Update the primary navigation and homepage copy from Writing to Library.
-5. Preserve old archive routes through compatibility pages or redirects.
+5. Preserve old archive routes through compatibility redirects.
 6. Remove `source/_data/books.yml` only after no template reads it.
 
 Verify:
 
-- Work counts do not increase when additional formats are added.
 - Topic and format filters compose correctly.
 - Search works in English and Chinese.
+- A topic with an article and two decks renders three rows.
 - Keyboard focus order follows visual order.
-- Old Writing and Technical Notes URLs still lead to valid content.
+- Old Writing and Technical Notes URLs redirect to Library.
+- Monolingual works are hidden from the locale they lack a URL for.
 
-### Phase 3: Bidirectional Format Rail
+### Phase 3: Related-Works Section
 
-1. Add a shared EJS partial for the format rail.
-2. Render it in article and note layouts from front matter plus the manifest.
-3. Replace the Palantir article's opening slide iframe with a cover preview.
-4. Add localized format labels, durations, counts, current state, and external
-   indicators.
+1. Add a shared EJS partial for the "ALSO AVAILABLE AS" section.
+2. Render it in article and note layouts from `work_key` plus the manifest,
+   after the existing slide iframe and before the body.
+3. Add localized link verbs, slide counts, external indicators, and new-tab
+   behavior.
 
 Verify:
 
-- Every article-to-slide link has a corresponding slide-to-article link.
-- Multiple slide decks remain distinguishable by label, not type alone.
-- Missing optional metadata degrades without empty labels or broken layout.
-- The rail wraps without clipping at mobile widths.
+- Every article-to-deck link has a corresponding deck-to-article link.
+- Multiple slide decks remain distinguishable by title, not type alone.
+- The section omits cleanly when no related works exist for the current
+  locale.
+- The section wraps without clipping at mobile widths.
 
 ### Phase 4: Standalone Deck Integration
 
-1. Generate a public JSON representation of the relevant manifest fields during
-   the Hexo build.
-2. Add a small shared deck script that reads `window.DECK`, loads the manifest,
-   and renders companion links.
-3. Add a primary-output action to each deck's closing slide.
-4. Keep decks usable if the manifest request fails by hiding only the companion
-   control.
+1. Add a related-works control to each Palantir deck's static HTML with
+   hardcoded links to the article and sibling deck.
+2. Add a primary-peer action (`Read article`) to each deck's closing slide.
+3. Ensure links target the top-level page, never the deck's internal DOM.
 
 Verify:
 
-- Directly opened decks expose the article and sibling outputs.
-- Decks embedded in another page do not trap companion navigation in the iframe.
+- Directly opened decks expose the article and sibling deck.
+- The control does not overlap slide content, the HUD, or overview mode.
 - Arrow-key navigation, overview mode, resizing, and print styles still work.
-- A failed manifest request does not affect slide rendering or navigation.
+- Embedded decks (via iframe inside articles) do not trap related-works
+  navigation in the iframe.
 
 ### Phase 5: Validation And Documentation
 
-1. Update `design/DESIGN.md`, `CLAUDE.md`, and repository guidance affected by
+1. Update `design/DESIGN.md`, `AGENTS.md`, and repository guidance affected by
    the new Library model. Update each Markdown file's `Last updated` date.
-2. Run `yarn clean && yarn build`.
-3. Preview with `yarn server`.
-4. Use the browser harness to inspect desktop and mobile Library, article, and
+2. Keep this exec plan coherent with the OpenSpec change `add-library`.
+3. Run `yarn clean && yarn build`.
+4. Preview with `yarn server`.
+5. Use the browser harness to inspect desktop and mobile Library, article, and
    standalone deck views in both languages.
-5. Check keyboard navigation, focus visibility, theme switching, language
+6. Check keyboard navigation, focus visibility, theme switching, language
    switching, internal links, and external-link behavior.
 
 Verify:
 
 - Build completes without warnings introduced by this work.
-- No broken local URLs exist in the manifest or rendered format rails.
+- No broken local URLs exist in the manifest or rendered related-works
+  sections.
 - No controls overlap or resize unexpectedly at desktop and mobile widths.
 - Light and dark themes preserve readable contrast.
 - Generated slide canvases are visible and correctly framed.
@@ -281,20 +317,26 @@ Verify:
 ## Acceptance Criteria
 
 - Primary navigation exposes Library rather than separate media-format sections.
-- Library displays each work once and exposes all available formats.
+- Library displays each artifact as its own row; a multi-format topic renders
+  multiple rows, one per work.
 - Readers can filter the same collection by topic and by format.
 - Every related article and slide deck links in both directions.
-- Books and future external media participate in the same model.
+- Books and future external media participate in the same model as peer works.
 - All relationships come from `works.yml`; templates do not maintain parallel
   URL lists.
 - Existing public content URLs continue to work.
 - English pages show English interface copy and Chinese pages show Chinese copy.
+- Monolingual works are hidden from the locale they lack a URL for.
 - No new runtime or build dependency is introduced.
 - Desktop and mobile verification passes before deployment.
 
 ## Non-Goals
 
 - Rewriting article, book, or slide content.
+- Merging the two Palantir decks (they have distinct editorial angles).
+- Adopting a nested "one work, many outputs" model (rejected for this inventory).
+- Removing the `{% slides %}` iframe from article introductions.
+- Runtime manifest fetch for standalone decks (hardcoding links instead).
 - Hosting external books or media locally.
 - Creating a top-level page for every format.
 - Introducing accounts, progress tracking, recommendations, or analytics.

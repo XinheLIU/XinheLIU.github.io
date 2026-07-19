@@ -3,15 +3,13 @@
     var navItems = isChinese
         ? [
             { label: '首页', path: '/home-zh/' },
-            { label: '写作', path: '/writing-zh/' },
-            { label: '技术笔记', path: '/technical-notes-zh/' },
+            { label: '图书馆', path: '/library-zh/' },
             { label: '项目', path: '/projects-zh/' },
             { label: '个人信息和联系方式', path: '/about-zh/' }
         ]
         : [
             { label: 'Home', path: '/' },
-            { label: 'Writing', path: '/writing/' },
-            { label: 'Technical Notes', path: '/technical-notes/' },
+            { label: 'Library', path: '/library/' },
             { label: 'Projects', path: '/projects/' },
             { label: 'About & Contact', path: '/about/' }
         ];
@@ -38,7 +36,7 @@
 
     <div class="mobile-nav-actions">
         <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="<%= isChinese ? '搜索' : 'Search' %>">
-            <i class="fas fa-search"></i>
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </a>
         <a class="lang-switch" href="<%- url_for(langSwitchHref) %>"><%= isChinese ? 'EN' : '中' %></a>
         <button class="theme-toggle" type="button" data-theme-toggle>●</button>

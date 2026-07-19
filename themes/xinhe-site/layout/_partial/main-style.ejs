@@ -1,7 +1,16 @@
 <%- partial('_partial/background') %>
 <%- partial('_partial/cover-style') %>
 
+<%
+    // These layouts carry no fa- icon usage (header/search/back-top icons are inline SVG).
+    // Everything else (post pages, taxonomy pages, friends) still needs FontAwesome.
+    // The auto-generated home route ("/") has no page.layout, so is_home() covers it.
+    var faFreeLayouts = ['home', 'library', 'projects', 'about'];
+    var needsFontAwesome = !is_home() && faFreeLayouts.indexOf(page.layout) === -1;
+%>
+<% if (needsFontAwesome) { %>
 <link rel="stylesheet" type="text/css" href="<%- theme.jsDelivr.url %><%- url_for(theme.libs.css.fontAwesome) %>">
+<% } %>
 <link rel="stylesheet" type="text/css" href="<%- theme.jsDelivr.url %><%- url_for(theme.libs.css.materialize) %>">
 <link rel="stylesheet" type="text/css" href="<%- theme.jsDelivr.url %><%- url_for(theme.libs.css.aos) %>">
 <link rel="stylesheet" type="text/css" href="<%- theme.jsDelivr.url %><%- url_for(theme.libs.css.animate) %>">

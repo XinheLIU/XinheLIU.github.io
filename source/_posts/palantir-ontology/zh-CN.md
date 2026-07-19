@@ -18,6 +18,7 @@ site_locale: zh-CN
 lang_switch: /writing/palantir-ontology/
 featured_asset: /images/palantir-ontology/ontology-system.png
 last_updated: 2026-07-18
+work_key: palantir-article
 ---
 
 # Palantir Ontology 深度解构：当本体从"描述世界"走向"驱动世界"

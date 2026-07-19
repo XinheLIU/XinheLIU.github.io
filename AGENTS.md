@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Last updated: 2026-06-06
+Last updated: 2026-07-19
 
 This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
@@ -37,13 +37,20 @@ yarn clean && yarn deploy
 ```
 _config.yml          # site-wide Hexo config (theme, deploy target, markdown options)
 source/_posts/       # bilingual article folders with en.md / zh-CN.md pairs
-source/writing/      # writing archive landing pages
-source/technical-notes/ # technical notes landing pages
+source/library/      # Library landing page (English)
+source/library-zh/   # Library landing page (Chinese)
+source/writing/      # writing archive — compatibility redirect to /library/
+source/writing-zh/   # writing archive (Chinese) — compatibility redirect to /library-zh/
+source/technical-notes/      # technical notes archive — compatibility redirect to /library/
+source/technical-notes-zh/  # technical notes (Chinese) — compatibility redirect to /library-zh/
 source/projects/     # projects landing pages
 source/about/        # merged About & Contact entry
 source/about-zh/     # Chinese personal information and contact entry
 source/contact/      # compatibility redirect to /about/
+source/_data/works.yml   # flat source of truth for Library and related-works linking
 themes/xinhe-site/   # active theme; customizations go here
+themes/xinhe-site/scripts/work-manifest.js     # theme helpers (getWork, getRelatedWorks, getAllWorks)
+themes/xinhe-site/scripts/work-validator.js   # build-time manifest integrity validator
 scaffolds/           # templates for new posts/pages
 public/              # generated output (gitignored on source branch)
 .deploy_git/         # working tree used by hexo-deployer-git for the main branch
@@ -78,6 +85,7 @@ summary_zh:
 topic_cluster:
 public_focus:
 confidentiality_safe: true
+work_key:         # bound to a key in source/_data/works.yml
 last_updated:
 ---
 ```

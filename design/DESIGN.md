@@ -1,6 +1,6 @@
 # Charles Personal Site Design System
 
-Last updated: 2026-05-31
+Last updated: 2026-07-19
 
 ## Purpose
 
@@ -10,11 +10,10 @@ The system is designed for Hexo + `xinhe-site` on GitHub Pages. Implementation s
 
 ## Product Model
 
-Public navigation has five destinations:
+Public navigation has four destinations:
 
 - Home
-- Writing
-- Technical Notes
+- Library
 - Projects
 - About & Contact
 
@@ -52,17 +51,20 @@ Avoid:
 
 The site has two switchable themes controlled by `data-theme` on `:root`.
 
-Light theme:
+Light theme (Anthropic / Claude-like warm editorial surface):
 
-- White/Apple-like personal website surface.
-- `--bg: #fbfbfd`
-- `--surface: #f5f5f7`
-- `--surface-warm: #ffffff`
-- `--fg: #1d1d1f`
-- `--muted: #6e6e73`
-- `--accent: #0071e3`
+- Tinted cream canvas with warm ink text and one scarce coral accent. Deliberately warm — not the cool gray-white of most AI tools. Cards sit one step *darker* than the canvas (color-block depth, not white-on-white elevation).
+- `--bg: #faf9f5` (cream canvas)
+- `--surface: #f5f0e8` (soft cream — chips, subtle fills)
+- `--surface-warm: #efe9de` (cream card — panels, cards, tinted sections)
+- `--fg: #141413` (warm ink — headlines and body)
+- `--muted: #6c6a64` (warm muted)
+- `--meta: #8e8b82`
+- `--border: #e6dfd8`, `--border-soft: #ebe6df` (warm hairlines)
+- `--accent: #cc785c` (Anthropic coral), `--accent-hover: #a9583e`, `--accent-on: #ffffff`
+- `--focus-ring: 0 0 0 3px rgba(204, 120, 92, 0.20)` (coral-tinted)
 
-Dark theme:
+Dark theme (unchanged — black/OpenAI-like technical reading surface):
 
 - Black/OpenAI-like technical reading surface.
 - `--bg: #0d0d0d`
@@ -78,16 +80,23 @@ The theme toggle is intentionally tiny: a circular 34px icon button using `●` 
 
 Use the shared CSS tokens in `themes/xinhe-site/source/css/xinhe-site.css`.
 
+The display face is a **serif** in both themes, tuned per theme for the theme's identity. It must be self-hosted (`woff2`, `font-display: swap`, preloaded) so it renders on every platform, not only Apple devices.
+
 English:
 
-- Display: `SF Pro Display`, `Söhne`, `Inter`, system sans.
-- Body: `SF Pro Text`, `Söhne`, `Inter`, system sans.
-- Mono: `Söhne Mono`, `JetBrains Mono`, Menlo, Consolas.
+- Display (light / cream): `Cormorant Garamond` at weight 500–600 with `-0.02em` tracking — the closest open-source stand-in for Anthropic's Copernicus / Tiempos Headline editorial serif. Fallback: `EB Garamond`, then `Georgia`, `ui-serif`, serif.
+- Display (dark): `Source Serif 4` (self-hosted successor to the design's `Source Serif Pro`), `Georgia`, `ui-serif`, serif.
+- Body (both themes): humanist sans — `-apple-system`, `SF Pro Text`, `Inter`, system sans. (`Inter` is the faithful substitute for Anthropic's StyreneB if a web body face is ever added.)
+- Mono: `JetBrains Mono`, Menlo, Consolas, monospace.
+
+Do not use a geometric or grotesk display face in the light theme — the Garamond serif is what carries the warm, literary editorial voice; a sans headline reverts the site to a generic AI-tool look.
 
 Chinese:
 
-- Display: `Songti SC`, `Noto Serif CJK SC`, `Source Han Serif SC`, `PingFang SC`.
-- Body: `PingFang SC`, `Noto Sans CJK SC`, `Microsoft YaHei`, system sans.
+- Display (both themes): `Noto Serif SC` (思源宋体) at weight 500–600 — a real multi-weight Song serif that renders crisp at display sizes. Latin glyphs inside a Chinese heading lead with `Source Serif 4` (the sibling superfamily of Source Han Serif / Noto Serif SC, so the two read as one type system), then `Source Han Serif SC`, serif. Load only the heading serif; body needs no CJK web font.
+- Do **not** use `Songti SC` for headings — it has no true bold, so a synthesized faux-bold renders lumpy. Do **not** pair a high-contrast Latin serif (e.g. Cormorant Garamond) with a CJK serif — the weight/contrast mismatch looks broken.
+- Body: `PingFang SC`, `Microsoft YaHei`, `Noto Sans SC`, system sans — a clean humanist sans, system-present on every platform.
+- CJK type rules: no negative letter-spacing (glyphs are square); body line-height `1.8`, heading line-height `1.3–1.4`.
 
 Scale:
 
@@ -168,9 +177,10 @@ Cards:
 
 Buttons:
 
-- Primary actions use foreground fill (`--fg`) with background text (`--bg`).
-- Secondary actions use a border and neutral surface.
-- Accent/teal actions are reserved for rare generated or highlighted states.
+- Light (cream) theme: the primary CTA uses the coral accent fill (`--accent`) with white text (`--accent-on`) — the signature Anthropic voltage. Keep coral scarce: primary buttons and rare full-bleed callouts only, never scattered across small elements.
+- Dark theme: primary actions keep the foreground fill (`--fg`) with background text (`--bg`) — unchanged.
+- Secondary actions use a border and neutral surface in both themes.
+- Reserve the dark-theme teal accent for rare generated or highlighted states.
 
 Archive rows:
 
@@ -250,6 +260,12 @@ About & Contact:
 - It should feel like a compact resume intro.
 - Contact copy should invite focused technical conversations, not sales inquiries.
 
+Article / post pages:
+
+- Lead with a quiet typographic header on the normal page surface — no full-bleed photo banner. Order: eyebrow (topic cluster / category) → serif title in the display face (`--fg` ink, not white) → a mono meta row (date · reading time · tags as quiet pills) → a thin hairline.
+- Do **not** auto-assign decorative stock banners (retire `theme.featureImages` and the daily `/medias/banner/` mechanism). A bright photographic hero is the "oversized hero / decorative chrome" this system avoids.
+- A lead image is opt-in only: when a post sets `img`, render it *below* the header as a contained, rounded, toned-down image card — never full-bleed. Prefer the post's own diagram/preview asset over generic photography.
+
 ## Interaction Rules
 
 `themes/xinhe-site/source/js/xinhe-site.js` owns three interactions:
@@ -265,11 +281,12 @@ Do not add framework dependencies. Keep JavaScript small, static, and GitHub Pag
 Recommended implementation path:
 
 - Keep Hexo + `xinhe-site`.
-- Use Markdown pages for Home, Writing, Technical Notes, Projects, and About & Contact.
-- Use EJS partials for the shared header, footer, archive rows, and card components.
+- Use Markdown pages for Home, Library, Projects, and About & Contact.
+- Use EJS partials for the shared header, footer, archive rows, card components, and related-works panel.
 - Keep `themes/xinhe-site/source/css/xinhe-site.css` as the main override layer.
 - Keep `themes/xinhe-site/source/js/xinhe-site.js` as the small enhancement script.
-- Add front matter gradually for high-priority posts: `summary_en`, `summary_zh`, `topic_cluster`, `public_focus`, and preview image references.
+- Add front matter gradually for high-priority posts: `work_key`, `summary_en`, `summary_zh`, `topic_cluster`, `public_focus`, and preview image references.
+- Use `source/_data/works.yml` as the flat source of truth for the Library and related-works linking.
 
 Do not:
 

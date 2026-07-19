@@ -1,0 +1,45 @@
+<%
+var isChinese = (page.site_locale || '').indexOf('zh') === 0;
+if (!page.work_key) { return; }
+var relatedWorks = getRelatedWorks(page.work_key, page.site_locale);
+if (!relatedWorks.length) { return; }
+
+var typeLabels = isChinese
+    ? {
+        'article': 'Read',
+        'note': 'Read',
+        'slides': 'View slides',
+        'book': 'Read book',
+        'video': 'Watch',
+        'audio': 'Listen'
+    }
+    : {
+        'article': 'Read',
+        'note': 'Read',
+        'slides': 'View slides',
+        'book': 'Read book',
+        'video': 'Watch',
+        'audio': 'Listen'
+    };
+
+function externalIcon() {
+    return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 0.25rem;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>';
+}
+%>
+
+<div class="related-works" style="margin: 2rem 0; padding: 1rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <h3 style="margin: 0 0 1rem; font-size: 1.1rem; font-weight: 600;"><%= isChinese ? '也可以看' : 'Also available as' %></h3>
+    <div class="related-works-links" style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <% relatedWorks.forEach(function(work) { %>
+            <a href="<%- url_for(work.url) %>" style="display: inline-flex; align-items: center; padding: 0.5rem 1rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 0.5rem; text-decoration: none; color: var(--text);" <%= work.external ? 'target="_blank" rel="noopener"' : '' %>>
+                <%= typeLabels[work.type] || 'Read' %>
+                <% if (work.type === 'slides' && work.slide_count) { %>
+                    <span style="margin-left: 0.25rem; opacity: 0.7;">(<%= work.slide_count %>)</span>
+                <% } %>
+                <% if (work.external) { %>
+                    <%= externalIcon() %>
+                <% } %>
+            </a>
+        <% }); %>
+    </div>
+</div>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post header — preview</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Serif+SC:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+<style>
+/* ---- colors: theme-only ---- */
+:root{
+  --bg:#faf9f5; --surface:#f5f0e8; --surface-warm:#efe9de;
+  --fg:#141413; --fg-2:#000; --muted:#6c6a64; --meta:#8e8b82;
+  --border:#e6dfd8; --border-soft:#ebe6df;
+  --accent:#cc785c; --accent-on:#fff; --accent-hover:#a9583e;
+  --focus-ring:0 0 0 3px rgba(204,120,92,.20);
+  --font-mono:ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+  --radius-sm:12px; --radius-md:16px; --radius-pill:9999px;
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px;
+  --space-6:24px; --space-8:32px; --space-12:48px; --space-16:64px;
+  --motion-fast:150ms; --ease:cubic-bezier(.16,1,.3,1);
+  --container:1120px; --gutter:48px;
+}
+:root[data-theme="dark"]{
+  --bg:#0d0d0d; --surface:#1a1a1a; --surface-warm:#111;
+  --fg:#f5f5f5; --fg-2:#fff; --muted:#b7b7b7; --meta:#858585;
+  --border:#2a2a2a; --border-soft:#242424;
+  --accent:#10a37f; --accent-on:#fff; --accent-hover:#35c99f;
+  --focus-ring:0 0 0 3px rgba(16,163,127,.18);
+}
+/* ---- fonts: theme + language ---- */
+:root[data-lang="en"][data-theme="light"]{--font-display:"Cormorant Garamond",Georgia,ui-serif,serif;--tracking:-0.02em;--title-lh:1.08}
+:root[data-lang="en"][data-theme="dark"] {--font-display:"Source Serif 4",Georgia,ui-serif,serif;--tracking:-0.01em;--title-lh:1.1}
+:root[data-lang="zh"]{--font-display:"Source Serif 4","Noto Serif SC","Source Han Serif SC",serif;--tracking:0;--title-lh:1.35}
+:root[data-lang="en"]{--font-body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;--lh:1.7}
+:root[data-lang="zh"]{--font-body:"PingFang SC","Microsoft YaHei","Noto Sans SC",-apple-system,system-ui,sans-serif;--lh:1.85}
+
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--fg);font-family:var(--font-body);line-height:var(--lh);scroll-behavior:smooth;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{margin:0}
+a{color:inherit;text-decoration:none}
+.container{width:min(var(--container),calc(100% - var(--gutter)*2));margin:0 auto}
+a:focus-visible,button:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--radius-sm)}
+[lang-zh]{display:none}
+:root[data-lang="zh"] [lang-en]{display:none}
+:root[data-lang="zh"] [lang-zh]{display:revert}
+
+/* ---- header bar ---- */
+.hdr{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--border-soft);backdrop-filter:blur(18px)}
+.nav{display:flex;align-items:center;justify-content:space-between;min-height:64px}
+.brand{display:inline-flex;align-items:center;gap:var(--space-3)}
+.brand .mark{width:32px;height:32px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-family:var(--font-display);font-weight:600}
+.brand strong{font-size:16px;font-weight:600}
+.crumb{color:var(--muted);font-size:13px}
+.crumb a:hover{color:var(--fg)}
+
+/* ---- POST HEADER (the proposed redesign) ---- */
+.post-head{padding:72px 0 0;max-width:820px}
+.eyebrow{color:var(--muted);font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;margin:0 0 var(--space-5)}
+:root[data-lang="zh"] .eyebrow{font-family:var(--font-body);letter-spacing:.08em;text-transform:none}
+.post-title{font-family:var(--font-display);font-weight:600;letter-spacing:var(--tracking);line-height:var(--title-lh);
+  color:var(--fg);margin:0;font-size:clamp(34px,5vw,52px)}
+.post-meta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3);margin-top:var(--space-6);color:var(--meta);font-family:var(--font-mono);font-size:13px}
+.post-meta .dot{opacity:.5}
+.tags{display:inline-flex;flex-wrap:wrap;gap:var(--space-2);margin-left:var(--space-2)}
+.chip{background:var(--surface);color:var(--muted);border-radius:var(--radius-pill);font-family:var(--font-body);
+  font-size:12px;padding:5px 11px;line-height:1}
+.rule{border:0;border-top:1px solid var(--border);margin:var(--space-8) 0 0}
+
+/* ---- article + TOC ---- */
+.post-body{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:var(--space-16);padding:var(--space-12) 0 var(--space-16);align-items:start}
+.prose{max-width:680px}
+.prose h2{font-family:var(--font-display);font-weight:600;letter-spacing:var(--tracking);
+  font-size:clamp(24px,3vw,30px);margin:var(--space-8) 0 var(--space-4);color:var(--fg);line-height:1.3}
+.prose p{margin:0 0 var(--space-5);color:var(--fg)}
+.prose p.first::first-letter{font-family:var(--font-display);font-size:3.1em;float:left;line-height:.86;
+  padding:6px 10px 0 0;color:var(--accent)}
+.toc{position:sticky;top:88px;background:var(--surface-warm);border:1px solid var(--border-soft);border-radius:var(--radius-md);padding:var(--space-5)}
+.toc-title{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 var(--space-4)}
+:root[data-lang="zh"] .toc-title{font-family:var(--font-body);text-transform:none}
+.toc a{display:block;font-size:13px;line-height:1.5;color:var(--muted);padding:6px 0;border-left:2px solid transparent;padding-left:12px;
+  transition:color var(--motion-fast) var(--ease),border-color var(--motion-fast) var(--ease)}
+.toc a:hover{color:var(--fg)}
+.toc a.on{color:var(--accent);border-left-color:var(--accent);font-weight:500}
+
+/* harness */
+.harness{position:fixed;bottom:16px;right:16px;z-index:99;display:flex;gap:6px;background:var(--surface-warm);
+  border:1px solid var(--border);border-radius:var(--radius-pill);padding:6px 8px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.harness button{border:0;background:var(--surface);color:var(--fg);border-radius:var(--radius-pill);padding:6px 12px;font-size:12px;cursor:pointer;font-family:var(--font-body)}
+.harness button.on{background:var(--fg);color:var(--bg)}
+.harness .sep{width:1px;background:var(--border);margin:2px 2px}
+.banner{background:var(--surface);border-bottom:1px dashed var(--border);color:var(--muted);font-size:12px;padding:8px 0;text-align:center}
+@media (max-width:820px){.post-body{grid-template-columns:1fr}.toc{position:static}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <span lang-en>Proposed post header (item 9b) — no photo banner. Toggle theme + language ↘</span>
+  <span lang-zh>文章页新版页眉（方案 9b）——不用图片横幅。右下角切换主题与语言 ↘</span>
+</div>
+
+<header class="hdr">
+  <div class="container nav">
+    <a class="brand" href="#">
+      <span class="mark">昕</span>
+      <strong><span lang-en>Xinhe Liu (Charles)</span><span lang-zh>昕和</span></strong>
+    </a>
+    <span class="crumb">
+      <a href="#"><span lang-en>Writing</span><span lang-zh>写作</span></a>
+      <span class="dot"> / </span>
+      <span lang-en>Enterprise AI</span><span lang-zh>企业 AI</span>
+    </span>
+  </div>
+</header>
+
+<main class="container">
+  <!-- NEW typographic header: eyebrow → serif title → mono meta + pills → hairline -->
+  <header class="post-head">
+    <p class="eyebrow"><span lang-en>Enterprise AI · Writing</span><span lang-zh>企业 AI · 写作</span></p>
+    <h1 class="post-title">
+      <span lang-en>Deconstructing Palantir Ontology: When an Ontology Moves From Describing the World to Driving It</span>
+      <span lang-zh>解构 Palantir 本体论：当本体从描述世界转向驱动世界</span>
+    </h1>
+    <div class="post-meta">
+      <span>2026-07-18</span>
+      <span class="dot">·</span>
+      <span lang-en>12 min read</span><span lang-zh>阅读约 12 分钟</span>
+      <span class="tags">
+        <span lang-en><span class="chip">AI &amp; Machine Learning</span><span class="chip">Enterprise AI</span><span class="chip">Data Platforms</span></span>
+        <span lang-zh><span class="chip">人工智能与机器学习</span><span class="chip">企业 AI</span><span class="chip">数据平台</span></span>
+      </span>
+    </div>
+    <hr class="rule">
+  </header>
+
+  <div class="post-body">
+    <article class="prose">
+      <p class="first">
+        <span lang-en>An ontology used to be a description — a shared vocabulary that let teams agree on what a "customer" or a "shipment" was. Palantir's move is to make the ontology <em>act</em>: the same objects that describe the business also carry the functions that change it.</span>
+        <span lang-zh>本体过去只是一种描述——一套共享词汇，让团队对"客户"或"一批货"是什么达成一致。Palantir 的转变在于让本体<em>产生行动</em>：那些描述业务的对象，同时也承载着改变业务的函数。</span>
+      </p>
+      <h2><span lang-en>Why enterprises need a third kind of ontology</span><span lang-zh>为什么企业需要第三种本体论</span></h2>
+      <p>
+        <span lang-en>The "runaway" nature of large models forced an uncomfortable question: if an agent can write back to the system of record, what stops it? The answer is not a better prompt — it is an ontology that encodes permissions, side effects, and reversibility as first-class properties of every object.</span>
+        <span lang-zh>大模型的"失控"特性迫使我们面对一个不适的问题：如果智能体可以写回记录系统，谁来约束它？答案不是更好的提示词，而是一套把权限、副作用与可逆性编码为每个对象一等属性的本体。</span>
+      </p>
+      <p>
+        <span lang-en>This is where description ends and action begins. A read-only graph tells you the world exists; an actionable ontology tells you which changes are safe, who may make them, and how to undo them.</span>
+        <span lang-zh>描述到此为止，行动由此开始。只读图谱告诉你世界"是什么"；可执行的本体则告诉你哪些改动是安全的、谁可以做出改动，以及如何撤销。</span>
+      </p>
+    </article>
+
+    <aside class="toc">
+      <p class="toc-title"><span lang-en>On this page</span><span lang-zh>本页目录</span></p>
+      <nav>
+        <a class="on" href="#"><span lang-en>Why enterprises need a third ontology</span><span lang-zh>为什么需要第三种本体论</span></a>
+        <a href="#"><span lang-en>From description to action</span><span lang-zh>从描述到行动</span></a>
+        <a href="#"><span lang-en>The write-back problem</span><span lang-zh>写回问题</span></a>
+        <a href="#"><span lang-en>Permissions as properties</span><span lang-zh>把权限作为属性</span></a>
+      </nav>
+    </aside>
+  </div>
+</main>
+
+<div class="harness">
+  <button id="t-light" class="on">Light</button>
+  <button id="t-dark">Dark</button>
+  <span class="sep"></span>
+  <button id="l-en" class="on">EN</button>
+  <button id="l-zh">中文</button>
+</div>
+
+<script>
+var root=document.documentElement;
+function theme(t){root.setAttribute('data-theme',t);
+  t_light.classList.toggle('on',t==='light');t_dark.classList.toggle('on',t==='dark');}
+function lang(l){root.setAttribute('data-lang',l);root.setAttribute('lang',l==='zh'?'zh-CN':'en');
+  l_en.classList.toggle('on',l==='en');l_zh.classList.toggle('on',l==='zh');}
+var t_light=document.getElementById('t-light'),t_dark=document.getElementById('t-dark'),
+    l_en=document.getElementById('l-en'),l_zh=document.getElementById('l-zh');
+t_light.onclick=function(){theme('light')};t_dark.onclick=function(){theme('dark')};
+l_en.onclick=function(){lang('en')};l_zh.onclick=function(){lang('zh')};
+theme('light');lang('en');
+</script>
+</body>
+</html>

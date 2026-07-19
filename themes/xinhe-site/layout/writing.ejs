@@ -13,7 +13,8 @@
         return new Date(b.date) - new Date(a.date);
     });
 
-    var books = site.data && site.data.books ? site.data.books : [];
+    var allWorks = site.data && site.data.works ? site.data.works : [];
+    var books = allWorks.filter(function(work) { return work.type === 'book'; });
 
     var clusterButtons = isChinese
         ? [
@@ -144,15 +145,11 @@
                         <span class="tag"><%= clusterLabels[post.topic_cluster] || (isChinese ? '归档' : 'Archive') %></span>
                     </article>
                 <% }); %>
-                <article class="archive-row has-preview" data-topic="enterprise-ai">
-                    <div class="post-preview preview-grid"><span><%= isChinese ? '智能体 / 评估' : 'agent / eval' %></span></div>
-                    <div class="summary-stack">
-                        <span class="meta"><%= isChinese ? '公开主题' : 'Public theme' %> · <%= clusterLabels['enterprise-ai'] %></span>
-                        <h3><%= isChinese ? '企业 AI 工作流与智能体评估' : 'Enterprise AI agents and workflow evaluation' %></h3>
-                        <p><%= isChinese ? '这一主题暂时保留为公开写作方向：智能体工作流、评估、升级路径、治理与人工复核。' : 'This public track is reserved for future notes on agent workflows, evaluation, escalation, governance, and human review.' %></p>
-                    </div>
-                    <span class="tag"><%= clusterLabels['enterprise-ai'] %></span>
-                </article>
+            </div>
+
+            <div class="empty-state is-hidden" data-empty-state>
+                <strong><%= isChinese ? '没有符合该筛选或搜索的写作。' : 'No writing matches that filter or search.' %></strong>
+                <%= isChinese ? '清除搜索或换一个主题。' : 'Clear the search or pick a different topic.' %>
             </div>
 
             <div class="archive-utilities">

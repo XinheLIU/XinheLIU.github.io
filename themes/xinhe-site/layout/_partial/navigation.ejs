@@ -5,15 +5,13 @@
     var navItems = isChinese
         ? [
             { key: 'home', label: '首页', path: '/home-zh/' },
-            { key: 'writing', label: '写作', path: '/writing-zh/' },
-            { key: 'technical-notes', label: '技术笔记', path: '/technical-notes-zh/' },
+            { key: 'library', label: '图书馆', path: '/library-zh/' },
             { key: 'projects', label: '项目', path: '/projects-zh/' },
             { key: 'about', label: '个人信息和联系方式', path: '/about-zh/' }
         ]
         : [
             { key: 'home', label: 'Home', path: '/' },
-            { key: 'writing', label: 'Writing', path: '/writing/' },
-            { key: 'technical-notes', label: 'Technical Notes', path: '/technical-notes/' },
+            { key: 'library', label: 'Library', path: '/library/' },
             { key: 'projects', label: 'Projects', path: '/projects/' },
             { key: 'about', label: 'About & Contact', path: '/about/' }
         ];
@@ -41,12 +39,12 @@
 
 <div class="nav-actions utility-actions">
     <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="<%= searchTitle %>" aria-label="<%= searchTitle %>">
-        <i class="fas fa-search"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
     </a>
     <a class="lang-switch" href="<%- url_for(langSwitchHref) %>" title="<%= langSwitchTitle %>" aria-label="<%= langSwitchTitle %>"><%= langSwitchLabel %></a>
     <button class="theme-toggle" type="button" data-theme-toggle title="<%= themeTitle %>" aria-label="<%= themeTitle %>">●</button>
     <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="<%= isChinese ? '打开菜单' : 'Open menu' %>">
-        <i class="fas fa-bars"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </a>
 </div>
 

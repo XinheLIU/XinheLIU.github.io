@@ -1,0 +1,225 @@
+<%
+    var isChinese = (page.site_locale || '').indexOf('zh') === 0;
+    var works = getAllWorks(page.site_locale);
+    works.sort(function(a, b) {
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        return new Date(b.date) - new Date(a.date);
+    });
+
+    var clusterButtons = isChinese
+        ? [
+            { key: 'all', label: '全部' },
+            { key: 'ads-systems', label: '广告系统' },
+            { key: 'recommendation', label: '推荐系统' },
+            { key: 'experimentation', label: '实验' },
+            { key: 'causal-measurement', label: '因果' },
+            { key: 'enterprise-ai', label: '企业 AI' },
+            { key: 'agentic-engineering', label: '智能体工程' }
+        ]
+        : [
+            { key: 'all', label: 'All' },
+            { key: 'ads-systems', label: 'Ads systems' },
+            { key: 'recommendation', label: 'Recommendation' },
+            { key: 'experimentation', label: 'Experimentation' },
+            { key: 'causal-measurement', label: 'Causal' },
+            { key: 'enterprise-ai', label: 'Enterprise AI' },
+            { key: 'agentic-engineering', label: 'Agentic engineering' }
+        ];
+
+    var formatButtons = isChinese
+        ? [
+            { key: 'all', label: '全部' },
+            { key: 'article', label: '文章' },
+            { key: 'note', label: '笔记' },
+            { key: 'slides', label: '幻灯片' },
+            { key: 'book', label: '书' },
+            { key: 'video', label: '视频' },
+            { key: 'audio', label: '音频' }
+        ]
+        : [
+            { key: 'all', label: 'All' },
+            { key: 'article', label: 'Articles' },
+            { key: 'note', label: 'Notes' },
+            { key: 'slides', label: 'Slides' },
+            { key: 'book', label: 'Books' },
+            { key: 'video', label: 'Video' },
+            { key: 'audio', label: 'Audio' }
+        ];
+
+    var clusterLabels = isChinese
+        ? {
+            'ads-systems': '广告系统',
+            'recommendation': '推荐系统',
+            'experimentation': '实验',
+            'causal-measurement': '因果测量',
+            'enterprise-ai': '企业 AI',
+            'agentic-engineering': '智能体工程'
+        }
+        : {
+            'ads-systems': 'Ads systems',
+            'recommendation': 'Recommendation',
+            'experimentation': 'Experimentation',
+            'causal-measurement': 'Causal measurement',
+            'enterprise-ai': 'Enterprise AI',
+            'agentic-engineering': 'Agentic engineering'
+        };
+
+    var typeLabels = isChinese
+        ? {
+            'article': '文章',
+            'note': '笔记',
+            'slides': '幻灯片',
+            'book': '书',
+            'video': '视频',
+            'audio': '音频'
+        }
+        : {
+            'article': 'Article',
+            'note': 'Note',
+            'slides': 'Slides',
+            'book': 'Book',
+            'video': 'Video',
+            'audio': 'Audio'
+        };
+
+    function externalIcon() {
+        return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>';
+    }
+%>
+
+<main class="content site-page-main">
+    <section class="container hero-narrow">
+        <p class="eyebrow"><%= isChinese ? '图书馆' : 'Library' %></p>
+        <h1 class="page-title"><%= isChinese ? '技术长文、工作笔记、图示、书和幻灯片，按稳定主题长期整理。' : 'Essays, notes, diagrams, books, and slides from an engineer’s working archive.' %></h1>
+        <p class="lead"><%= isChinese ? '可搜索、有图片预览、按主题和格式筛选的图书馆。' : 'A searchable library with visual previews and filters by topic and format.' %></p>
+    </section>
+
+    <section class="section compact">
+        <div class="container">
+            <div class="filter-bar" aria-label="<%= isChinese ? '图书馆筛选' : 'Library filters' %>">
+                <div class="filter-group">
+                    <span style="margin-right: 1rem; font-weight: 500;"><%= isChinese ? '主题：' : 'Topic:' %></span>
+                    <% clusterButtons.forEach(function(button, index) { %>
+                        <button class="filter-button <%= index === 0 ? 'is-active' : '' %>" type="button" data-topic="<%= button.key %>"><%= button.label %></button>
+                    <% }); %>
+                </div>
+                <div class="filter-group">
+                    <span style="margin-right: 1rem; font-weight: 500;"><%= isChinese ? '格式：' : 'Format:' %></span>
+                    <% formatButtons.forEach(function(button, index) { %>
+                        <button class="filter-button <%= index === 0 ? 'is-active' : '' %>" type="button" data-format="<%= button.key %>"><%= button.label %></button>
+                    <% }); %>
+                </div>
+                <input class="search-field" type="search" data-search aria-label="<%= isChinese ? '搜索图书馆' : 'Search library' %>" placeholder="<%= isChinese ? '搜索主题、标题或摘要' : 'Search topic, title, or summary' %>">
+            </div>
+
+            <div class="archive-list">
+                <% works.forEach(function(work) { %>
+                    <article class="archive-row has-preview" data-topic="<%= work.topic_cluster || 'all' %>" data-format="<%= work.type %>" data-title="<%= (work.title || '').toLowerCase() %>" data-summary="<%= (work.summary || '').toLowerCase() %>">
+                        <% if (work.featured_asset) { %>
+                            <a class="post-preview post-preview-image" href="<%- url_for(work.url) %>" <%= work.external ? 'target="_blank" rel="noopener"' : '' %>>
+                                <img src="<%- url_for(work.featured_asset) %>" alt="<%= work.title %>">
+                            </a>
+                        <% } else { %>
+                            <a class="post-preview preview-grid" href="<%- url_for(work.url) %>" <%= work.external ? 'target="_blank" rel="noopener"' : '' %>>
+                                <span><%= typeLabels[work.type] || (isChinese ? '归档' : 'Archive') %></span>
+                            </a>
+                        <% } %>
+                        <div class="summary-stack">
+                            <span class="meta">
+                                <% if (work.date) { %><%= date(work.date, 'YYYY-MM-DD') %> · <% } %>
+                                <%= clusterLabels[work.topic_cluster] || '' %>
+                                · <%= typeLabels[work.type] || '' %>
+                            </span>
+                            <h3>
+                                <a class="archive-row-link" href="<%- url_for(work.url) %>" <%= work.external ? 'target="_blank" rel="noopener"' : '' %>>
+                                    <%= work.title %>
+                                    <% if (work.external) { %>
+                                        <span style="margin-left: 0.5rem; display: inline-flex; vertical-align: middle;"><%= externalIcon() %></span>
+                                    <% } %>
+                                </a>
+                            </h3>
+                            <p><%= work.summary %></p>
+                            <% if (work.type === 'slides' && work.slide_count) { %>
+                                <span style="font-size: 0.9rem; color: var(--text-muted);"><%= work.slide_count %> <%= isChinese ? '页' : 'slides' %></span>
+                            <% } %>
+                        </div>
+                        <span class="tag"><%= typeLabels[work.type] || '' %></span>
+                    </article>
+                <% }); %>
+            </div>
+
+            <div class="empty-state is-hidden" data-empty-state>
+                <strong><%= isChinese ? '没有符合该筛选或搜索的内容。' : 'No content matches that filter or search.' %></strong>
+                <%= isChinese ? '清除搜索或换一个筛选条件。' : 'Clear the search or try a different filter.' %>
+            </div>
+
+            <div class="archive-utilities">
+                <div class="footer-links">
+                    <a href="<%- url_for(isChinese ? '/archives-zh/' : '/archives/') %>"><%= isChinese ? '全部归档' : 'Full archives' %></a>
+                    <a href="<%- url_for('/categories/') %>"><%= isChinese ? '分类' : 'Categories' %></a>
+                    <a href="<%- url_for('/tags/') %>"><%= isChinese ? '标签' : 'Tags' %></a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+(function() {
+    var topicButtons = document.querySelectorAll('[data-topic]');
+    var formatButtons = document.querySelectorAll('[data-format]');
+    var searchInput = document.querySelector('[data-search]');
+    var items = document.querySelectorAll('.archive-row');
+    var emptyState = document.querySelector('[data-empty-state]');
+
+    function update() {
+        var activeTopic = document.querySelector('[data-topic].is-active')?.getAttribute('data-topic');
+        var activeFormat = document.querySelector('[data-format].is-active')?.getAttribute('data-format');
+        var searchTerm = searchInput?.value?.toLowerCase() || '';
+        var visibleCount = 0;
+
+        items.forEach(function(item) {
+            var itemTopic = item.getAttribute('data-topic');
+            var itemFormat = item.getAttribute('data-format');
+            var itemTitle = item.getAttribute('data-title');
+            var itemSummary = item.getAttribute('data-summary');
+            var matchesTopic = activeTopic === 'all' || itemTopic === activeTopic;
+            var matchesFormat = activeFormat === 'all' || itemFormat === activeFormat;
+            var matchesSearch = searchTerm === '' || itemTitle.includes(searchTerm) || itemSummary.includes(searchTerm);
+            var visible = matchesTopic && matchesFormat && matchesSearch;
+
+            if (visible) {
+                visibleCount++;
+                item.classList.remove('is-hidden');
+            } else {
+                item.classList.add('is-hidden');
+            }
+        });
+
+        if (visibleCount === 0) {
+            emptyState.classList.remove('is-hidden');
+        } else {
+            emptyState.classList.add('is-hidden');
+        }
+    }
+
+    topicButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            topicButtons.forEach(function(b) { b.classList.remove('is-active'); });
+            button.classList.add('is-active');
+            update();
+        });
+    });
+
+    formatButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            formatButtons.forEach(function(b) { b.classList.remove('is-active'); });
+            button.classList.add('is-active');
+            update();
+        });
+    });
+
+    searchInput?.addEventListener('input', update);
+})();
+</script>

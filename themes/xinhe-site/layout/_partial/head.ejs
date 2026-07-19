@@ -62,20 +62,60 @@
     } else if (faviconExt === 'ico') {
         iconType = 'image/x-icon, image/vnd.microsoft.icon'
     }
+
+    // Display webfonts: load Noto Serif SC only on Chinese pages; Latin serifs elsewhere.
+    var headIsChinese = (page.site_locale || '').indexOf('zh') === 0;
+    var fontFamilies = headIsChinese
+        ? 'Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Noto+Serif+SC:wght@500;600;700'
+        : 'Cormorant+Garamond:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600';
+
+    // Open Graph / Twitter card
+    var ogType = (page.layout === 'post') ? 'article' : 'website';
+    var ogImage = config.url + url_for('/images/profile.png');
+    var ogUrl = config.url + url_for(page.path || '');
 %>
 
 <head>
     <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
     <meta name="keywords" content="<%= keyWords %>">
     <meta name="description" content="<%= description %>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="<%= ogType %>">
+    <meta property="og:title" content="<%= pageTitle %>">
+    <meta property="og:description" content="<%= description %>">
+    <meta property="og:url" content="<%= ogUrl %>">
+    <meta property="og:image" content="<%= ogImage %>">
+    <meta property="og:site_name" content="<%= config.title %>">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= pageTitle %>">
+    <meta name="twitter:description" content="<%= description %>">
+    <meta name="twitter:image" content="<%= ogImage %>">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=<%= fontFamilies %>&display=swap">
+
     <%- partial('_partial/google-analytics') %>
     <title><%= pageTitle %></title>
     <link rel="icon" type="<%= iconType %>" href="<%- theme.jsDelivr.url %><%- url_for(theme.favicon) %>">

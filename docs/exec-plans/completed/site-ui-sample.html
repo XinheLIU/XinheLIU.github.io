@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site UI polish — preview</title>
+
+<!-- Proposed self-hosted-in-production display faces (loaded from Google Fonts here for preview only) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+<style>
+/* ---- Tokens copied from themes/xinhe-site/source/css/xinhe-site.css ---- */
+:root{
+  /* PROPOSED light theme — Anthropic/Claude warm cream + coral */
+  --bg:#faf9f5; --surface:#f5f0e8; --surface-warm:#efe9de;
+  --fg:#141413; --fg-2:#000; --muted:#6c6a64; --meta:#8e8b82;
+  --border:#e6dfd8; --border-soft:#ebe6df;
+  --accent:#cc785c; --accent-on:#fff; --accent-hover:#a9583e; --success:#5db872;
+  --font-body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Sohne","Inter",system-ui,sans-serif;
+  --font-mono:ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+  /* PROPOSED: light display = warm editorial serif (Cormorant Garamond) */
+  --font-display:"Cormorant Garamond",Georgia,ui-serif,serif;
+  --text-xs:12px; --text-sm:13px; --text-base:16px; --text-lg:18px; --text-xl:20px;
+  --text-2xl:28px; --text-3xl:40px; --text-4xl:56px;
+  --tracking-display:-0.02em;
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px;
+  --space-6:24px; --space-8:32px; --space-12:48px; --space-16:64px;
+  --radius-sm:12px; --radius-md:16px; --radius-lg:16px; --radius-xl:20px; /* PROPOSED: define missing --radius-xl */
+  --radius-pill:9999px;
+  --elev-raised:0 4px 16px rgba(20,20,19,.06);
+  --focus-ring:0 0 0 3px rgba(204,120,92,.20);
+  --motion-fast:150ms; --motion-base:220ms; --ease-standard:cubic-bezier(.16,1,.3,1);
+  --container-max:1120px; --gutter:48px;
+}
+:root[data-theme="dark"]{
+  --bg:#0d0d0d; --surface:#1a1a1a; --surface-warm:#111;
+  --fg:#f5f5f5; --fg-2:#fff; --muted:#b7b7b7; --meta:#858585;
+  --border:#2a2a2a; --border-soft:#242424;
+  --accent:#10a37f; --accent-on:#fff; --accent-hover:#35c99f;
+  --focus-ring:0 0 0 3px rgba(16,163,127,.18);
+  --elev-raised:0 10px 30px rgba(0,0,0,.36);
+  /* PROPOSED: dark display = restrained serif (matches DESIGN.md "Source Serif Pro") */
+  --font-display:"Source Serif 4",Georgia,ui-serif,serif;
+}
+
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--fg);font-family:var(--font-body);line-height:1.65;scroll-behavior:smooth;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{margin:0;background:linear-gradient(180deg,var(--bg) 0%,var(--bg) 72%,var(--surface) 100%)}
+a{color:inherit;text-decoration:none}
+.container{width:min(var(--container-max),calc(100% - var(--gutter)*2));margin:0 auto}
+
+/* PROPOSED item 2 + 10: one focus-visible + active model for every control */
+a:focus-visible,button:focus-visible,input:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--radius-sm)}
+
+/* ---- Header ---- */
+.hdr{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--border-soft);backdrop-filter:blur(18px)}
+.nav{display:grid;grid-template-columns:minmax(180px,1fr) auto auto;align-items:center;gap:var(--space-8);min-height:72px}
+.brand{display:inline-flex;align-items:center;gap:var(--space-3)}
+.brand .mark{width:34px;height:34px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-weight:700;font-family:var(--font-display)}
+.brand strong{font-size:var(--text-base);font-weight:600;letter-spacing:-.01em}
+.site-nav{display:inline-flex;gap:var(--space-2);justify-self:center}
+.site-nav a{border-radius:var(--radius-pill);color:var(--muted);font-size:var(--text-sm);font-weight:500;padding:10px 12px;
+  transition:background var(--motion-fast) var(--ease-standard),color var(--motion-fast) var(--ease-standard)}
+.site-nav a:hover,.site-nav a.is-active{background:var(--surface);color:var(--fg)}
+.utils{display:inline-flex;gap:var(--space-1);justify-self:end}
+.circle{width:34px;height:34px;min-width:34px;border-radius:50%;border:1px solid var(--border);background:var(--surface-warm);
+  color:var(--muted);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;
+  transition:transform var(--motion-fast) var(--ease-standard),border-color var(--motion-fast) var(--ease-standard),color var(--motion-fast) var(--ease-standard)}
+.circle:hover{color:var(--fg);transform:translateY(-1px)}
+.circle:active{transform:translateY(0) scale(.96)} /* PROPOSED item 10 */
+.lang{font-size:var(--text-xs);font-weight:600}
+
+/* ---- Hero / type specimen ---- */
+.hero{padding:72px 0 40px;max-width:860px}
+.eyebrow{color:var(--muted);font-size:var(--text-xs);font-weight:500;letter-spacing:.04em;text-transform:uppercase;margin:0 0 var(--space-4)}
+.display-title{font-family:var(--font-display);font-size:var(--text-4xl);font-weight:600;letter-spacing:var(--tracking-display);
+  line-height:1.08;margin:0;text-wrap:pretty}
+.lead{color:var(--muted);font-size:var(--text-lg);line-height:1.6;margin:var(--space-6) 0 0;max-width:640px;text-wrap:pretty}
+.font-note{margin-top:var(--space-4);font-family:var(--font-mono);font-size:var(--text-xs);color:var(--meta)}
+
+/* ---- Buttons ---- */
+.actions{display:flex;gap:var(--space-3);margin-top:var(--space-8);flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 16px;border-radius:var(--radius-sm);
+  border:1px solid transparent;font-size:var(--text-sm);font-weight:500;cursor:pointer;
+  transition:background var(--motion-fast) var(--ease-standard),border-color var(--motion-fast) var(--ease-standard),transform var(--motion-fast) var(--ease-standard)}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)} /* PROPOSED item 10 */
+.btn-primary{background:var(--fg);color:var(--bg)}
+.btn-primary:hover{background:var(--fg-2)}
+.btn-secondary{background:var(--surface-warm);border-color:var(--border);color:var(--fg)}
+/* PROPOSED item 6b: coral primary CTA in light theme ONLY (dark keeps ink fill) */
+:root[data-theme="light"] .btn-primary{background:var(--accent);color:var(--accent-on)}
+:root[data-theme="light"] .btn-primary:hover{background:var(--accent-hover)}
+
+/* ---- Section ---- */
+.section{padding:var(--space-16) 0;border-top:1px solid var(--border-soft)}
+.section-head h2{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:600;margin:0 0 var(--space-2)}
+.section-head p{color:var(--muted);margin:0 0 var(--space-6)}
+
+/* ---- Filter bar + search ---- */
+.filter-bar{display:flex;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-6);flex-wrap:wrap}
+.filter-group{display:inline-flex;gap:var(--space-2);flex-wrap:wrap}
+.filter-button{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-pill);color:var(--muted);
+  min-height:36px;padding:0 13px;font-size:var(--text-sm);font-weight:500;cursor:pointer;
+  transition:background var(--motion-fast) var(--ease-standard),border-color var(--motion-fast) var(--ease-standard),color var(--motion-fast) var(--ease-standard)}
+.filter-button:hover,.filter-button.is-active{background:color-mix(in oklab,var(--accent),var(--bg) 91%);
+  border-color:color-mix(in oklab,var(--accent),var(--border) 60%);color:var(--accent-hover)}
+.filter-button:active{transform:translateY(1px)}
+.search-field{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--fg);
+  min-height:42px;padding:0 13px;width:260px;outline:none;
+  transition:border-color var(--motion-fast) var(--ease-standard),box-shadow var(--motion-fast) var(--ease-standard)}
+.search-field:focus{border-color:var(--accent);box-shadow:var(--focus-ring)}
+
+/* ---- Archive row ---- */
+.archive-list{border-top:1px solid var(--border)}
+.archive-row{display:grid;grid-template-columns:220px minmax(0,1fr) 160px;gap:var(--space-6);
+  padding:var(--space-6) 0;border-bottom:1px solid var(--border);align-items:start}
+.preview{border:1px solid var(--border-soft);border-radius:var(--radius-md);min-height:132px;
+  background:linear-gradient(135deg,color-mix(in oklab,var(--accent),var(--bg) 82%),transparent 58%),linear-gradient(180deg,var(--surface-warm),var(--surface))}
+.archive-row .meta{color:var(--muted);font-family:var(--font-mono);font-size:var(--text-sm)}
+.archive-row h3{font-size:var(--text-xl);font-weight:600;margin:var(--space-2) 0}
+.archive-row h3 a{transition:color var(--motion-fast) var(--ease-standard)}
+.archive-row h3 a:hover{color:var(--accent)}
+.archive-row p{color:var(--muted);font-size:var(--text-base);margin:0;max-width:560px}
+.tag{justify-self:end;border:1px solid var(--border);border-radius:var(--radius-pill);color:var(--muted);
+  font-size:var(--text-xs);padding:7px 10px;white-space:nowrap}
+
+/* PROPOSED item 8: empty state */
+.empty-state{background:var(--surface-warm);border:1px solid var(--border-soft);border-radius:var(--radius-md);
+  padding:var(--space-6);color:var(--muted);margin-top:var(--space-6)}
+.empty-state strong{color:var(--fg);display:block;margin-bottom:var(--space-1)}
+
+/* contribution cells */
+.grid{display:flex;gap:3px;margin-top:var(--space-4)}
+.col{display:flex;flex-direction:column;gap:3px}
+.cell{width:11px;height:11px;border-radius:2px;background:var(--surface);border:1px solid var(--border-soft)}
+.cell.l2{background:color-mix(in oklab,var(--success) 35%,var(--surface))}
+.cell.l4{background:color-mix(in oklab,var(--success) 75%,var(--surface))}
+
+/* PROPOSED item 5: branded, bilingual, in-system 404 (mini demo) */
+.demo-404{border:1px solid var(--border-soft);border-radius:var(--radius-md);background:var(--surface-warm);
+  padding:var(--space-12);text-align:left}
+.demo-404 .code{font-family:var(--font-mono);color:var(--accent);font-size:var(--text-sm)}
+.demo-404 h2{font-family:var(--font-display);font-size:var(--text-3xl);font-weight:600;margin:var(--space-3) 0 var(--space-2)}
+
+/* preview harness chrome (not part of the site) */
+.harness{position:fixed;bottom:16px;right:16px;z-index:99;display:flex;gap:8px;background:var(--surface-warm);
+  border:1px solid var(--border);border-radius:var(--radius-pill);padding:6px 8px;box-shadow:var(--elev-raised)}
+.harness button{border:0;background:var(--surface);color:var(--fg);border-radius:var(--radius-pill);padding:6px 12px;
+  font-size:12px;cursor:pointer}
+.harness button.on{background:var(--fg);color:var(--bg)}
+.banner{background:var(--surface);border-bottom:1px dashed var(--border);color:var(--muted);font-size:12px;
+  font-family:var(--font-mono);padding:8px 0;text-align:center}
+
+/* PROPOSED item 11: global reduced-motion guard */
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="banner">Static preview — approve the direction. Not wired into the live theme. Toggle theme ↘</div>
+
+<header class="hdr">
+  <div class="container nav">
+    <a class="brand" href="#"><span class="mark">X</span><strong>Xinhe Liu (Charles)</strong></a>
+    <nav class="site-nav">
+      <a class="is-active" href="#">Home</a>
+      <a href="#">Writing</a>
+      <a href="#">Technical Notes</a>
+      <a href="#">Projects</a>
+      <a href="#">About &amp; Contact</a>
+    </nav>
+    <div class="utils">
+      <button class="circle" title="Search" aria-label="Search">⌕</button>
+      <a class="circle lang" href="#" title="中文">中</a>
+      <button class="circle" id="tt" title="Theme" aria-label="Theme">○</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <!-- Type specimen -->
+  <section class="hero">
+    <p class="eyebrow">Personal site</p>
+    <h1 class="display-title">Essays, notes, and diagrams from an engineer's working archive.</h1>
+    <p class="lead">A searchable technical writing archive with visual previews and recurring systems topics — recommendation, ads, experimentation, and applied AI.</p>
+    <p class="font-note" id="fontnote"></p>
+    <div class="actions">
+      <button class="btn btn-primary">Read writing</button>
+      <button class="btn btn-secondary">About &amp; Contact</button>
+    </div>
+  </section>
+
+  <!-- Filters + archive + empty state -->
+  <section class="section">
+    <div class="section-head"><h2>Writing</h2><p>Filters, search, and per-post previews. Tab through to see the focus rings.</p></div>
+    <div class="filter-bar">
+      <div class="filter-group">
+        <button class="filter-button is-active">All</button>
+        <button class="filter-button">Ads systems</button>
+        <button class="filter-button">Recommendation</button>
+        <button class="filter-button">Experimentation</button>
+        <button class="filter-button">Causal</button>
+      </div>
+      <input class="search-field" type="search" placeholder="Search writing topics">
+    </div>
+    <div class="archive-list">
+      <article class="archive-row">
+        <a class="preview" href="#"></a>
+        <div>
+          <span class="meta">2025-11-14 · Ads systems</span>
+          <h3><a href="#">Bidding, allocation, and the measurement layer</a></h3>
+          <p>How ranking, retrieval, and allocation balance user value against marketplace constraints.</p>
+        </div>
+        <span class="tag">Ads systems</span>
+      </article>
+      <article class="archive-row">
+        <a class="preview" href="#"></a>
+        <div>
+          <span class="meta">2025-09-02 · Causal measurement</span>
+          <h3><a href="#">Separating lift from correlation with holdouts</a></h3>
+          <p>Attribution windows, counterfactual reasoning, and where naive dashboards mislead.</p>
+        </div>
+        <span class="tag">Causal</span>
+      </article>
+    </div>
+    <!-- PROPOSED item 8 -->
+    <div class="empty-state">
+      <strong>No writing matches that filter or search.</strong>
+      Clear the search or pick a different topic. (This block only appears when every row is hidden.)
+    </div>
+  </section>
+
+  <!-- Contribution snippet -->
+  <section class="section">
+    <div class="section-head"><h2>Writing activity</h2><p>Tokens unchanged — shown here in both themes.</p></div>
+    <div class="grid">
+      <div class="col"><span class="cell"></span><span class="cell l2"></span><span class="cell l4"></span><span class="cell"></span><span class="cell l2"></span></div>
+      <div class="col"><span class="cell l4"></span><span class="cell"></span><span class="cell l2"></span><span class="cell l4"></span><span class="cell"></span></div>
+      <div class="col"><span class="cell"></span><span class="cell l4"></span><span class="cell"></span><span class="cell l2"></span><span class="cell l4"></span></div>
+    </div>
+  </section>
+
+  <!-- 404 demo -->
+  <section class="section">
+    <div class="section-head"><h2>404 (proposed rewrite)</h2><p>In-system, bilingual, working same-tab home link — replaces the legacy Matery page.</p></div>
+    <div class="demo-404">
+      <span class="code">404</span>
+      <h2>This page doesn't exist.</h2>
+      <p class="lead" style="margin-top:0">The link may be old or mistyped. Head back home or search the writing archive.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#">Back to home</a>
+        <a class="btn btn-secondary" href="#">Search writing</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="harness">
+  <button id="h-dark" class="on">Dark</button>
+  <button id="h-light">Light</button>
+</div>
+
+<script>
+// Preview harness only. Production fix (plan item 3) inlines this in <head> before CSS to kill the theme flash.
+var root=document.documentElement, tt=document.getElementById('tt');
+function apply(t){root.setAttribute('data-theme',t);
+  tt.textContent = t==='dark'?'○':'●';
+  document.getElementById('h-dark').classList.toggle('on',t==='dark');
+  document.getElementById('h-light').classList.toggle('on',t==='light');
+  document.getElementById('fontnote').textContent =
+    t==='dark' ? 'display face: Source Serif 4 (dark) · body: system stack'
+               : 'display face: Cormorant Garamond (light) · body: system stack';
+}
+document.getElementById('h-dark').onclick=function(){apply('dark')};
+document.getElementById('h-light').onclick=function(){apply('light')};
+tt.onclick=function(){apply(root.getAttribute('data-theme')==='dark'?'light':'dark')};
+apply('light');
+</script>
+</body>
+</html>

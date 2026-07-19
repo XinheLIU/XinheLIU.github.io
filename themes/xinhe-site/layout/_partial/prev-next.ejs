@@ -1,295 +1,33 @@
 <%
-var hashCode = function (str) {
-    if (!str && str.length === 0) {
-        return 0;
-    }
-
-    var hash = 0;
-    for (var i = 0, len = str.length; i < len; i++) {
-        hash = ((hash << 5) - hash) + str.charCodeAt(i);
-        hash |= 0;
-    }
-    return hash;
-};
-
-var featureimg = '/medias/featureimages/0.jpg';
-var featureImages = theme.featureImages;
-
-// Calculate language-specific next and prev posts
-var isChinese = (page.site_locale || '').indexOf('zh') === 0;
-var languagePosts = [];
-site.posts.each(function(p) {
-    if (p.hide !== true) {
-        var pIsChinese = (p.site_locale || 'zh-CN').indexOf('zh') === 0;
-        if (pIsChinese === isChinese) {
-            languagePosts.push(p);
+    // Previous / next post navigation — quiet text cards, no stock-photo thumbnails.
+    var isChinese = (page.site_locale || '').indexOf('zh') === 0;
+    var languagePosts = [];
+    site.posts.each(function (p) {
+        if (p.hide !== true) {
+            var pIsChinese = (p.site_locale || 'zh-CN').indexOf('zh') === 0;
+            if (pIsChinese === isChinese) languagePosts.push(p);
         }
-    }
-});
-languagePosts.sort(function(a, b) {
-    return new Date(b.date) - new Date(a.date);
-});
-var currentIndex = languagePosts.findIndex(function(p) {
-    return p.path === page.path;
-});
-var prevPost = null;
-var nextPost = null;
-if (currentIndex !== -1) {
-    if (currentIndex + 1 < languagePosts.length) {
-        prevPost = languagePosts[currentIndex + 1];
-    }
-    if (currentIndex - 1 >= 0) {
-        nextPost = languagePosts[currentIndex - 1];
-    }
-}
+    });
+    languagePosts.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
+    var idx = languagePosts.findIndex(function (p) { return p.path === page.path; });
+    var prevPost = (idx !== -1 && idx + 1 < languagePosts.length) ? languagePosts[idx + 1] : null;
+    var nextPost = (idx > 0) ? languagePosts[idx - 1] : null;
+    var prevLabel = isChinese ? '上一篇' : 'Previous';
+    var nextLabel = isChinese ? '下一篇' : 'Next';
 %>
-
-<article id="prenext-posts" class="prev-next articles">
-    <div class="row article-row">
-        <% if (prevPost) { %>
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;<%= __('prev') %></div>
-            <div class="card">
-                <a href="<%- url_for(prevPost.path) %>">
-                    <div class="card-image">
-                        <% if (prevPost.img) { %>
-                        <img src="<%- url_for(prevPost.img) %>" class="responsive-img" alt="<%= prevPost.title %>">
-                        <% } else { %>
-                        <%
-                            var len = featureImages.length;
-                            var num = Math.abs(hashCode(prevPost.title) % len);
-                            featureimg = featureImages[num];
-                        %>
-                        <img src="<%- theme.jsDelivr.url %><%- url_for(featureimg) %>" class="responsive-img" alt="<%= prevPost.title %>">
-                        <% } %>
-                        <span class="card-title"><%= prevPost.title %></span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        <% if (prevPost.summary && prevPost.summary.length > 0) { %>
-                            <%- prevPost.summary %>
-                        <% } else { %>
-                            <%- strip_html(prevPost.excerpt).substring(0, 120) %>
-                        <% } %>
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i><%= date(prevPost.date, config.date_format) %>
-                        </span>
-                        <span class="publish-author">
-                            <% if (prevPost.categories && prevPost.categories.length > 0) { %>
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            <% prevPost.categories.forEach(category => { %>
-                            <a href="<%- url_for(category.path) %>" class="post-category">
-                                    <%- category.name %>
-                                </a>
-                            <% }); %>
-                            <% } else if (prevPost.author && prevPost.author.length > 0) { %>
-                            <i class="fas fa-user fa-fw"></i>
-                            <%- prevPost.author %>
-                            <% } else { %>
-                            <i class="fas fa-user fa-fw"></i>
-                            <%- config.author %>
-                            <% } %>
-                        </span>
-                    </div>
-                </div>
-                <% if(prevPost.tags && prevPost.tags.length > 0) { %>
-                <div class="card-action article-tags">
-                    <% prevPost.tags.forEach(tag => { %>
-                    <a href="<%- url_for(tag.path) %>">
-                        <span class="chip bg-color"><%= tag.name %></span>
-                    </a>
-                    <% }); %>
-                </div>
-                <% } %>
-            </div>
-        </div>
-        <% } else { %>
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;<%= __('curr') %>
-            </div>
-            <div class="card">
-                <a href="<%- url_for(page.path) %>">
-                    <div class="card-image">
-                        <% if (page.img) { %>
-                        <img src="<%- url_for(page.img) %>" class="responsive-img" alt="<%= page.title %>">
-                        <% } else { %>
-                        <%
-                            featureimg = featureImages[Math.abs(hashCode(page.title) % featureImages.length)];
-                        %>
-                        <img src="<%- theme.jsDelivr.url %><%- url_for(featureimg) %>" class="responsive-img" alt="<%= page.title %>">
-                        <% } %>
-                        <span class="card-title"><%= page.title %></span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        <% if (page.summary && page.summary.length > 0) { %>
-                            <%- page.summary %>
-                        <% } else { %>
-                            <%- strip_html(page.excerpt).substring(0, 120) %>
-                        <% } %>
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i><%= date(page.date, config.date_format) %>
-                            </span>
-                        <span class="publish-author">
-                            <% if (page.categories && page.categories.length > 0) { %>
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            <% page.categories.forEach(category => { %>
-                            <a href="<%- url_for(category.path) %>" class="post-category">
-                                    <%- category.name %>
-                                </a>
-                            <% }); %>
-                            <% } else if (page.author && page.author.length > 0) { %>
-                            <i class="fas fa-user fa-fw"></i>
-                            <%- page.author %>
-                            <% } else { %>
-                            <i class="fas fa-user fa-fw"></i>
-                            <%- config.author %>
-                            <% } %>
-                        </span>
-                    </div>
-                </div>
-
-                <% if(page.tags && page.tags.length > 0) { %>
-                <div class="card-action article-tags">
-                    <% page.tags.forEach(tag => { %>
-                    <a href="<%- url_for(tag.path) %>">
-                        <span class="chip bg-color"><%= tag.name %></span>
-                    </a>
-                    <% }); %>
-                </div>
-                <% } %>
-            </div>
-        </div>
-        <% } %>
-        <% if (nextPost) { %>
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                <%= __('next') %>&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="<%- url_for(nextPost.path) %>">
-                    <div class="card-image">
-                        <% if (nextPost.img) { %>
-                        <img src="<%- url_for(nextPost.img) %>" class="responsive-img" alt="<%= nextPost.title %>">
-                        <% } else { %>
-                        <%
-                            featureimg = featureImages[Math.abs(hashCode(nextPost.title) % featureImages.length)];
-                        %>
-                        <img src="<%- theme.jsDelivr.url %><%- url_for(featureimg) %>" class="responsive-img" alt="<%= nextPost.title %>">
-                        <% } %>
-                        <span class="card-title"><%= nextPost.title %></span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        <% if (nextPost.summary && nextPost.summary.length > 0) { %>
-                            <%- nextPost.summary %>
-                        <% } else { %>
-                            <%- strip_html(nextPost.excerpt).substring(0, 120) %>
-                        <% } %>
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i><%= date(nextPost.date, config.date_format) %>
-                            </span>
-                        <span class="publish-author">
-                            <% if (nextPost.categories && nextPost.categories.length > 0) { %>
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            <% nextPost.categories.forEach(category => { %>
-                            <a href="<%- url_for(category.path) %>" class="post-category">
-                                    <%- category.name %>
-                                </a>
-                            <% }); %>
-                            <% } else if (nextPost.author && nextPost.author.length > 0) { %>
-                            <i class="fas fa-user fa-fw"></i>
-                            <%- nextPost.author %>
-                            <% } else { %>
-                            <i class="fas fa-user fa-fw"></i>
-                            <%- config.author %>
-                            <% } %>
-                        </span>
-                    </div>
-                </div>
-                <% if(nextPost.tags && nextPost.tags.length > 0) { %>
-                <div class="card-action article-tags">
-                    <% nextPost.tags.forEach(tag => { %>
-                    <a href="<%- url_for(tag.path) %>">
-                        <span class="chip bg-color"><%= tag.name %></span>
-                    </a>
-                    <% }); %>
-                </div>
-                <% } %>
-            </div>
-        </div>
-        <% } else { %>
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                <%= __('curr') %>&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="<%- url_for(page.path) %>">
-                    <div class="card-image">
-                        <% if (page.img) { %>
-                        <img src="<%- url_for(page.img) %>" class="responsive-img" alt="<%= page.title %>">
-                        <% } else { %>
-                        <%
-                            featureimg = featureImages[Math.abs(hashCode(page.title) % featureImages.length)];
-                        %>
-                        <img src="<%- theme.jsDelivr.url %><%- url_for(featureimg) %>" class="responsive-img" alt="<%= page.title %>">
-                        <% } %>
-                        <span class="card-title"><%= page.title %></span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        <% if (page.summary && page.summary.length > 0) { %>
-                            <%- page.summary %>
-                        <% } else { %>
-                            <%- strip_html(page.excerpt).substring(0, 120) %>
-                        <% } %>
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i><%= date(page.date, config.date_format) %>
-                            </span>
-                        <span class="publish-author">
-                            <% if (page.categories && page.categories.length > 0) { %>
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            <% page.categories.forEach(category => { %>
-                            <a href="<%- url_for(category.path) %>" class="post-category">
-                                    <%- category.name %>
-                                </a>
-                            <% }); %>
-                            <% } else if (page.author && page.author.length > 0) { %>
-                            <i class="fas fa-user fa-fw"></i>
-                            <%- page.author %>
-                            <% } else { %>
-                            <i class="fas fa-user fa-fw"></i>
-                            <%- config.author %>
-                            <% } %>
-                        </span>
-                    </div>
-                </div>
-
-                <% if(page.tags && page.tags.length > 0) { %>
-                <div class="card-action article-tags">
-                    <% page.tags.forEach(tag => { %>
-                    <a href="<%- url_for(tag.path) %>">
-                        <span class="chip bg-color"><%= tag.name %></span>
-                    </a>
-                    <% }); %>
-                </div>
-                <% } %>
-            </div>
-        </div>
-        <% } %>
-    </div>
-</article>
+<% if (prevPost || nextPost) { %>
+<nav class="post-nav" aria-label="<%= isChinese ? '文章导航' : 'Post navigation' %>">
+    <% if (prevPost) { %>
+    <a class="post-nav-card" href="<%- url_for(prevPost.path) %>" rel="prev">
+        <span class="post-nav-label">&larr;&nbsp;<%= prevLabel %></span>
+        <span class="post-nav-title"><%= prevPost.title %></span>
+    </a>
+    <% } else { %><span></span><% } %>
+    <% if (nextPost) { %>
+    <a class="post-nav-card post-nav-card-next" href="<%- url_for(nextPost.path) %>" rel="next">
+        <span class="post-nav-label"><%= nextLabel %>&nbsp;&rarr;</span>
+        <span class="post-nav-title"><%= nextPost.title %></span>
+    </a>
+    <% } else { %><span></span><% } %>
+</nav>
+<% } %>
