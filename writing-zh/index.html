@@ -5,16 +5,45 @@
 
 <head>
     <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
     <meta name="keywords" content="写作, Xinhe Liu (Charles)">
     <meta name="description" content="按主题整理的技术文章、笔记与图示档案。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="写作 | Xinhe Liu (Charles)">
+    <meta property="og:description" content="按主题整理的技术文章、笔记与图示档案。">
+    <meta property="og:url" content="https://xinheliu.github.io/writing-zh/index.html">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="写作 | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="按主题整理的技术文章、笔记与图示档案。">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;family=Noto+Serif+SC:wght@500;600;700&display=swap">
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
@@ -27,7 +56,10 @@
 
 
 
+
+
 <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
 <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
 <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
 <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
@@ -82,9 +114,7 @@
     
         <a href="/home-zh/" class="">首页</a>
     
-        <a href="/writing-zh/" class="is-active">写作</a>
-    
-        <a href="/technical-notes-zh/" class="">技术笔记</a>
+        <a href="/library-zh/" class="">图书馆</a>
     
         <a href="/projects-zh/" class="">项目</a>
     
@@ -94,12 +124,12 @@
 
 <div class="nav-actions utility-actions">
     <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="搜索" aria-label="搜索">
-        <i class="fas fa-search"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
     </a>
     <a class="lang-switch" href="/writing/" title="English" aria-label="English">EN</a>
     <button class="theme-toggle" type="button" data-theme-toggle title="主题切换" aria-label="主题切换">●</button>
     <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="打开菜单">
-        <i class="fas fa-bars"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </a>
 </div>
 
@@ -121,9 +151,7 @@
         
             <li><a href="/home-zh/">首页</a></li>
         
-            <li><a href="/writing-zh/">写作</a></li>
-        
-            <li><a href="/technical-notes-zh/">技术笔记</a></li>
+            <li><a href="/library-zh/">图书馆</a></li>
         
             <li><a href="/projects-zh/">项目</a></li>
         
@@ -133,7 +161,7 @@
 
     <div class="mobile-nav-actions">
         <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="搜索">
-            <i class="fas fa-search"></i>
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </a>
         <a class="lang-switch" href="/writing/">EN</a>
         <button class="theme-toggle" type="button" data-theme-toggle>●</button>
@@ -151,268 +179,21 @@
     </nav>
 </header>
 
-    
-
-<main class="content site-page-main">
-    <section class="container hero-narrow">
-        <p class="eyebrow">写作档案</p>
-        <h1 class="page-title">技术长文、工作笔记与图示，按稳定主题长期整理。</h1>
-        <p class="lead">可搜索、有图片预览、按主题组织的技术写作档案。</p>
-    </section>
-
-    <section class="section compact">
-        <div class="container">
-            
-                <div class="section-head">
-                    <h2>长篇作品</h2>
-                    <p>完整书稿放在独立站点，导读和相关短文继续进入写作档案。</p>
-                </div>
-                <div class="longform-list">
-                    
-                        <article class="longform-card">
-                            <div class="longform-mark">
-                                <span>完整书稿</span>
-                            </div>
-                            <div class="summary-stack">
-                                <span class="meta">智能体工程</span>
-                                <h3><a class="archive-row-link" href="/Coding-with-Agents/">Coding with Agents</a></h3>
-                                <p>一本关于如何和编程智能体协作构建软件的实践指南。</p>
-                            </div>
-                            <div class="hero-actions longform-actions">
-                                <a class="btn btn-primary" href="/Coding-with-Agents/">阅读完整书稿</a>
-                                
-                                    <a class="btn btn-secondary" href="/books/coding-with-agents-intro-zh/">导读</a>
-                                
-                            </div>
-                        </article>
-                    
-                </div>
-            
-
-            <div class="filter-bar" aria-label="写作筛选">
-                <div class="filter-group">
-                    
-                        <button class="filter-button is-active" type="button" data-filter="all">全部</button>
-                    
-                        <button class="filter-button " type="button" data-filter="ads-systems">广告系统</button>
-                    
-                        <button class="filter-button " type="button" data-filter="recommendation">推荐系统</button>
-                    
-                        <button class="filter-button " type="button" data-filter="experimentation">实验</button>
-                    
-                        <button class="filter-button " type="button" data-filter="causal-measurement">因果</button>
-                    
-                        <button class="filter-button " type="button" data-filter="enterprise-ai">企业 AI</button>
-                    
-                        <button class="filter-button " type="button" data-filter="agentic-engineering">智能体工程</button>
-                    
-                </div>
-                <input class="search-field" type="search" data-search aria-label="搜索写作" placeholder="搜索主题或标题">
-            </div>
-
-            <div class="archive-list">
-                
-                    
-                    <article class="archive-row has-preview" data-topic="enterprise-ai">
-                        
-                            <a class="post-preview post-preview-image" href="/writing/palantir-ontology-zh/">
-                                <img src="/images/palantir-ontology/ontology-system.png" alt="Palantir Ontology 深度解构：当本体从「描述世界」走向「驱动世界」">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2026-07-18 · 企业 AI</span>
-                            <h3><a class="archive-row-link" href="/writing/palantir-ontology-zh/">Palantir Ontology 深度解构：当本体从「描述世界」走向「驱动世界」</a></h3>
-                            <p>深度解构 Palantir Ontology——为什么企业需要第三种本体、它与 OWL 和知识图谱的差异、技术实现与构建方法，以及代价与争议。附两套配套幻灯片。</p>
-                        </div>
-                        <span class="tag">企业 AI</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="ai-native-org">
-                        
-                            <a class="post-preview post-preview-image" href="/writing/ai-native-org-zh/">
-                                <img src="/writing/ai-native-org-zh/architecture.png" alt="AI 原生组织：从传统架构到超级杠杆">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2026-06-08 · 归档</span>
-                            <h3><a class="archive-row-link" href="/writing/ai-native-org-zh/">AI 原生组织：从传统架构到超级杠杆</a></h3>
-                            <p>AI 原生组织的设计与转型蓝图：从&#34;+AI&#34;到&#34;AI+&#34;，四层组织操作系统，以及一年期的转型路线图。</p>
-                        </div>
-                        <span class="tag">归档</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="agentic-engineering">
-                        
-                            <a class="post-preview preview-grid" href="/books/coding-with-agents-intro-zh/">
-                                <span>智能体工程</span>
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2026-06-06 · 智能体工程</span>
-                            <h3><a class="archive-row-link" href="/books/coding-with-agents-intro-zh/">Coding with Agents 导读</a></h3>
-                            <p>Coding with Agents 的导读：一本关于如何和编程智能体协作构建软件的完整书稿。</p>
-                        </div>
-                        <span class="tag">智能体工程</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="ads-systems">
-                        
-                            <a class="post-preview post-preview-image" href="/ads/intro-3/">
-                                <img src="/ads/intro-3/Ads-Strategy-Behavior-Decomp.png" alt="计算广告（3）广告策略">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2025-08-08 · 广告系统</span>
-                            <h3><a class="archive-row-link" href="/ads/intro-3/">计算广告（3）广告策略</a></h3>
-                            <p>围绕预算节奏、流量分配、行为分解和优化控制整理广告策略问题。</p>
-                        </div>
-                        <span class="tag">广告系统</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="ads-systems">
-                        
-                            <a class="post-preview post-preview-image" href="/ads/intro-2/">
-                                <img src="/ads/intro-2/Ads-Model-HNSW.png" alt="计算广告（2）计算广告系统">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2024-07-30 · 广告系统</span>
-                            <h3><a class="archive-row-link" href="/ads/intro-2/">计算广告（2）计算广告系统</a></h3>
-                            <p>从召回、建模、排序到工程约束，拆解计算广告系统的技术结构。</p>
-                        </div>
-                        <span class="tag">广告系统</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="ads-systems">
-                        
-                            <a class="post-preview post-preview-image" href="/ads/intro-1/">
-                                <img src="/ads/intro-1/Ads-Biz.png" alt="计算广告（1）广告业务简介">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2024-07-15 · 广告系统</span>
-                            <h3><a class="archive-row-link" href="/ads/intro-1/">计算广告（1）广告业务简介</a></h3>
-                            <p>从生意逻辑、广告主诉求和平台约束出发，介绍互联网广告的整体框架。</p>
-                        </div>
-                        <span class="tag">广告系统</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="experimentation">
-                        
-                            <a class="post-preview post-preview-image" href="/AB-Test/intro-2/">
-                                <img src="/AB-Test/intro-2/AB-Test-CCD.png" alt="AB实验（2）AB实验中的难题">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2024-06-20 · 实验</span>
-                            <h3><a class="archive-row-link" href="/AB-Test/intro-2/">AB实验（2）AB实验中的难题</a></h3>
-                            <p>讨论 A/B 实验中的复杂问题，如干扰、长期效应、触发分析、替代指标与分群设计。</p>
-                        </div>
-                        <span class="tag">实验</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="experimentation">
-                        
-                            <a class="post-preview preview-grid" href="/AB-Test/intro-1/">
-                                <span>实验</span>
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2024-05-18 · 实验</span>
-                            <h3><a class="archive-row-link" href="/AB-Test/intro-1/">AB实验（1）AB实验从0到1</a></h3>
-                            <p>从实验设计、指标到结果解读，介绍 A/B 实验从 0 到 1 的基本方法。</p>
-                        </div>
-                        <span class="tag">实验</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="causal-measurement">
-                        
-                            <a class="post-preview post-preview-image" href="/causal/intro-1/">
-                                <img src="/causal/intro-1/confounding-bias.png" alt="因果推断（1）什么是因果推断">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2024-01-18 · 因果测量</span>
-                            <h3><a class="archive-row-link" href="/causal/intro-1/">因果推断（1）什么是因果推断</a></h3>
-                            <p>介绍因果推断的基本问题，包括混杂偏差、选择偏差、反事实思维和随机实验。</p>
-                        </div>
-                        <span class="tag">因果测量</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="recommendation">
-                        
-                            <a class="post-preview post-preview-image" href="/recsys/101-intro-3/">
-                                <img src="/recsys/101-intro-3/%E5%A4%9A%E7%9B%AE%E6%A0%87-1.png" alt="推荐系统101(3)算法前沿">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2023-12-15 · 推荐系统</span>
-                            <h3><a class="archive-row-link" href="/recsys/101-intro-3/">推荐系统101(3)算法前沿</a></h3>
-                            <p>梳理推荐系统中的前沿算法，包括多目标优化、兴趣表征和实时性提升。</p>
-                        </div>
-                        <span class="tag">推荐系统</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="recommendation">
-                        
-                            <a class="post-preview preview-grid" href="/recsys/101-intro-2/">
-                                <span>推荐系统</span>
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2023-12-14 · 推荐系统</span>
-                            <h3><a class="archive-row-link" href="/recsys/101-intro-2/">推荐系统101(2)推荐策略</a></h3>
-                            <p>从目标设定到排序与体验平衡，整理推荐策略的核心思路。</p>
-                        </div>
-                        <span class="tag">推荐系统</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="recommendation">
-                        
-                            <a class="post-preview post-preview-image" href="/recsys/101-intro-1/">
-                                <img src="/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-1.png" alt="推荐系统101(1)推荐系统介绍">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2023-12-13 · 推荐系统</span>
-                            <h3><a class="archive-row-link" href="/recsys/101-intro-1/">推荐系统101(1)推荐系统介绍</a></h3>
-                            <p>从召回、排序、重排到数据层与评估，梳理现代推荐系统的基本结构。</p>
-                        </div>
-                        <span class="tag">推荐系统</span>
-                    </article>
-                
-                <article class="archive-row has-preview" data-topic="enterprise-ai">
-                    <div class="post-preview preview-grid"><span>智能体 / 评估</span></div>
-                    <div class="summary-stack">
-                        <span class="meta">公开主题 · 企业 AI</span>
-                        <h3>企业 AI 工作流与智能体评估</h3>
-                        <p>这一主题暂时保留为公开写作方向：智能体工作流、评估、升级路径、治理与人工复核。</p>
-                    </div>
-                    <span class="tag">企业 AI</span>
-                </article>
-            </div>
-
-            <div class="archive-utilities">
-                <div class="footer-links">
-                    <a href="/archives-zh/">全部归档</a>
-                    <a href="/categories/">分类</a>
-                    <a href="/tags/">标签</a>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
+    <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>写作</title>
+    <meta http-equiv="refresh" content="0; url=/library-zh/">
+    <style>
+        body { margin: 2rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        a { color: #333; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <p>Redirecting to <a href="/library-zh/">/library-zh/</a>...</p>
+</body>
+</html>
 
 
     
@@ -445,7 +226,7 @@
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
             <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
                    class="search-input">
         </div>
@@ -548,7 +329,7 @@ $(function () {
     <!-- 回到顶部按钮 -->
 <div id="backTop" class="top-scroll">
     <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </a>
 </div>
 

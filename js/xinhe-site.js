@@ -11,6 +11,7 @@
     var filterButtons = bySelector("[data-filter]");
     var searchableItems = bySelector("[data-topic]");
     var searchInput = document.querySelector("[data-search]");
+    var emptyState = document.querySelector("[data-empty-state]");
 
     if (filterButtons.length === 0 || searchableItems.length === 0) return;
 
@@ -22,13 +23,20 @@
         button.classList.toggle("is-active", button.getAttribute("data-filter") === activeFilter);
       });
 
+      var visibleCount = 0;
       searchableItems.forEach(function (item) {
         var topic = item.getAttribute("data-topic") || "";
         var text = normalizeText(item.textContent);
         var matchesFilter = activeFilter === "all" || topic.indexOf(activeFilter) !== -1;
         var matchesSearch = searchTerm === "" || text.indexOf(searchTerm) !== -1;
-        item.classList.toggle("is-hidden", !matchesFilter || !matchesSearch);
+        var hidden = !matchesFilter || !matchesSearch;
+        item.classList.toggle("is-hidden", hidden);
+        if (!hidden) visibleCount += 1;
       });
+
+      if (emptyState) {
+        emptyState.classList.toggle("is-hidden", visibleCount !== 0);
+      }
     }
 
     filterButtons.forEach(function (button) {

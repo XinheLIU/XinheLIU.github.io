@@ -5,16 +5,45 @@
 
 <head>
     <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
     <meta name="keywords" content="Tag: 企业 AI, Xinhe Liu (Charles)">
     <meta name="description" content="Engineer and technical writer working across data products, recommendation, ads, experimentation, causal measurement, and applied AI workflows.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tag: 企业 AI | Xinhe Liu (Charles)">
+    <meta property="og:description" content="Engineer and technical writer working across data products, recommendation, ads, experimentation, causal measurement, and applied AI workflows.">
+    <meta property="og:url" content="https://xinheliu.github.io/tags/%E4%BC%81%E4%B8%9A-AI/index.html">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tag: 企业 AI | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="Engineer and technical writer working across data products, recommendation, ads, experimentation, causal measurement, and applied AI workflows.">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
@@ -27,7 +56,10 @@
 
 
 
+
+
 <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
 <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
 <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
 <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
@@ -82,9 +114,7 @@
     
         <a href="/" class="">Home</a>
     
-        <a href="/writing/" class="">Writing</a>
-    
-        <a href="/technical-notes/" class="">Technical Notes</a>
+        <a href="/library/" class="">Library</a>
     
         <a href="/projects/" class="">Projects</a>
     
@@ -94,12 +124,12 @@
 
 <div class="nav-actions utility-actions">
     <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
-        <i class="fas fa-search"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
     </a>
     <a class="lang-switch" href="/home-zh/" title="中文" aria-label="中文">中</a>
     <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
     <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
-        <i class="fas fa-bars"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </a>
 </div>
 
@@ -121,9 +151,7 @@
         
             <li><a href="/">Home</a></li>
         
-            <li><a href="/writing/">Writing</a></li>
-        
-            <li><a href="/technical-notes/">Technical Notes</a></li>
+            <li><a href="/library/">Library</a></li>
         
             <li><a href="/projects/">Projects</a></li>
         
@@ -133,7 +161,7 @@
 
     <div class="mobile-nav-actions">
         <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
-            <i class="fas fa-search"></i>
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </a>
         <a class="lang-switch" href="/home-zh/">中</a>
         <button class="theme-toggle" type="button" data-theme-toggle>●</button>
@@ -203,38 +231,20 @@
             <div class="tag-chips">
                 
                 
-                <a href="/tags/AB%E5%AE%9E%E9%AA%8C/" title="AB实验: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="AB实验" style="background-color: #F9EBEA;">AB实验
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/tags/A-B-Testing/" title="A/B Testing: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="A/B Testing" style="background-color: #F5EEF8;">A/B Testing
+                            data-tagname="A/B Testing" style="background-color: #F9EBEA;">A/B Testing
                         <span class="tag-length">2</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/" title="搜广推: 6">
+                <a href="/tags/AB%E5%AE%9E%E9%AA%8C/" title="AB实验: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="搜广推" style="background-color: #D5F5E3;">搜广推
-                        <span class="tag-length">6</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="人工智能和机器学习: 8">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="人工智能和机器学习" style="background-color: #E8F8F5;">人工智能和机器学习
-                        <span class="tag-length">8</span>
+                            data-tagname="AB实验" style="background-color: #F5EEF8;">AB实验
+                        <span class="tag-length">2</span>
                     </span>
                 </a>
                 
@@ -242,7 +252,7 @@
                 <a href="/tags/Ads/" title="Ads: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Ads" style="background-color: #FEF9E7;">Ads
+                            data-tagname="Ads" style="background-color: #D5F5E3;">Ads
                         <span class="tag-length">3</span>
                     </span>
                 </a>
@@ -251,17 +261,26 @@
                 <a href="/tags/AI-Machine-Learning/" title="AI & Machine Learning: 8">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="AI & Machine Learning" style="background-color: #F8F9F9;">AI & Machine Learning
+                            data-tagname="AI & Machine Learning" style="background-color: #E8F8F5;">AI & Machine Learning
                         <span class="tag-length">8</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/Organization-Design/" title="Organization Design: 1">
+                <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/" title="搜广推: 6">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Organization Design" style="background-color: #82E0AA;">Organization Design
-                        <span class="tag-length">1</span>
+                            data-tagname="搜广推" style="background-color: #FEF9E7;">搜广推
+                        <span class="tag-length">6</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="人工智能和机器学习: 8">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="人工智能和机器学习" style="background-color: #F8F9F9;">人工智能和机器学习
+                        <span class="tag-length">8</span>
                     </span>
                 </a>
                 
@@ -269,53 +288,35 @@
                 <a href="/tags/%E7%BB%84%E7%BB%87%E8%AE%BE%E8%AE%A1/" title="组织设计: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="组织设计" style="background-color: #D7BDE2;">组织设计
+                            data-tagname="组织设计" style="background-color: #82E0AA;">组织设计
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/Agents/" title="Agents: 1">
+                <a href="/tags/Organization-Design/" title="Organization Design: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Agents" style="background-color: #A3E4D7;">Agents
+                            data-tagname="Organization Design" style="background-color: #D7BDE2;">Organization Design
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/Software-Engineering/" title="Software Engineering: 1">
+                <a href="/tags/%E4%BC%81%E4%B8%9A-AI/" title="企业 AI: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Software Engineering" style="background-color: #85C1E9;">Software Engineering
+                             chip-active "
+                            data-tagname="企业 AI" style="background-color: #A3E4D7;">企业 AI
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/" title="智能体: 1">
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0/" title="数据平台: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="智能体" style="background-color: #F8C471;">智能体
+                            data-tagname="数据平台" style="background-color: #85C1E9;">数据平台
                         <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" title="软件工程: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="软件工程" style="background-color: #F9E79F;">软件工程
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Recommendation/" title="Recommendation: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Recommendation" style="background-color: #F5EEF8;">Recommendation
-                        <span class="tag-length">3</span>
                     </span>
                 </a>
                 
@@ -323,7 +324,7 @@
                 <a href="/tags/Enterprise-AI/" title="Enterprise AI: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Enterprise AI" style="background-color: #A3E4D7;">Enterprise AI
+                            data-tagname="Enterprise AI" style="background-color: #F8C471;">Enterprise AI
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -338,15 +339,6 @@
                 </a>
                 
                 
-                <a href="/tags/Causal-Inference/" title="Causal Inference: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Causal Inference" style="background-color: #F9E79F;">Causal Inference
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/tags/%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/" title="因果推断: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
@@ -356,19 +348,55 @@
                 </a>
                 
                 
-                <a href="/tags/%E4%BC%81%E4%B8%9A-AI/" title="企业 AI: 1">
+                <a href="/tags/Causal-Inference/" title="Causal Inference: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            data-tagname="企业 AI" style="background-color: #D5F5E3;">企业 AI
+                             chip-default "
+                            data-tagname="Causal Inference" style="background-color: #F9E79F;">Causal Inference
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0/" title="数据平台: 1">
+                <a href="/tags/Recommendation/" title="Recommendation: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="数据平台" style="background-color: #F9E79F;">数据平台
+                            data-tagname="Recommendation" style="background-color: #F5EEF8;">Recommendation
+                        <span class="tag-length">3</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/" title="智能体: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="智能体" style="background-color: #82E0AA;">智能体
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" title="软件工程: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="软件工程" style="background-color: #85C1E9;">软件工程
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Agents/" title="Agents: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Agents" style="background-color: #F5EEF8;">Agents
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Software-Engineering/" title="Software Engineering: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Software Engineering" style="background-color: #FFF;">Software Engineering
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -452,7 +480,7 @@
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
             <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
                    class="search-input">
         </div>
@@ -555,7 +583,7 @@ $(function () {
     <!-- 回到顶部按钮 -->
 <div id="backTop" class="top-scroll">
     <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </a>
 </div>
 

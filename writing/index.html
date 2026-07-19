@@ -5,16 +5,45 @@
 
 <head>
     <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
     <meta name="keywords" content="Writing, Xinhe Liu (Charles)">
     <meta name="description" content="Technical essays, notes, and diagrams organized by recurring systems topics.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Writing | Xinhe Liu (Charles)">
+    <meta property="og:description" content="Technical essays, notes, and diagrams organized by recurring systems topics.">
+    <meta property="og:url" content="https://xinheliu.github.io/writing/index.html">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Writing | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="Technical essays, notes, and diagrams organized by recurring systems topics.">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
@@ -27,7 +56,10 @@
 
 
 
+
+
 <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
 <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
 <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
 <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
@@ -82,9 +114,7 @@
     
         <a href="/" class="">Home</a>
     
-        <a href="/writing/" class="is-active">Writing</a>
-    
-        <a href="/technical-notes/" class="">Technical Notes</a>
+        <a href="/library/" class="">Library</a>
     
         <a href="/projects/" class="">Projects</a>
     
@@ -94,12 +124,12 @@
 
 <div class="nav-actions utility-actions">
     <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
-        <i class="fas fa-search"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
     </a>
     <a class="lang-switch" href="/writing-zh/" title="中文" aria-label="中文">中</a>
     <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
     <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
-        <i class="fas fa-bars"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </a>
 </div>
 
@@ -121,9 +151,7 @@
         
             <li><a href="/">Home</a></li>
         
-            <li><a href="/writing/">Writing</a></li>
-        
-            <li><a href="/technical-notes/">Technical Notes</a></li>
+            <li><a href="/library/">Library</a></li>
         
             <li><a href="/projects/">Projects</a></li>
         
@@ -133,7 +161,7 @@
 
     <div class="mobile-nav-actions">
         <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
-            <i class="fas fa-search"></i>
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </a>
         <a class="lang-switch" href="/writing-zh/">中</a>
         <button class="theme-toggle" type="button" data-theme-toggle>●</button>
@@ -151,268 +179,21 @@
     </nav>
 </header>
 
-    
-
-<main class="content site-page-main">
-    <section class="container hero-narrow">
-        <p class="eyebrow">Writing library</p>
-        <h1 class="page-title">Essays, notes, and diagrams from an engineer’s working archive.</h1>
-        <p class="lead">A searchable technical writing archive with visual previews and recurring systems topics.</p>
-    </section>
-
-    <section class="section compact">
-        <div class="container">
-            
-                <div class="section-head">
-                    <h2>Long-form work</h2>
-                    <p>Complete books live on their own sites, while intros and related notes stay inside the writing archive.</p>
-                </div>
-                <div class="longform-list">
-                    
-                        <article class="longform-card">
-                            <div class="longform-mark">
-                                <span>Complete book</span>
-                            </div>
-                            <div class="summary-stack">
-                                <span class="meta">Agentic engineering</span>
-                                <h3><a class="archive-row-link" href="/Coding-with-Agents/">Coding with Agents</a></h3>
-                                <p>A practical guide to building software with coding agents.</p>
-                            </div>
-                            <div class="hero-actions longform-actions">
-                                <a class="btn btn-primary" href="/Coding-with-Agents/">Read book</a>
-                                
-                                    <a class="btn btn-secondary" href="/books/coding-with-agents-intro/">Intro</a>
-                                
-                            </div>
-                        </article>
-                    
-                </div>
-            
-
-            <div class="filter-bar" aria-label="Writing filters">
-                <div class="filter-group">
-                    
-                        <button class="filter-button is-active" type="button" data-filter="all">All</button>
-                    
-                        <button class="filter-button " type="button" data-filter="ads-systems">Ads systems</button>
-                    
-                        <button class="filter-button " type="button" data-filter="recommendation">Recommendation</button>
-                    
-                        <button class="filter-button " type="button" data-filter="experimentation">Experimentation</button>
-                    
-                        <button class="filter-button " type="button" data-filter="causal-measurement">Causal</button>
-                    
-                        <button class="filter-button " type="button" data-filter="enterprise-ai">Enterprise AI</button>
-                    
-                        <button class="filter-button " type="button" data-filter="agentic-engineering">Agentic engineering</button>
-                    
-                </div>
-                <input class="search-field" type="search" data-search aria-label="Search writing" placeholder="Search writing topics">
-            </div>
-
-            <div class="archive-list">
-                
-                    
-                    <article class="archive-row has-preview" data-topic="enterprise-ai">
-                        
-                            <a class="post-preview post-preview-image" href="/writing/palantir-ontology/">
-                                <img src="/images/palantir-ontology/ontology-system.png" alt="Deconstructing Palantir Ontology: When an Ontology Moves From Describing the World to Driving It">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2026-07-18 · Enterprise AI</span>
-                            <h3><a class="archive-row-link" href="/writing/palantir-ontology/">Deconstructing Palantir Ontology: When an Ontology Moves From Describing the World to Driving It</a></h3>
-                            <p>A deep deconstruction of Palantir Ontology — why enterprises need a third kind of ontology, what makes it different from OWL and knowledge graphs, how it is implemented, and its costs and controversies. With two companion slide decks.</p>
-                        </div>
-                        <span class="tag">Enterprise AI</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="ai-native-org">
-                        
-                            <a class="post-preview post-preview-image" href="/writing/ai-native-org/">
-                                <img src="/writing/ai-native-org/architecture.png" alt="The AI-Native Organization: From Traditional Structure to Super Leverage">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2026-06-08 · Archive</span>
-                            <h3><a class="archive-row-link" href="/writing/ai-native-org/">The AI-Native Organization: From Traditional Structure to Super Leverage</a></h3>
-                            <p>A blueprint for designing and transforming an AI-native organization—from &#34;+AI&#34; to &#34;AI+&#34;, the four-layer operating system, and a one-year roadmap.</p>
-                        </div>
-                        <span class="tag">Archive</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="agentic-engineering">
-                        
-                            <a class="post-preview preview-grid" href="/books/coding-with-agents-intro/">
-                                <span>Agentic engineering</span>
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2026-06-06 · Agentic engineering</span>
-                            <h3><a class="archive-row-link" href="/books/coding-with-agents-intro/">Coding with Agents: Intro</a></h3>
-                            <p>A short introduction to Coding with Agents, a complete book about building software with coding agents.</p>
-                        </div>
-                        <span class="tag">Agentic engineering</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="ads-systems">
-                        
-                            <a class="post-preview post-preview-image" href="/en/ads/intro-3/">
-                                <img src="/ads/intro-3/Ads-Strategy-Behavior-Decomp.png" alt="Computational Advertising (3) Ad Strategy">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2025-08-08 · Ads systems</span>
-                            <h3><a class="archive-row-link" href="/en/ads/intro-3/">Computational Advertising (3) Ad Strategy</a></h3>
-                            <p>Strategy notes on budget pacing, traffic allocation, behavior decomposition, and optimization controls inside ads systems.</p>
-                        </div>
-                        <span class="tag">Ads systems</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="ads-systems">
-                        
-                            <a class="post-preview post-preview-image" href="/en/ads/intro-2/">
-                                <img src="/ads/intro-2/Ads-Model-HNSW.png" alt="Computational Advertising (2) Computational Ad System">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2024-07-30 · Ads systems</span>
-                            <h3><a class="archive-row-link" href="/en/ads/intro-2/">Computational Advertising (2) Computational Ad System</a></h3>
-                            <p>A technical walkthrough of ad-system architecture, candidate generation, ranking, modeling, and engineering constraints.</p>
-                        </div>
-                        <span class="tag">Ads systems</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="ads-systems">
-                        
-                            <a class="post-preview post-preview-image" href="/en/ads/intro-1/">
-                                <img src="/ads/intro-1/Ads-Biz.png" alt="Computational Advertising (1) Introduction to Ad Business">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2024-07-15 · Ads systems</span>
-                            <h3><a class="archive-row-link" href="/en/ads/intro-1/">Computational Advertising (1) Introduction to Ad Business</a></h3>
-                            <p>A business and systems introduction to internet advertising, including the marketplace, advertiser incentives, and platform constraints.</p>
-                        </div>
-                        <span class="tag">Ads systems</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="experimentation">
-                        
-                            <a class="post-preview post-preview-image" href="/en/AB-Test/intro-2/">
-                                <img src="/AB-Test/intro-2/AB-Test-CCD.png" alt="A/B Testing (2) Challenges in A/B Testing">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2024-06-20 · Experimentation</span>
-                            <h3><a class="archive-row-link" href="/en/AB-Test/intro-2/">A/B Testing (2) Challenges in A/B Testing</a></h3>
-                            <p>A deeper look at difficult A/B testing cases such as interference, long-term effects, triggering, surrogate metrics, and cluster design.</p>
-                        </div>
-                        <span class="tag">Experimentation</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="experimentation">
-                        
-                            <a class="post-preview preview-grid" href="/en/AB-Test/intro-1/">
-                                <span>Experimentation</span>
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2024-05-18 · Experimentation</span>
-                            <h3><a class="archive-row-link" href="/en/AB-Test/intro-1/">A/B Testing (1) A/B Testing from 0 to 1</a></h3>
-                            <p>A practical introduction to A/B testing, experiment design, guardrails, and how product teams should interpret evidence.</p>
-                        </div>
-                        <span class="tag">Experimentation</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="causal-measurement">
-                        
-                            <a class="post-preview post-preview-image" href="/en/causal/intro-1/">
-                                <img src="/causal/intro-1/confounding-bias.png" alt="Causal Inference (1) What is Causal Inference">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2024-01-18 · Causal measurement</span>
-                            <h3><a class="archive-row-link" href="/en/causal/intro-1/">Causal Inference (1) What is Causal Inference</a></h3>
-                            <p>An introduction to causal inference, including confounding, selection bias, counterfactual thinking, and the role of randomized experiments.</p>
-                        </div>
-                        <span class="tag">Causal measurement</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="recommendation">
-                        
-                            <a class="post-preview post-preview-image" href="/en/recsys/101-intro-3/">
-                                <img src="/recsys/101-intro-3/%E5%A4%9A%E7%9B%AE%E6%A0%87-1.png" alt="Recommender Systems 101 (3) Algorithmic Frontiers">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2023-12-15 · Recommendation</span>
-                            <h3><a class="archive-row-link" href="/en/recsys/101-intro-3/">Recommender Systems 101 (3) Algorithmic Frontiers</a></h3>
-                            <p>A survey of advanced recommendation models, multi-objective optimization, representation learning, and real-time system evolution.</p>
-                        </div>
-                        <span class="tag">Recommendation</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="recommendation">
-                        
-                            <a class="post-preview preview-grid" href="/en/recsys/101-intro-2/">
-                                <span>Recommendation</span>
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2023-12-14 · Recommendation</span>
-                            <h3><a class="archive-row-link" href="/en/recsys/101-intro-2/">Recommender Systems 101 (2) Recommendation Strategy</a></h3>
-                            <p>A practical overview of recommendation strategies, from matching objectives to ranking and user experience tradeoffs.</p>
-                        </div>
-                        <span class="tag">Recommendation</span>
-                    </article>
-                
-                    
-                    <article class="archive-row has-preview" data-topic="recommendation">
-                        
-                            <a class="post-preview post-preview-image" href="/en/recsys/101-intro-1/">
-                                <img src="/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-1.png" alt="Recommender Systems 101 (1) Introduction to Recommender Systems">
-                            </a>
-                        
-                        <div class="summary-stack">
-                            <span class="meta">2023-12-13 · Recommendation</span>
-                            <h3><a class="archive-row-link" href="/en/recsys/101-intro-1/">Recommender Systems 101 (1) Introduction to Recommender Systems</a></h3>
-                            <p>A map of modern recommendation systems from retrieval and ranking to re-ranking, data layers, and evaluation.</p>
-                        </div>
-                        <span class="tag">Recommendation</span>
-                    </article>
-                
-                <article class="archive-row has-preview" data-topic="enterprise-ai">
-                    <div class="post-preview preview-grid"><span>agent / eval</span></div>
-                    <div class="summary-stack">
-                        <span class="meta">Public theme · Enterprise AI</span>
-                        <h3>Enterprise AI agents and workflow evaluation</h3>
-                        <p>This public track is reserved for future notes on agent workflows, evaluation, escalation, governance, and human review.</p>
-                    </div>
-                    <span class="tag">Enterprise AI</span>
-                </article>
-            </div>
-
-            <div class="archive-utilities">
-                <div class="footer-links">
-                    <a href="/archives/">Full archives</a>
-                    <a href="/categories/">Categories</a>
-                    <a href="/tags/">Tags</a>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Writing</title>
+    <meta http-equiv="refresh" content="0; url=/library/">
+    <style>
+        body { margin: 2rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        a { color: #333; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <p>Redirecting to <a href="/library/">/library/</a>...</p>
+</body>
+</html>
 
 
     
@@ -445,7 +226,7 @@
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
             <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
                    class="search-input">
         </div>
@@ -548,7 +329,7 @@ $(function () {
     <!-- 回到顶部按钮 -->
 <div id="backTop" class="top-scroll">
     <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </a>
 </div>
 

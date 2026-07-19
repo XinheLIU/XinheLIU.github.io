@@ -5,16 +5,45 @@
 
 <head>
     <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
     <meta name="keywords" content="Category: Writing, Xinhe Liu (Charles)">
     <meta name="description" content="Engineer and technical writer working across data products, recommendation, ads, experimentation, causal measurement, and applied AI workflows.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Category: Writing | Xinhe Liu (Charles)">
+    <meta property="og:description" content="Engineer and technical writer working across data products, recommendation, ads, experimentation, causal measurement, and applied AI workflows.">
+    <meta property="og:url" content="https://xinheliu.github.io/categories/Writing/index.html">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Category: Writing | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="Engineer and technical writer working across data products, recommendation, ads, experimentation, causal measurement, and applied AI workflows.">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
@@ -27,7 +56,10 @@
 
 
 
+
+
 <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
 <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
 <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
 <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
@@ -82,9 +114,7 @@
     
         <a href="/" class="">Home</a>
     
-        <a href="/writing/" class="">Writing</a>
-    
-        <a href="/technical-notes/" class="">Technical Notes</a>
+        <a href="/library/" class="">Library</a>
     
         <a href="/projects/" class="">Projects</a>
     
@@ -94,12 +124,12 @@
 
 <div class="nav-actions utility-actions">
     <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
-        <i class="fas fa-search"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
     </a>
     <a class="lang-switch" href="/home-zh/" title="中文" aria-label="中文">中</a>
     <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
     <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
-        <i class="fas fa-bars"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </a>
 </div>
 
@@ -121,9 +151,7 @@
         
             <li><a href="/">Home</a></li>
         
-            <li><a href="/writing/">Writing</a></li>
-        
-            <li><a href="/technical-notes/">Technical Notes</a></li>
+            <li><a href="/library/">Library</a></li>
         
             <li><a href="/projects/">Projects</a></li>
         
@@ -133,7 +161,7 @@
 
     <div class="mobile-nav-actions">
         <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
-            <i class="fas fa-search"></i>
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </a>
         <a class="lang-switch" href="/home-zh/">中</a>
         <button class="theme-toggle" type="button" data-theme-toggle>●</button>
@@ -204,29 +232,20 @@
                 
                 
                 
-                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" title="数据科学: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F9EBEA;">数据科学
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/categories/Data-Science/" title="Data Science: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">Data Science
+                            style="background-color: #F9EBEA;">Data Science
                         <span class="tag-length">3</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/%E6%8A%80%E6%9C%AF/" title="技术: 6">
+                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" title="数据科学: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #D5F5E3;">技术
-                        <span class="tag-length">6</span>
+                            style="background-color: #F5EEF8;">数据科学
+                        <span class="tag-length">3</span>
                     </span>
                 </a>
                 
@@ -234,17 +253,17 @@
                 <a href="/categories/Technology/" title="Technology: 6">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #E8F8F5;">Technology
+                            style="background-color: #D5F5E3;">Technology
                         <span class="tag-length">6</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/Writing/" title="Writing: 3">
+                <a href="/categories/%E6%8A%80%E6%9C%AF/" title="技术: 6">
                     <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            style="background-color: #FEF9E7;">Writing
-                        <span class="tag-length">3</span>
+                             chip-default "
+                            style="background-color: #E8F8F5;">技术
+                        <span class="tag-length">6</span>
                     </span>
                 </a>
                 
@@ -252,7 +271,16 @@
                 <a href="/categories/%E5%86%99%E4%BD%9C/" title="写作: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F8F9F9;">写作
+                            style="background-color: #FEF9E7;">写作
+                        <span class="tag-length">3</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/Writing/" title="Writing: 3">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active "
+                            style="background-color: #F8F9F9;">Writing
                         <span class="tag-length">3</span>
                     </span>
                 </a>
@@ -454,7 +482,7 @@
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
             <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
                    class="search-input">
         </div>
@@ -557,7 +585,7 @@ $(function () {
     <!-- 回到顶部按钮 -->
 <div id="backTop" class="top-scroll">
     <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </a>
 </div>
 

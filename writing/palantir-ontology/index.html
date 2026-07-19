@@ -5,16 +5,45 @@
 
 <head>
     <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
     <meta name="keywords" content="Deconstructing Palantir Ontology: When an Ontology Moves From Describing the World to Driving It, Xinhe Liu (Charles)">
     <meta name="description" content="A deep deconstruction of Palantir Ontology — why enterprises need a third kind of ontology, what makes it different from OWL and knowledge graphs, how it is implemented, and its costs and controversies. With two companion slide decks.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Deconstructing Palantir Ontology: When an Ontology Moves From Describing the World to Driving It | Xinhe Liu (Charles)">
+    <meta property="og:description" content="A deep deconstruction of Palantir Ontology — why enterprises need a third kind of ontology, what makes it different from OWL and knowledge graphs, how it is implemented, and its costs and controversies. With two companion slide decks.">
+    <meta property="og:url" content="https://xinheliu.github.io/writing/palantir-ontology/">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Deconstructing Palantir Ontology: When an Ontology Moves From Describing the World to Driving It | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="A deep deconstruction of Palantir Ontology — why enterprises need a third kind of ontology, what makes it different from OWL and knowledge graphs, how it is implemented, and its costs and controversies. With two companion slide decks.">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
@@ -27,7 +56,10 @@
 
 
 
+
+
 <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
 <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
 <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
 <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
@@ -82,9 +114,7 @@
     
         <a href="/" class="">Home</a>
     
-        <a href="/writing/" class="">Writing</a>
-    
-        <a href="/technical-notes/" class="">Technical Notes</a>
+        <a href="/library/" class="">Library</a>
     
         <a href="/projects/" class="">Projects</a>
     
@@ -94,12 +124,12 @@
 
 <div class="nav-actions utility-actions">
     <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
-        <i class="fas fa-search"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
     </a>
     <a class="lang-switch" href="/writing/palantir-ontology-zh/" title="中文" aria-label="中文">中</a>
     <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
     <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
-        <i class="fas fa-bars"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </a>
 </div>
 
@@ -121,9 +151,7 @@
         
             <li><a href="/">Home</a></li>
         
-            <li><a href="/writing/">Writing</a></li>
-        
-            <li><a href="/technical-notes/">Technical Notes</a></li>
+            <li><a href="/library/">Library</a></li>
         
             <li><a href="/projects/">Projects</a></li>
         
@@ -133,7 +161,7 @@
 
     <div class="mobile-nav-actions">
         <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
-            <i class="fas fa-search"></i>
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </a>
         <a class="lang-switch" href="/writing/palantir-ontology-zh/">中</a>
         <button class="theme-toggle" type="button" data-theme-toggle>●</button>
@@ -154,18 +182,33 @@
     
 
 
-
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
-    <div class="container" style="right: 0px;left: 0px;">
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">Deconstructing Palantir Ontology: When an Ontology Moves From Describing the World to Driving It</h1>
-                </div>
-            </div>
+<header class="post-hero content">
+    <div class="container">
+        
+            <p class="eyebrow">Writing</p>
+        
+        <h1 class="page-title">Deconstructing Palantir Ontology: When an Ontology Moves From Describing the World to Driving It</h1>
+        <div class="post-meta">
+            <time datetime="2026-07-18">2026-07-18</time>
+            
+                <span class="dot">·</span>
+                <span>61 min read</span>
+            
+            
+                <span class="post-hero-tags">
+                    
+                        <a class="chip" href="/tags/AI-Machine-Learning/">AI &amp; Machine Learning</a>
+                    
+                        <a class="chip" href="/tags/Enterprise-AI/">Enterprise AI</a>
+                    
+                        <a class="chip" href="/tags/Data-Platforms/">Data Platforms</a>
+                    
+                </span>
+            
         </div>
+        <hr class="post-hero-rule">
     </div>
-</div>
+</header>
 
 
 
@@ -178,60 +221,6 @@
         <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
-        <div class="card-content article-info">
-            <div class="row tag-cate">
-                <div class="col s7">
-                    
-                    <div class="article-tag">
-                        
-                            <a href="/tags/AI-Machine-Learning/">
-                                <span class="chip bg-color">AI &amp; Machine Learning</span>
-                            </a>
-                        
-                            <a href="/tags/Enterprise-AI/">
-                                <span class="chip bg-color">Enterprise AI</span>
-                            </a>
-                        
-                            <a href="/tags/Data-Platforms/">
-                                <span class="chip bg-color">Data Platforms</span>
-                            </a>
-                        
-                    </div>
-                    
-                </div>
-                <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/Writing/" class="post-category">
-                                Writing
-                            </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-
-            <div class="post-info">
-                
-                <div class="post-date info-break-policy">
-                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2026-07-18
-                </div>
-                
-
-                
-
-                
-
-                
-
-                
-            </div>
-        </div>
-        <hr class="clearfix">
-
         
         <!-- 是否加载使用自带的 prismjs. -->
         <link rel="stylesheet" href="/libs/prism/prism.min.css">
@@ -919,6 +908,31 @@
 </figure>
 
             </div>
+            
+
+<div class="related-works" style="margin: 2rem 0; padding: 1rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <h3 style="margin: 0 0 1rem; font-size: 1.1rem; font-weight: 600;">Also available as</h3>
+    <div class="related-works-links" style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        
+            <a href="/slides/palantir-ontology/en/" style="display: inline-flex; align-items: center; padding: 0.5rem 1rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 0.5rem; text-decoration: none; color: var(--text);" >
+                View slides
+                
+                    <span style="margin-left: 0.25rem; opacity: 0.7;">(30)</span>
+                
+                
+            </a>
+        
+            <a href="/slides/palantir-semantic-to-action/en/" style="display: inline-flex; align-items: center; padding: 0.5rem 1rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 0.5rem; text-decoration: none; color: var(--text);" >
+                View slides
+                
+                    <span style="margin-left: 0.25rem; opacity: 0.7;">(29)</span>
+                
+                
+            </a>
+        
+    </div>
+</div>
+
             <hr/>
 
             
@@ -1032,120 +1046,16 @@
 
     
 
-<article id="prenext-posts" class="prev-next articles">
-    <div class="row article-row">
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
-            <div class="card">
-                <a href="/writing/ai-native-org/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="The AI-Native Organization: From Traditional Structure to Super Leverage">
-                        
-                        <span class="card-title">The AI-Native Organization: From Traditional Structure to Super Leverage</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2026-06-08
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Writing/" class="post-category">
-                                    Writing
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/AI-Machine-Learning/">
-                        <span class="chip bg-color">AI &amp; Machine Learning</span>
-                    </a>
-                    
-                    <a href="/tags/Organization-Design/">
-                        <span class="chip bg-color">Organization Design</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/writing/palantir-ontology/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Deconstructing Palantir Ontology: When an Ontology Moves From Describing the World to Driving It">
-                        
-                        <span class="card-title">Deconstructing Palantir Ontology: When an Ontology Moves From Describing the World to Driving It</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2026-07-18
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Writing/" class="post-category">
-                                    Writing
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
+<nav class="post-nav" aria-label="Post navigation">
+    
+    <a class="post-nav-card" href="/writing/ai-native-org/" rel="prev">
+        <span class="post-nav-label">&larr;&nbsp;Previous</span>
+        <span class="post-nav-title">The AI-Native Organization: From Traditional Structure to Super Leverage</span>
+    </a>
+    
+    <span></span>
+</nav>
 
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/AI-Machine-Learning/">
-                        <span class="chip bg-color">AI &amp; Machine Learning</span>
-                    </a>
-                    
-                    <a href="/tags/Enterprise-AI/">
-                        <span class="chip bg-color">Enterprise AI</span>
-                    </a>
-                    
-                    <a href="/tags/Data-Platforms/">
-                        <span class="chip bg-color">Data Platforms</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-    </div>
-</article>
 
 </div>
 
@@ -1293,7 +1203,7 @@
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
             <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
                    class="search-input">
         </div>
@@ -1396,7 +1306,7 @@ $(function () {
     <!-- 回到顶部按钮 -->
 <div id="backTop" class="top-scroll">
     <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </a>
 </div>
 
