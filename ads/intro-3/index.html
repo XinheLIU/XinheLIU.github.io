@@ -1,0 +1,2062 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="计算广告（3）广告策略, Xinhe Liu (Charles)">
+    <meta name="description" content="Strategy notes on budget pacing, traffic allocation, behavior decomposition, and optimization controls inside ads systems.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>计算广告（3）广告策略 | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/home-zh/" aria-label="昕和首页">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>昕和</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="主导航">
+    
+        <a href="/home-zh/" class="">首页</a>
+    
+        <a href="/writing-zh/" class="">写作</a>
+    
+        <a href="/technical-notes-zh/" class="">技术笔记</a>
+    
+        <a href="/projects-zh/" class="">项目</a>
+    
+        <a href="/about-zh/" class="">个人信息和联系方式</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="搜索" aria-label="搜索">
+        <i class="fas fa-search"></i>
+    </a>
+    <a class="lang-switch" href="/en/ads/intro-3/" title="English" aria-label="English">EN</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="主题切换" aria-label="主题切换">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="打开菜单">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/home-zh/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>昕和</strong>
+            </span>
+        </a>
+        <p>昕和的个人主页、写作与技术笔记。</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/home-zh/">首页</a></li>
+        
+            <li><a href="/writing-zh/">写作</a></li>
+        
+            <li><a href="/technical-notes-zh/">技术笔记</a></li>
+        
+            <li><a href="/projects-zh/">项目</a></li>
+        
+            <li><a href="/about-zh/">个人信息和联系方式</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="搜索">
+            <i class="fas fa-search"></i>
+        </a>
+        <a class="lang-switch" href="/en/ads/intro-3/">EN</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">标签</a>
+        <a href="/categories/">分类</a>
+        <a href="/archives-zh/">归档</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">计算广告（3）广告策略</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
+                                <span class="chip bg-color">搜广推</span>
+                            </a>
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">人工智能和机器学习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                技术
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2025-08-08
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="广告策略"><a class="markdownIt-Anchor" href="#广告策略"></a> 广告策略</h1>
+<ul>
+<li><a href="#%E5%B9%BF%E5%91%8A%E7%AD%96%E7%95%A5">广告策略</a>
+<ul>
+<li><a href="#%E6%B5%81%E9%87%8F%E7%AD%96%E7%95%A5">流量策略</a>
+<ul>
+<li><a href="#%E4%BD%93%E9%AA%8C%E7%AD%96%E7%95%A5">体验策略</a></li>
+<li><a href="#%E6%A0%B7%E5%BC%8F%E7%AD%96%E7%95%A5">样式策略</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8A%95%E6%94%BE%E7%AD%96%E7%95%A5">投放策略</a>
+<ul>
+<li><a href="#%E5%86%B7%E5%90%AF%E5%8A%A8">冷启动</a></li>
+<li><a href="#%E7%A8%B3%E5%AE%9A%E6%80%A7">稳定性</a>
+<ul>
+<li><a href="#%E6%88%90%E6%9C%AC%E7%A8%B3%E5%AE%9A%E6%80%A7">成本稳定性</a></li>
+<li><a href="#%E6%8A%95%E6%94%BE%E7%A8%B3%E5%AE%9A%E6%80%A7">投放稳定性</a></li>
+<li><a href="#%E6%A8%A1%E5%9E%8B%E4%BC%98%E5%8C%96">模型优化</a></li>
+</ul>
+</li>
+<li><a href="#%E5%87%BA%E4%BB%B7%E7%AD%96%E7%95%A5">出价策略</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BD%AC%E5%8C%96%E5%92%8C%E5%BD%92%E5%9B%A0">转化和归因</a>
+<ul>
+<li><a href="#%E8%BD%AC%E5%8C%96">转化</a></li>
+<li><a href="#%E5%BD%92%E5%9B%A0">归因</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%9B%E6%84%8F%E5%92%8C%E6%99%BA%E8%83%BD%E6%8A%95%E6%94%BE">创意和智能投放</a>
+<ul>
+<li><a href="#%E5%88%9B%E6%84%8F%E7%94%9F%E4%BA%A7%E5%92%8C%E7%AE%A1%E7%90%86">创意生产和管理</a></li>
+</ul>
+</li>
+<li><a href="#%E7%B4%A0%E6%9D%90%E6%95%B0%E6%8D%AE%E6%A3%80%E7%B4%A2%E8%83%BD%E5%8A%9B">素材数据检索能力</a>
+<ul>
+<li><a href="#%E8%AF%8A%E6%96%AD">诊断</a></li>
+<li><a href="#%E6%99%BA%E8%83%BD%E6%8A%95%E6%94%BE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%8A%95%E6%94%BE">智能投放/自动化投放</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="流量策略"><a class="markdownIt-Anchor" href="#流量策略"></a> 流量策略</h2>
+<p><em>核心目标</em>*</p>
+<ul>
+<li>
+<p>流量变现的核心目标是最大化用户生命周期价值（LTV），需平衡用户留存与变现能力。</p>
+</li>
+<li>
+<p>流量策略 = 本质就是推荐</p>
+<ul>
+<li>Adload 多目标兑换 价值兑换 &amp; 融合（多体裁 多体验（软广硬广电商） ）-&gt; 推荐101
+<ul>
+<li>协同效应：种草效应，加热效应</li>
+<li>位置：行业、内容/广告类型、推荐和纠偏</li>
+</ul>
+</li>
+<li>混排：控制 gap/load 保证用户体验
+<ul>
+<li>频控</li>
+<li>混排方案（技术） x gap控制</li>
+</ul>
+</li>
+<li>long term topic
+<ul>
+<li>供给：素材 &amp; 内容质量（优质内容等）</li>
+<li>流量拓展：啥样的是耗流量</li>
+<li>用户体验：
+<ul>
+<li>刻画体验指标</li>
+<li>用户生态——要好好读一下黄jianjie &amp; hy的文档</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>关键策略</p>
+<ul>
+<li>Adload（广告加载率）
+<ul>
+<li>作用：在 eCPM 较高时（如大促活动）增加收入</li>
+<li>设定依据：参考竞品（如 Facebook 为8%）、收益测算、用户体验（激进策略可能损害 LTV）、客户预算</li>
+<li>问题案例：品牌与效果广告库存冲突；抖音硬广与 Dou+ 库存未充分开发</li>
+</ul>
+</li>
+<li>频控（广告展示频率控制）
+<ul>
+<li>目的：减少重复广告对用户体验的影响</li>
+<li>尝试方案：多位置联合频控 → 单独频控；基于相似度的频控（Simons）；长周期频控；打压相似广告的 HiddenCost 机制</li>
+<li>争议点：统一规则合理性；素材多样性可能提升转化；客户ID作为频控维度存在公平性问题</li>
+</ul>
+</li>
+<li>Adgap（广告间隔）
+<ul>
+<li>定义：广告与广告/内容的最小间隔</li>
+<li>作用：限制单个用户广告密度上限（如抖音 Adload 6%）；优化高价值用户广告曝光</li>
+<li>未来方向：个性化间隔（用户/请求级别）；广告间相互影响建模；优化会话内整体收益</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>其他关键议题</p>
+<ul>
+<li>HiddenCost与 LTV 关系：需量化用户体验损伤（如西瓜 App 内广影响留存案例），并纳入广告排序模型</li>
+<li>流量瓶颈：高价值流量不足时，通过抖音原生化广告、开屏竞价等手段挖掘增量</li>
+<li>用户注意力规律：长内容（如文档、信息流广告）中用户注意力集中于前半部分</li>
+</ul>
+</li>
+</ul>
+<h3 id="体验策略"><a class="markdownIt-Anchor" href="#体验策略"></a> 体验策略</h3>
+<p>如何平衡商业化收入和用户体验？</p>
+<ul>
+<li>直接验证策略效果，而非回答&quot;中介问题&quot;（例：扩load应直接测策略收益，而非比较内容优劣）</li>
+<li>典型误区：</li>
+<li>存量数据推断边际效应（当前内容体验≠新增内容体验）</li>
+<li>结论无法指导决策（如自然内容体验更好≠扩自然load必然改善体验）</li>
+</ul>
+<p><strong>实验设计</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>屏蔽机制</strong></th>
+<th><strong>核心对比对象</strong></th>
+<th><strong>优缺点</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>召回前过滤</td>
+<td>目标广告 vs 补位广告+自然</td>
+<td>收入折损小，但填充内容不可控</td>
+</tr>
+<tr>
+<td>抬ECPM门槛</td>
+<td>目标广告 vs 补位广告+自然</td>
+<td>配置灵活，但可能屏蔽不完全</td>
+</tr>
+<tr>
+<td>召回过滤+广告load打平</td>
+<td>目标广告 vs 自然</td>
+<td>最接近广告vs自然对比，需频繁调参</td>
+</tr>
+<tr>
+<td>混排mask</td>
+<td>目标广告 vs 补位广告+自然</td>
+<td>内容质量更优，但收入折损最大</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>现实局限</strong>：
+<ul>
+<li>无法完全控制非目标广告的<strong>内容质量</strong>与<strong>数量</strong></li>
+<li>当前最优方案：召回过滤+pacing打平广告load（仅控量不控质）</li>
+</ul>
+</li>
+</ul>
+<p>常见难点</p>
+<ol>
+<li>
+<p><strong>数据陷阱</strong></p>
+<ul>
+<li>不同实验结论矛盾（例：千川vs非千川广告的体验优劣结论冲突）</li>
+<li>根源：补位内容的<strong>质量分布差异</strong>（自然电商内容 vs 其他内容）</li>
+</ul>
+</li>
+<li>
+<p><strong>时间维度干扰</strong></p>
+<ul>
+<li>同策略不同时期实验不可比（例：2018-2023年广告屏蔽实验DAULoss持续衰减）</li>
+<li>归因假设：
+<ul>
+<li><em>用户淘汰</em>：广告敏感用户已流失</li>
+<li><em>耐受增强</em>：用户对广告接受度提高</li>
+<li><em>产品力调节</em>：产品功能强弱影响广告容忍度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>归因困境</strong></p>
+<ul>
+<li>DAULoss波动可能反映：
+<ul>
+<li>内容质量变化</li>
+<li>用户结构迁移</li>
+<li>系统策略调整</li>
+</ul>
+</li>
+<li>建议：直接通过策略实验验证收益，避免复杂归因</li>
+</ul>
+</li>
+</ol>
+<div class="mermaid">
+  graph LR
+    A[影响广告LTloss的因素]
+    A --> B[广告内容/素材]
+    A --> C[广告策略]
+    A --> D[外部因素]
+
+    B --> B1[预算类型&结构变化]
+    B --> B2[素材质量]
+    B2 --> B21[ctr/dislike/report...]
+
+    C --> C1[流量策略]
+    C1 --> C11[adload/gap/startpos/重复度/新流量位]
+    C --> C2[样式]
+    C --> C3[投放策略]
+
+    D --> D1[用户侧对于广告的影响]
+    D1 --> D11[买量质量]
+    D1 --> D12[客户端性能]
+    D1 --> D13[用户侧产品策略]
+    D1 --> D14[节假日等因素对于用户结构的影响]
+    D --> D2[电商侧对于广告的影响]
+</div>
+
+<hr />
+<ul>
+<li><strong>策略验证优先</strong>：能直接测策略效果时，不进行中介问题分析</li>
+<li><strong>实验机制透明化</strong>：明确实验对比对象及数据局限性</li>
+<li><strong>动态监控假设</strong>：持续跟踪用户结构、内容质量等潜在干扰项</li>
+</ul>
+<h3 id="样式策略"><a class="markdownIt-Anchor" href="#样式策略"></a> 样式策略</h3>
+<p>将广告样式和互动融入产品原生内容体验中，</p>
+<ul>
+<li>提升流量效率和用户体验</li>
+<li>提升客户ROI、满足客户垂直领域营销诉求和品牌形象建立（互动性、交互性好的广告）</li>
+<li>对于平台、引导广告主以更符合产品调性和平台定位风格去创作内容</li>
+</ul>
+<p>例如</p>
+<ul>
+<li>样式基础策略
+<ul>
+<li>样式优化相关组件的优化
+<ul>
+<li><strong>模型特征</strong>
+<ul>
+<li>样式优选特征进模型：
+<ul>
+<li>样式优选会影响广告的ctr、cvr，尝试将创意样式特征加入模型中，提升整体广告效果。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>按钮</strong>
+<ul>
+<li>按钮显色时机优选策略：
+<ul>
+<li>按钮是重要的转化组件，承担30%转化事件。不同国家/用户习惯不同，需优化按钮展示时机以提升收益。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>蒙层</strong>
+<ul>
+<li>下载类蒙层样式优化：
+<ul>
+<li>广告播放后展示广告蒙层，属于高意向人群，转化率高。优化蒙层样式（图片、文字等）可提升转化能力。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>卡片</strong>
+<ul>
+<li>下载卡片样式优化、展示时机优化：
+<ul>
+<li>应用广告中，卡片形式为用户提供应用相关信息（评分、类别、排名等），提升转化率。</li>
+</ul>
+</li>
+<li>商品卡：
+<ul>
+<li>电商广告中，卡片形式为用户提供商品信息（品牌、价格、材质等），提升转化率。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>样式个性化优化模型
+<ul>
+<li><strong>重点方向</strong>
+<ul>
+<li>候选集丰富 + 个性化优选模型
+<ul>
+<li>传统AB测试只能挑出平均最优方案，无法满足用户多样性。</li>
+<li>个性化优选能基于模型为不同用户提供最有价值的信息，提升效果和体验。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>样式元素个性化流程</strong>
+<ul>
+<li>样式元素构成（容器、物料、UI风格、展示时机、布局）</li>
+<li>实际投放样式（多种组合）</li>
+<li>定向用户（不同人群）</li>
+</ul>
+</li>
+<li><strong>实现目标</strong>
+<ul>
+<li>个性化候选集数量&amp;质量提升
+<ol>
+<li>明确个性化的投放样式，至少2-3种可选风格</li>
+<li>文案物料：基于CTA优选尝试文案半自动化生成</li>
+<li>图片物料：基于图片卡尝试半自动/全自动化生成</li>
+<li>生产力提升：部分默认样式可编辑，引入客户生产力，提升候选集质量</li>
+</ol>
+</li>
+<li>优选效率提升
+<ol>
+<li>EE优选：基于单独组件数据挑选正负例，快速验证个性化价值</li>
+<li>粗排：cid返回top20样式组合
+<ul>
+<li>单一优选：先在单一样式上验证模型优选价值</li>
+<li>组合优选：结合已有样式优选模型，探索组合收益</li>
+</ul>
+</li>
+<li>精排：在考虑样式特征下精准预估ectr、ecvr，实现更精准投放
+<ul>
+<li>deepformat建议</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>要实现样式个性化价值最大化，需关注
+<ul>
+<li>个性化候选集数量和质量提升</li>
+<li>优选效率提升</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>解决方案
+<ul>
+<li>针对客户不同的营销场景、设计样式策略
+<ul>
+<li>产品形态
+<ul>
+<li><strong>CTA优选</strong>
+<ul>
+<li>利用定制化CTA文案和智能模型优化，提升广告表现</li>
+</ul>
+</li>
+<li><strong>图片卡</strong>
+<ul>
+<li>通过图像展示品牌核心信息，增强广告吸引力</li>
+</ul>
+</li>
+<li><strong>礼包卡</strong>
+<ul>
+<li>运用激励策略促进用户拉新和激活</li>
+</ul>
+</li>
+<li><strong>投票贴纸</strong>
+<ul>
+<li>引入互动元素，提升视频广告的用户参与度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>重点方向
+<ul>
+<li><strong>客户认知建立</strong>
+<ul>
+<li>整合样式编辑器，增强客户对广告样式的整体认知</li>
+</ul>
+</li>
+<li><strong>样式指标报告接入</strong>
+<ul>
+<li>展示关键样式数据，帮助客户直观评估广告效果</li>
+</ul>
+</li>
+<li><strong>Showcase案例库建设</strong>
+<ul>
+<li>汇集并展示成功案例，提升产品推广信心</li>
+</ul>
+</li>
+<li><strong>创编效率优化</strong>
+<ul>
+<li>简化和优化广告素材创编流程，提升制作效率</li>
+</ul>
+</li>
+<li><strong>图片卡模板化改版</strong>
+<ul>
+<li>推出标准化模板，降低用户使用门槛</li>
+</ul>
+</li>
+<li><strong>样式资产库</strong>
+<ul>
+<li>建立素材资产库，实现广告样式高效复用</li>
+</ul>
+</li>
+<li><strong>样式产品推荐能力</strong>
+<ul>
+<li>分析广告内容，智能推荐最适合的样式产品</li>
+</ul>
+</li>
+<li><strong>物料生成能力</strong>
+<ul>
+<li>自动化生成广告物料，减少素材准备工作量</li>
+</ul>
+</li>
+<li><strong>全自动化样式</strong>
+<ul>
+<li>实现广告样式的全自动化配置和优化</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>评论生态：增加对于用户反馈的搜集、让平台和广告主根据用户评论改进
+<ul>
+<li>评论管理工具（对商家，监控 控评 品牌营销等）</li>
+<li>评论排序策略（促进能转化的策略）</li>
+<li>评论冷启动（实现评论从0到1、促评论渗透）</li>
+<li>关键点：提升开启率、浏览率、让用户“玩起来”（广告比原生内容更难）</li>
+</ul>
+</li>
+<li>创新样式：AR、3D、传感器（识别左右手）打造独有产品</li>
+<li>交互设计：组件形态（组件、按钮、视频、蒙层）等和交互跳转逻辑的设计、探索更适合产品的交互形态</li>
+</ul>
+<h2 id="投放策略"><a class="markdownIt-Anchor" href="#投放策略"></a> 投放策略</h2>
+<div class="mermaid">
+  graph LR
+
+    I[投放基础策略] --> J[稳定性]
+    I --> K[复制计划]
+    I --> L[冷启动]
+    I --> M[预算优化]
+    I --> N[赠付策略]
+    I --> O[广告质量]
+</div>
+
+<h3 id="冷启动"><a class="markdownIt-Anchor" href="#冷启动"></a> 冷启动</h3>
+<p>解决什么问题？</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>系统视角</th>
+<th>客户视角</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>核心目标</strong></td>
+<td>全局收益最大化</td>
+<td>单广告快速起量</td>
+</tr>
+<tr>
+<td><strong>成本承担</strong></td>
+<td>试错成本（流量机会）</td>
+<td>超成本风险、基建浪费</td>
+</tr>
+<tr>
+<td><strong>策略重点</strong></td>
+<td>长期学习与均衡曝光</td>
+<td>短期ROI与预算效率</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>系统角度</strong>
+<ol>
+<li>
+<p><strong>推荐模型冷启动问题</strong></p>
+<ul>
+<li>新广告缺乏正反馈数据（如点击、转化），导致预估偏差大，类似「矩阵填充」问题。</li>
+<li>系统需通过试错成本（曝光机会）探索广告真实质量，提升预估准确性。</li>
+</ul>
+</li>
+<li>
+<p><strong>探索与利用（EE）问题</strong></p>
+<ul>
+<li><strong>探索（Explore）</strong>：短期牺牲部分收益，尝试不确定性高的冷广告，获取长期价值。</li>
+<li><strong>利用（Exploit）</strong>：依赖成熟广告的高确定性收益。</li>
+<li>平衡两者可优化全局收益，避免陷入局部最优。</li>
+</ul>
+</li>
+<li>
+<p><strong>样本不均衡/长尾学习</strong></p>
+<ul>
+<li>冷广告初始样本少，需模型加强长尾学习能力，避免成熟广告占据过多曝光资源。</li>
+<li>冷广告需从长尾逐渐过渡至头部曝光，系统需动态分配流量支持其成长。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>客户角度</strong>
+<ol>
+<li>
+<p><strong>广告主的核心诉求</strong></p>
+<ul>
+<li><strong>起量速度与量级</strong>：新广告需快速达成消耗目标，否则导致基建浪费与预算流失。</li>
+<li><strong>生命周期压力</strong>：广告平均生命周期短（如7天），起量慢直接影响客户投放信心。</li>
+</ul>
+</li>
+<li>
+<p><strong>平台与客户激励冲突</strong></p>
+<ul>
+<li>若平台不扶持冷启动，广告主可能大量堆砌基建，导致生态劣化（成熟广告减少、投放效果下降）。</li>
+<li>冷启动策略需平衡平台长期收益与客户短期成本，避免策略成本转嫁至广告主。</li>
+</ul>
+</li>
+<li>
+<p><strong>客户感知与行业差异</strong></p>
+<ul>
+<li><strong>学习期容忍度</strong>：不同行业对冷启动期成本、转化数的容忍度差异大（如深度转化广告需更高门槛）。</li>
+<li><strong>竞对对比</strong>：快手依赖堆计划（生命周期1-2天），腾讯起量慢但生命周期长，影响客户策略选择。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<p>如何优化？</p>
+<ol>
+<li>
+<p><strong>出价调整（精排阶段）</strong></p>
+<ul>
+<li><strong>做法</strong>：<br />
+① 个性化设置冷启动期出价上界（随消耗增加衰减）；<br />
+② 引入防压价机制（根据消耗变化调整出价系数）；<br />
+③ 分层行业参数调节（如线索行业账户粒度计费风控）。</li>
+<li><strong>解决问题</strong>：改善新广告因预估不准导致的竞争力不足，提升跑量速度和通过率，降低冷启动成本超支风险。</li>
+</ul>
+</li>
+<li>
+<p><strong>Boost（排序干预）机制（精排阶段）</strong></p>
+<ul>
+<li><strong>做法</strong>：<br />
+① 在广告ECPM中叠加固定系数（如 <code>hidden_cost = const * boost_coef</code>）；<br />
+② 流量优选策略（如站内Recentpvr Boost，避免头部效应浪费）；<br />
+③ 穿山甲Waterfall设置Boost上限。</li>
+<li><strong>解决问题</strong>： 短期提升冷广告曝光优先级，加速探索效率，同时避免过度集中头部流量。</li>
+</ul>
+</li>
+<li>
+<p><strong>流量扶持（召回/粗排阶段）</strong>：平衡探索与利用</p>
+<ul>
+<li>EE常见策略（更多参考推荐）
+<ul>
+<li>经典策略</li>
+</ul>
+</li>
+</ul>
+ <div class="mermaid">
+   graph TD
+A[Explore & Exploit] --> B[Multi-Armed Bandit]
+B --> C[epsilon-greedy]
+B --> D[Thompson Sampling]
+B --> E[UCB1]
+B --> F[Bayesian UCB]
+
+D -- beta-distribution --> D
+D -- sampling --> D
+E -- confidence --> E
+E -- hoeffding-inequality --> E
+
+D -.-> G[LinUCB]
+E -.-> G
+F -.-> G
+
+G -- ridge-regression --> G
+G -- collaborative --> H[CoLin/CLUB]
+G -- hidden-features --> I[hLinUCB]
+I --> J[FactorUCB]
+
+%% context-free/contextual分界线
+classDef dashedLine stroke-dasharray: 5 5;
+K[Context-free]:::dashedLine
+L[Contextual]:::dashedLine
+K -.-> G
+L -.-> G
+
+%% 右侧注释
+C -.-> M[random-explore]
+C -.-> N[smart-explore]
+   
+</div>
+
+<ul>
+<li>人工选择样本和流量
+<ul>
+<li>RecentPVR类策略</li>
+<li>RankUser：利用离线二分图的方式（用户聚类-求解二分图）实现合适user-ad的离线匹配</li>
+<li>计划继承： 对于新广告，从同账号下找到跑量好 &amp; 成本稳定的一些成熟广告，并从中随机选择一个作为继承母计划，然后通过改bid的方式增加新广告在母计划认为优质的流量上投放</li>
+<li>有序探索：历史7天的冷启动广告在不同site上的投放数据，统计出不同site * 行业上的预估偏差数据，然后根据偏差数据将目标行业的新广告冷启动期的投放过程分成几个阶段，相当于在投放初期更多的在预估偏差更好的流量上投放</li>
+<li>多样性策略： 发现初始探索到的媒体数和生命周期跑量是存在相关性的，通过boost 扰动达到计划初期在更多媒体探索的目的
+<ul>
+<li>
+<ul>
+<li>于有较多convert的成熟计划，后期大部分send集中在前期有convert的人群上，且send一定程度上集中在更好（pvr更高）的人群上</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>由于抖音人群信息多且较稳定（有稳定的人群聚类cluster）因此可以对于合适的人群进行更细粒度的探索策略，和下面的Uncertainty建模结合<br />
+【Uncertainty建模】- 经典的EE方法无法考虑个性化的“预估不确定性”，eg. 如果我们把对冷广告ctr/cvr的估计看做是有一次有不确定性的猜测的话，那么对于不同的样本（广告, ea, 用户，广告位…)我们猜对的概率事实上是不一样的</li>
+<li>我们希望量化对于每个user-(ad)group （instance）预估的不确定性：- 对Uncertainty进行建模，获得更好的E&amp;E策略（eg 利用确定性大的，探索不确定性大的）
+<ul>
+<li>可以用于精排预估，扶持资源分配，为广告找寻样本等各环节（[WIP]uncertainty boost实验记录[WIP]精排冷启动利用Uncertainty提升泛化性实验 ）</li>
+</ul>
+</li>
+<li>和人群探索策略的结合：Uncertainty在cid-user cluster粒度建模
+<ul>
+<li><strong>做法</strong>：<br />
+① 冷启动专用流量池（如穿山甲冷流量召回）；<br />
+② 流量配额分配（按冷热广告分层匹配流量）；<br />
+③ 动态流量扶持（根据实时消耗调整扶持力度）。</li>
+<li><strong>解决问题</strong>： 解决冷广告因样本不足难以触达目标用户的问题，平衡探索与利用的流量分配。</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li><strong>模型优化</strong>：增强”泛化性“
+<ul>
+<li><strong>做法</strong>：<br />
+① 迁移学习（复用相似广告/行业数据）；<br />
+② 自训练模型（如Self-Training隔绝非ID特征）；<br />
+③ 长尾学习（增强模型对稀疏样本的学习能力）。<br />
+优化variance 主成分等
+<ol>
+<li>优化模型AA Variance</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>精排Variance度量（WIP） Variance 定义, 度量 以及生态影响评估(Draft) Variance度量[WIP]  aa variance数据统计口径</li>
+<li>AA variance接入libra整体技术方案 Admock – AA分析介绍文档</li>
+</ul>
+<ol start="2">
+<li>去除id类特征 统计类特征；加入泛化特征和内容理解特征等</li>
+</ol>
+<ul>
+<li>模型冷启动优化 DDN冷启动网络</li>
+</ul>
+<ol start="3">
+<li>采样优化，Debias， Loss Reweight, 正样本挖掘等</li>
+</ol>
+<ul>
+<li>Bias &amp; Debias Toutiao LTR Sample Balance</li>
+</ul>
+<ol start="4">
+<li>Meta-Learning, Transfer-Learning, Contrastive Learning等</li>
+</ol>
+<ul>
+<li>站内冷启动 Meta-Learner 建模梳理&amp;规划[updated]</li>
+<li>穿山甲冷启动广告emb优化 [LR]穿山甲冷路transfer learning</li>
+</ul>
+<ol start="5">
+<li>强化学习，attribute（关系型，属性型信息，主要基于图）等</li>
+</ol>
+<ul>
+<li>REINFORCE Recall 设计文档</li>
+<li>高效Explore专题 （包括Uncertainty方向）</li>
+<li>Graph Embedding with Cold Start</li>
+<li><strong>解决问题</strong>：缓解样本不均衡导致的预估偏差，提升冷广告的CTR/CVR预估准确性</li>
+</ul>
+<ol start="5">
+<li><strong>指标与实验机制优化</strong>
+<ul>
+<li><strong>做法</strong>：<br />
+① 分行业/转化目标定义个性化门槛（如起量率替代通过率）；<br />
+② 双边分流实验（隔绝实验组与对照组干扰）；<br />
+③ 预算分桶机制（降低共享预算对实验结果的干扰）。</li>
+<li><strong>解决问题</strong>：  解决冷启动指标（如通过率）受行业/EA差异干扰的问题，提升实验评估的准确性和策略迭代效率。</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><strong>问题类型</strong></th>
+<th><strong>优化手段</strong></th>
+<th><strong>效果</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>预估不准（模型冷启动）</td>
+<td>模型优化、Boost机制</td>
+<td>提升ECPM准确性，减少高估/低估偏差</td>
+</tr>
+<tr>
+<td>探索效率低（EE问题）</td>
+<td>出价调整、流量扶持</td>
+<td>加速冷广告样本积累，降低机会成本</td>
+</tr>
+<tr>
+<td>样本不均衡/长尾学习</td>
+<td>迁移学习、长尾学习</td>
+<td>增强模型对稀疏样本的拟合能力</td>
+</tr>
+<tr>
+<td>客户感知起量慢</td>
+<td>冷启动出价、流量配额</td>
+<td>提升冷广告跑量速度，缩短学习期</td>
+</tr>
+<tr>
+<td>实验评估干扰（Spillover效应）</td>
+<td>双边分流、预算分桶</td>
+<td>隔离实验组与对照组相互影响，提升策略评估置信度</td>
+</tr>
+</tbody>
+</table>
+<h3 id="稳定性"><a class="markdownIt-Anchor" href="#稳定性"></a> 稳定性</h3>
+<p>从广告主体验的角度，一个优秀的投放系统应该是在成本和跑量上可预期的，“可预期”包含达成和稳定两方面的因素。在成本稳定性中，“达成”可认为是调控时间段内完成了预设目标（e.g. 目前计费风控的目标是自然日内计费比调整至1），“稳定”指多个时间段内表现的一致性（e.g. 一个计划前一个自然天计费比0.9，后一个自然天计费比1.1，即使都在广告主容忍的区间内，也不太是一个好的投放体验，因为这样的表现让广告主很难预测下一天的效果，可能会导致不敢放量/控预算）。我们的短期目标是解决成本达成问题， 中长期希望top-down地改善投放周期内计费比稳定性上的表现。<br />
+而在投放稳定性中，短期内我们希望从计划角度解决生命周期内的卡点：起量（冷启动）阶段独立由冷启动项目解决，跑量阶段我们重点解决由于计费比高导致的关停问题（合并到计费比项目中，未独立监控），和异常掉量导致的消耗下跌问题，整体目标是保障优质计划跑出合理的ARPU，使广告主投入的基建/人力成本有稳定的回报预期，换取渠道间的预算倾斜。更长期我们希望实现更优的投放体验，如让优质广告起量更快，跑量更久，打造穿山甲渠道的优势和口碑。</p>
+<h4 id="成本稳定性"><a class="markdownIt-Anchor" href="#成本稳定性"></a> 成本稳定性</h4>
+<p><strong>核心问题</strong>：保障广告主成本预期，降低计费比波动<br />
+<strong>解决方法</strong>：</p>
+<ol>
+<li><strong>预估偏差优化</strong>
+<ul>
+<li><strong>数据流优化</strong>：改进样本回流机制，减少小时级偏差</li>
+<li><strong>校准技术</strong>：采用多维度保序回归，拆分场景专项校准</li>
+<li><strong>模型改进</strong>：分行业/EA独立建模，优化样本分布调整</li>
+</ul>
+</li>
+<li><strong>计费风控优化</strong>
+<ul>
+<li><strong>增量广告主价值预估</strong>：通过CTM模型和postclick方案解耦CVR依赖</li>
+<li><strong>PID框架升级</strong>：精细化调控计费系数，降低高敏感行业超成本风险</li>
+</ul>
+</li>
+<li><strong>行业专项优化</strong>
+<ul>
+<li>对线索类/active_pay等高敏感行业独立建模</li>
+<li>调整公式参数，降低空耗与badcase占比</li>
+</ul>
+</li>
+</ol>
+<h4 id="投放稳定性"><a class="markdownIt-Anchor" href="#投放稳定性"></a> 投放稳定性</h4>
+<p><strong>核心问题</strong>：延长计划生命周期，减少异常掉量<br />
+<strong>解决方法</strong>：</p>
+<ol>
+<li><strong>掉量问题治理</strong>
+<ul>
+<li>
+<p><strong>预测模型</strong>：小时级掉量概率预测（P=0.87/R=0.82）</p>
+<ul>
+<li>
+<p>比较复杂 要先理解掉量原因</p>
+</li>
+<li>
+<p><strong>系统原因</strong>（50%）</p>
+<ul>
+<li>核心指标异常波动
+<ul>
+<li>ECPM（每千次展示收益）明显降低</li>
+<li>ECTR（预估点击率）异常波动</li>
+<li>ECVR（预估转化率）显著下降</li>
+</ul>
+</li>
+<li>解决方案
+<ul>
+<li>计划复制</li>
+<li>模型优化</li>
+<li>出价优化</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>不确定原因</strong>（45%）</p>
+<ul>
+<li>问题特征
+<ul>
+<li>ECPM下降但diff无明显变化</li>
+<li>可能为计划正常但模型波动</li>
+<li>可能受环境因素影响（如品牌排压）</li>
+</ul>
+</li>
+<li>解决方案
+<ul>
+<li>计划复制</li>
+<li>模型优化</li>
+<li>出价问题诊断</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>广告主操作原因</strong>（5%）</p>
+<ul>
+<li>触发因素
+<ul>
+<li>广告主主动暂停</li>
+<li>预算减少</li>
+<li>定向修改</li>
+</ul>
+</li>
+<li>解决方案
+<ul>
+<li>问题诊断</li>
+<li>与广告主沟通</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>环境原因</strong></p>
+<ul>
+<li>影响因素
+<ul>
+<li>定向人群减少</li>
+<li>流量池变化</li>
+<li>素材频控</li>
+<li>创意量不足</li>
+<li>业界放量/大客户进入等行业性波动</li>
+</ul>
+</li>
+<li>解决方案
+<ul>
+<li>原因诊断</li>
+<li>出价优化</li>
+<li>计划复制</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>扶持策略</strong>：通过pacing框架固定预算扶持低估广告</p>
+</li>
+</ul>
+</li>
+<li><strong>竞争力维持</strong>
+<ul>
+<li><strong>精排优化</strong>：校正冷启动广告ecvr预估，增加rank_bid扰动</li>
+<li><strong>召回过滤调整</strong>：降低冷启动广告过滤比例，延长优质计划曝光周期</li>
+</ul>
+</li>
+<li><strong>归因分析</strong>
+<ul>
+<li>投放漏斗拆解定位精排未胜出主因</li>
+<li>区分系统性竞争压力与异常低估场景</li>
+</ul>
+</li>
+</ol>
+<p><strong>指标验证</strong></p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>核心指标</th>
+<th>优化目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成本稳定性</td>
+<td>计费比0.9-1.1区间消耗占比</td>
+<td>提升高敏感行业达标率</td>
+</tr>
+<tr>
+<td>投放稳定性</td>
+<td>无操作计划掉量率/消耗分布</td>
+<td>降低异常掉量消耗占比40%+</td>
+</tr>
+</tbody>
+</table>
+<p>优化手段</p>
+<h4 id="模型优化"><a class="markdownIt-Anchor" href="#模型优化"></a> 模型优化</h4>
+<ul>
+<li>
+<p><strong>模型遗忘性优化</strong></p>
+<ul>
+<li><strong>数据重放与参数隔离</strong>: 采用MFTC框架实现数据重放与参数隔离；正则化技术（如ReinforceRecall中的惩罚性参数更新）</li>
+<li><strong>长期知识保留</strong>: 精排CVR模型中恢复aid及后验特征，增强计划侧记忆；冷启动计划使用Meta-Learning生成Embedding</li>
+<li><strong>训练架构改进</strong>: Layer-wise Learning结合7天Shuffling训练；缩短Online Learning时间，平衡效果与稳定性</li>
+</ul>
+</li>
+<li>
+<p><strong>特征与数据流优化</strong></p>
+<ul>
+<li><strong>特征泛化性提升</strong>: 替换强特征（如advid）为结构化特征（商品/品类ID）；增加广告侧后验统计特征（cost/convert）及用户序列特征</li>
+<li><strong>采样策略优化</strong>: 限制头部广告采样频率，提升尾部/掉量计划正例采样概率；In-Batch负例辅助任务（TikTok粗排CVR优化+2%效果）</li>
+</ul>
+</li>
+<li>
+<p><strong>模型结构优化</strong></p>
+<ul>
+<li><strong>模型融合与分离</strong>: 泛化性塔与记忆性塔的Ensemble（如Batch + Online模型融合）；双塔模型引入用户历史Item塔（SDPA召回优化）</li>
+<li><strong>实时特征与结构优化</strong>: 精排模型加入Session实时特征（优化掉量率）；序列建模（如Seq特征双塔PDN，掉量优化1点）</li>
+</ul>
+</li>
+<li>
+<p><strong>策略与投放优化</strong></p>
+<ul>
+<li><strong>出价与漏斗效率</strong>: 平滑出价策略，放宽掉量时计费比约束；提升掉量扶持效率：精排→粗排→召回层级配额倾斜</li>
+<li><strong>探索机制优化</strong>: Uncertainty扰动结合CID不确定性探索；Smart Shadow策略约束投放异质性</li>
+</ul>
+</li>
+<li>
+<p><strong>实验与评估体系</strong></p>
+<ul>
+<li><strong>指标建设</strong>: 模型侧：预估Diff、泛化性指标、计划投中状态诊断；客户侧：投放过程白盒化，掉量信号提取</li>
+<li><strong>实验方法</strong>: 分桶评估GAUC（按消耗分桶/掉量组对比）；破坏性实验验证召回与精排影响</li>
+</ul>
+</li>
+<li>
+<p><strong>工程实践</strong></p>
+<ul>
+<li><strong>训练优化</strong>: 凌晨Shuffle + 增量训练（缓解实时模型遗忘）；优化器改进（如AdaMom/AdaNest缓解遗忘）</li>
+<li><strong>实时框架</strong>: 近线召回（Nearline召回项目）；实时模型更新结合天级数据分析</li>
+</ul>
+</li>
+</ul>
+<h3 id="出价策略"><a class="markdownIt-Anchor" href="#出价策略"></a> 出价策略</h3>
+<p>一般而言，出价策略是指前一篇文章提到的为广告主投放实现的基础出价策略（流控出价、风控出价等）；但由于出价和排序模块的强耦合，也会有一些优化系统（平台视角）的出价策略，例如</p>
+<ul>
+<li>冷启动出价：上文所说，用调高出价实现探索/利用，比干预排序直接，且平台少承担一部分成本</li>
+<li>行业出价
+<ul>
+<li>面向广告投放行业的<strong>私有出价调整服务</strong></li>
+<li>通过<strong>私有模型</strong>对命中流量进行深度转化率预估，结合业务场景动态扰动出价</li>
+<li>服务于联合建模、多触点归因、计划继承等业务场景</li>
+<li>优化模型
+<ul>
+<li><strong>行业适配性问题</strong>通过独立特征体系与行业定制模型解决通用模型无法满足垂直行业特性的痛点</li>
+<li><strong>数据利用率不足</strong>多触点归因模型助攻整合跨渠道转化数据</li>
+<li><strong>出价机制僵化</strong>引入深度转化指标（private_deep_cvr）扰动，突破单一CTR/CVR预估维度</li>
+<li><strong>实验效率低下</strong>配置化管理平台实现策略分钟级生效，替代传统代码部署迭代方式</li>
+<li><strong>成本控制粗放</strong>通过计划继承、模型降级等机制实现大客户预算精细化管理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>中间事件出价
+<ul>
+<li>广告投放中利用浅层关键事件（如点击后/转化前的用户行为）构建的辅助模型，用于优化稀疏转化目标（如付费）的预估能力。
+<ul>
+<li><strong>解决的核心问题</strong></li>
+<li><strong>稀疏数据导致模型预估不准</strong>：深度转化目标（如付费）日样本量极少（仅几百），模型因方差过大难以准确学习。</li>
+<li><strong>竞价能力不足</strong>：模型低估高转化潜力请求，导致广告无法竞争流量，转化量持续低迷。</li>
+<li><strong>实现原理</strong></li>
+</ul>
+<ol>
+<li><strong>引入高量级浅层目标</strong>（如安装、激活）作为第二转化目标，利用其充分样本训练模型（2nd eCVR）。</li>
+<li><strong>通过出价扰动或CVR融合</strong>，将2nd eCVR与原CVR结合，平衡偏差与方差：</li>
+</ol>
+<ul>
+<li>浅层目标量级大 → 模型方差低 → 预估更稳定</li>
+<li>若浅层与深度目标强相关 → 引入偏差可控 → 整体预估能力提升</li>
+<li><strong>验证条件</strong></li>
+</ul>
+<ol>
+<li>浅层目标与深度目标强相关性（减少偏差）</li>
+<li>浅层目标预估模型（2nd eCVR）准确（降低方差）</li>
+<li>（可选）高2nd eCVR样本中当前CVR模型存在低估（针对性提升竞价能力）</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>综上，很多时候，出价模块扮演了帮系统纠偏/寻找模型样本（正例）的角色, 实现方式一般是和其他出价策略叠加（乘以系数）</p>
+<h2 id="转化和归因"><a class="markdownIt-Anchor" href="#转化和归因"></a> 转化和归因</h2>
+<h3 id="转化"><a class="markdownIt-Anchor" href="#转化"></a> 转化</h3>
+<ul>
+<li>定义愿意为之付费的事件是什么：可能是转化目标，也可能是reach，广告主决定，平台提供产品</li>
+<li>平台有动力将转化越做越深（接近最终ROI）、广告主更直接表达、流量拍卖更有效率</li>
+<li>广告的”行业优化“很大程度上就是根据广告主诉求 做深转化目标</li>
+<li>长期发展方向：按照ROI出价（广告ROI、广告+自然ROI、甚至全域ROI（增效出价））</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>没做转化时</th>
+<th>浅度转化</th>
+<th>深度转化</th>
+<th>终极状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>站内闭环</td>
+<td>CPM</td>
+<td>加粉，直播间引流</td>
+<td>购买，加购</td>
+<td>ROI</td>
+</tr>
+<tr>
+<td>线上闭环</td>
+<td>CPC</td>
+<td>下载，安装，激活</td>
+<td>IAA 激活且次留，关键事件<br>IAP 激活且付费，每次付费</td>
+<td>ROI</td>
+</tr>
+<tr>
+<td>非闭环</td>
+<td></td>
+<td>电话拨打，留资</td>
+<td>教育：低价课，正价课购买<br>金融：保险支付，有效获客</td>
+<td>ROI</td>
+</tr>
+</tbody>
+</table>
+<h3 id="归因"><a class="markdownIt-Anchor" href="#归因"></a> 归因</h3>
+<p>归因对于广告主来说是计算 ROI 的重要一环，它代表着如何评定广告的价值，直接影响到客户的预算分配。对于平台来说归因直接影响到计费和扣量比例的传，换句话说，既影响收入，又影响模型表现。<br />
+广告曝光的真实成效是因为 “广告主愿意为付费的事件发生的原因”，既包括直接原因也包括间接原因。直接原因可以理解为用户看了某个广告后就转化了，间接原因是用户看了某个广告后虽然没有转化，但对后续的转化有一定影响。</p>
+<p>这里涉及几个问题：</p>
+<ol>
+<li>谁来归因：广告主自归因、平台归因、三方归因、主机厂归因（传言苹果就是想做归因才把 idfa 停掉的）。我们就不争论哪种方式更好了，作为平台方，肯定是希望争取平台来做归因。</li>
+<li>愿意为之付费的事件是什么：可能是转化目标，也可能是 reach，广告主决定，平台提供产品。</li>
+<li>参与归因的事件有什么：埋点归因、渠道归因、点击事件、曝光事件、有 double 事件，完播事件，等等。</li>
+<li>归因逻辑是什么：
+<ul>
+<li>单触点归因 (first_touch, last_touch, last_click, etc.)</li>
+<li>多触点归因 (MTA, DDA, etc.)</li>
+<li>增效归因 (Uplift)</li>
+</ul>
+</li>
+</ol>
+<p>在归因设计这块业务，同时时要去考虑 “合理” 以及 “利益最大化” 两件事，因此无广告主，平台方，其他渠道激烈竞争的领域。度量归因，转化事件选择和归因方式的决策将起到最为重要的角色。很多品牌以为卖东西的流程非常好不好，何即改进。其实度量最重要的地方，应该告告诉广告主整个的价值到底是什么，什么样的转化事件和归因方式适合该媒体。</p>
+<p>一般的做法</p>
+<ol>
+<li>以度量实验为ground-truth，构建归因逻辑和模型</li>
+<li>归因逻辑的考量
+<ol>
+<li>触点筛选：识别撬动转化的关键路径，有很多方法（模型特征重要性、用户转化Markov类方法，序列化特征研究等）
+<ol>
+<li>例如ESM2：Wang, H., Zhang, J., Wang, Y., Lv, F., Bao, W., Lin, Q., &amp; Yang, K. (2020). <a target="_blank" rel="noopener" href="https://doi.org/10.1145/3397271.3401443">Entire Space Multi - Task Modeling via Post - Click Behavior Decomposition for Conversion Rate Prediction.</a> In Proceedings of the 43rd International ACM SIGIR Conference on Research and Development in Information Retrieval (pp. 2377 - 2386)<img src="/ads/intro-3/Ads-Strategy-Behavior-Decomp.png" class="">
+</li>
+</ol>
+</li>
+<li>归因窗口：涉及到衰减的刻画度量（找拐点、建模等）</li>
+<li>协同效应：自然和营销流量之间存在互相影响（蚕食、透支、加热、种草）等，通过实验、非实验度量</li>
+</ol>
+</li>
+</ol>
+<h2 id="创意和智能投放"><a class="markdownIt-Anchor" href="#创意和智能投放"></a> 创意和智能投放</h2>
+<blockquote>
+<p>一句话：帮助广告主创作好广告</p>
+</blockquote>
+<p>通常包括</p>
+<ul>
+<li><strong>创意生产与管理</strong>：
+<ul>
+<li>素材库支持视频/图片/图文存储、检索及跨平台协作</li>
+<li>AI工具生成创意灵感、脚本及智能剪辑视频</li>
+</ul>
+</li>
+<li><strong>智能投放优化</strong>：
+<ul>
+<li>动态定向（地域/兴趣/行为标签）</li>
+<li>竞价策略选择（稳定成本、最大转化等）</li>
+<li>数据驱动的素材生态治理（低效/优质素材识别）</li>
+</ul>
+</li>
+<li><strong>平台能力整合</strong>：
+<ul>
+<li>巨量引擎：支持效果广告与品牌广告投放</li>
+<li>即创平台：一站式创意生产+采买+分析</li>
+<li>阿里巴巴妈妈：效果类（直通车）与品牌类广告产品</li>
+</ul>
+</li>
+</ul>
+<h3 id="创意生产和管理"><a class="markdownIt-Anchor" href="#创意生产和管理"></a> 创意生产和管理</h3>
+<ul>
+<li>业务能力
+<ul>
+<li><strong>素材管理</strong>
+<ul>
+<li>输出素材列表</li>
+<li>素材上传&amp;删除</li>
+<li>素材打标</li>
+<li>素材推送/共享</li>
+</ul>
+</li>
+<li><strong>素材属性</strong>
+<ul>
+<li>首发</li>
+<li>优质&amp;非优质</li>
+<li>AIGC</li>
+<li>低质</li>
+<li>低效</li>
+<li>同质化</li>
+</ul>
+</li>
+<li><strong>数据分析</strong>
+<ul>
+<li>标签分析</li>
+<li>素材评估</li>
+<li>人群洞察</li>
+<li>受众分析</li>
+<li>视频诊断分析</li>
+<li>评论明细</li>
+</ul>
+</li>
+<li><strong>分发能力</strong>
+<ul>
+<li>素材预审</li>
+<li>输出素材播放信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基础能力
+<ul>
+<li><strong>素材和资产主绑定</strong></li>
+<li><strong>素材和投放模型Ref关系记录</strong></li>
+<li><strong>素材存储</strong></li>
+<li><strong>素材属性配置化操作</strong></li>
+</ul>
+</li>
+</ul>
+<p>发展方向：智能创作平台</p>
+<ul>
+<li>同时拥有数据智能化分析和强AIGC能力</li>
+<li>结合强场景理解和差异化（电商、直播、线索等）</li>
+<li>让广告主一建生产优质素材</li>
+</ul>
+<h2 id="素材数据检索能力"><a class="markdownIt-Anchor" href="#素材数据检索能力"></a> 素材数据检索能力</h2>
+<ul>
+<li>属性维度检索</li>
+<li>资产主维度检索</li>
+<li>检索投放模型（promotion/creative）</li>
+</ul>
+<hr />
+<p>拓展：智能投放、AIGC</p>
+<h3 id="诊断"><a class="markdownIt-Anchor" href="#诊断"></a> 诊断</h3>
+<p>一般情况下，针对广告主的体验问题，会从哪些角度去分析投放问题呢？</p>
+<ul>
+<li>投放系统性问题 - 优化系统
+<ul>
+<li>投放漏斗 - 某步过滤比例较高</li>
+<li>ecpm模块 - 出价倍数 (rank_bid/cpa_bid)，Model_diff</li>
+<li>其他特殊策略 - 如preconvert, 冷启动平滑期等</li>
+</ul>
+</li>
+<li>非投放系统问题 - 通过前线教育/诊断输出给广告主进行引导
+<ul>
+<li>广告主负向操作 （下调出价导致掉量, 预算余额不足影响跑量, 新建计划较多导致抢老计划量)</li>
+<li>环境变化 (可投DAU骤降等等)</li>
+</ul>
+</li>
+</ul>
+<h3 id="智能投放自动化投放"><a class="markdownIt-Anchor" href="#智能投放自动化投放"></a> 智能投放/自动化投放</h3>
+<table>
+  <thead>
+    <tr>
+      <th>模块</th>
+      <th>底层能力</th>
+      <th>产品矩阵</th>
+      <th>产品功能</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>流量选择</strong></td>
+      <td>
+        - 定向设置评价模型<br>
+        - 流量价值预估模型
+      </td>
+      <td>
+        - 定向质量度<br>
+        - 系统推荐定向
+      </td>
+      <td>- 自动放量</td>
+    </tr>
+    <tr>
+      <td><strong>成本控制</strong></td>
+      <td>
+        - 成本预估模型<br>
+        - 流量回放分析模型<br>
+        - 阶梯出价策略
+      </td>
+      <td>
+        - 建议出价<br>
+        - 计划竞价激烈度<br>
+        - 自动出价
+      </td>
+      <td>
+        - 竞价模拟器<br>
+        - 组预算分配功能
+      </td>
+    </tr>
+    <tr>
+      <td><strong>物料制作</strong></td>
+      <td>
+        - 素材离线预估模型<br>
+        - 视频评估模型<br>
+        - 标题自动生成模型
+      </td>
+      <td>
+        - 程序化创意投放<br>
+        - 标题推荐<br>
+        - 图片优化建议
+      </td>
+      <td>
+        - 创意思感<br>
+        - 落地页数据洞察<br>
+        - 落地页模板
+      </td>
+    </tr>
+    <tr>
+      <td><strong>投放管理</strong></td>
+      <td>
+        - 冷启动预测模型<br>
+        - 投放剪枝模型
+      </td>
+      <td>
+        - 计划诊断<br>
+        - 条件预约暂停功能<br>
+      </td>
+      <td>
+        - 智能托管实验室<br>
+        - A/B分流功能
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="mermaid">
+  graph LR
+    %% 主要模块
+    A[广告主诉求] --> B[广告主可干预]
+    A --> C[广告主不可干预]
+    D[投放产品功能] --> E[流量选择]
+    D --> F[流量承接]
+    D --> G[反馈优化]
+    D --> H[效果调控]
+
+    %% 广告主诉求详细内容
+    B --> B1[跑量稳定]
+    B --> B2[成本稳定]
+    B --> B3[操作可预期]
+    B --> B4[起量可预期]
+
+    %% 投放产品功能详细内容
+    E --> E1[版位]
+    E --> E2[定向]
+    F --> F1[创意]
+    F --> F2[落地页/app]
+    G --> G1[诊断/建议]
+    G --> G2[数据披露]
+    H --> H1[出价]
+    H --> H2[预算]
+
+    %% 样式设置
+    classDef mainNode fill:#f9f,stroke:#333,stroke-width:2px
+    classDef subNode fill:#bbf,stroke:#333,stroke-width:1px
+    classDef leafNode fill:#dfd,stroke:#333,stroke-width:1px
+
+    class A,D,I mainNode
+    class B,C,E,F,G,H,J,K,L,M,N,O subNode
+    class B1,B2,B3,B4,E1,E2,F1,F2,G1,G2,H1,H2 leafNode
+  
+</div>
+
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/ads/intro-3/">https://xinheliu.github.io/ads/intro-3/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
+                                    <span class="chip bg-color">搜广推</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">人工智能和机器学习</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/ads/intro-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="计算广告（2）计算广告系统">
+                        
+                        <span class="card-title">计算广告（2）计算广告系统</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-30
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
+                        <span class="chip bg-color">搜广推</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能和机器学习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/books/coding-with-agents-intro-zh/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Coding with Agents 导读">
+                        
+                        <span class="card-title">Coding with Agents 导读</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-06-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%86%99%E4%BD%9C/" class="post-category">
+                                    写作
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/">
+                        <span class="chip bg-color">智能体</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
+                        <span class="chip bg-color">软件工程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>昕和 · 个人网站、写作与技术笔记</span>
+        <div class="footer-links">
+            <a href="/writing-zh/">写作</a>
+            <a href="/projects-zh/">项目</a>
+            <a href="/about-zh/">个人信息和联系方式</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">标签</a>
+            <a href="/categories/">分类</a>
+            <a href="/archives-zh/">归档</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

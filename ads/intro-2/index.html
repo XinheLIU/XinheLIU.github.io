@@ -1,0 +1,1755 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="计算广告（2）计算广告系统, Xinhe Liu (Charles)">
+    <meta name="description" content="A technical walkthrough of ad-system architecture, candidate generation, ranking, modeling, and engineering constraints.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>计算广告（2）计算广告系统 | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/home-zh/" aria-label="昕和首页">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>昕和</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="主导航">
+    
+        <a href="/home-zh/" class="">首页</a>
+    
+        <a href="/writing-zh/" class="">写作</a>
+    
+        <a href="/technical-notes-zh/" class="">技术笔记</a>
+    
+        <a href="/projects-zh/" class="">项目</a>
+    
+        <a href="/about-zh/" class="">个人信息和联系方式</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="搜索" aria-label="搜索">
+        <i class="fas fa-search"></i>
+    </a>
+    <a class="lang-switch" href="/en/ads/intro-2/" title="English" aria-label="English">EN</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="主题切换" aria-label="主题切换">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="打开菜单">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/home-zh/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>昕和</strong>
+            </span>
+        </a>
+        <p>昕和的个人主页、写作与技术笔记。</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/home-zh/">首页</a></li>
+        
+            <li><a href="/writing-zh/">写作</a></li>
+        
+            <li><a href="/technical-notes-zh/">技术笔记</a></li>
+        
+            <li><a href="/projects-zh/">项目</a></li>
+        
+            <li><a href="/about-zh/">个人信息和联系方式</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="搜索">
+            <i class="fas fa-search"></i>
+        </a>
+        <a class="lang-switch" href="/en/ads/intro-2/">EN</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">标签</a>
+        <a href="/categories/">分类</a>
+        <a href="/archives-zh/">归档</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">计算广告（2）计算广告系统</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
+                                <span class="chip bg-color">搜广推</span>
+                            </a>
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">人工智能和机器学习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                技术
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2024-07-30
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <ul>
+<li><a href="#%E5%B9%BF%E5%91%8A%E7%B3%BB%E7%BB%9Foverview">广告系统Overview</a>
+<ul>
+<li><a href="#%E5%B9%BF%E5%91%8A%E6%98%AF%E6%80%8E%E6%A0%B7%E6%8A%95%E6%94%BE%E5%87%BA%E6%9D%A5%E7%9A%84">广告是怎样投放出来的？</a></li>
+<li><a href="#%E5%B9%BF%E5%91%8A%E7%AD%96%E7%95%A5%E5%92%8C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%B3%E7%B3%BB%E6%A6%82%E8%A7%88">广告策略和系统的关系概览</a></li>
+<li><a href="#%E5%B9%BF%E5%91%8Avs%E6%8E%A8%E8%8D%90vs%E6%90%9C%E7%B4%A2">广告vs推荐vs搜索</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8E%92%E5%BA%8F-ranking">排序 (Ranking)</a>
+<ul>
+<li><a href="#%E5%8F%AC%E5%9B%9E">召回</a>
+<ul>
+<li><a href="#key-value%E5%8F%AC%E5%9B%9E">Key-value召回</a></li>
+<li><a href="#%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95annapproximate-nearest-neighbor">聚类算法：Ann（approximate nearest neighbor）</a></li>
+<li><a href="#deep-retrieval-kdd-21-bytedance-ai-lab">Deep Retrieval (KDD 21, ByteDance AI Lab)</a></li>
+<li><a href="#%E5%8F%AC%E5%9B%9E%E7%AD%96%E7%95%A5">召回策略</a></li>
+</ul>
+</li>
+<li><a href="#%E7%B2%97%E6%8E%92">粗排</a>
+<ul>
+<li><a href="#ltr">LTR</a></li>
+<li><a href="#r2s%E6%A8%A1%E5%9E%8B">R2S模型</a></li>
+<li><a href="#%E7%B2%97%E6%8E%92%E7%AD%96%E7%95%A5">粗排策略</a></li>
+</ul>
+</li>
+<li><a href="#%E7%B2%BE%E6%8E%92">精排</a>
+<ul>
+<li><a href="#%E7%82%B9%E5%87%BB%E7%8E%87%E9%A2%84%E6%B5%8B%E9%97%AE%E9%A2%98">点击率预测问题</a></li>
+<li><a href="#%E6%8E%A8%E8%8D%90%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%B7%B1%E5%BA%A6%E6%A8%A1%E5%9E%8B">推荐模型和深度模型</a></li>
+<li><a href="#%E7%B2%BE%E6%8E%92%E7%AD%96%E7%95%A5">精排策略</a></li>
+<li><a href="#%E7%B2%BE%E6%8E%92%E7%9A%84calibration">精排的Calibration</a></li>
+</ul>
+</li>
+<li><a href="#%E9%87%8D%E6%8E%92%E6%B7%B7%E6%8E%92">重排/混排</a>
+<ul>
+<li><a href="#%E9%95%BF%E6%9C%9F%E6%96%B9%E5%90%91%E5%A2%9E%E6%95%88%E7%AB%9E%E4%BB%B7%E5%8F%8A%E4%B8%8E%E8%87%AA%E7%84%B6%E5%86%85%E5%AE%B9%E6%B7%B1%E5%BA%A6%E7%BB%93%E5%90%88">长期方向：增效竞价及与自然内容深度结合</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%87%BA%E4%BB%B7">出价</a>
+<ul>
+<li><a href="#%E5%B9%BF%E5%91%8A%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8B%8D%E5%8D%96%E5%92%8C%E8%AE%A1%E8%B4%B9%E6%9C%BA%E5%88%B6">广告系统的拍卖和计费机制</a>
+<ul>
+<li><a href="#%E5%87%BA%E4%BB%B7%E7%82%B9%E5%92%8C%E8%AE%A1%E8%B4%B9%E7%82%B9%E5%88%86%E7%A6%BB">出价点和计费点分离</a></li>
+<li><a href="#adx%E8%81%94%E7%9B%9F%E5%B9%BF%E5%91%8A%E4%B8%8Bgfp%E8%AE%A1%E8%B4%B9">ADX（联盟广告）下GFP计费</a></li>
+</ul>
+</li>
+<li><a href="#%E5%87%BA%E4%BB%B7%E4%BA%A7%E5%93%81">出价产品</a></li>
+<li><a href="#%E5%87%BA%E4%BB%B7%E7%AD%96%E7%95%A5">出价策略</a></li>
+<li><a href="#%E5%87%BA%E4%BB%B7%E7%AE%97%E6%B3%95">出价算法</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<h2 id="广告系统overview"><a class="markdownIt-Anchor" href="#广告系统overview"></a> 广告系统Overview</h2>
+<h3 id="广告是怎样投放出来的"><a class="markdownIt-Anchor" href="#广告是怎样投放出来的"></a> 广告是怎样投放出来的？</h3>
+<p>竞价广告整体流程：广告候选 -&gt; 模型打分 -&gt; 竞价/计费(ctr <em>cvr</em> bid 二价收费）-&gt; 用户反馈 -&gt; 模型训练</p>
+<ul>
+<li>
+<p><strong>Before Send:</strong></p>
+<ul>
+<li>发起请求，调用核心调度组件</li>
+<li>核心组件调度混合处理流程，依次完成：
+<ul>
+<li>从海量候选中进行初步召回，筛选出候选集（考虑定向、频控、流控等因素）</li>
+<li>对召回结果进行粗排序，将候选数大幅缩减</li>
+<li>对粗排后的候选进行精细排序，通过预估并校准CTR/CVR分值</li>
+<li>返回包含预估分值的最终候选数据</li>
+</ul>
+</li>
+<li>返回候选结果的同时，执行计费处理</li>
+</ul>
+</li>
+<li>
+<p><strong>After Send:</strong></p>
+<ul>
+<li>发送确认信号（ack），同时更新计费、流控和会话状态，并将部分特征数据推送用于后续处理</li>
+<li>样本拼接：
+<ul>
+<li>收集特征数据（来源于预排序时输出的数据流）</li>
+<li>收集行为标签（send、show、click、convert等日志记录）</li>
+<li>根据请求标识匹配特征与标签，组装后将样本送入消息队列供后续模型更新</li>
+</ul>
+</li>
+<li>模型流式更新：
+<ul>
+<li>通过流任务从消息队列读取样本以进行实时训练，更新模型参数</li>
+<li>定时同步最新参数到线上预测模块，确保预估效果</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="广告策略和系统的关系概览"><a class="markdownIt-Anchor" href="#广告策略和系统的关系概览"></a> 广告策略和系统的关系概览</h3>
+<p>流量变现角色与诉求：流量变现主要有平台、客户、用户三个参与角色，平台要最大化收入，需调和三方利益，打造复杂广告系统。<br />
+广告系统模块：精排前减轻预估压力，精排估准价值排序，精排后主要由自然内容排序规则支配。<br />
+排序：精排依据预期挣钱多少排序，涉及多个参数和公式，门槛ecpm_thres影响广告投放和计费。<br />
+出价：对广告主是表达诉求，对平台是约束和策略抓手，出价公式复杂，调参任务重。<br />
+转化：如何定义转化、会同时影响模型和出价<br />
+归因：对广告主计算ROI、平台计费和模型表现都很重要，涉及谁归因、付费事件等多方面问题</p>
+<h3 id="广告vs推荐vs搜索"><a class="markdownIt-Anchor" href="#广告vs推荐vs搜索"></a> 广告vs推荐vs搜索</h3>
+<p>业务层面不同</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>搜索</th>
+<th>推荐</th>
+<th>广告</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户驱动</td>
+<td>主动明确需求</td>
+<td>被动激发潜在需求</td>
+<td>半主动，推测需求</td>
+</tr>
+<tr>
+<td>商业化目标</td>
+<td>较弱</td>
+<td>中等</td>
+<td>强</td>
+</tr>
+<tr>
+<td>反馈类型</td>
+<td>显式反馈（点击、跳转）</td>
+<td>隐式反馈（浏览、停留）</td>
+<td>显式+转化反馈（购买、注册）</td>
+</tr>
+<tr>
+<td>策略难点</td>
+<td>理解意图、实时性</td>
+<td>个性化、多样性平衡</td>
+<td>商业目标与体验平衡</td>
+</tr>
+</tbody>
+</table>
+<p>系统层面不同</p>
+<ol>
+<li>候选池大小差别
+<ul>
+<li>推荐/搜索：百亿量级</li>
+<li>广告：百万量级</li>
+</ul>
+</li>
+<li>最终目标不一样
+<ul>
+<li>搜索：排序任务
+<ul>
+<li>按照和query的相关性排序（Learn to Rank)</li>
+</ul>
+</li>
+<li>推荐
+<ul>
+<li>直接优化单次Request上E（Ri) (eg. staytime)</li>
+<li>个性化要求更强（缺少query），挖掘更多feedback</li>
+</ul>
+</li>
+<li>广告
+<ul>
+<li>需要知道具体分值（ctr，cvr）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>模型假设不同
+<ul>
+<li>搜索
+<ul>
+<li>Information Retrieval(PageRank) + Machine Learning to Rank</li>
+</ul>
+</li>
+<li>推荐
+<ul>
+<li>在线离线不一致：单request的用户反馈与长期满意度之间的相关性复杂，离线指标与在线收益并不一致。（staytime vs stay duration)</li>
+<li>离线目标不明确：建模多种单request用户反馈来approximate用户的长期满意度。解决两个问题：
+<ul>
+<li>1）优化哪些单request用户反馈？(寻找新的单request用户反馈行为作为新目标。目的是找到长期满意度的“短期近似”)</li>
+<li>2）如何将各单request反馈合并进行排序？(调节融合公式，使得多种单request用户反馈能更好得approximate用户长期满意度)</li>
+</ul>
+</li>
+<li>策略导向：推荐模型本质上在处理一个控制问题。迭代目的不是简单的提升精度，而是希望能优化推荐策略–寻找用户长期满意度的短期近似，并优化。</li>
+<li>各个request之间不独立：模型需要进行多步优化来提升用户跨越多个request的反馈。这种优化更接近优化用户长期满意度。(Listwise推荐优化，提升一刷视频列表的多样性)</li>
+</ul>
+</li>
+<li>广告
+<ul>
+<li>在线离线一致：离线指标（衡量单次request收益），与在线收益（衡量总收益）有较强的一致性 （request次数受广告本身变化影响较点击率小）</li>
+<li>离线目标明确：由于排序公式（ecpm）相对清晰，离线训练的label明确，如pctr，pcvr</li>
+<li>精度导向：广告模型本质处理预测问题，迭代的方向是提升预测精度<br />
+模型架构一致</li>
+</ul>
+</li>
+<li>召回 -&gt; 粗排 -&gt; 精排</li>
+</ul>
+</li>
+</ol>
+<h2 id="排序-ranking"><a class="markdownIt-Anchor" href="#排序-ranking"></a> 排序 (Ranking)</h2>
+<ul>
+<li>Ranking是广告投放的核心问题，我们用sorted_eCPM指标来评估这一目标：
+<ul>
+<li>sorted_eCPM = eCPM + hidden_cost</li>
+</ul>
+</li>
+<li>eCPM = pctr <em>pcvr</em> rank_bid，是平台预估的千次展现收益
+<ul>
+<li>rank_bid是考虑了风控流控等策略后系统修正的cpa_bid</li>
+</ul>
+</li>
+<li>hidden_cost是考虑用户体验/平台生态等因素后的控制项（冷启动/稳定性，dislike，扶持等，体现用户价值/生态价值，广告策略的主要抓手）</li>
+<li>广告系统做的就是从千万量级的广告库中找出最有价值的一条广告(对于每个请求)</li>
+</ul>
+<h3 id="召回"><a class="markdownIt-Anchor" href="#召回"></a> 召回</h3>
+<p>解决问题：原始百万级广告中筛选出万量级广告<br />
+模型特点：【多路、检索】<br />
+建模目标：预估召回的目标 （ANN/量化）（无监督） -&gt; 直接预估召回结果（DR）（监督）<br />
+建模挑战：广告量太大（1000亿成交额，100亿点击，100000亿曝光）；时间短（100ms以内，精排10ms）；定向条件（600w bitmap)</p>
+<p>常见算法</p>
+<h4 id="key-value召回"><a class="markdownIt-Anchor" href="#key-value召回"></a> Key-value召回</h4>
+<p>(倒排索引) 召回：线地筛选出可推item，然后根据对应的规则构建倒排，然后每个key里面的item也可以根据一定的算法得到对应的score，根据score排序之后写入到kv存储里面。score考虑的因素可以是：曝光、点击、创建时间、点赞、分享、时长、跟key的相关性等<br />
+向量化召回 ：ANN（Approximate Nearest Neighbor)以及Quantization<br />
+向量化召回：一般是指query是一个embedding，然后根据query来计算得到相似的item，作为召回的结果。构建召回阶段，主要是获取到候选的item，得到候选item的embedding，然后再根据embedding利用不同的算法进行预处理，得到线上可快速搜索的结构，最后把构建好的数据dump下来，然后发到线上供召回使用。在线召回阶段，load离线dump的数据，然后rebuild对应的模型结构，构建完成之后就可以进行召回处理了(加各种过滤规则）</p>
+<ul>
+<li>分别包含：User 侧、group侧、context侧，相关还会包括src gid</li>
+</ul>
+<h4 id="聚类算法annapproximate-nearest-neighbor"><a class="markdownIt-Anchor" href="#聚类算法annapproximate-nearest-neighbor"></a> 聚类算法：Ann（approximate nearest neighbor）</h4>
+<p>是指一系列用于解决最近邻查找问题的近似算法。最近邻查找问题，即在给定的向量集合中查找出与目标向量距离最近的N个向量。</p>
+<ul>
+<li>
+<p>KNN：Space Partitioning Problem. 最直白的想法就是挨个求一遍内积,返回相似度最大的K个. 但是，online挨个算一遍太慢了，所以第二直白的想法就是离线计算时将样本集按照一定规则组织成一个树结构，然后进行在线Query时，仅需要遍历部分节点，而不是将全部的样本都在线算一遍。</p>
+</li>
+<li>
+<p>Ball Tree：ball tree将在一系列嵌套的超球体上分割数据。也就是说：使用超球面而不是超矩形划分区域。虽然在构建数据结构的花费上大过于KDtree，但是在高维甚至很高维的数据上都表现的很高效。</p>
+</li>
+<li>
+<p>Fast Ball Tree(FBT)(技术分享-Fast Ball Tree )：Fast ball tree 主要是把 tree 结构在serving 时都去掉了，直接计算底层叶子节点, 相当于 tree 只是用来加速聚类. 目前的新方 也有采用 gpu 直接 kmeans 的方案,hnsw 来做聚类树的方案,总体来看层次化聚类已经被淘汰了</p>
+</li>
+<li>
+<p>Hierarchical Navigable Small World (HNSW)(ANN-HNSW 算法）</p>
+<ul>
+<li>
+<p>NSW设置最低近邻点个数，将样本点和其近邻连接起来，构建了一个无向图。每当查询（插入）一个新的样本点时，通过高速公路机制加快近邻点搜索，并找到无向图上离该点最近的m个近邻点（m按需要设置），若插入则将该点和其m个近邻点连接起来</p>
+</li>
+<li>
+<p>hnsw的主要思路是将所有的item构建一个多层的邻近图，加快在线的搜索效率。（NSW + Skip List)</p>
+<ul>
+<li>
+<img src="/ads/intro-2/Ads-Model-HNSW.png" class="" title="HNSW模型结构">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>IVF_PQ介绍：ivf的主要目的就是给聚类的结果构建一个倒排，key为聚类的id，value为当前聚类id下的所有候选。</p>
+</li>
+<li>
+<p>ANN缺陷</p>
+<ul>
+<li>ANN只能对召回广告的“质量”做出一个下界的保证，但无法对召回率做出保证。</li>
+<li>在广告场景下，当引入定向信息后，ANN对召回质量也无法保证。</li>
+<li>当广告库增大而其他参数（聚类数、召回数）不变的情况下，ANN的召回率会恶化。</li>
+<li>类似于CTR<em>CVR</em>BID的方式无法适配到ANN的架构上，这也使得过去的召回模型的尝试局限于单目标形式，将精排预估结果作为gound truth，间接地拟合ecpm。</li>
+</ul>
+</li>
+<li>
+<p>Quant Recall（量化召回）（Loss-aware Quantization for Recall ）（可以在ANN框架下，也可以脱离ANN，直接暴力计算）</p>
+</li>
+<li>
+<p>量化召回 Brute-force Retrieval (Quantization + GPU) On Douyin Ads</p>
+</li>
+</ul>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><munder><mo><mi>max</mi><mo>⁡</mo></mo><mrow><msub><mi>t</mi><mi>u</mi></msub><mo separator="true">,</mo><msub><mi>t</mi><mi>a</mi></msub></mrow></munder><mi>P</mi><mrow><mo fence="true">(</mo><mi>Q</mi><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">;</mo><msub><mi>t</mi><mi>u</mi></msub><msup><mo stretchy="false">)</mo><mi>T</mi></msup><mi>Q</mi><mo stretchy="false">(</mo><msub><mi>a</mi><mi>i</mi></msub><mo separator="true">;</mo><msub><mi>t</mi><mi>a</mi></msub><mo stretchy="false">)</mo><mo fence="true">)</mo></mrow><mo>&gt;</mo><mi>Q</mi><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">;</mo><msub><mi>t</mi><mi>u</mi></msub><msup><mo stretchy="false">)</mo><mi>T</mi></msup><mi>Q</mi><mo stretchy="false">(</mo><msub><mi>a</mi><mi>j</mi></msub><mo separator="true">;</mo><msub><mi>t</mi><mi>a</mi></msub><mo stretchy="false">)</mo><mspace width="1em"/><mi mathvariant="normal">∣</mi><mspace width="1em"/><msup><mi>u</mi><mi>T</mi></msup><msub><mi>a</mi><mi>i</mi></msub><mo>&gt;</mo><msup><mi>u</mi><mi>T</mi></msup><msub><mi>a</mi><mi>j</mi></msub><mspace width="1em"/><msub><mi>t</mi><mi>u</mi></msub><mo separator="true">,</mo><msub><mi>t</mi><mi>a</mi></msub><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><msup><mn>2</mn><mi>q</mi></msup></msup></mrow><annotation encoding="application/x-tex">\max_{t_u, t_a} P \left( Q(u; t_u)^T Q(a_i; t_a) \right) &gt; Q(u; t_u)^T Q(a_j; t_a) \quad \vert \quad u^T a_i &gt; u^T a_j \quad t_u, t_a \in \mathbb{R}^{2^q}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.727439em;vertical-align:-0.8361080000000001em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4305599999999999em;"><span style="top:-2.4em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">max</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8361080000000001em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord mathnormal">u</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.177439em;vertical-align:-0.286108em;"></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord mathnormal">u</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:1em;"></span><span class="mord">∣</span><span class="mspace" style="margin-right:1em;"></span><span class="mord"><span class="mord mathnormal">u</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.177439em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal">u</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:1em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.92998em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord mathbb">R</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.92998em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7385428571428572em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>s.t.</mtext><mspace width="1em"/><msubsup><mi>t</mi><mi>u</mi><mi>k</mi></msubsup><mo>&lt;</mo><msubsup><mi>t</mi><mi>u</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mo separator="true">,</mo><mspace width="1em"/><msubsup><mi>t</mi><mi>a</mi><mi>k</mi></msubsup><mo>&lt;</mo><msubsup><mi>t</mi><mi>a</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mo separator="true">,</mo><mspace width="1em"/><mi>k</mi><mo>∈</mo><mrow><mo fence="true">[</mo><mn>1</mn><mo separator="true">,</mo><msup><mn>2</mn><mi>q</mi></msup><mo>−</mo><mn>1</mn><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">\text{s.t.} \quad t_u^k &lt; t_u^{k + 1}, \quad t_a^k &lt; t_a^{k + 1}, \quad k \in \left[ 1, 2^q - 1 \right]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.146108em;vertical-align:-0.247em;"></span><span class="mord text"><span class="mord">s.t.</span></span><span class="mspace" style="margin-right:1em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.146108em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.146108em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714392em;"><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose delimcenter" style="top:0em;">]</span></span></span></span></span></span></p>
+<ul>
+<li>Q为量化函数，t_u和t_a为我们要学习的一组阈值，q为目标bit数（在我们的场景中q=8），t_u^k是t向量的第k个元素。即，当量化函数的复杂度在q以内时，最大化內积保序的概率。在实践中我们发现（方案见技术实现），使用8bit的量化能够实现离线ndcg的损失在万分2以内。</li>
+<li>和ANN可结合：ANN+定向结合方法</li>
+<li>Index Rule Learning解决方案目前的召回模型是在召回后再与定向规则取交集（二者并行），实际上召回了许多不能通过定向的广告，浪费了许多资源，也降低了召回模型的效果（本来可以召回更多符合定向规则的广告）；IRL的基本思路是，用户的少量信息（如城市、性别等）就能筛选掉许多定向条件不符合的广告，那么挑选出这些信息量大的特征，就可以在召回时使用这些特征，如果判断不能通过定向规则无需继续计算。
+<ul>
+<li>Index Rule Learning解决方案简化版 Index Rule Learning读后感</li>
+</ul>
+</li>
+</ul>
+<h4 id="deep-retrieval-kdd-21-bytedance-ai-lab"><a class="markdownIt-Anchor" href="#deep-retrieval-kdd-21-bytedance-ai-lab"></a> Deep Retrieval (KDD 21, ByteDance AI Lab)</h4>
+<p>Deep Retrieval 介绍 deep retrieval<br />
+DR希望能够在学习的同时构建一个可以搜索的结构，从而能把学习的目标和召回更加直接的联系起来。从这个角度来讲，DR和近似近邻搜索算法在本质上有较大的不同。<br />
+Deep Retrieval的主要贡献：</p>
+<ul>
+<li>打破点乘或者距离搜索限制，索引可以和任意深度复杂结构同步，端到端的学习</li>
+<li>Graph编码，单物件(group, ad)可以赋予多个索引，增强物件的表征形式</li>
+<li>采用online EM算法支持流式更新</li>
+<li>算法系统为产品而设计，支持大规模分布式在线学习，高效支持大规模候选集与复杂过滤逻辑</li>
+<li>证明了端到端学习在大规模召回场景的理论和实际上的可行性，给了我们未来更大的想象空间</li>
+</ul>
+<h4 id="召回策略"><a class="markdownIt-Anchor" href="#召回策略"></a> 召回策略</h4>
+<ul>
+<li>各类召回路逻辑（业务逻辑 &amp; 模型逻辑）和过滤策略的迭代；需要在系统资源限制下同时满足和平衡三方诉求和各行业平衡</li>
+<li>和定向策略结合，为广告主找到合适的受众（”猜你喜欢“）</li>
+</ul>
+<h3 id="粗排"><a class="markdownIt-Anchor" href="#粗排"></a> 粗排</h3>
+<p>解决问题：从万量级的广告中优选出几百个广告<br />
+模型特点：【双塔、广告侧向量缓存、无交叉特征】<br />
+建模目标：有监督，L2R vs 直接预估ctr, cvr等<br />
+建模挑战：降低计算复杂度</p>
+<h4 id="ltr"><a class="markdownIt-Anchor" href="#ltr"></a> LTR</h4>
+<ul>
+<li>Pointwise方法将文档（广告）转换为特征向量后，让模型对每个文档（广告）单独打分，打分结果就是模型输出。Pointwise模型学习的是文档（广告）在给定查询下的相关性</li>
+<li>Pairwise方法则主要考虑文档（广告）之间的先后顺序。每两个文档（广告）形成一个文档（广告）对，并有二者之间的先后顺序。模型学习和输出的都是文档（广告）对之间的先后顺序。这也是我们的LTR模型目前所采用的的方法，值得一提的是，pairwise方法考虑了两个文档（广告）对的相对先后顺序，却没有考虑文档（广告）出现在列表中的位置，排在前列的文档（广告）更为重要，如果靠前的文档（广告）出现判断错误，代价明显高于排在后面的文档（广告）。</li>
+<li>Listwise方法将一个查询（请求）对应的所有结果列表作为一个实例。文档列表方法根据K个训练实例（一个査询（请求）及其对应的所有结果评分作为一个实例）训练得到最优评分函数F，对于一个新的用户査询（请求），函数F对每一个文档（广告）打分，之后按照得分顺序由高到低排序，就是对应的结果。 所以关键问题是：拿到训练数据，如何才能训练得到最优的打分函数？<br />
+常见算法（90s - 2010s)</li>
+<li>RankSVM</li>
+<li>GBDT</li>
+<li>RankNet(Logistic Regression)
+<ul>
+<li>定义损失函数（Loss Function）来描述如何引导模型学习正确的两两关系。(这个信息可以是二元的，比如 +1 代表更加相关，-1 代表更加不相关，注意这里的“更加”表达了次序关系。)</li>
+<li>使用一个二元分类器的办法来处理这样的关系。RankNet 在这里使用了“对数几率损失函数”（Logistic Loss），有了损失函数之后，训练神经网络。</li>
+</ul>
+</li>
+<li>LambdaRank, LambdaMART
+<ul>
+<li>定义两个文档之间的差距是这两个文档互换之后 NDCG 的变化量，同时这个变化量等于损失的梯度，那么我们就可以指导 RankNet 去优化 NDCG。博格斯和其他作者把这个损失的梯度定义为 Lambda，因为整个过程是在优化一个排序，所以新的方法叫做 LambdaRank。</li>
+<li>LambdaMART: 使用GBDT</li>
+</ul>
+</li>
+</ul>
+<p>LTR Metrics<br />
+搜索系统的离线测评</p>
+<ul>
+<li>基础：Precision, Recall, AUC</li>
+<li>二元相关指标：
+<ul>
+<li>Discounted Cumulative Gain：
+<ul>
+<li>一个排序的整体相关度，是这个排序的各个位置上的相关度的某种加权</li>
+<li>其次，每个位置上面的“获得”（Gain）是和这个文档原本定义的相关度相关的，但是，根据不同的位置，要打不同的“折扣”。位置越低（也就是位置数越大），折扣越大。这就是 DCG 名字的由来。</li>
+<li>在原始的 DCG 定义中，“折扣”是文档的相关度除以位置的对数转换。这样，既保证了位置越低（位置数大），折扣越大，还表达了，高位置（位置数小）的差别要大于低位置之间的差别。</li>
+<li>假设我们有 5 个文档，假定他们的相关度分别是 1、2、3、4、5，分别代表“最不相关”、“不相关”、“中性”、“相关”和“最相关”。那么，在 DCG 的定义下，最佳的排序就应该是把这 5 个文档按照相关度的顺序，也就是 5、4、3、2、1 来排定。任何其他的顺序因为根据位置所定义的“折扣获得”的缘故，都会取得相对较小的 DCG，因此不是最优。DCG 比“精度”和“召回”能够更好地表达对排序的评估。</li>
+</ul>
+</li>
+<li>DCG 加以“归一化”的指标叫做 nDCG （Normalized Discounted Cumulative Gain）
+<ul>
+<li>直接使用 DCG 也存在一个问题。如果我们有两个查询关键字，返回的文档数不一样，那么直接比较这两个查询关键字的 DCG 值是不“公平”的。原因在于 DCG 的“加和”特性，结果肯定是越加越大，因此不能直接比较两个不同查询关键字的 DCG 值。<br />
+广告系统的问题：离线和在线指标一致性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>会出现NDCG等指标变好，线上没有收益的情况，需要研究多种指标</li>
+</ul>
+<h4 id="r2s模型"><a class="markdownIt-Anchor" href="#r2s模型"></a> R2S模型</h4>
+<ul>
+<li>
+<p>精排型的简化版</p>
+</li>
+<li>
+<p>更有利于学习Top广告</p>
+</li>
+<li>
+<p>R2S: 2分类问题，sorted_ecpm最高的广告为正例，其余为负例，优化sigmoid_cross_entropy_with_logits，但是这种样本的构造把正负例label基本设置成独立的事件，也就是P(y_i=label | x)</p>
+<ul>
+<li>但是对于粗排场景，正负例其实是和候选list有关，其概率是P(y_i=label |x, list), 开了实验 ab-link 也证明了，二分类交叉熵loss没有收益</li>
+</ul>
+</li>
+<li>
+<p>Softmax Loss（ecpm回归转分类模型 Weighted Cross-Entropy  ）将粗排看作是一个多分类问题，也就是在众多的候选中选出sorted_ecpm最高的广告</p>
+<ul>
+<li>设计的label形式为[1，0，0，0]这种，其中sorted_ecpm最高的label为1，其余为0；优化的loss为softmax_cross_entropy_with_logits;
+<ul>
+<li>（实际情况是先从候选中采样了4个样本，然后将这4个样本应用于计算loss，本质上应该是一个sampled-softmax-loss，因为还无法估计采样的分布函数Q(x_i)，因此此处假设采样的分布为 Q(x_i) = 1/|v_list| if x_i in v_list else 0，这样的话sampled-softmax-loss基本可以等同于softmax_cross_entropy_with_logits）</li>
+</ul>
+</li>
+<li>softmax-loss表现形式上和ltr-loss只用包含top1 item的pair loss相似</li>
+</ul>
+</li>
+<li>
+<p>特征</p>
+<ul>
+<li>通过之前精排梳理的SparseNAS ADN 特征重要性与 afs 用户侧特征统一抽取上线，新加部分特征，详见 R2S新加特征。</li>
+</ul>
+</li>
+<li>
+<p>发展方向：Deep化</p>
+</li>
+</ul>
+<h4 id="粗排策略"><a class="markdownIt-Anchor" href="#粗排策略"></a> 粗排策略</h4>
+<ul>
+<li>粗排模型迭代较多 策略迭代较少</li>
+<li>因为粗排通常是近似精排、如策略有迭代会迭代精排排序目标</li>
+</ul>
+<h3 id="精排"><a class="markdownIt-Anchor" href="#精排"></a> 精排</h3>
+<p>CTR Prediction Problem<br />
+解决问题：几百个广告选出最好的<br />
+模型特点：【双塔、广告侧向量缓存、特征交叉】<br />
+建模目标：预估CTR和CVR ~ f(user, content, ads)<br />
+建模挑战：</p>
+<ul>
+<li>数据
+<ul>
+<li>转化稀疏，正例的数目常常是负例的百分之一或者千分之一，造成的就是非常“不均衡”的数据集。以及由此带来的</li>
+<li>探索问题，Bias（Bias &amp; Debias ）</li>
+<li>上下文变化（信息流vs搜索），Variance（精排Variance度量（WIP） Variance度量[WIP] ）等</li>
+</ul>
+</li>
+<li>目标函数 - 比搜索和推荐复杂
+<ul>
+<li>排序——选择合适的广告展示</li>
+<li>预测——合适的出价，最终能够竞胜的出价</li>
+</ul>
+</li>
+</ul>
+<h4 id="点击率预测问题"><a class="markdownIt-Anchor" href="#点击率预测问题"></a> 点击率预测问题</h4>
+<p>历史</p>
+<ul>
+<li>二分类 Logistic Regression（KDD2013， Google）
+<ul>
+<li>普通的逻辑回归并不适应大规模的广告点击率预估。有两个原因，
+<ul>
+<li>第一，数据量太大。传统的逻辑回归参数训练过程都依靠牛顿法（Newton’s Method）或者 L-BFGS 等算法。这些算法并不太容易在大规模数据上得以处理。</li>
+<li>第二，不太容易得到比较稀疏（Sparse）的答案（Solution）。</li>
+</ul>
+</li>
+<li>FTRL - follow the regularized leader 参数在每一个数据点更新
+<ul>
+<li>第一部分是一个用过去所有的梯度值（Gradients）来重权（Re-Weight）所有的参数值；</li>
+<li>第二部分是当前最新的参数值尽可能不偏差之前所有的参数值；</li>
+<li>第三个部分则是希望当前的参数值能够有稀疏的解（通过 L1 来直接约束）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>GBDT + LR （Facebook, 2014)
+<ul>
+<li>点击率预估模型分为两个层次。也就是说，从最初的模型特性输入，需要经过两个不同的模型才对点击率做出最终的预测。这个两层架构对后来的很多点击率预估模型有巨大的影响。
+<ul>
+<li>连续数值的特性已经被转换成了离散的数值。然后，这些离散的数值经过了一个 GBDT 树来进行特性转换
+<ul>
+<li>第一，GBDT 可以对特性进行非线性组合。也就是说，GBDT 的输出一定是之前特性的非线性的转换，这是由树模型原本的性质所带来的，这个性质对于线性模型来说会有巨大的优势。</li>
+<li>第二，经过 GBDT 转换之后，树模型其实选择出了对目标有用的特性，因此这里还起到一个“特性筛选”（Feature Selection）的作用。也就是说，经过 GBDT 的模型，最后剩下的特性肯定是要远小于最初的输入特性的，毕竟有作用的特性是少数的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>特征交叉（LinkedIn, 2014)
+<ul>
+<li>第一部分，是利用用户、广告和上下文所建立的全局性预测。什么意思呢？就是我们利用用户特性、广告特性以及上下文特性来对点击率进行预测。这部分的核心思路就是这些特性所对应的系数是全局性的。也就是说，对于不同的用户、不同的广告以及不同的上下文所对应的系数是相同的。(泛化特征，解决冷启动）</li>
+<li>第二部分，是利用第一部分的用户、广告和上下文信息组成交叉特性，从而学习这些特性之间的关系。如果说第一部分直接就是线性的预测，那么第二部分其实就是“交叉项”形成的非线性的部分。</li>
+<li>第三部分，是 LinkedIn 模型提出来的独特之处（和其他公司模型不太一样的地方）。那就是同样是利用用户、广告和上下文特性，但是 LinkedIn 所提模型的系数则是每个用户、广告和上下文都不同。</li>
+</ul>
+</li>
+<li>排序模型（Twitter, 2015)
+<ul>
+<li>排序 + Calibration（保序回归）的架构<br />
+现状（2016~)</li>
+</ul>
+</li>
+</ul>
+<h4 id="推荐模型和深度模型"><a class="markdownIt-Anchor" href="#推荐模型和深度模型"></a> 推荐模型和深度模型</h4>
+<img src="/ads/intro-2/Ads-Model-Fine-Ranking-Models.png" class="" title="广告精排模型演进">
+<ul>
+<li>推荐模型基础：Collaborative Filtering (CF) -&gt; Factorization Machine (FM)
+<ul>
+<li>矩阵分解的主要过程，就是先分解协同过滤生成的共现矩阵，生成用户和物品的隐向量(embedding)，再通过用户和物品隐向量间的相似性进行推荐。</li>
+</ul>
+</li>
+<li>Wide&amp;Deep(Google, 2016)：FM和LR手动设计特征的低阶组合，DNN 高阶特征的自动组合，组合起来 记忆&amp;泛化
+<ul>
+<li>它把深层的 MLP 和单层的神经网络结合起来，希望同时让网络具备很好的“记忆性”和“泛化性”。</li>
+<li>凭借着“易实现”“易落地”“易改造”的特点，获得了业界的广泛应用。围绕着 Wide&amp;Deep 还衍生出了诸多变种，比如，通过改造 Wide 部分提出的 Deep&amp;Cross(Google, 2017)和 Deep FM(Huawei, 2017)，通过改造 Deep 部分提出的 AFM、NFM 等等。总之，Wide&amp;Deep 是业界又一得到广泛应用的深度推荐模型。</li>
+<li>基于deepFM+NFM，bias筛选进NN：deepFM(w&amp;d中LR-&gt;FM)，NFM(两两内积-&gt;element product，过NN +LR) --&gt; All embedding：抖音精排点击模型ALL EMBEDDING</li>
+</ul>
+</li>
+<li>DIN, DEIN(DIN/DIEN/DISN 阿里巴巴深度CTR三部曲 ) Position Aware DIN On AwemeAd CTR
+<ul>
+<li>它在神经网络中增加了一个叫做“激活单元“的结构，这个单元就是为了模拟人类的注意力机制。</li>
+<li>举个例子来说，我们在购买电子产品，比如说笔记本电脑的时候，更容易拿之前购买电脑的经验，或者其他电子产品的经验来指导当前的购买行为，很少会借鉴购买衣服和鞋子的经验。这就是一个典型的注意力机制，我们只会注意到相关度更高的历史购买行为，而 DIN 模型就是模拟了人类的注意力特点。</li>
+<li>DIN 模型的改进版 DIEN 模型就更厉害了，它不仅引入了注意力机制，还模拟了用户兴趣随时间的演化过程。我们来看那些彩色的层，这一层层的序列结构模拟的正是用户兴趣变迁的历史，通过模拟变迁的历史，DIEN 模型可以更好地预测下一步用户会喜欢什么。</li>
+</ul>
+</li>
+</ul>
+<p>模型改进的4个方向</p>
+<hr />
+<ol>
+<li>是改变神经网络的复杂程度。 从最简单的单层神经网络模型 AutoRec，到经典的深度神经网络结构 Deep Crossing，它们主要的进化方式在于增加了深度神经网络的层数和结构复杂度。</li>
+</ol>
+<ul>
+<li>Multi-Task资料汇总 Multitask模型实践指南
+<ul>
+<li>LineId字段转换为FC入图</li>
+<li>LHUC(LHUC(Learning Hidden Unit Contributions, arxiv)：LHUC模型结构调研 External Action aware CVR Modeling with LHUC</li>
+</ul>
+</li>
+<li>SENET：头条CVR 模型加 SENET 结构</li>
+</ul>
+<ol start="2">
+<li>是改变特征交叉方式。 这种演进方式的要点在于大大提高了深度学习网络中特征交叉的能力。比如说，改变了用户向量和物品向量互操作方式的 NeuralCF，定义了多种特征向量交叉操作的 PNN 等等。</li>
+</ol>
+<ul>
+<li>Attn：西瓜CVR AutoInt distillation model
+<ul>
+<li>属于对特征交叉的改进，特征间带attention显式交叉有收益，但需要平衡模型效果和线上serving延时。distill：两部分loss，1）all embedding的slot embedding按长度对齐进AutoInt layer，做self attention，再经过上层NN；2）相同的embedding+NN</li>
+</ul>
+</li>
+<li>特征交叉：CDot Feature Compression and Dot Interaction Network (CDot)</li>
+</ul>
+<ol start="3">
+<li>把多种模型组合应用。 组合模型主要指的就是以 Wide&amp;Deep 模型为代表的一系列把不同结构组合在一起的改进思路。它通过组合两种甚至多种不同特点、优势互补的深度学习网络，来提升模型的综合能力。</li>
+</ol>
+<ul>
+<li>对比学习[LR]穿山甲冷路transfer learningTransfer Learning for Cold ads</li>
+<li>迁移学习穿山甲闭环短视频transfer-learning</li>
+</ul>
+<ol start="4">
+<li>让深度推荐模型和其他领域进行交叉。 我们从 DIN、DIEN、DRN 等模型中可以看出，深度推荐模型无时无刻不在从其他研究领域汲取新的知识。事实上，这个过程从未停歇，我们从推荐系统顶会 Recsys2020 中可以看到，NLP 领域的著名模型 Bert 又与推荐模型结合起来，并且产生了非常好的效果。一般来说，自然语言处理、图像处理、强化学习这些领域都是推荐系统经常汲取新知识的地方。</li>
+</ol>
+<h4 id="精排策略"><a class="markdownIt-Anchor" href="#精排策略"></a> 精排策略</h4>
+<ul>
+<li>策略主要模块</li>
+<li>引入客户生态价值、长期价值（客户和广告主LTV）干预排序</li>
+<li>平衡探索 &amp; 利用（EE策略）冷启动等</li>
+<li>和混排结合 流量策略</li>
+</ul>
+<h4 id="精排的calibration"><a class="markdownIt-Anchor" href="#精排的calibration"></a> 精排的Calibration</h4>
+<ul>
+<li>和推荐不同，由于广告的精排预估不仅影响排序，还影响出价和计费（见下文、出价模块），因此广告的CTR、CVR预估要尽可能和后验接近</li>
+<li>因此一般需要对精排预估值做”校准“（Calibiration), 弥补CTR的预估能力，常见的算法主要是保序回归，因为convert回流延迟问题，一般要结合对转化时间回流时间的预估模型进行</li>
+</ul>
+<p>Reference</p>
+<ul>
+<li>Guo, C., Pleiss, G., &amp; Weinberger, K. Q. (2017, June 14). <a target="_blank" rel="noopener" href="https://www.semanticscholar.org/paper/On-Calibration-of-Modern-Neural-Networks-Guo-Pleiss/d65ce2b8300541414bfe51d03906fca72e93523c">On Calibration of Modern Neural Networks.</a> In International Conference on Computer Science.</li>
+<li>OMKAR MURALIDHARAN，<a target="_blank" rel="noopener" href="https://www.unofficialgoogledatascience.com/2015/11/using-empirical-bayes-to-approximate.html">Using Empirical Bayes to approximate posteriors for large “black box” estimators</a></li>
+<li>LEE RICHARDSON &amp; TAYLOR POSPISIL，<a target="_blank" rel="noopener" href="https://www.unofficialgoogledatascience.com/2021/04/why-model-calibration-matters-and-how.html">Why model calibration matters and how to achieve it</a></li>
+<li>Gneiting, T., Balabdaoui, F., &amp; Raftery, A. E. (2007). P<a target="_blank" rel="noopener" href="https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jrssb.pdf">robabilistic forecasts, calibration and sharpness.</a>Journal of the Royal Statistical Society: Series B (Statistical Methodology), 69(2), 243 - 268.</li>
+</ul>
+<h3 id="重排混排"><a class="markdownIt-Anchor" href="#重排混排"></a> 重排/混排</h3>
+<ol>
+<li>RecRank</li>
+<li>主要使用规则系统进行推荐文章的排序，后续还会进行文章样式的选择。</li>
+<li>Ad Load Controller</li>
+<li>在前一步返回的推荐列表中插入广告和相关卡片，需要满足相关间隔规则，同时考虑对于推荐指标的影响。这一步确定的只是广告位，并没有选定具体是哪一个广告。</li>
+<li>Auction</li>
+<li>在已经确定广告位与推荐结果后，预估广告CTR和CVR，然后进行广告位置拍卖，从而确定投放的广告。这一步将主要是广告与广告之间的竞争，推荐的分数将不会再起到较大作用。</li>
+</ol>
+<h4 id="长期方向增效竞价及与自然内容深度结合"><a class="markdownIt-Anchor" href="#长期方向增效竞价及与自然内容深度结合"></a> 长期方向：增效竞价及与自然内容深度结合</h4>
+<ul>
+<li>使用Uplift竞价方法，通过比较广告展示（R = P(convert=1|send=1)）与未展示（Q = P(convert=1|send=0)）时的转化率，计算增量转化率 (Uplift = R - Q)。</li>
+<li>目标与理念：以真实转化增量为依据，实现广告主与平台共赢，避免高估“本来就会转化”的用户。</li>
+<li>竞价公式：
+<ul>
+<li>理想竞价：uplift × uplift_rank_bid</li>
+<li>实际LR竞价目标：((uplift/2 + pvr/2) × rank_bid × bid_coef)，其中 pvr 为基础转化率。</li>
+</ul>
+</li>
+<li>优势总结：该方法精准衡量广告真实增量，提升ROI及平台整体收益，同时兼顾双方利益。</li>
+</ul>
+<h2 id="出价"><a class="markdownIt-Anchor" href="#出价"></a> 出价</h2>
+<h3 id="广告系统的拍卖和计费机制"><a class="markdownIt-Anchor" href="#广告系统的拍卖和计费机制"></a> 广告系统的拍卖和计费机制</h3>
+<ul>
+<li>大部分市场比如商品市场一般不需要特殊的机制设计，发挥作用的是价格机制，但不完全依赖价格机制的分配其实非常常见，比如肾脏移植、升学求职、online dating等双边市场。机制设计在现实中比较成功的应用是在肾脏移植、升学择校上。</li>
+<li>在互联网环境下，广告资源的分配常借助拍卖模式进行。像搜索引擎的广告位、社交媒体的展示广告等，众多广告主竞争有限的广告曝光机会，如同传统拍卖中竞买者争夺拍品。广告平台将广告展示位置、展示时段等资源当作 “拍卖品”，广告主通过出价竞争这些资源，从而实现广告投放。拍卖的市场机制为广告系统提供了有效的竞争环境塑造方式。广告系统中，拍卖机制的引入促使广告主基于自身对广告效果的预期和收益评估来出价。</li>
+</ul>
+<p>几种常见的计费机制</p>
+<ol>
+<li>广义第一价格（Generalized First Price, GFP)：和传统第一密封竞价类似，出价高者得，需支付自己提出的报价。</li>
+<li>原理：一价计费，广告主报价即扣费</li>
+<li>优势：逻辑简单</li>
+<li>问题：广告主存在探价动机</li>
+<li>广义第二价格（Generalized Second Price , GSP)：和传统第二密封竞价类似，出价高者得，需支付出价第二者提出的报价（再加上一个最小值）。</li>
+<li>原理：根据下一名的报价，决定计费值</li>
+<li>优势：缓解了探价问题</li>
+<li>问题：多广告位场景依然存在探价问题，不够极致
+<ol>
+<li>二价和增价拍卖都具有防策略性
+<ol>
+<li>防策略性（strategy-proof）：不存在通过虚假报告而获利的可能（不会讲假话试探），即讲真话truth-telling是占优策略。</li>
+<li>公平性（失败者不会羡慕获胜者）</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>VCG（Vickrey-Clarke-Groves）：竞价获胜者需支付他产生的外部性，即他参竞对其他人造成的损失。</li>
+<li>原理：因为竞价成功而给其他广告主造成的损失，决定计费值</li>
+<li>优势：存在纳什均衡点，鼓励广告主说真话</li>
+<li>问题：不容易理解</li>
+</ol>
+<p>综合考虑，大部分广告平台采取GSP为计费机制</p>
+<p>Reference</p>
+<ul>
+<li>《合适：机制设计入门》</li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/29486653">从初夜权到在线广告——拍卖中的趣味与玄机</a></li>
+<li>《价格的发现》，<a target="_blank" rel="noopener" href="https://book.douban.com/subject/35128229/">https://book.douban.com/subject/35128229/</a></li>
+<li>《斯坦福算法博弈论二十讲》，<a target="_blank" rel="noopener" href="https://book.douban.com/subject/34969790/">斯坦福算法博弈论二十讲</a> (豆瓣)</li>
+<li>《拍卖理论》，<a target="_blank" rel="noopener" href="https://book.douban.com/subject/5325875/">拍卖理论</a> (豆瓣)</li>
+<li><a target="_blank" rel="noopener" href="https://milgrom.people.stanford.edu/sites/g/files/sbiybj4391/f/clock_auctions_and_radio_spectrum_reallocation_jpe_publication.pdf">clock auctions and radio spectrum realloction</a></li>
+</ul>
+<h4 id="出价点和计费点分离"><a class="markdownIt-Anchor" href="#出价点和计费点分离"></a> 出价点和计费点分离</h4>
+<p>竞价点和出价点的分离、出价点和计费点的分离<br />
+所谓竞价点 一般指send/show，即决定要出哪个广告的事件点，最早期只有CPM广告，一切都很简单，每个展示多少钱，每个广告对展示出价，排序最高的胜出即可。Google首创了CPC广告按点击出价*预估点击率来排序的方案，引入了模型因素，从CPM-CPC-CPA就顺理成章了。</p>
+<p>竞价点比较特殊的一点是它比较固定的，无论何种计费类型，都需要投放系统来决定排序，所以要根据send/show的ecpm来排序。对cpc是点击出价<em>预估点击率，对cpa来说是转化出价</em>预估点击率*预估转化率。</p>
+<p>从客户追求ROI的角度考虑，出价点越靠后越好，这样更接近客户考核的后端目标，客户更容易衡量ROI是否达成，但对平台来说就额外引入了风险，因为这些计费方式下 计费点和出价点是一致的，如果模型预估不准，会影响平台收入，这又分预估偏低和偏高：预估偏低的话 广告主没有拿到可以拿到的量，媒体收入变少，二者都受损；预估偏高的话，广告主拿到了很多展示不需要付费，广告主无所谓，但媒体损失了很多展示拿不到钱，就比较亏，这种情况下媒体有动力去估准，但广告主有动力不让低估。</p>
+<p>这里面cpc和cpa还不太一样，点击行为发生在媒体里，媒体可追踪，但action不一定在媒体内部发生，很多应用下载类广告的出价点是激活或者付费，不是媒体可以直接获取的，这时广告主就有动力不回传真实数据来获利，虽然没办法长期获利（预估会偏低，但可以不断新建计划来薅羊毛），因此支持CPA计费方式的一般只有媒体侧闭环的转化目标，比如商品购买、表单提交等。但我们从去年底连这类转化目标的CPA广告也逐渐下掉了，原因是…超投的问题：竞价点和计费点相隔太远，导致平台很难控制超投，得不偿失。</p>
+<p>ｏ类广告：FB首创的计费点和出价点分离的计费方式，模型优化目标和计费点分离后，一方面可以尽量发挥模型的优势去优化更深的转化行为，另一方面平台可以在漏斗靠前的地方计费，减少了平台风险；同时，除了高估的风险外，客户的利益也有保障。</p>
+<p>平台风险来自两部分：广告主作弊和预估不准确；从CPA到oCPC到oCPM，平台承担风险变小，广告主风险变大</p>
+<table>
+<thead>
+<tr>
+<th>计费方式</th>
+<th>竞价点</th>
+<th>出价点＆模型优化点</th>
+<th>计费点</th>
+<th>模型需预估</th>
+<th>超投风险</th>
+<th>作弊风险</th>
+<th>预估偏低</th>
+<th>预估偏高</th>
+<th>预算充足客户</th>
+<th>预算有限客户</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPM</td>
+<td>show</td>
+<td>-</td>
+<td>show</td>
+<td>-</td>
+<td>低</td>
+<td>低</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CPC</td>
+<td>show</td>
+<td>click</td>
+<td>click</td>
+<td>ectr</td>
+<td>中</td>
+<td>低</td>
+<td>客户跑量减少，平台收益降低</td>
+<td>客户跑量增加，平台收益降低</td>
+<td>有动力提升ctr</td>
+<td>取决于中间指标和后端收益的关系</td>
+</tr>
+<tr>
+<td>CPA</td>
+<td>show</td>
+<td>convert</td>
+<td>convert</td>
+<td>ectr&amp;ecvr</td>
+<td>高</td>
+<td>高</td>
+<td>客户跑量减少，平台收益降低</td>
+<td>客户跑量增加，平台收益降低</td>
+<td>有动力提升ctr／cvr</td>
+<td>取决于中间指标和后端收益的关系</td>
+</tr>
+<tr>
+<td>OCPC</td>
+<td>show</td>
+<td>convert</td>
+<td>click</td>
+<td>ectr&amp;ecvr</td>
+<td>中</td>
+<td>低</td>
+<td>客户跑量减少，平台收益降低</td>
+<td>客户跑量增加，平台收益不确定</td>
+<td>有动力提升ctr／cvr</td>
+<td>取决于中间指标和后端收益的关系</td>
+</tr>
+<tr>
+<td>OCPM</td>
+<td>show</td>
+<td>convert</td>
+<td>show</td>
+<td>ectr&amp;ecvr</td>
+<td>低</td>
+<td>低</td>
+<td>客户跑量减少，平台收益降低</td>
+<td>客户跑量增加，平台收益增加</td>
+<td>有动力提升ctr／cvr</td>
+<td>取决于中间指标和后端收益的关系</td>
+</tr>
+</tbody>
+</table>
+<p>send/show计费有啥区别？差别不大，因为同一个广告位的ssr取决于用户行为，基本不受广告本身影响（素材类型会有一点点影响），不过按发送计费的好处是计费更靠前，超投的风险更低，预算花费可以做得更准，坏处是如果一个广告没展示其实并不能真的算是一个负例，从这个意义上讲，预估点击率时应该拆分发送到展示、展示到点击两步，因为第一步并不是这个广告的特征。</p>
+<h4 id="adx联盟广告下gfp计费"><a class="markdownIt-Anchor" href="#adx联盟广告下gfp计费"></a> ADX（联盟广告）下GFP计费</h4>
+<p>业界一个主要的动向是RTB市场的ADX在全面转向公开bid信息的first price auction，包括google ad manager。注意这里的扣费指的是 ADX/媒体向DSP结算过程，而非向广告主结算的过程。</p>
+<p>Google在2019-2021年期间将Ad Manager、AdMob、AdSense的广告拍卖机制从二价切换为一价，主要驱动因素如下：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.google/products/admanager/update-first-price-auctions-google-ad-manager/">An update on first price auctions for Google Ad Manager</a><br />
+关键原因</p>
+</blockquote>
+<ol>
+<li><strong>多轮拍卖效率优化</strong></li>
+</ol>
+<ul>
+<li>原二价机制在跨平台竞价时存在高报价广告主无法胜出的悖论（如ADX内部二价竞价后，需与外部一价竞价结果比较）</li>
+<li>一价机制可避免多轮竞价策略冲突，统一竞价规则</li>
+</ul>
+<ol start="2">
+<li><strong>行业竞争均衡驱动</strong></li>
+</ol>
+<ul>
+<li>当广告主基于平均结果出价时，一价成为各广告交易平台（ADX）的纳什均衡选择</li>
+<li>广告交易平台间竞争导致一价成为市场自然选择</li>
+</ul>
+<ol start="3">
+<li><strong>机制可信度提升</strong></li>
+</ol>
+<ul>
+<li>一价机制降低媒体作弊动机（如虚报二价）</li>
+<li>Google通过完全竞价透明度（公开获胜价）优化算法，强化平台可信度</li>
+</ul>
+<ol start="4">
+<li><strong>技术架构变革适配</strong></li>
+</ol>
+<ul>
+<li>媒体从瀑布流（waterfall）转向头部竞价（header bidding）后，一价机制能提高清算价预期值</li>
+<li>新机制使ADX服务同质化，买方侧费用趋近于零</li>
+</ul>
+<p>与大媒体的自有流量不同，平台可以有统一且强力的控制机制，例如底价设置、防止伪造虚拟候选人等。<br />
+在联盟场景中，联盟平台要面向太多的媒体流量进行投放，每个媒体也会接入多个媒体变现平台（穿山甲、广点通等），因此竞价从来都是掌握在各个小媒体的手中。这对代表客户的投放平台来说本身就是黑盒的，小媒体有足够的动力研究如何设置底价，如果创造虚拟竞争者等让 GSP 实际上名存实亡，且这个过程中让整个竞价体系极其复杂，因此 GG 联盟于 2019 年切换成统一 GFP，各家媒体也都广泛使用 GFP，以降低竞价复杂性，提升竞价透明度。相关内容可参照谷歌转用首价竞拍机制_竞价，Simplifying programmatic: first price auctions for Google Ad Manager。<br />
+GFP 解决了流量侧的竞价透明度和简易性问题，但给平台的出价带来了一些困难。但在通投下，站内和站外流量下的不同的计费机制直接导致了无法采用统一出价的方式去优化</p>
+<p>GSP vs GFP</p>
+<ol>
+<li>GSP能够保证只有平台、广告主竞拍前提下，广告主的truthful bidding行为。但如果考虑到媒体方的参与，GSP无法保证媒体方做出最有利于全局最优的选择（i.e. 他们可能为了利润返回虚假二价、设置专用于顶价的底价…）。</li>
+<li>在GFP下，媒体方没有作弊破坏auction的动机，因此能够保证机制本身的公平性。</li>
+<li>在RTB市场上广告主都会通过DSP参与竞价，DSP拥有足够的优化能力帮助广告主做bidding策略。</li>
+<li>虽然是一价拍卖，但google会公开拍卖的各类信息（获胜价格），方便DSP去做探价优化</li>
+</ol>
+<p>Reference</p>
+<ul>
+<li>Geradin, D., &amp; Katsifis, D. (2019). ‘Trust me, I’m Fair’: Analysing Google’s latest practices in Ad Tech From the Perspective of EU Competition Law. TILEC Discussion Paper, DP 2019 - 029, October.</li>
+<li>ClearCode, <a target="_blank" rel="noopener" href="https://clearcode.cc/blog/first-price-second-price-auction/">How Do First-Price and Second-Price Auctions Work in Online Advertising?</a></li>
+<li>Despotakis, S., Ravi, R., &amp; Sayedi, A. (2019). First - price Auctions in Online Display Advertising. Working Paper, November.</li>
+<li>Leme, R. P., Sivan, B., &amp; Teng, Y. (n.d.). Why Do Competitive Markets Converge to First - Price Auctions?</li>
+<li>Akbarpour, M., &amp; Li, S. (2019, June 21). Credible Mechanisms</li>
+<li>Conitzer, V., Kroer, C., Panigrahi, D., Schrijvers, O., Stier - Moses, N. E., Sodomka, E., &amp; Wilkens, C. A. (2021). Pacing Equilibrium in First Price Auction Markets. Forthcoming in Management Science.</li>
+<li><a target="_blank" rel="noopener" href="https://www.gsb.stanford.edu/insights/rigged-auctions-why-top-bidders-dont-always-feel-winners">https://www.gsb.stanford.edu/insights/rigged-auctions-why-top-bidders-dont-always-feel-winners</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.adexchanger.com/online-advertising/auction-theory-ph-d-s-share-five-things-buyers-and-sellers-should-keep-in-mind-for-first-price-auctions/">https://www.adexchanger.com/online-advertising/auction-theory-ph-d-s-share-five-things-buyers-and-sellers-should-keep-in-mind-for-first-price-auctions/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.blog.google/products/admanager/simplifying-programmatic-first-price-auctions-google-ad-manager/">https://www.blog.google/products/admanager/simplifying-programmatic-first-price-auctions-google-ad-manager/</a></li>
+<li><a target="_blank" rel="noopener" href="https://support.google.com/admanager/answer/9298008?hl=en">https://support.google.com/admanager/answer/9298008?hl=en</a></li>
+</ul>
+<h3 id="出价产品"><a class="markdownIt-Anchor" href="#出价产品"></a> 出价产品</h3>
+<ul>
+<li>和排序不同，出价产品和策略更多是从客户视角出发，帮助客户实现最大化ROI和跑量；由于平台存在信息、数据等优势、越深的转化目标/自动化成都，平台帮助客户出价的优势越大</li>
+<li>平台一般不会使用客户原始出价排序，而是把出价产品/策略耦合耦合在投放系统中
+<ul>
+<li>出价影响精排/混排排序, 简单来说，排序的目标是最优化 出价*转化（合理赚到的钱）</li>
+</ul>
+</li>
+</ul>
+<p>出价产品的设计</p>
+<ul>
+<li>约束及目标：产品定位，对客户的保证，比如是控制成本下的最大消耗，还是保证预算花完下的最低转化成本；约束一般是要一定达成的，目标则是尽可能的好。</li>
+<li>控制周期：对客户多长时间达成保证，比如是一天把预算花完，还是 7 天把预算花完，是每时每刻保成本，还是 7 天结束时保成本；</li>
+<li>控制维度：在什么维度上为客户提供上述保证，一般对齐客户在什么维度上出价，是计划维度还是项目维度；</li>
+<li>控制策略：是指策略的具体实现，比如是否是分流量下的统一出价（比如穿山甲和站内就不能统一出价，因为计费逻辑不一样），比如出价的控制算法（怎么实现上述目标的肯定是有多种算法的，比如 PID、MPC）。</li>
+</ul>
+<div class="mermaid">
+  graph TD
+    A[出价目标]
+    B[控制算法]
+    C[基础数据]
+    D[拟合周期]
+    E[拟合粒度]
+
+    A --> B
+    A --> C
+    A --> D
+    A --> E
+</div>
+
+<p>不同组合下形成不同产品</p>
+<table>
+<thead>
+<tr>
+<th>产品名称</th>
+<th>约束及目标</th>
+<th>控制周期</th>
+<th>控制维度</th>
+<th>控制策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TargetCost（风控出价、控成本）</td>
+<td>自然天计费比为1（约束），最大化跑量（目标）</td>
+<td>自然天级别</td>
+<td>计划/项目组维度</td>
+<td>MPC模型动态调整rankbid，根据实时计费比调节出价</td>
+</tr>
+<tr>
+<td>Nobid（流控出价、控预算）</td>
+<td>预算必须花完（约束），获得最低转化成本（目标）</td>
+<td>自然天级别</td>
+<td>计划/项目维度</td>
+<td>从低到高探索rankbid，结合预算分配曲线和MPC调整实现预算消耗与成本平衡</td>
+</tr>
+<tr>
+<td>CostCap</td>
+<td>平均转化成本不超上限（约束），尽可能降低转化成本（目标）</td>
+<td>自然天级别</td>
+<td>计划/项目维度</td>
+<td>动态调整rankbid以平衡成本与消耗速度（可能结合MPC或其他控制算法）</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>控成本诉求</th>
+<th>花预算诉求</th>
+<th>产品名称</th>
+<th>产品定位</th>
+<th>适用场景</th>
+<th>说明</th>
+<th>评价指标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>3</td>
+<td><strong>Target Cost（手动出价）</strong><br>包含优先跑量、均衡投放</td>
+<td>尽可能优化平均转化成本，接近广告主设定的目标转化成本</td>
+<td>1. 明确知道自己的平均转化成本<br>2. 希望平均转化成本稳定在出价附近</td>
+<td>1. 预算可能花不完<br>2. 天与天之间的消耗不稳定</td>
+<td>1. 计费比：<br> a. 完成档（0.8-1.2），问题档（&gt;1.2）<br> 计划占比，消耗占比<br>2. 掉量率<br>3. 跑量<br>📝MPC准全实验评估-商业数据科学</td>
+</tr>
+<tr>
+<td>1</td>
+<td>4</td>
+<td><strong>Cost Cap（手动出价）</strong><br>控制成本上限/优先低成本</td>
+<td>尽可能降低转化成本，尽可能优化平均转化成本不超过广告主设定的成本</td>
+<td>1. 想要尽可能低的平均转化成本<br>2. 希望控制平均转化成本的上限</td>
+<td>1. 预算可能会花不完<br>2. 天与天之间的消耗不稳定<br>3. 平均转化成本可能会不稳定</td>
+<td>1. 产品完成率：<br> 完成档：天级预算使用率 &gt; 50% &amp; 计费比不超过1.3*cpa_bid</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td><strong>Dynamic Cost Cap（自动出价）</strong><br>放量投放</td>
+<td>在保证一定消耗水平的情况下，尽可能降低平均转化成本</td>
+<td>1. 知道自己的平均转化成本，想要尽可能低的平均转化成本<br>2. 为了一定的消耗稳定，愿意接受更高的平均转化成本</td>
+<td>1. 预算可能会花不完<br>2. 天与天之间的消耗不稳定<br>3. 平均转化成本可能会不稳定</td>
+<td>1. 产品完成率：<br> 完成档：天级预算使用率 &gt; 50% &amp; 计费比不超过1.3*cpa_bid</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1</td>
+<td><strong>No Bid/lowest cost</strong><br>最低转化成本</td>
+<td>在花完预算的前提下，尽可能提升转化数（降低平均转化成本）</td>
+<td>1. 想要以最低转化成本花完所有预算</td>
+<td>1. 无法控制平均转化成本<br>2. 天级转化成本可能会波动<br>3. 计划生命周期波动时成本可能会变高</td>
+<td>1. 产品完成率：<br> a. 完成档：天级预算使用率 &gt; 90% &amp; 天级成本波动在-35%以内<br> b. 问题档：天级预算使用率 &lt; 50% &amp; 天级成本波动在+50%以上<br>2. 相同消耗量级下，nobid成本不应远高于其他出价产品（影响客户留存）<br>📝Target Cost vs Nobid 成本对比实验-商业数据科学</td>
+</tr>
+</tbody>
+</table>
+<h3 id="出价策略"><a class="markdownIt-Anchor" href="#出价策略"></a> 出价策略</h3>
+<blockquote>
+<p>实现出价产品目标的策略</p>
+</blockquote>
+<ul>
+<li><strong>风控出价</strong>
+<ul>
+<li><strong>目标</strong>：通过PID调控动态调整出价，确保广告主成本不超支</li>
+<li><strong>方案</strong>：基于后验计费比反馈，动态调整RankBid（<code>RankBid = 广告主出价 + cpa_bid * (1 + PID参数)</code>）</li>
+<li><strong>评估</strong>：计费比在区间[0.8, 1.2]的计划占比、消耗占比</li>
+</ul>
+</li>
+<li><strong>流控出价</strong>
+<ul>
+<li><strong>目标</strong>：控制预算消耗速度，实现预算均匀分配</li>
+<li><strong>方案</strong>：结合大盘流量曲线全局分配预算，PID调控出价（<code>RankBid = 广告主出价 / 2.0 + cpa_bid * (1 + PID参数)</code>）</li>
+<li><strong>评估</strong>：计费比达标或预算使用率&gt;90%的计划占比</li>
+</ul>
+</li>
+<li><strong>双出价</strong>
+<ul>
+<li><strong>目标</strong>：同时满足双成本约束（如前端+后端成本），最大化跑量</li>
+<li><strong>方案</strong>：
+<ul>
+<li>一期：<code>ecpm = min(前端PID出价, 后端PID出价 * 超参数)</code></li>
+<li>线性融合：将前后端成本作为约束，最大化广告主价值</li>
+</ul>
+</li>
+<li><strong>评估</strong>：前端计费比&lt;1.0且后端计费比达标的计划占比</li>
+</ul>
+</li>
+<li><strong>其他出价</strong>
+<ul>
+<li><strong>深度转化Pacing出价</strong>：保前端成本同时优化后端转化率（<code>ecpm = cpa_bid * ctr * cvr * deep_cvr * 系数</code>）</li>
+<li><strong>广告变现Uroi</strong>：结合ROI目标和LTV预估动态出价（<code>ecpm = min(预估LTV / ROI目标, 2 * cpa_bid)</code>）</li>
+</ul>
+</li>
+<li>QCPX（激励和广告结合等策略）
+<ul>
+<li>电商、激励、线索等场景下，通过实验/模型预估用户对于激励的反应（Uplift）实现对流量差异化定价（Price Discrimination）、刺激用户消费</li>
+<li>拍卖中，平台通过差异化计费、和广告主共同承担激励成本</li>
+</ul>
+</li>
+</ul>
+<h3 id="出价算法"><a class="markdownIt-Anchor" href="#出价算法"></a> 出价算法</h3>
+<ul>
+<li>最优化：
+<ul>
+<li>
+<ol>
+<li>对于加速投放来说，存在一个最优的出价，风控bid全天是统一的，使得在计费比=1下，消耗最大化；</li>
+<li>同样，对于no-bid出价，也存在一个最优的出价，流控bid全天统一，使得在预算花完情况下，转化数最大化；</li>
+<li>对于优先低成本，因为是同时存在计费比和预算约束，最优出价是min(风控, 流控)</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>预估转化：无法拿到实时转化、要根据预估转化来实现出价</li>
+<li>控制算法
+<ul>
+<li><strong>PID控制算法</strong>
+<ul>
+<li><strong>比例控制（P）</strong>：基于当前误差按比例调整，易导致系统震荡</li>
+<li><strong>积分控制（I）</strong>：累积历史误差消除稳态偏差，使输出最终稳定</li>
+<li><strong>微分控制（D）</strong>：预测误差变化趋势，提前抑制超调，提升响应速度</li>
+<li><strong>应用场景</strong>：广告风控出价调价、预算消耗速度控制（流控）</li>
+</ul>
+</li>
+<li><strong>MPC控制算法</strong>
+<ul>
+<li><strong>核心机制</strong>：通过实时预测未来输出轨迹，滚动求解带约束的优化问题</li>
+<li><strong>关键特点</strong>：
+<ul>
+<li>采用预测模型动态更新参数（非固定参数）</li>
+<li>每次仅执行优化序列的第一个控制量</li>
+<li>天然支持多约束条件处理</li>
+</ul>
+</li>
+<li><strong>优势</strong>：解决PID滞后性问题，适应复杂时变系统</li>
+<li><strong>应用场景</strong>：需处理多目标约束的智能调价场景（如双出价）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>优化系统Variance
+<ul>
+<li>模型优化，增强泛化能力，减少预估varaince</li>
+<li>策略优化、和广告主复制的计划、创意等博弈</li>
+</ul>
+</li>
+<li>全链路控制：调整出价会影响全链路、打通统一控制</li>
+</ul>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ul>
+<li>深度学习推荐系统</li>
+<li>计算广告</li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/ads/intro-2/">https://xinheliu.github.io/ads/intro-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
+                                    <span class="chip bg-color">搜广推</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">人工智能和机器学习</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/ads/intro-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="计算广告（1）广告业务简介">
+                        
+                        <span class="card-title">计算广告（1）广告业务简介</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
+                        <span class="chip bg-color">搜广推</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能和机器学习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/ads/intro-3/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="计算广告（3）广告策略">
+                        
+                        <span class="card-title">计算广告（3）广告策略</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-08-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/">
+                        <span class="chip bg-color">搜广推</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">人工智能和机器学习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>昕和 · 个人网站、写作与技术笔记</span>
+        <div class="footer-links">
+            <a href="/writing-zh/">写作</a>
+            <a href="/projects-zh/">项目</a>
+            <a href="/about-zh/">个人信息和联系方式</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">标签</a>
+            <a href="/categories/">分类</a>
+            <a href="/archives-zh/">归档</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

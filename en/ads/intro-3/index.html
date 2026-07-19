@@ -1,0 +1,1416 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Computational Advertising (3) Ad Strategy, Xinhe Liu (Charles)">
+    <meta name="description" content="Strategy notes on budget pacing, traffic allocation, behavior decomposition, and optimization controls inside ads systems.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Computational Advertising (3) Ad Strategy | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/writing/" class="">Writing</a>
+    
+        <a href="/technical-notes/" class="">Technical Notes</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <i class="fas fa-search"></i>
+    </a>
+    <a class="lang-switch" href="/ads/intro-3/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/writing/">Writing</a></li>
+        
+            <li><a href="/technical-notes/">Technical Notes</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <i class="fas fa-search"></i>
+        </a>
+        <a class="lang-switch" href="/ads/intro-3/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Computational Advertising (3) Ad Strategy</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Ads/">
+                                <span class="chip bg-color">Ads</span>
+                            </a>
+                        
+                            <a href="/tags/AI-Machine-Learning/">
+                                <span class="chip bg-color">AI &amp; Machine Learning</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Technology/" class="post-category">
+                                Technology
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2025-08-08
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="ad-strategy"><a class="markdownIt-Anchor" href="#ad-strategy"></a> Ad Strategy</h1>
+<ul>
+<li><a href="#ad-strategy">Ad Strategy</a>
+<ul>
+<li><a href="#traffic-strategy">Traffic Strategy</a>
+<ul>
+<li><a href="#user-experience-strategy">User Experience Strategy</a></li>
+<li><a href="#visual--layout-strategy">Visual &amp; Layout Strategy</a></li>
+</ul>
+</li>
+<li><a href="#delivery-strategy">Delivery Strategy</a>
+<ul>
+<li><a href="#cold-start">Cold Start</a></li>
+<li><a href="#stability">Stability</a>
+<ul>
+<li><a href="#cost-stability">Cost Stability</a></li>
+<li><a href="#delivery-stability">Delivery Stability</a></li>
+<li><a href="#model-optimizations">Model Optimizations</a></li>
+</ul>
+</li>
+<li><a href="#bidding-strategy">Bidding Strategy</a></li>
+</ul>
+</li>
+<li><a href="#conversions-and-attribution">Conversions and Attribution</a>
+<ul>
+<li><a href="#conversions">Conversions</a></li>
+<li><a href="#attribution">Attribution</a></li>
+</ul>
+</li>
+<li><a href="#creative-and-intelligent-delivery">Creative and Intelligent Delivery</a>
+<ul>
+<li><a href="#creative-sourcing--management">Creative Sourcing &amp; Management</a></li>
+</ul>
+</li>
+<li><a href="#asset-data-retrieval-capabilities">Asset Data Retrieval Capabilities</a>
+<ul>
+<li><a href="#diagnostics">Diagnostics</a></li>
+<li><a href="#intelligent--automated-delivery">Intelligent / Automated Delivery</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="traffic-strategy"><a class="markdownIt-Anchor" href="#traffic-strategy"></a> Traffic Strategy</h2>
+<p><strong>Core Goal</strong></p>
+<ul>
+<li>Maximize User Lifetime Value (LTV), balancing user retention with monetization efficiency.</li>
+<li>Traffic strategy operates on recommendation principles:
+<ul>
+<li><em>Ad-load control</em>: Multi-objective conversions, value exchanges, and feed blending (incorporating multiple formats and soft/hard ads).</li>
+<li><em>Blending</em>: Controlling ad intervals (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>d</mi><mi>g</mi><mi>a</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">adgap</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">a</span><span class="mord mathnormal">p</span></span></span></span>) and density (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>d</mi><mi>l</mi><mi>o</mi><mi>a</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">adload</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span></span></span></span>) to protect user experience.</li>
+<li><em>Long-term topics</em>:
+<ul>
+<li>Sourcing: Creative and content quality.</li>
+<li>Inventory expansion: Identifying under-utilized slots.</li>
+<li>User experience: Quantifying user experience metrics and retention drops.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Key Strategy Handles</strong>
+<ul>
+<li><strong>Ad-load</strong> (Ad Density)
+<ul>
+<li><em>Purpose</em>: Boosting ad inventory during high-demand events (e.g., shopping festivals) to maximize revenue.</li>
+<li><em>Benchmarks</em>: Competitor benchmarks (e.g. Facebook caps at ~8%), revenue simulations, and long-term user retention impacts.</li>
+</ul>
+</li>
+<li><strong>Frequency Capping</strong>
+<ul>
+<li><em>Purpose</em>: Preventing repetitive ads from degrading user experience.</li>
+<li><em>Attempts</em>: Multi-placement joint capping <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> single placement capping; similarity-based capping; long-term capping; down-ranking similar creatives via <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>i</mi><mi>d</mi><mi>d</mi><mi>e</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>c</mi><mi>o</mi><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">hidden\_cost</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">h</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span></span></span></span> penalties.</li>
+<li><em>Debates</em>: Rigid rules vs. dynamic rules; creative diversity impacts; using client IDs for capping raises fairness issues.</li>
+</ul>
+</li>
+<li><strong>Adgap</strong> (Ad Placements Gap)
+<ul>
+<li><em>Definition</em>: The minimum number of organic posts between ads.</li>
+<li><em>Purpose</em>: Restricting ad density per user session.</li>
+<li><em>Future directions</em>: Personalized gaps (user- or query-level); modeling ad-ad mutual interference; optimizing session-level expected returns.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Other Key Issues</strong>
+<ul>
+<li><em>HiddenCost and LTV</em>: Quantifying the user retention drop caused by ads (e.g., down-ranking ad scores using experience-based penalties).</li>
+<li><em>Inventory Bottlenecks</em>: When high-value slots are saturated, unlocking native-format feeds or running auctions on new screens.</li>
+<li><em>Attention Decay</em>: In long content (e.g., articles, long feeds), user attention decays rapidly; ads should target the top of the session.</li>
+</ul>
+</li>
+</ul>
+<h3 id="user-experience-strategy"><a class="markdownIt-Anchor" href="#user-experience-strategy"></a> User Experience Strategy</h3>
+<p>How do we balance ad revenue and user experience?</p>
+<ul>
+<li>Validate the direct impact of the strategy in experiments, rather than trying to resolve intermediate mediation questions (e.g. measure actual revenue drops when expanding ad-load, rather than comparing content qualities).</li>
+<li><em>Common Pitfalls</em>:
+<ul>
+<li>Extrapolating marginal returns from static historical logs (current content experience <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo mathvariant="normal">≠</mo></mrow><annotation encoding="application/x-tex">\neq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> additional content experience).</li>
+<li>Drawing un-actionable conclusions (e.g. organic content has better experience <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo mathvariant="normal">≠</mo></mrow><annotation encoding="application/x-tex">\neq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> expanding organic feeds will improve retention).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Experimental Design</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Block Mechanism</strong></th>
+<th><strong>Core Comparison</strong></th>
+<th><strong>Pros &amp; Cons</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pre-retrieval filtering</strong></td>
+<td>Target ad vs. backup ad + organic</td>
+<td>Minimal revenue loss; but backup content quality is uncontrolled</td>
+</tr>
+<tr>
+<td><strong>Bumping eCPM threshold</strong></td>
+<td>Target ad vs. backup ad + organic</td>
+<td>Highly flexible; but might not block ads completely</td>
+</tr>
+<tr>
+<td><strong>Retrieval filter + matching ad-load</strong></td>
+<td>Target ad vs. organic</td>
+<td>Cleanest ad-vs-organic comparison; requires constant tuning</td>
+</tr>
+<tr>
+<td><strong>Re-ranking masking</strong></td>
+<td>Target ad vs. backup ad + organic</td>
+<td>High content quality; but maximum revenue loss</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><em>Reality</em>: We cannot fully control the quality or volume of alternative backup ads. The best practice is: retrieval-level filtering combined with pacing to align overall ad-load (controlling volume rather than quality).</li>
+<li><em>Data Trap</em>: Contradictory conclusions across experiments (e.g., different retention impacts for different categories). The root cause lies in the quality differences of alternative backup content.</li>
+<li><em>Temporal Decay</em>: Experiment results degrade over time (e.g. ad-blocking experiments showing smaller retention losses over a 5-year span).
+<ul>
+<li><em>Hypotheses</em>: User self-selection (sensitive users have churned), ad tolerance/habituation increases, or product adjustments.</li>
+<li><em>Recommendation</em>: Rely on direct empirical experiments, avoiding complex speculative attributions.</li>
+</ul>
+</li>
+</ul>
+<div class="mermaid">
+  graph LR
+    A[Factors affecting ad-induced LTV loss]
+    A --> B[Ad Content / Creative]
+    A --> C[Ad Strategy]
+    A --> D[External Factors]
+
+    B --> B1[Campaign type & category shifts]
+    B --> B2[Creative quality]
+    B2 --> B21[CTR / dislike / report rates]
+
+    C --> C1[Traffic strategy]
+    C1 --> C11[adload / gap / startpos / duplicate / new slots]
+    C --> C2[Visual / layout style]
+    C --> C3[Delivery policy]
+
+    D --> D1[User-side characteristics]
+    D1 --> D11[User acquisition quality]
+    D1 --> D12[Client performance]
+    D1 --> D13[User-side product updates]
+    D1 --> D14[Seasonality / cohort shifts]
+    D --> D2[E-commerce marketplace factors]
+</div>
+
+<h3 id="visual-layout-strategy"><a class="markdownIt-Anchor" href="#visual-layout-strategy"></a> Visual &amp; Layout Strategy</h3>
+<p>Integrating ad formats and visual elements into native product layouts to boost performance:</p>
+<ul>
+<li>Enhancing ad click-through rates and conversion rates.</li>
+<li>Boosting advertiser ROI, supporting custom vertical brand campaigns.</li>
+<li>Guiding creators and advertisers to align their assets with the platform’s visual styles.</li>
+</ul>
+<p>Placements &amp; Models:</p>
+<ul>
+<li><strong>Style Optimization Components</strong>
+<ul>
+<li><em>Model Features</em>: Incorporating creative style IDs into prediction towers.</li>
+<li><em>CTA Buttons</em>: Optimizing CTA button triggers. Buttons account for ~30% of conversions; color schemes and trigger timings are optimized.</li>
+<li><em>End-cards / Overlays</em>: Redesigning download and install overlays to capture high-intent users post-video.</li>
+<li><em>Cards</em>: Redesigning download and e-commerce cards (showing prices, ratings, categories).</li>
+</ul>
+</li>
+<li><strong>Personalized Layout Models</strong>
+<ul>
+<li><em>Core</em>: Rich candidate visual options + personalized selection models.</li>
+<li>A/B tests only select the average best format, neglecting user diversity. Personalized models select the optimal visual combination for each user.</li>
+<li><em>Visual elements</em>: Containers, assets, UI themes, trigger times, and screen positions.</li>
+<li><em>Execution</em>:
+<ol>
+<li>Generating diverse styles (2-3 distinct layouts).</li>
+<li>Text assets: automated generation using LLMs.</li>
+<li>Image assets: automated template generation.</li>
+<li>Bidding and pre-ranking integration: scoring format options online.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>Comment Sections</strong>: Introducing comment features and management tools on ads.
+<ul>
+<li>Comment monitoring and moderation tools for merchants.</li>
+<li>Comment sorting to boost conversions.</li>
+<li>Comment cold start.</li>
+</ul>
+</li>
+<li><strong>Interactive Formats</strong>: AR, 3D overlays, and screen gestures.</li>
+<li><strong>UX Components</strong>: Redesigning app redirection funnels and deep-linking buttons.</li>
+</ul>
+<h2 id="delivery-strategy"><a class="markdownIt-Anchor" href="#delivery-strategy"></a> Delivery Strategy</h2>
+<div class="mermaid">
+  graph LR
+    I[Core Delivery Strategies] --> J[Stability]
+    I --> K[Duplication governance]
+    I --> L[Cold start]
+    I --> M[Budget optimization]
+    I --> N[Compensation policies]
+    I --> O[Ad Quality controls]
+</div>
+
+<h3 id="cold-start"><a class="markdownIt-Anchor" href="#cold-start"></a> Cold Start</h3>
+<p>What problem are we solving?</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>System Perspective</th>
+<th>Client Perspective</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core Goal</strong></td>
+<td>Maximize global platform revenue</td>
+<td>Accelerate individual ad delivery</td>
+</tr>
+<tr>
+<td><strong>Costs</strong></td>
+<td>Opportunity costs (traffic exploration)</td>
+<td>Cost overruns, creative wasting</td>
+</tr>
+<tr>
+<td><strong>Focus</strong></td>
+<td>Long-term model learning and pacing</td>
+<td>Short-term campaign ROI</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>System Perspective</strong>
+<ol>
+<li><strong>Cold Start in Models</strong>: New ads lack historical interaction logs (CTR, CVR), leading to extreme estimation variance. The system must spend traffic to “explore” the ad’s true quality.</li>
+<li><strong>Exploration vs. Exploitation (EE)</strong>: Short-term sacrifices (exploring uncertain new ads) are necessary to capture long-term platform returns, preventing the system from getting stuck in local optima (head ad dominance).</li>
+<li><strong>Data Imbalance / Long-Tail Learning</strong>: New ads have sparse logs; models must learn from sparse long-tail distributions to prevent established ads from monopolizing all slots.</li>
+</ol>
+</li>
+<li><strong>Client Perspective</strong>
+<ol>
+<li><strong>起量 (Delivery Volume)</strong>: New ads must scale quickly to spend budgets. Slow delivery wastes operational effort and budget schedules.</li>
+<li><strong>Lifecycle Bounds</strong>: Creative life cycles are short (e.g. 7 days). Slow cold start directly leads to campaign failures.</li>
+<li><strong>Advertiser Duplication</strong>: If the system fails to deliver new ads, advertisers will copy and deploy massive duplicate campaigns to gamble on model variance, degrading the platform’s auction health.</li>
+</ol>
+</li>
+</ul>
+<p>How do we optimize?</p>
+<ol>
+<li><strong>Bidding Adjustments (Fine Ranking)</strong>
+<ul>
+<li><em>Methods</em>: Setting personalized bidding caps for new campaigns; implementing dynamic bid scaling; deploying vertical industry bid rules.</li>
+<li><em>Impact</em>: Counteracts low competitiveness caused by model variance, accelerating initial delivery while preventing cost overruns.</li>
+</ul>
+</li>
+<li><strong>Boost (Priority Auction) Mechanisms</strong>
+<ul>
+<li><em>Methods</em>: Adding positive constants or coefficients to the ad’s <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">eCPM</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>i</mi><mi>d</mi><mi>d</mi><mi>e</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>c</mi><mi>o</mi><mi>s</mi><mi>t</mi><mo>=</mo><mi>c</mi><mi>o</mi><mi>n</mi><mi>s</mi><mi>t</mi><mo>×</mo><mi>b</mi><mi>o</mi><mi>o</mi><mi>s</mi><mi>t</mi><mi mathvariant="normal">_</mi><mi>c</mi><mi>o</mi><mi>e</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">hidden\_cost = const \times boost\_coef</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">h</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69841em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">b</span><span class="mord mathnormal">o</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span></span></span></span>).</li>
+<li><em>Impact</em>: Artificially elevates new ads in auctions, speeding up exploration.</li>
+</ul>
+</li>
+<li><strong>Traffic Allocation (Retrieval / Pre-ranking)</strong>: Balancing exploration and exploitation.
+<ul>
+<li><em>Bandit Algorithms</em>: Epsilon-Greedy, Thompson Sampling, Upper Confidence Bound (UCB).</li>
+<li><em>Heuristic Assignment</em>:
+<ul>
+<li><strong>RecentPVR</strong>: Routing new ads to traffic segments that display fresh click patterns.</li>
+<li><strong>RankUser</strong>: Solving bipartite matching offline to pre-align new ads with suitable user clusters.</li>
+<li><strong>Campaign Inheritance</strong>: Inheriting the profile of a successful campaign within the same account to speed up initial targeting.</li>
+<li><strong>Targeted Exploration</strong>: Routing new ads to traffic segments where CVR/CTR model variance is low, ensuring stable early learning.</li>
+<li><strong>Diversity Boosts</strong>: Forcing new ads to explore a wide variety of publisher apps to capture broad profiles.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><strong>Uncertainty Modeling</strong>: Classic EE cannot handle personalized “prediction uncertainty.” We model the standard deviation of pCTR/pCVR, boosting ads that have high uncertainty to accelerate learning.</li>
+<li><strong>Meta-Learning &amp; Transfer Learning</strong>: Using model architectures (e.g., DDN) to transfer weights from similar mature campaigns.</li>
+<li><strong>Sampling &amp; Debiasing</strong>: Re-weighting losses for new ad samples during training.</li>
+<li><strong>Metric Controls</strong>: Redefining cold start success (e.g. using “delivery rate” instead of absolute “conversion count”).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>Problem</strong></th>
+<th><strong>Strategy Handle</strong></th>
+<th><strong>Impact</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model variance (cold start)</td>
+<td>Model tuning, Boost mechanisms</td>
+<td>Improves pCTR/pCVR accuracy, mitigates bias</td>
+</tr>
+<tr>
+<td>Slow learning (EE)</td>
+<td>Bidding adjustments, traffic boosts</td>
+<td>Accelerates sample collection, reduces search costs</td>
+</tr>
+<tr>
+<td>Data sparsity</td>
+<td>Meta-learning, transfer learning</td>
+<td>Boosts model representation on sparse logs</td>
+</tr>
+<tr>
+<td>Customer pacing complaints</td>
+<td>Bidding caps, traffic quotas</td>
+<td>Delivers fast initial impressions, shortens learning</td>
+</tr>
+<tr>
+<td>Spillover bias in tests</td>
+<td>Double-sided splitting, budget pacing</td>
+<td>Isolates treatment/control groups, ensures clean tests</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stability"><a class="markdownIt-Anchor" href="#stability"></a> Stability</h3>
+<p>From the advertiser’s perspective, a mature delivery system must be predictable in both cost and pacing. Predictability involves: <strong>delivery</strong> (achieving cost targets) and <strong>stability</strong> (maintaining consistent costs across periods).</p>
+<p>In cost stability, our goal is to keep the daily CPA within target bounds. In delivery stability, we target reducing abrupt drops in delivery volume, protecting campaign lifespans.</p>
+<h4 id="cost-stability"><a class="markdownIt-Anchor" href="#cost-stability"></a> Cost Stability</h4>
+<p><strong>Core Problem</strong>: Ensuring CPA meets the advertiser’s targets; reducing bid-CPA fluctuations.<br />
+<strong>Solutions</strong>:</p>
+<ol>
+<li><strong>Model Bias Correction</strong>: Improving real-time log joining to reduce hour-level data delays; using multi-dimensional Isotonic Regression calibration.</li>
+<li><strong>Pacing Control</strong>: Upgrading PID and MPC control loops to adjust <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>a</mi><mi>n</mi><mi>k</mi><mi mathvariant="normal">_</mi><mi>b</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">rank\_bid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">b</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span></span></span></span> dynamically based on real-time CPA ratios.</li>
+<li><strong>Vertical Focus</strong>: Deploying dedicated models and tighter control loops for high-sensitivity verticals (e.g. financial leads, gaming pay events).</li>
+</ol>
+<h4 id="delivery-stability"><a class="markdownIt-Anchor" href="#delivery-stability"></a> Delivery Stability</h4>
+<p><strong>Core Problem</strong>: Extending campaign lifespans, reducing abrupt drops in delivery.<br />
+<strong>Solutions</strong>:</p>
+<ol>
+<li><strong>Drop Diagnosis &amp; Prediction</strong>:
+<ul>
+<li>Hour-level drop prediction models (Precision=0.87, Recall=0.82).</li>
+<li><em>Diagnostics</em>:
+<ul>
+<li><strong>System factors</strong> (50%): Drop in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">eCPM</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> competitiveness, pCTR drop, or pCVR drop.</li>
+<li><strong>Uncertain factors</strong> (45%): Model variance, competitive spikes, or sudden brand budget spikes.</li>
+<li><strong>Advertiser actions</strong> (5%): Manual bid cuts, budget reductions, or targeting edits.</li>
+<li><strong>Environmental factors</strong>: Target audience saturation, material fatigue, or market-level competition.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Pacing Supports</strong>: Deploying dedicated budget pacing buffers to smooth out temporary drops in model scores.</li>
+<li><strong>Ranking Interventions</strong>: Adjusting fine-ranking calibrations and pre-ranking filters during drop alerts to keep campaigns competitive.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Core Metric</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cost Stability</strong></td>
+<td>Proportion of spend within target CPA bounds</td>
+<td>Boost CPA delivery success in sensitive verticals</td>
+</tr>
+<tr>
+<td><strong>Delivery Stability</strong></td>
+<td>Rate of un-manipulated campaign drops</td>
+<td>Reduce abrupt ad drops by &gt;40%</td>
+</tr>
+</tbody>
+</table>
+<h4 id="model-optimizations"><a class="markdownIt-Anchor" href="#model-optimizations"></a> Model Optimizations</h4>
+<ul>
+<li><strong>Catastrophic Forgetting Mitigation</strong>
+<ul>
+<li><em>Data replay and parameter isolation</em>: Deploying MFTC frameworks to replay historical data; applying parameter update penalties (e.g., L2 constraints) during streaming updates.</li>
+<li><em>Long-term memory</em>: Preserving campaign-level features and historical conversion aggregates; using Meta-Learning to generate robust embeddings.</li>
+<li><em>Training pipeline</em>: Layer-wise learning combined with multi-day shuffling; optimizing streaming intervals to balance fresh logs with model stability.</li>
+</ul>
+</li>
+<li><strong>Feature Engineering</strong>
+<ul>
+<li><em>Generalization</em>: Replacing raw advertiser IDs with category, merchant, and campaign attribute features; incorporating rolling statistical features.</li>
+<li><em>Sampling</em>: Limiting head campaign sampling to increase the sampling rates of tail and dropping campaigns.</li>
+</ul>
+</li>
+<li><strong>Model Architecture</strong>
+<ul>
+<li><em>Ensembles</em>: Blending batch-trained models with online-trained models.</li>
+<li><em>Real-time Sessions</em>: Incorporating real-time session features into fine ranking to predict drop risks.</li>
+</ul>
+</li>
+</ul>
+<h3 id="bidding-strategy"><a class="markdownIt-Anchor" href="#bidding-strategy"></a> Bidding Strategy</h3>
+<p>Bidding strategies include advertiser-facing products (TargetCost, NoBid) and platform-facing optimization strategies:</p>
+<ul>
+<li><strong>Cold Start Bidding</strong>: Elevating bids during the learning phase to accelerate exploration (more direct than ranking boosts, and shifts some testing cost to the advertiser).</li>
+<li><strong>Private Bid Adjustments</strong>:
+<ul>
+<li>Dynamically adjusting bids based on proprietary models to capture deep conversions.</li>
+<li>Applied in joint modeling, multi-touch attribution, and campaign inheritance.</li>
+<li>Resolves vertical industry limitations in universal models; allows deep conversions (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>r</mi><mi>i</mi><mi>v</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi mathvariant="normal">_</mi><mi>d</mi><mi>e</mi><mi>e</mi><mi>p</mi><mi mathvariant="normal">_</mi><mi>c</mi><mi>v</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">private\_deep\_cvr</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">e</span><span class="mord mathnormal">p</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span>) to guide bid competitiveness.</li>
+</ul>
+</li>
+<li><strong>Auxiliary Event Bidding</strong>:
+<ul>
+<li>Leveraging shallow events (e.g., installs, registrations) to optimize sparse deep conversion targets (e.g., purchases).</li>
+<li><em>Mechanism</em>:
+<ol>
+<li>Training models on high-volume shallow events (2nd eCVR).</li>
+<li>Blending the shallow model scores with the deep model scores to balance variance and bias.</li>
+</ol>
+</li>
+<li><em>Requirements</em>: High correlation between shallow and deep events; accurate 2nd eCVR predictions; identifying deep target under-estimation.</li>
+</ul>
+</li>
+</ul>
+<p>In summary, bidding strategies act as system-level compensators to optimize campaign delivery, implemented by multiplying raw bids by dynamic correction factors.</p>
+<h2 id="conversions-and-attribution"><a class="markdownIt-Anchor" href="#conversions-and-attribution"></a> Conversions and Attribution</h2>
+<h3 id="conversions"><a class="markdownIt-Anchor" href="#conversions"></a> Conversions</h3>
+<ul>
+<li>Defining the event the advertiser is willing to pay for.</li>
+<li>Platforms continue to deepen conversion targets to align with advertiser ROI.</li>
+<li>Deeper targets simplify bidding for advertisers while locking transaction loops and data into the platform.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>No Conversion Data</th>
+<th>Shallow Conversion</th>
+<th>Deep Conversion</th>
+<th>Ultimate State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>In-app Shop</strong></td>
+<td>CPM</td>
+<td>Product View</td>
+<td>Add to Cart, Purchase</td>
+<td>ROI</td>
+</tr>
+<tr>
+<td><strong>Online App</strong></td>
+<td>CPC</td>
+<td>Download, Install</td>
+<td>Active + Retention, Purchase</td>
+<td>ROI</td>
+</tr>
+<tr>
+<td><strong>Lead Generation</strong></td>
+<td>CPM</td>
+<td>Form Submit, Phone Click</td>
+<td>Course Purchase, Credit Approval</td>
+<td>ROI</td>
+</tr>
+</tbody>
+</table>
+<h3 id="attribution"><a class="markdownIt-Anchor" href="#attribution"></a> Attribution</h3>
+<p>Attribution determines how conversion credit is distributed across touchpoints, shaping advertiser ROI assessments, channel budgets, platform billing, and model training.</p>
+<p>Key Aspects:</p>
+<ol>
+<li><strong>Owner</strong>: Advertiser self-attribution, publisher attribution, or third-party attribution. Platforms compete to manage attribution.</li>
+<li><strong>Touchpoint Scope</strong>: Clicks, impressions, video views, likes, etc.</li>
+<li><strong>Logic</strong>:
+<ul>
+<li>Single-Touch (First Click, Last Click).</li>
+<li>Multi-Touch (MTA - linear, time-decay, logistic regression weights).</li>
+<li>Incrementality (Uplift).</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><em>Attribution Design</em>: Balancing analytical validity and platform revenue. Platforms build Markov chains and decay curves to demonstrate the value of upper-funnel touchpoints.
+<ul>
+<li><strong>ESM2 (Entire Space Multi-Task Modeling)</strong>: Decomposing post-click behaviors to predict conversions.</li>
+<li>
+<img src="/en/ads/intro-3/Ads-Strategy-Behavior-Decomp.png" class="">
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="creative-and-intelligent-delivery"><a class="markdownIt-Anchor" href="#creative-and-intelligent-delivery"></a> Creative and Intelligent Delivery</h2>
+<p>Helping advertisers create high-performing ads:</p>
+<ul>
+<li><strong>Creative Sourcing &amp; Management</strong>:
+<ul>
+<li>Asset libraries to store, tag, and retrieve video/image files.</li>
+<li>AI tools for video script generation, auto-editing, and image processing.</li>
+</ul>
+</li>
+<li><strong>Intelligent Delivery</strong>:
+<ul>
+<li>Auto-targeting (expanding and narrowing audiences dynamically).</li>
+<li>Automated bidding policies.</li>
+<li>Sourcing ecosystem governance (identifying duplicate and low-quality materials).</li>
+</ul>
+</li>
+<li><strong>Platform Portals</strong>:
+<ul>
+<li>ByteDance: Ocean Engine, Creative Studio.</li>
+<li>Alibaba: Alimama, Qianniu.</li>
+</ul>
+</li>
+</ul>
+<h3 id="creative-sourcing-management"><a class="markdownIt-Anchor" href="#creative-sourcing-management"></a> Creative Sourcing &amp; Management</h3>
+<ul>
+<li><strong>Asset Management</strong>: Sourcing lists, uploads/deletes, tagging, and cross-account asset sharing.</li>
+<li><strong>Asset Taxonomy</strong>: First-run, high-quality, AIGC, low-quality, low-efficiency, and duplicates.</li>
+<li><strong>Analytics</strong>: Tag analytics, creative diagnosis, audience analysis, and comment monitoring.</li>
+<li><strong>Distribution</strong>: Creative pre-auditing, player diagnostic logs.</li>
+</ul>
+<p><em>Goal</em>: An all-in-one smart creation portal blending AIGC generation with performance analytics.</p>
+<h2 id="asset-data-retrieval-capabilities"><a class="markdownIt-Anchor" href="#asset-data-retrieval-capabilities"></a> Asset Data Retrieval Capabilities</h2>
+<ul>
+<li>Retrieval by metadata and category tags.</li>
+<li>Retrieval by asset owners.</li>
+<li>Linking assets with active campaigns and creative instances.</li>
+</ul>
+<hr />
+<h3 id="diagnostics"><a class="markdownIt-Anchor" href="#diagnostics"></a> Diagnostics</h3>
+<p>Platform diagnostic tools help advertisers troubleshoot delivery bottlenecks:</p>
+<ul>
+<li><strong>Systemic issues</strong>:
+<ul>
+<li>Tracing the funnel (identifying where candidates are filtered out).</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">eCPM</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> competitiveness, bid multipliers, and model estimation bias.</li>
+<li>Campaign pacing and cold start stages.</li>
+</ul>
+</li>
+<li><strong>External factors</strong>:
+<ul>
+<li>Advertiser operations (manual bid cuts, low budgets, duplicate campaigns).</li>
+<li>Market shifts (traffic drops, competitor entry).</li>
+</ul>
+</li>
+</ul>
+<h3 id="intelligent-automated-delivery"><a class="markdownIt-Anchor" href="#intelligent-automated-delivery"></a> Intelligent / Automated Delivery</h3>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Core Models</th>
+<th>Products</th>
+<th>Key Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Audience Selection</strong></td>
+<td>Targeting quality scoring, traffic value estimation</td>
+<td>Automated targeting, recommended segments</td>
+<td>Auto-expansion</td>
+</tr>
+<tr>
+<td><strong>Cost Control</strong></td>
+<td>CPA estimation, traffic replay modeling, bidding curves</td>
+<td>Bidding guides, auction heat indexes, auto-bidding</td>
+<td>Budget pacing, campaign budget optimizations</td>
+</tr>
+<tr>
+<td><strong>Creative Assets</strong></td>
+<td>Creative pre-scoring, video quality models, copy generators</td>
+<td>Programmatic creative, copywriting suggestions</td>
+<td>Dynamic creative blending, landing page templates</td>
+</tr>
+<tr>
+<td><strong>Pacing &amp; Governance</strong></td>
+<td>Cold start prediction, campaign pruning models</td>
+<td>Campaign diagnostics, automated scheduling</td>
+<td>Auto-pilot labs, A/B splits</td>
+</tr>
+</tbody>
+</table>
+<div class="mermaid">
+  graph LR
+    A[Advertiser Demands] --> B[Controllable variables]
+    A --> C[Uncontrollable variables]
+    D[Automated Ad Products] --> E[Audience Selection]
+    D --> F[Traffic Matching]
+    D --> G[Feedback & Diagnosis]
+    D --> H[Pacing & Control]
+
+    B --> B1[Stable delivery]
+    B --> B2[Target CPA]
+    B --> B3[Predictable operation]
+    B --> B4[Predictable cold start]
+
+    D --> E1[Placements]
+    D --> E2[Targeting]
+    F --> F1[Creative]
+    F --> F2[Landing Page]
+    G --> G1[Diagnostics / Guides]
+    G --> G2[Data disclosures]
+    H --> H1[Bidding]
+    H --> H2[Budgeting]
+
+    classDef mainNode fill:#f9f,stroke:#333,stroke-width:2px
+    classDef subNode fill:#bbf,stroke:#333,stroke-width:1px
+    classDef leafNode fill:#dfd,stroke:#333,stroke-width:1px
+
+    class A,D mainNode
+    class B,C,E,F,G,H subNode
+    class B1,B2,B3,B4,E1,E2,F1,F2,G1,G2,H1,H2 leafNode
+</div>
+
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/en/ads/intro-3/">https://xinheliu.github.io/en/ads/intro-3/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Ads/">
+                                    <span class="chip bg-color">Ads</span>
+                                </a>
+                            
+                                <a href="/tags/AI-Machine-Learning/">
+                                    <span class="chip bg-color">AI &amp; Machine Learning</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/en/ads/intro-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Computational Advertising (2) Computational Ad System">
+                        
+                        <span class="card-title">Computational Advertising (2) Computational Ad System</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-30
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Technology/" class="post-category">
+                                    Technology
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Ads/">
+                        <span class="chip bg-color">Ads</span>
+                    </a>
+                    
+                    <a href="/tags/AI-Machine-Learning/">
+                        <span class="chip bg-color">AI &amp; Machine Learning</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/books/coding-with-agents-intro/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Coding with Agents: Intro">
+                        
+                        <span class="card-title">Coding with Agents: Intro</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-06-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Writing/" class="post-category">
+                                    Writing
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Agents/">
+                        <span class="chip bg-color">Agents</span>
+                    </a>
+                    
+                    <a href="/tags/Software-Engineering/">
+                        <span class="chip bg-color">Software Engineering</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

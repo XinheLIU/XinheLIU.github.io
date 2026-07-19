@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Palantir Ontology: A Deep Deconstruction</title>
+<style>
+/* ============ tokens ============ */
+:root{
+  --bg:#0b0d10; --bg2:#101318; --bg3:#0d1014;
+  --line:#2a2f36; --line2:#3d444d;
+  --ink:#e8eaec; --ink2:#9aa3ad; --ink3:#5c6570;
+  --acc:#aecbdd; --teal:#4fd1c5; --violet:#a78bfa; --sand:#e3c99a; --red:#e07a6b;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --sans:-apple-system,'Helvetica Neue','PingFang SC','Noto Sans SC',sans-serif;
+}
+html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:var(--sans)}
+/* ============ stage ============ */
+#viewport{position:fixed;inset:0;background:#000}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;background:var(--bg)}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;visibility:hidden;opacity:0;pointer-events:none;
+  background:var(--bg);color:var(--ink);box-sizing:border-box;padding:56px 72px 48px;
+  background-image:radial-gradient(circle,#1a1f26 1px,transparent 1px);background-size:56px 56px;background-position:28px 28px}
+.slide.active{visibility:visible;opacity:1;pointer-events:auto;z-index:1}
+.slide{--a:var(--acc)}
+.slide[data-accent="teal"]{--a:var(--teal)} .slide[data-accent="violet"]{--a:var(--violet)}
+.slide[data-accent="sand"]{--a:var(--sand)} .slide[data-accent="red"]{--a:var(--red)}
+/* ============ chrome (injected) ============ */
+.chrome{position:absolute;font-size:11px;letter-spacing:.16em;color:var(--ink3);text-transform:uppercase;font-family:var(--mono)}
+.chrome.eyebrow{top:26px;left:72px;color:var(--a)}
+.chrome.eyebrow::before{content:"";display:inline-block;width:8px;height:8px;border:1px solid var(--a);margin-right:10px;vertical-align:0}
+.chrome.meta{top:26px;right:72px;letter-spacing:.1em}
+.chrome.page{bottom:22px;right:72px;letter-spacing:.2em}
+.chrome.rule{top:52px;left:72px;right:72px;height:1px;background:var(--line)}
+/* ============ head / text ============ */
+.s-head{margin:14px 0 8px}
+.s-head h2{margin:0;font-size:38px;font-weight:600;letter-spacing:.01em}
+.s-head h2 em{font-style:normal;color:var(--a)}
+.s-head .lead{margin:10px 0 0;font-size:19px;color:var(--ink2);max-width:1400px;line-height:1.5}
+.s-foot{position:absolute;bottom:22px;left:72px;font-size:11px;color:var(--ink3)}
+p,li{font-size:16px;line-height:1.55}
+.s-body{margin-top:22px}
+.s-body h3{font-size:15px;margin:18px 0 8px;color:var(--a);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+small,.dim{color:var(--ink2)} .dim3{color:var(--ink3)}
+code{font-family:var(--mono);font-size:.92em;background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+/* ============ grids ============ */
+.cols-2{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.cols-2>.w7{grid-column:auto} .cols-2.r75{grid-template-columns:7fr 5fr}.cols-2.r57{grid-template-columns:5fr 7fr}
+.cols-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px}
+.grid-2x2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid-2x3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
+.card{border:1px solid var(--line);background:var(--bg2);padding:18px 20px;border-radius:6px}
+.card h4{margin:0 0 8px;font-size:16px;color:var(--ink)} .card h4 b{color:var(--a)}
+.card p{margin:0;font-size:14px;color:var(--ink2)}
+.card small{display:block;margin-top:10px;font-size:12px;color:var(--ink3)}
+/* ============ table ============ */
+table.cmp{border-collapse:collapse;width:100%;font-size:13.5px}
+table.cmp th{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);font-weight:500;text-align:left;
+  padding:8px 12px;border-bottom:1px solid var(--line2)}
+table.cmp td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top;line-height:1.45}
+table.cmp td strong,table.cmp td b{color:var(--ink)}
+table.cmp td.k{color:var(--ink3);white-space:nowrap;font-family:var(--mono);font-size:12.5px}
+table.cmp .hl{background:color-mix(in srgb,var(--a) 7%,transparent)}
+table.cmp td.hl{color:var(--ink)}
+table.cmp td.good{color:var(--teal)} table.cmp td.bad{color:var(--red)}
+/* ============ callout ============ */
+.callout{border-left:2px solid var(--a);background:var(--bg2);padding:14px 18px;margin-top:18px;display:flex;gap:14px;align-items:baseline}
+.callout .c-tag{font-size:10px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;font-family:var(--mono);white-space:nowrap}
+.callout p{margin:0;font-size:15.5px;color:var(--ink)}
+.callout.warn{border-color:var(--sand)} .callout.warn .c-tag{color:var(--sand)}
+.callout.risk{border-color:var(--red)} .callout.risk .c-tag{color:var(--red)}
+/* ============ evidence tags ============ */
+.ev{display:inline-block;font-size:10.5px;font-family:var(--mono);letter-spacing:.06em;color:var(--acc);
+  border:1px solid color-mix(in srgb,var(--acc) 45%,transparent);border-radius:3px;padding:0 5px;margin:0 2px;vertical-align:.08em}
+.ev.ind{color:var(--teal);border-color:color-mix(in srgb,var(--teal) 45%,transparent)}
+.ev.doubt{color:var(--red);border-color:color-mix(in srgb,var(--red) 45%,transparent)}
+.ev.comp{color:var(--violet);border-color:color-mix(in srgb,var(--violet) 45%,transparent)}
+.ev.sap{color:var(--sand);border-color:color-mix(in srgb,var(--sand) 45%,transparent)}
+/* ============ spec list ============ */
+ul.spec{list-style:none;margin:0;padding:0}
+ul.spec li{display:grid;grid-template-columns:150px 1fr;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+ul.spec .s-k{font-family:var(--mono);font-size:12.5px;color:var(--a);letter-spacing:.04em}
+ul.spec .s-v{color:var(--ink2)} ul.spec .s-v b,ul.spec .s-v strong{color:var(--ink)}
+/* ============ steps ============ */
+ol.steps{list-style:none;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:18px;margin:8px 0 0;padding:0;position:relative}
+ol.steps::before{content:"";position:absolute;top:15px;left:4%;right:4%;height:1px;background:var(--line2)}
+ol.steps li{position:relative;padding-top:44px;font-size:14px}
+ol.steps .n{position:absolute;top:0;left:0;width:30px;height:30px;border:1px solid var(--a);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--a);font-family:var(--mono);font-size:13px}
+ol.steps b{display:block;color:var(--ink);margin-bottom:5px;font-size:15px}
+ol.steps small{color:var(--ink2);font-size:12.5px;line-height:1.5;display:block}
+/* ============ bullets ============ */
+ul.tick{list-style:none;margin:0;padding:0}
+ul.tick li{padding:6px 0 6px 20px;position:relative;color:var(--ink2);font-size:15px}
+ul.tick li::before{content:"—";position:absolute;left:0;color:var(--a)}
+ul.tick b,ul.tick strong{color:var(--ink)}
+/* ============ SVG figures ============ */
+svg.fig{width:100%;height:auto;display:block}
+svg.fig .node rect{fill:var(--bg2);stroke:var(--line2);stroke-width:1.25;rx:6}
+svg.fig .node.hi rect{stroke:var(--a);fill:color-mix(in srgb,var(--a) 8%,var(--bg2))}
+svg.fig .node .t{fill:var(--ink);font-size:13px;text-anchor:middle;font-weight:600}
+svg.fig .node .s{fill:var(--ink2);font-size:11px;text-anchor:middle}
+svg.fig .node .m{fill:var(--a);font-family:var(--mono);font-size:11px;text-anchor:middle}
+svg.fig .edge{fill:none;stroke:var(--ink3);stroke-width:1.25}
+svg.fig .edge.flow{stroke-dasharray:4 4}
+svg.fig .edge.hi{stroke:var(--a);stroke-width:1.5}
+svg.fig .elabel{fill:var(--ink3);font-size:10.5px;text-anchor:middle;font-family:var(--mono)}
+svg.fig .grp rect{fill:none;stroke:var(--line);stroke-dasharray:5 5;rx:8}
+svg.fig .glabel{fill:var(--ink3);font-size:10px;letter-spacing:.16em;font-family:var(--mono)}
+svg.fig text{font-family:var(--sans)}
+/* iso */
+svg.fig .iso-face-t{fill:#141920;stroke:var(--line2);stroke-width:1.1}
+svg.fig .iso-face-t.acc{fill:color-mix(in srgb,var(--a) 14%,#141920);stroke:var(--a)}
+svg.fig .iso-face-l{fill:#0c0f13;stroke:var(--line2);stroke-width:1.1}
+svg.fig .iso-face-r{fill:#101419;stroke:var(--line2);stroke-width:1.1}
+svg.fig .iso-label{fill:var(--ink);font-size:12px;letter-spacing:.12em;font-family:var(--mono);text-transform:uppercase}
+svg.fig .iso-sub{fill:var(--ink2);font-size:11px}
+svg.fig .rail{stroke:var(--line2);stroke-width:1;fill:none}
+/* ============ covers ============ */
+.cover-main{display:flex;flex-direction:column;justify-content:center}
+.cover-main .kicker{font-family:var(--mono);font-size:13px;letter-spacing:.3em;color:var(--a);text-transform:uppercase}
+.cover-main h1{font-size:64px;font-weight:650;margin:18px 0 10px;max-width:1500px;line-height:1.15}
+.cover-main .sub{font-size:22px;color:var(--ink2);max-width:1200px;line-height:1.5}
+.cover-main .badges{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap}
+.cover-main .badges span{font-size:12px;font-family:var(--mono);color:var(--ink2);border:1px solid var(--line);padding:5px 12px;border-radius:4px}
+.cover-section{display:flex;flex-direction:column;justify-content:center}
+.cover-section .ghost{font-size:150px;font-weight:200;color:transparent;-webkit-text-stroke:1px var(--line2);line-height:1;font-family:var(--mono)}
+.cover-section h2{font-size:46px;margin:8px 0 12px}
+.cover-section .thesis{font-size:20px;color:var(--ink2);max-width:1100px}
+.cover-section .mini-agenda{list-style:none;padding:0;margin:28px 0 0;display:flex;gap:28px}
+.cover-section .mini-agenda li{font-size:13px;color:var(--ink3);font-family:var(--mono)}
+.cover-section .mini-agenda li::before{content:"→ ";color:var(--a)}
+/* ============ overview / help ============ */
+#overview{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:50;display:none;overflow:auto;padding:30px}
+#overview.on{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+#overview .thumb{border:1px solid var(--line);cursor:pointer;position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--bg)}
+#overview .thumb:hover{border-color:var(--acc)}
+#overview .thumb .mini{width:1920px;height:1080px;transform:scale(.18);transform-origin:0 0;position:absolute;pointer-events:none}
+#overview .thumb .idx{position:absolute;right:6px;bottom:4px;font-family:var(--mono);font-size:11px;color:var(--acc);z-index:2}
+#hud{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:#565f6a;z-index:40;letter-spacing:.1em}
+/* ============ print ============ */
+@media print{
+  html,body{overflow:visible;height:auto;background:#0b0d10}
+  #viewport{position:static}
+  #stage{position:static;transform:none!important;width:1920px;height:auto}
+  .slide{position:relative;visibility:visible;opacity:1;page-break-after:always;break-after:page}
+  #hud,#overview{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- SLIDES-START -->
+<script>window.DECK={title:"Palantir Ontology: A Deep Deconstruction",meta:"PALANTIR ONTOLOGY · WHY / WHAT / HOW",footer:"palantir-ontology-why-what-how.md"}</script>
+
+<!-- 01 cover -->
+<section class="slide cover-main" data-accent="acc">
+  <div class="kicker">Ontology Deep-Dive · 2026-07</div>
+  <h1>Palantir Ontology: A Deep Deconstruction<br>When ontology moves from "describing the world" to<span style="color:var(--acc)">"driving the world"</span></h1>
+  <p class="sub">OWL lets machines understand the world, knowledge graphs let machines retrieve the world, and Palantir's ontology lets machines change the world within the rules you set—and evolve along with it.</p>
+  <div class="badges"><span>Why → What → How → Costs & Controversies</span><span>Evidence tiers: Official / Independent / Competitor / SAP / Unverified</span><span>For engineers and architects</span></div>
+</section>
+
+<!-- 02 why: semantic cage -->
+<section class="slide" data-eyebrow="01 · WHY" data-accent="sand">
+  <header class="s-head"><h2>The "runaway" LLM forced the rise of an <em>engineering-grade ontology</em></h2>
+    <p class="lead">No one dares let an LLM independently approve a million-dollar transfer: hallucination, no control, no audit trail. The industry's answer is strikingly uniform—put a "semantic cage" around the AI.</p></header>
+  <div class="s-body cols-2">
+    <div>
+      <h3>Ontology in engineering = domain semantic schema</h3>
+      <ul class="spec">
+        <li><span class="s-k">Concepts</span><span class="s-v">What is a "user", a "risk", an "order"</span></li>
+        <li><span class="s-k">Relations</span><span class="s-v">User → places → Order</span></li>
+        <li><span class="s-k">Rules</span><span class="s-v">Orders over 100K must go through risk approval</span></li>
+      </ul>
+      <div class="callout"><span class="c-tag">Essence</span><p>Use <b>deterministic knowledge</b> to put a rein on a probabilistic model. Once these three things are structured and fixed, however clever the LLM is, it can only reason and output within the framework.</p></div>
+      <p class="dim" style="margin-top:16px">But one word has five referents: OWL standard / search-engine KG schema / data-platform semantic layer / multi-agent consensus / Palantir operational ontology—this piece focuses on the last and most "heretical" of them.</p>
+    </div>
+    <div>
+      <svg class="fig" viewBox="0 0 720 520">
+        <defs><marker id="arA" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+        <g class="grp"><rect x="40" y="40" width="640" height="300"/><text class="glabel" x="56" y="66">SEMANTIC CAGE (Ontology)</text></g>
+        <g class="node hi"><rect x="240" y="130" width="240" height="70"/><text class="t" x="360" y="160">LLM (probabilistic)</text><text class="s" x="360" y="180">hallucination · unstable paths · black box</text></g>
+        <g class="node"><rect x="70" y="250" width="180" height="56"/><text class="t" x="160" y="274">Concepts</text><text class="s" x="160" y="292">user · risk · order</text></g>
+        <g class="node"><rect x="270" y="250" width="180" height="56"/><text class="t" x="360" y="274">Relations</text><text class="s" x="360" y="292">user→places→order</text></g>
+        <g class="node"><rect x="470" y="250" width="180" height="56"/><text class="t" x="560" y="274">Rules</text><text class="s" x="560" y="292">&gt;100K → approval</text></g>
+        <path class="edge" d="M160 250 V 215 H 300 V 200" marker-end="url(#arA)"/>
+        <path class="edge" d="M360 250 V 200" marker-end="url(#arA)"/>
+        <path class="edge" d="M560 250 V 215 H 420 V 200" marker-end="url(#arA)"/>
+        <path class="edge hi" d="M360 340 V 400" marker-end="url(#arA)"/>
+        <g class="node"><rect x="230" y="400" width="260" height="60"/><text class="t" x="360" y="426">Constrained output</text><text class="s" x="360" y="444">auditable · answers "why"</text></g>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">In high-value, high-compliance settings (legal / medical / finance / production scheduling), hallucination is fatal</footer>
+</section>
+
+<!-- 03 why: semantic fragmentation, four hurdles -->
+<section class="slide" data-eyebrow="01 · WHY" data-accent="sand">
+  <header class="s-head"><h2>The real disease: <em>semantic fragmentation</em>—four hurdles for enterprise AI</h2>
+    <p class="lead">One "customer": called <code>KNA1</code> in SAP, <code>Account</code> in CRM, <code>dim_customer</code> in the warehouse. Relational databases store "facts" but know nothing of the meaning between them.</p></header>
+  <div class="s-body">
+    <table class="cmp">
+      <thead><tr><th style="width:16%">Challenge</th><th>Symptom</th><th>Root cause</th></tr></thead>
+      <tbody>
+        <tr><td class="k">① Semantic gap</td><td>The same concept is expressed differently across ERP/MES/CRM; AI cannot understand it uniformly</td><td>Each system defines its own; no unified semantic layer</td></tr>
+        <tr><td class="k">② Model hallucination</td><td>Random generation, black-box reasoning, may "confidently" violate rules</td><td>No deterministic knowledge constrains probabilistic output</td></tr>
+        <tr class="hl"><td class="k">③ Execution gap</td><td><strong>AI can spot problems but can't act on them—"can see it, can't touch it"</strong></td><td>Analytical and operational systems are inherently split</td></tr>
+        <tr><td class="k">④ Knowledge capture</td><td>Expert know-how trapped in people's heads; every AI app reinvents the wheel</td><td>No carrier to turn tacit experience into digital assets</td></tr>
+      </tbody>
+    </table>
+    <div class="cols-2" style="margin-top:22px">
+      <div class="callout warn"><span class="c-tag">Most fatal</span><p>The third hurdle, the <b>execution gap</b>: you analyze that "this equipment needs repair," and then what? Someone still has to manually switch to the work-order system, fill in a form, dispatch. This is the entire reason Palantir exists.</p></div>
+      <p class="dim" style="margin:0;padding-top:6px">The fate of traditional BI: produce a pile of "pretty" dashboards that just sit there, waiting for someone to translate insight into action. A flat wide table is just a meaningless string to a machine—it doesn't know <code>KUNNR</code> stands for a "customer entity" that can place orders, default, or be frozen.</p>
+    </div>
+  </div>
+  <footer class="s-foot">All four hurdles are direct consequences of Semantic Fragmentation</footer>
+</section>
+
+<!-- 04 why: decision flywheel -->
+<section class="slide" data-eyebrow="01 · WHY" data-accent="sand">
+  <header class="s-head"><h2>Philosophical turn: an ontology represents not data, but <em>decisions</em></h2>
+    <p class="lead">Palantir's <i>Why create an Ontology?</i>: representing decisions, not data <span class="ev">Official</span>. Traditional modeling asks "what entities exist in the world"; Palantir asks "what decisions to make, what they depend on, and how execution flows back."</p></header>
+  <div class="s-body cols-2 r57">
+    <div>
+      <h3>Decision Flywheel</h3>
+      <ul class="tick">
+        <li><b>Decide with data</b>—insight flows into action instead of stopping at a report</li>
+        <li><b>Capture decisions made</b>—write back to systems, not left stranded in email and static reports</li>
+        <li><b>Assess decisions' impact over time</b>—feed the next decision</li>
+        <li>Accumulate into <b>Decision Data</b> and traceable <b>Decision Provenance</b></li>
+      </ul>
+      <div class="callout"><span class="c-tag">Remedy</span><p>"Decision-centric learning" directly addresses the fourth hurdle, <b>hard knowledge capture</b>: an organization's operational experience settles from people's heads into the system, becoming reusable, learnable assets.</p></div>
+      <div class="callout warn" style="margin-top:12px"><span class="c-tag">Section 1 takeaway</span><p>An ontology is no silver bullet but a deterministic rein for probabilistic models; what enterprises must truly cross is the gap between "describing" and "acting."</p></div>
+    </div>
+    <div>
+      <svg class="fig" viewBox="0 0 560 470" data-loop data-nodes="① Decide with data|② Capture decision · write back|③ Assess impact" data-center="Decision Data / Provenance" style="max-width:640px;margin:0 auto"></svg>
+    </div>
+  </div>
+  <footer class="s-foot"><i>Why create an Ontology?</i> [Official]</footer>
+</section>
+
+<!-- 05 section cover WHAT -->
+<section class="slide cover-section" data-accent="teal">
+  <div class="ghost">02</div>
+  <h2>What · The new species, defined</h2>
+  <p class="thesis">Not "a better OWL," but a <b>new species</b> that grew when ontology evolved into the operational stage—bending the lifecycle from a line into a circle.</p>
+  <ul class="mini-agenda"><li>Naming dispute: two species</li><li>Forty years · four stages</li><li>Three worldviews compared</li><li>Four-fold integration & three layers</li><li>Five atomic elements</li></ul>
+</section>
+
+<!-- 06 what: naming dispute + line vs circle -->
+<section class="slide" data-eyebrow="02 · WHAT" data-accent="teal">
+  <header class="s-head"><h2>A naming dispute with no loser: <em>classical vs. operational ontology</em></h2>
+    <p class="lead">By Gruber's 1993 standard—"an explicit specification of a conceptualization"—Palantir doesn't qualify at all: no axiom system, no description-logic reasoner, business users reshape the model by drag-and-drop. But the two sides are talking about two species <span class="ev ind">Independent</span>.</p></header>
+  <div class="s-body">
+    <div class="cols-2">
+      <div class="card"><h4><b>Classical Ontology</b></h4>
+        <p>Statically <b>reads</b> the world and <b>infers</b> implicit knowledge. Lifecycle is <b>linear</b>: model→query→infer→result→end. A noun-like knowledge base.</p>
+        <small>Exemplars: GO Gene Ontology, SNOMED CT—small and precise, logically rigorous, for industry query & inference</small></div>
+      <div class="card" style="border-color:var(--teal)"><h4><b style="color:var(--teal)">Operational Ontology</b></h4>
+        <p>Dynamically <b>executes</b> actions and <b>learns</b> from results. Lifecycle is a <b>loop</b>: model→execute→write back→learn→remodel, with <b>no endpoint</b>. A verb-like operating system.</p>
+        <small>Demanding description-logic rigor of it is like demanding sonnet meter of an engineering blueprint</small></div>
+    </div>
+    <svg class="fig" viewBox="0 0 1560 250" style="margin-top:20px">
+      <defs><marker id="arB" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+      <marker id="arBh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#4fd1c5"/></marker></defs>
+      <text class="glabel" x="40" y="40">Classical · line: ends at the result</text>
+      <g class="node"><rect x="40" y="60" width="120" height="46"/><text class="t" x="100" y="88">Model</text></g>
+      <g class="node"><rect x="220" y="60" width="120" height="46"/><text class="t" x="280" y="88">Query</text></g>
+      <g class="node"><rect x="400" y="60" width="120" height="46"/><text class="t" x="460" y="88">Infer</text></g>
+      <g class="node"><rect x="580" y="60" width="120" height="46"/><text class="t" x="640" y="88">Result</text></g>
+      <g class="node"><rect x="760" y="60" width="120" height="46" stroke-dasharray="4 4"/><text class="t" x="820" y="88">End ⏹</text></g>
+      <path class="edge" d="M160 83H220" marker-end="url(#arB)"/><path class="edge" d="M340 83H400" marker-end="url(#arB)"/>
+      <path class="edge" d="M520 83H580" marker-end="url(#arB)"/><path class="edge" d="M700 83H760" marker-end="url(#arB)"/>
+      <text class="glabel" x="40" y="170">Operational · circle: the result is just the next lap's start</text>
+      <g class="node hi"><rect x="40" y="185" width="150" height="46"/><text class="t" x="115" y="213">Model</text></g>
+      <g class="node hi"><rect x="280" y="185" width="150" height="46"/><text class="t" x="355" y="213">Execute action</text></g>
+      <g class="node hi"><rect x="520" y="185" width="150" height="46"/><text class="t" x="595" y="213">Write back state</text></g>
+      <g class="node hi"><rect x="760" y="185" width="170" height="46"/><text class="t" x="845" y="213">Learn from result</text></g>
+      <path class="edge hi" d="M190 208H280" marker-end="url(#arBh)"/><path class="edge hi" d="M430 208H520" marker-end="url(#arBh)"/>
+      <path class="edge hi" d="M670 208H760" marker-end="url(#arBh)"/>
+      <path class="edge hi" d="M930 208 H 1000 Q 1030 208 1030 178 V 150 Q 1030 120 1000 120 H 145 Q 115 120 115 150 V 185" marker-end="url(#arBh)"/>
+      <text x="1080" y="205" fill="var(--teal)" font-size="14">∞ no endpoint</text>
+    </svg>
+  </div>
+  <footer class="s-foot"><i>Palantir Calls It an Ontology. Academics Disagree. Both Are Right.</i> [Independent]</footer>
+</section>
+
+<!-- 07 what: four stages + W3C stack -->
+<section class="slide" data-eyebrow="02 · WHAT" data-accent="teal">
+  <header class="s-head"><h2>Forty years of evolution: ontology's <em>four stages</em>, and the W3C stack it bypassed</h2></header>
+  <div class="s-body">
+    <ol class="steps">
+      <li><span class="n">①</span><b>Knowledge Engineering 1980s–90s</b><small>Expert systems + hand-built knowledge bases. Very high barrier, relying on domain experts and knowledge engineers</small></li>
+      <li><span class="n">②</span><b>Semantic Web standardization 2000s</b><small>W3C pushes RDF / OWL to make the Web "machine-readable and inferable." The most idealistic era</small></li>
+      <li><span class="n">③</span><b>Limits exposed 2010s</b><small>Too heavy to deploy, too hard to scale. Watson / Google KG turn to weakly-constrained knowledge graphs, trading rigor for usability</small></li>
+      <li><span class="n">④</span><b>Operational-ontology shift 2020s</b><small>OWL and KG both stop at "answering questions." The need becomes driving the business, closing the execution loop—Palantir is a product of this stage</small></li>
+    </ol>
+    <div class="cols-2" style="margin-top:26px">
+      <div>
+        <h3>The traditional camp's technical assets (W3C Semantic Web stack)</h3>
+        <ul class="spec">
+          <li><span class="s-k">RDF</span><span class="s-v">Subject-predicate-object triples express any fact; a data model, carrying no semantic constraints itself</span></li>
+          <li><span class="s-k">RDFS / OWL</span><span class="s-v">Add classes, properties, constraints & inference; based on description logic (e.g. transitive hasParent → auto-infer grandparent)</span></li>
+          <li><span class="s-k">SPARQL</span><span class="s-v">Query language for RDF graphs</span></li>
+          <li><span class="s-k">SHACL</span><span class="s-v">Data-validation constraints—this actually resembles Palantir's approach</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>The decisive philosophical split: world assumption</h3>
+        <ul class="tick">
+          <li><b>OWL · Open-World Assumption</b>: "what's not stated isn't necessarily false"—designed for a forever-incomplete Web</li>
+          <li><b>Palantir · Closed-World Assumption</b>: "no record in the system means it doesn't exist"—designed for enterprise operations with clear boundaries; only this enables deterministic transactions and state transitions</li>
+        </ul>
+        <div class="callout"><span class="c-tag">Underneath</span><p>Beneath the four stages is a paradigm shift from <b>linear model → loop model</b>.</p></div>
+      </div>
+    </div>
+  </div>
+  <footer class="s-foot">Evolutionary staging [Independent]</footer>
+</section>
+
+<!-- 08 what: three worldviews table -->
+<section class="slide" data-eyebrow="02 · WHAT" data-accent="teal">
+  <header class="s-head"><h2>Three worldviews, one table: <em>understand · retrieve · act</em></h2></header>
+  <div class="s-body">
+    <table class="cmp">
+      <thead><tr><th>Dimension</th><th>OWL (Semantic Web ontology)</th><th>Knowledge Graph schema</th><th class="hl">Palantir Ontology</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Modeling logic</td><td>Strict formal logic, axiom constraints</td><td>Graph-theory based, nodes & edges</td><td class="hl">Business-oriented semantic object modeling</td></tr>
+        <tr><td class="k">World assumption</td><td>Open world</td><td>Weak constraints, tolerates incompleteness</td><td class="hl">Closed world (within enterprise boundary)</td></tr>
+        <tr><td class="k">Construction</td><td>Expert-crafted top-down, high barrier</td><td>Semi-automated extraction + manual review</td><td class="hl">Drag-and-drop in a business modeler, easy to iterate</td></tr>
+        <tr><td class="k">Reasoning</td><td>Strong logical inference, axiom-based</td><td>Weaker, graph-path retrieval</td><td class="hl">Function computation + event-triggered Actions</td></tr>
+        <tr><td class="k">Lifecycle</td><td>Linear: query→infer→end</td><td>Linear: retrieve→complete</td><td class="hl"><strong>Loop: execute→write back→learn</strong></td></tr>
+        <tr><td class="k">Scale style</td><td>Small & precise, rigor & standardization</td><td>Large & broad, massive entity coverage</td><td class="hl">Fits business-system scale, multi-source fusion</td></tr>
+        <tr><td class="k">Typical use</td><td>Industry standards, medical terminologies</td><td>Smart search, Q&A, anti-fraud</td><td class="hl">Enterprise operations, process automation, intelligence analysis</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn"><span class="c-tag">Correction</span><p>Palantir's "surpassing" happens precisely on the <b>execution</b> and <b>business-constraint</b> dimensions, <b>not</b> knowledge-representation rigor or inference depth. On logical inference, OWL leaves it in the dust; on open-domain coverage, Google KG is far ahead. The three aren't better or worse—they're tradeoffs; choosing wrong isn't doing it poorly, it's heading the wrong way entirely.</p></div>
+  </div>
+  <footer class="s-foot">Section 2 takeaway: bending the lifecycle from a line into a circle is the source of all its uniqueness</footer>
+</section>
+<!-- 09 what: four-fold integration -->
+<section class="slide" data-eyebrow="02 · WHAT" data-accent="teal">
+  <header class="s-head"><h2>Top-level position: the operational decision layer & <em>four-fold integration</em> (Data · Logic · Action · Security)</h2>
+    <p class="lead">Official position: the enterprise's Operational Layer / digital twin. It sits atop datasets, virtual tables, and ML models, letting humans and AI agents query and act on one shared representation <span class="ev">Official</span>.</p></header>
+  <div class="s-body cols-2 r57">
+    <div>
+      <ul class="spec">
+        <li><span class="s-k">Data</span><span class="s-v">The enterprise's objects and relations—<b>nouns</b>: what the world is</span></li>
+        <li><span class="s-k">Logic</span><span class="s-v">Functions and rules—<b>how to compute</b>: how to reason</span></li>
+        <li><span class="s-k">Action</span><span class="s-v">Operations you can perform on objects—<b>verbs</b>: what can change</span></li>
+        <li><span class="s-k">Security</span><span class="s-v">Who can see and do what—<b>cross-cutting</b>, a net over the other three</span></li>
+      </ul>
+      <div class="callout"><span class="c-tag">Upgrade</span><p>The traditional two-dimensional "noun-verb" model (objects + actions) is extended here into <b>four dimensions</b>.</p></div>
+    </div>
+    <div>
+      <svg class="fig" viewBox="0 0 760 500">
+        <defs><marker id="arC" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+        <g class="grp"><rect x="30" y="30" width="700" height="270"/><text class="glabel" x="46" y="56">SECURITY · the cross-cutting permission net</text></g>
+        <g class="grp"><rect x="60" y="80" width="640" height="190" stroke-dasharray="0"/><text class="glabel" x="76" y="104">OPERATIONAL LAYER</text></g>
+        <g class="node hi"><rect x="90" y="130" width="180" height="100"/><text class="t" x="180" y="170">Data</text><text class="s" x="180" y="192">objects & relations (nouns)</text></g>
+        <g class="node hi"><rect x="290" y="130" width="180" height="100"/><text class="t" x="380" y="170">Logic</text><text class="s" x="380" y="192">functions & rules (how to compute)</text></g>
+        <g class="node hi"><rect x="490" y="130" width="180" height="100"/><text class="t" x="580" y="170">Action</text><text class="s" x="580" y="192">executable operations (verbs)</text></g>
+        <g class="node"><rect x="200" y="380" width="360" height="70"/><text class="t" x="380" y="410">Datasets · virtual tables · ML models</text><text class="s" x="380" y="430">underlying assets</text></g>
+        <path class="edge" d="M380 380 V 300" marker-end="url(#arC)"/>
+        <text class="elabel" x="380" y="345">integrated into shared representation</text>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">Four-fold integration [Official]</footer>
+</section>
+
+<!-- 10 what: three-layer architecture iso -->
+<section class="slide" data-eyebrow="02 · WHAT" data-accent="teal">
+  <header class="s-head"><h2>Three-layer architecture = three progressively deeper <em>questions</em></h2>
+    <p class="lead">The semantic layer cures "data you can't understand," the kinetic layer cures "data you can't use or change," the dynamic layer cures "at scale you have to rebuild from scratch." The official internal view maps to Language / Engine / Toolchain <span class="ev">Official</span>.</p></header>
+  <div class="s-body">
+    <svg class="fig iso" viewBox="0 0 1660 700" data-iso-3layer></svg>
+    <script>addEventListener('load',function(){ISO.stack('[data-iso-3layer]',{cx:430,topY:60,w:280,gap:185,arrows:true,
+      layers:[
+        {label:'DYNAMIC · how the world evolves',kind:'graph',sub:'ontology iteration · action optimization · rule evolution · backward compat—immune system × evolution engine',items:['high-frequency long-tail field → suggest promoting to standard property','90% same-role approvals → suggest auto-approve','historical data mining → generate alert rules','versioned old/new coexistence · seamless upgrade']},
+        {label:'KINETIC · what we can do',kind:'options',accent:true,sub:'Action Type · Function → turn a "read-only model" into an "executable model"',items:['ACID transactions: all-or-nothing rollback','bidirectional mapping: read to build + write back to source','RBAC+ABAC permissions · immutable audit','triggers: property change / function result / scheduled / manual']},
+        {label:'SEMANTIC · what the world is',kind:'grid',sub:'objects·properties·links → a living business dictionary / SSOT single source of truth',items:['KNA1 / Account / dim_customer → Customer','real-time dynamic projection, not a static schema','query in natural language (no SQL needed)']}
+      ],
+      rail:{x:900,w:700}});});</script>
+  </div>
+  <footer class="s-foot">Three progressive layers: come alive → get moving → grow</footer>
+</section>
+
+<!-- 11 what: kinetic layer detail -->
+<section class="slide" data-eyebrow="02 · WHAT" data-accent="teal">
+  <header class="s-head"><h2>The kinetic layer is the watershed: <em>Action Type</em>'s three non-negotiable engineering properties</h2>
+    <p class="lead">Traditional data models are "read-only": you can query and analyze but not execute business operations directly on the model. The kinetic layer gives data the power to act—e.g. <code>Equipment.CreateMaintenanceTicket</code>, <code>Transaction.ApproveTransaction</code>.</p></header>
+  <div class="s-body cols-2 r75">
+    <div>
+      <div class="grid-2x2" style="grid-template-columns:1fr">
+        <div class="card"><h4><b>① ACID transaction guarantee</b></h4><p>Action execution obeys atomicity, consistency, isolation, durability—every step either fully succeeds or fully rolls back, leaving no intermediate state.</p></div>
+        <div class="card"><h4><b>② Bidirectional mapping</b></h4><p>The semantic layer <b>reads</b> data from external systems to build objects; the kinetic layer defines how to <b>write</b> results back to source systems. After <code>ApproveTransaction</code> runs, it not only updates internal state to "approved" but also auto-calls the bank API to sync back to the core banking system—closing the full loop "data insight → business operation → source-system landing."</p></div>
+        <div class="card"><h4><b>③ Permissions · audit · lineage</b></h4><p>Each action binds fine-grained permissions (RBAC roles + ABAC attributes); <code>ApproveTransaction</code> may be visible only to "finance managers"; every operation is logged in an immutable audit trail: who, when, what parameters, success or failure.</p></div>
+      </div>
+    </div>
+    <div>
+      <h3>Four ways to trigger</h3>
+      <ul class="spec">
+        <li><span class="s-k">Property change</span><span class="s-v">equipment temperature exceeds 80℃</span></li>
+        <li><span class="s-k">Function result</span><span class="s-v">risk score exceeds 90</span></li>
+        <li><span class="s-k">Scheduled</span><span class="s-v">every day at 2 AM</span></li>
+        <li><span class="s-k">Manual</span><span class="s-v">agent clicks "create work order"</span></li>
+      </ul>
+      <div class="callout" style="margin-top:22px"><span class="c-tag">Watershed</span><p>With the kinetic layer, between "analyzing which equipment needs repair" and "dispatching a work order with one click," that <b>manual gap disappears</b>.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">Kinetic Layer · Action Type</footer>
+</section>
+
+<!-- 12 what: five elements + storage union -->
+<section class="slide" data-eyebrow="02 · WHAT" data-accent="teal">
+  <header class="s-head"><h2>Five atomic elements, and the most dangerous misconception: <em>an Object is not one MySQL table</em></h2></header>
+  <div class="s-body cols-2 r57">
+    <div>
+      <ul class="spec">
+        <li><span class="s-k">Object</span><span class="s-v">The business world's "nouns": <code>Customer</code>, <code>Equipment</code></span></li>
+        <li><span class="s-k">Property</span><span class="s-v">An object's "features": <code>name</code>, <code>temperature</code></span></li>
+        <li><span class="s-k">Link</span><span class="s-v">The "relation" between objects: an order is placed by a customer—a graph <b>edge</b>, not a foreign key; multi-hop queries like "someone's father's ex-wife's ex-husband" are native, whereas foreign-key JOINs would grind to a halt</span></li>
+        <li><span class="s-k">Function</span><span class="s-v">An object's "compute power": e.g. customer LTV</span></li>
+        <li><span class="s-k">Action</span><span class="s-v">An object's "behavior power": freeze account, create work order</span></li>
+      </ul>
+      <h3 style="margin-top:20px">Advanced abstractions (the engineering rigor holding up the "living model")</h3>
+      <ul class="tick" style="font-size:14px">
+        <li><b>Interface</b>: polymorphism—a workflow built on <code>SchedulableResource</code> adapts to meeting rooms/vehicles/arenas without change</li>
+        <li><b>Shared Property</b>: reuse a property definition across objects, avoiding defining "email" ten times</li>
+        <li><b>Value Type</b>: semantic type wrapping ("a phone number conforming to E.164")</li>
+        <li><b>RID</b>: globally stable primary key—the anchor for links, actions, audits</li>
+        <li><b>Object Set</b>: a static primary-key list or dynamic filter, the input/output unit of nearly every operation</li>
+      </ul>
+    </div>
+    <div>
+      <svg class="fig" viewBox="0 0 760 560">
+        <defs><marker id="arD" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+        <g class="node hi"><rect x="230" y="30" width="300" height="72"/><text class="t" x="380" y="60">Logical view: one Object</text><text class="s" x="380" y="82">e.g. Equipment A-017 (business entity)</text></g>
+        <g class="node"><rect x="30" y="220" width="200" height="64"/><text class="t" x="130" y="246">Metadata table</text><text class="s" x="130" y="266">type def · RID</text></g>
+        <g class="node"><rect x="280" y="220" width="200" height="64"/><text class="t" x="380" y="246">Graph node</text><text class="s" x="380" y="266">carries Link edges</text></g>
+        <g class="node"><rect x="530" y="220" width="200" height="64"/><text class="t" x="630" y="246">Columnar wide table</text><text class="s" x="630" y="266">fixed fields</text></g>
+        <g class="node"><rect x="150" y="380" width="220" height="64"/><text class="t" x="260" y="406">Sparse KV</text><text class="s" x="260" y="426">UID+Key+Value · dynamic sparse fields</text></g>
+        <g class="node"><rect x="420" y="380" width="220" height="64"/><text class="t" x="530" y="406">Time-series partition</text><text class="s" x="530" y="426">real-time high-freq fields (e.g. temp)</text></g>
+        <path class="edge flow" d="M310 102 L 130 220" marker-end="url(#arD)"/>
+        <path class="edge flow" d="M380 102 V 220" marker-end="url(#arD)"/>
+        <path class="edge flow" d="M450 102 L 630 220" marker-end="url(#arD)"/>
+        <path class="edge flow" d="M340 102 L 260 380" marker-end="url(#arD)"/>
+        <path class="edge flow" d="M420 102 L 530 380" marker-end="url(#arD)"/>
+        <text class="elabel" x="380" y="330">One logical object = a union of five stores</text>
+        <text x="380" y="520" text-anchor="middle" fill="var(--ink3)" font-size="12.5">⚠ Confusing object type (schema def) with object instance (data record), or ontology type with data type, is the most common beginner's modeling mistake</text>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">Section 3 takeaway: not a knowledge graph plus scripts, but the whole data operating system reorganized</footer>
+</section>
+
+<!-- 13 section cover HOW1 -->
+<section class="slide cover-section" data-accent="acc">
+  <div class="ghost">03</div>
+  <h2>How · The truth about the system architecture</h2>
+  <p class="thesis">Ontology is not a standalone product; it lives inside the <b>enterprise operating system</b> that is Foundry / AIP / Apollo; it trades "materialized indexing" for runtime governance and writability, and tames the LLM with OAG.</p>
+  <ul class="mini-agenda"><li>The trio + Gotham lineage</li><li>Six backend components · OSv1→OSv2</li><li>Materialized index vs federated query</li><li>OAG vs RAG</li><li>Apollo & the edge</li></ul>
+</section>
+
+<!-- 14 how: the trio + gotham -->
+<section class="slide" data-eyebrow="03 · HOW / SYSTEM" data-accent="acc">
+  <header class="s-head"><h2>The enterprise-OS trio: <em>Foundry + AIP + Apollo</em></h2>
+    <p class="lead">Palantir was founded in 2003, named after the "seeing-stones" in <i>The Lord of the Rings</i>. AIP + Foundry comprise 300+ microservices <span class="ev">Official</span>; Apollo orchestrates tens of thousands of deployments weekly <span class="ev">Official</span>; the underlying Rubix is zero-trust K8s, rotating nodes every 48 hours to prevent APT persistence <span class="ev">Official</span>.</p></header>
+  <div class="s-body cols-2">
+    <div>
+      <ul class="spec">
+        <li><span class="s-k">Foundry</span><span class="s-v">The OS <b>kernel</b>: data connection, transformation, modeling, governance—the Ontology lives here</span></li>
+        <li><span class="s-k">AIP</span><span class="s-v">The <b>AI runtime</b>: lets LLMs and agents safely perceive, reason, and act atop the ontology</span></li>
+        <li><span class="s-k">Apollo</span><span class="s-v">The <b>update & deployment mechanism</b>: safely delivers software everywhere from public cloud to military air-gapped environments</span></li>
+      </ul>
+      <div class="callout" style="margin-top:18px"><span class="c-tag">Defense</span><p><b>Palantir Defense Ontology</b> additionally captures, for each object and relation: source-system provenance, spatiotemporal context, and a <b>1–5 confidence score</b>—this is why it can support the TITAN military program.</p></div>
+    </div>
+    <div>
+      <h3>Foundry vs Gotham: two children of the same origin</h3>
+      <table class="cmp">
+        <thead><tr><th></th><th>Gotham (2003, first product)</th><th class="hl">Foundry (commercialized)</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Serves</td><td>Government & defense intelligence</td><td class="hl">Commercial enterprises</td></tr>
+          <tr><td class="k">Core model</td><td>O-R-E: Objects / Raw data / Events</td><td class="hl">Object / Link / Action / Function</td></tr>
+          <tr><td class="k">Tools</td><td>Graph · Map · Object Explorer · Dossier</td><td class="hl">Contour · Workshop · Vertex</td></tr>
+          <tr><td class="k">Runtime env</td><td>Classified networks, tactical edge</td><td class="hl">Cloud / hybrid</td></tr>
+        </tbody>
+      </table>
+      <p class="dim" style="font-size:14px">Truth: they share one ontology kernel and tech stack; the differences are in mission profile, data-ingestion parsers, and security paradigm—not the engineering stack.</p>
+    </div>
+  </div>
+  <footer class="s-foot">Foundry = the foundry · Gotham = Gotham City</footer>
+</section>
+
+<!-- 15 how: six backend components -->
+<section class="slide" data-eyebrow="03 · HOW / SYSTEM" data-accent="acc">
+  <header class="s-head"><h2>Six backend components: <em>dual write channels</em> feeding the index backbone</h2></header>
+  <div class="s-body cols-2 r57">
+    <div>
+      <ul class="spec">
+        <li><span class="s-k">OMS</span><span class="s-v">Ontology Metadata Service—the top-level definitions, the <b>global schema source of truth</b>; type metadata is registered, versioned, and validated here</span></li>
+        <li><span class="s-k">Object DB</span><span class="s-v">Stores indexed objects, optimized for <b>fast point lookups and state management</b></span></li>
+        <li><span class="s-k">OSS</span><span class="s-v">Object Set Service—the read layer, the <b>main query gateway</b>: search, filter, aggregate</span></li>
+        <li><span class="s-k">Actions service</span><span class="s-v">The <b>transaction engine</b>: executes permission-constrained structured edits</span></li>
+        <li><span class="s-k">Funnel</span><span class="s-v">Object Data Funnel—OSv2's new <b>index backbone</b>: unifies the "data source" and "Actions edit" write paths, keeping physical source and logical ontology consistent</span></li>
+        <li><span class="s-k">FoO</span><span class="s-v">Functions on Objects—runs code in the operational context</span></li>
+      </ul>
+    </div>
+    <div>
+      <svg class="fig" viewBox="0 0 820 620">
+        <defs><marker id="arE" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+        <marker id="arEh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker></defs>
+        <g class="node"><rect x="40" y="30" width="220" height="60"/><text class="t" x="150" y="56">External data sources</text><text class="s" x="150" y="76">SAP · Oracle · warehouse</text></g>
+        <g class="grp"><rect x="20" y="130" width="500" height="180"/><text class="glabel" x="36" y="154">WRITE PATH · dual channel</text></g>
+        <g class="node hi"><rect x="60" y="180" width="220" height="70"/><text class="t" x="170" y="208">Object Data Funnel</text><text class="s" x="170" y="228">OSv2 index backbone</text></g>
+        <g class="node"><rect x="320" y="180" width="180" height="70"/><text class="t" x="410" y="208">Actions service</text><text class="s" x="410" y="228">txn engine · ACID</text></g>
+        <g class="node"><rect x="560" y="150" width="230" height="76"/><text class="t" x="675" y="180">OMS</text><text class="s" x="675" y="198">global schema source of truth</text><text class="s" x="675" y="214">register · version · validate</text></g>
+        <g class="node"><rect x="60" y="360" width="220" height="66"/><text class="t" x="170" y="388">Object database</text><text class="s" x="170" y="408">point lookup · state mgmt</text></g>
+        <g class="node hi"><rect x="60" y="480" width="220" height="66"/><text class="t" x="170" y="508">OSS query gateway</text><text class="s" x="170" y="528">search · filter · aggregate</text></g>
+        <g class="node"><rect x="380" y="480" width="170" height="66"/><text class="t" x="465" y="508">Human / AI agent</text></g>
+        <g class="node"><rect x="560" y="360" width="230" height="66" stroke-dasharray="4 4"/><text class="t" x="675" y="388">Functions on Objects</text><text class="s" x="675" y="408">run code in ops context</text></g>
+        <path class="edge" d="M150 90 V 180" marker-end="url(#arE)"/>
+        <path class="edge" d="M320 215 H 280" marker-end="url(#arE)"/>
+        <path class="edge flow" d="M560 188 L 280 196" marker-end="url(#arE)"/>
+        <text class="elabel" x="430" y="160">schema constraints</text>
+        <path class="edge" d="M170 250 V 360" marker-end="url(#arE)"/>
+        <path class="edge" d="M170 426 V 480" marker-end="url(#arE)"/>
+        <path class="edge hi" d="M280 513 H 380" marker-end="url(#arEh)"/>
+        <text class="elabel" x="330" y="503">read</text>
+        <path class="edge hi" d="M465 480 Q 465 300 410 250" marker-end="url(#arEh)"/>
+        <text class="elabel" x="500" y="330">structured edit (write)</text>
+        <path class="edge flow" d="M560 400 Q 380 430 285 500" marker-end="url(#arE)"/>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">Collaborating microservice architecture · component names are official terms</footer>
+</section>
+
+<!-- 16 how: OSv1->OSv2 -->
+<section class="slide" data-eyebrow="03 · HOW / SYSTEM" data-accent="acc">
+  <header class="s-head"><h2>Generational shift: <em>OSv1 (Phonograph) → OSv2</em>, and the multi-source object (MDO)</h2></header>
+  <div class="s-body cols-2 r57">
+    <div>
+      <table class="cmp">
+        <thead><tr><th>Dimension</th><th>OSv1 (Phonograph)</th><th class="hl">OSv2</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Architecture</td><td>Monolith coupling index/query/edit</td><td class="hl">Index and query decoupled, horizontally scalable</td></tr>
+          <tr><td class="k">Retrieval limit</td><td class="bad">Hard cap of 10K rows</td><td class="hl">Tens of billions of objects indexable per type <span class="ev">Official</span><span class="ev doubt">Unverified</span></td></tr>
+          <tr><td class="k">Indexing</td><td>Mostly full</td><td class="hl">Incremental indexing on by default</td></tr>
+          <tr><td class="k">Security</td><td>Dataset level</td><td class="hl">MDO column-/row-level fine-grained permissions</td></tr>
+          <tr><td class="k">Status</td><td class="bad">Deprecated 2026-06-30 (migrate via Upgrade Assistant) <span class="ev">Official</span></td><td class="hl good">Next-gen canonical store</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn" style="margin-top:16px"><span class="c-tag">Reminder</span><p>"Tens of billions of objects" and "a single Action editing tens of thousands of objects" are both official-doc marketing magnitudes, <b>lacking independent benchmarks</b> [Unverified].</p></div>
+    </div>
+    <div>
+      <h3>MDO: one object type × multiple heterogeneous sources</h3>
+      <svg class="fig" viewBox="0 0 700 380">
+        <defs><marker id="arF" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+        <g class="node"><rect x="40" y="40" width="240" height="64"/><text class="t" x="160" y="66">Public directory DB</text><text class="s" x="160" y="86">Employee.contact</text></g>
+        <g class="node"><rect x="40" y="150" width="240" height="64"/><text class="t" x="160" y="176">Restricted HR DB</text><text class="s" x="160" y="196">Employee.salary</text></g>
+        <g class="node"><rect x="40" y="260" width="240" height="64"/><text class="t" x="160" y="286">Dept A / B instances</text><text class="s" x="160" y="306">same schema, different source</text></g>
+        <g class="node hi"><rect x="430" y="140" width="230" height="90"/><text class="t" x="545" y="176">Employee</text><text class="s" x="545" y="198">Multi-Datasource Object (MDO)</text></g>
+        <path class="edge" d="M280 72 Q 380 72 430 160" marker-end="url(#arF)"/>
+        <path class="edge" d="M280 182 H 430" marker-end="url(#arF)"/>
+        <path class="edge" d="M280 292 Q 380 292 430 212" marker-end="url(#arF)"/>
+        <text class="elabel" x="352" y="60">column-level isolation</text>
+        <text class="elabel" x="352" y="172">column-level isolation</text>
+        <text class="elabel" x="352" y="308">row-level isolation</text>
+        <text x="545" y="290" text-anchor="middle" fill="var(--ink2)" font-size="13">zero-trust landed at the ontology layer</text>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">Multi-Datasource Object · Phonograph is OSv1's internal codename</footer>
+</section>
+
+<!-- 17 how: materialized vs federated -->
+<section class="slide" data-eyebrow="03 · HOW / SYSTEM" data-accent="acc">
+  <header class="s-head"><h2>The hardest single judgment: it's a <em>materialized index layer</em>, not a federated query layer</h2>
+    <p class="lead">Competitor PuppyGraph's characterization—"a highly materialized and indexed layer, not a pure federated query layer" <span class="ev comp">Competitor</span>—is biased in stance but accurate in technical description.</p></header>
+  <div class="s-body">
+    <div class="cols-2">
+      <div class="card"><h4>Federated query layer (dbt / Snowflake Semantic Views)</h4>
+        <p>Generates SQL at query time to <b>hit source base tables directly</b>; <b>read-only</b>; no independent stored copy.</p>
+        <small>Semantics are translated at the query boundary; data doesn't move</small></div>
+      <div class="card" style="border-color:var(--acc)"><h4 style="color:var(--acc)">Palantir · highly materialized index layer</h4>
+        <p>Data must first flow through Foundry pipelines → Funnel <b>pre-indexing</b> → object DB; the <b>read path doesn't depend on source systems</b>; and it's <b>writable</b> (Action Types write directly to the backend). It doesn't query external OLTP / lakehouse directly.</p>
+        <small>Data integration is a prerequisite, not an option</small></div>
+    </div>
+    <table class="cmp" style="margin-top:20px">
+      <thead><tr><th style="width:14%">Tradeoff</th><th>What materialization buys</th><th>The price paid</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Double-edged</td>
+          <td class="good">Runtime governance · controlled write path · decision capture · sub-second object retrieval</td>
+          <td class="bad">Integration becomes a prerequisite · freshness lag · extra storage cost · <b>deepens platform lock-in</b> (see later)</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><span class="c-tag">Section 4 preview</span><p>To understand Palantir's architectural tradeoff, this is the key point: <b>it trades "data must move in" for "once it's in, everything can be managed."</b></p></div>
+  </div>
+  <footer class="s-foot">PuppyGraph technical analysis [Competitor, technical description accurate]</footer>
+</section>
+<!-- 18 how: OAG vs RAG -->
+<section class="slide" data-eyebrow="03 · HOW / AI" data-accent="violet">
+  <header class="s-head"><h2>AIP tames the LLM: <em>OAG</em> (Ontology-Augmented Generation) systematically surpasses RAG</h2>
+    <p class="lead">RAG fetches similar <b>text chunks</b> from a vector store; OAG forces the LLM to retrieve <b>structured, typed objects</b> via OSS—deterministic properties + explicit relation edges. A neuro-symbolic paradigm.</p></header>
+  <div class="s-body cols-2">
+    <div>
+      <table class="cmp">
+        <thead><tr><th>Dimension</th><th>Standard RAG</th><th class="hl">OAG (Ontology-Augmented Gen)</th></tr></thead>
+        <tbody>
+          <tr><td class="k">What's retrieved</td><td>Similar text chunks</td><td class="hl">Structured typed objects</td></tr>
+          <tr><td class="k">Hallucination</td><td class="bad">High</td><td class="hl good">Low (schema-constrained)</td></tr>
+          <tr><td class="k">Schema enforcement</td><td>None</td><td class="hl">Strict (won't retrieve deprecated fields)</td></tr>
+          <tr><td class="k">Real-time access</td><td>Index lag</td><td class="hl">Direct OSS read</td></tr>
+          <tr><td class="k">Provenance</td><td class="bad">Fuzzy</td><td class="hl">Full provenance chain</td></tr>
+          <tr><td class="k">Math computation</td><td class="bad">Relies on LLM (error-prone)</td><td class="hl">Handed to deterministic tools</td></tr>
+          <tr><td class="k">Governance grain</td><td>Document level</td><td class="hl">Object / property level</td></tr>
+          <tr><td class="k">Ability to act</td><td class="bad">Text only</td><td class="hl good"><strong>Can trigger ontology actions</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="callout" style="margin-top:14px"><span class="c-tag">Killer feature</span><p>The last two rows. The LLM is demoted from "knowledge source" to <b>coordinator</b>; the <b>k-LLM architecture</b> makes the underlying model hot-swappable (xAI/OpenAI/Anthropic/Google)—the LLM is a replaceable component, <b>the ontology is the authoritative world model</b>.</p></div>
+    </div>
+    <div>
+      <svg class="fig" viewBox="0 0 760 640">
+        <defs><marker id="arG" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+        <marker id="arGh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#a78bfa"/></marker></defs>
+        <g class="node"><rect x="270" y="20" width="220" height="54"/><text class="t" x="380" y="52">User natural-language intent</text></g>
+        <g class="node hi"><rect x="250" y="130" width="260" height="70"/><text class="t" x="380" y="158">LLM · coordinator</text><text class="s" x="380" y="180">hot-swappable k-LLM</text></g>
+        <g class="node"><rect x="40" y="280" width="220" height="66"/><text class="t" x="150" y="306">OSS structured retrieval</text><text class="s" x="150" y="326">typed objects·props·edges</text></g>
+        <g class="node"><rect x="40" y="400" width="220" height="66"/><text class="t" x="150" y="426">Governed ontology graph</text><text class="s" x="150" y="446">schema-constrained · full provenance</text></g>
+        <g class="node"><rect x="500" y="280" width="220" height="66"/><text class="t" x="610" y="306">Ontology functions</text><text class="s" x="610" y="326">called after intent recognized</text></g>
+        <g class="node"><rect x="500" y="400" width="220" height="66"/><text class="t" x="610" y="426">External deterministic solvers</text><text class="s" x="610" y="446">cuOpt optimization · Prophet time-series</text></g>
+        <g class="node"><rect x="150" y="540" width="200" height="56"/><text class="t" x="250" y="572">Answer (language synthesis)</text></g>
+        <g class="node hi"><rect x="410" y="540" width="240" height="56"/><text class="t" x="530" y="565">Ontology Action</text><text class="s" x="530" y="583">can change the world</text></g>
+        <path class="edge" d="M380 74 V 130" marker-end="url(#arG)"/>
+        <path class="edge hi" d="M280 200 Q 150 230 150 280" marker-end="url(#arGh)"/><text class="elabel" x="190" y="240">recognize intent</text>
+        <path class="edge" d="M150 346 V 400" marker-end="url(#arG)"/>
+        <path class="edge hi" d="M480 200 Q 610 230 610 280" marker-end="url(#arGh)"/><text class="elabel" x="580" y="240">needs exact math</text>
+        <path class="edge" d="M610 346 V 400" marker-end="url(#arG)"/>
+        <path class="edge flow" d="M500 433 Q 380 470 400 210" marker-end="url(#arG)"/><text class="elabel" x="418" y="470">only verified results returned</text>
+        <path class="edge flow" d="M260 433 Q 340 460 355 210" marker-end="url(#arG)"/><text class="elabel" x="300" y="490">structured facts</text>
+        <path class="edge" d="M330 200 Q 250 480 250 540" marker-end="url(#arG)"/>
+        <path class="edge hi" d="M430 200 Q 530 480 530 540" marker-end="url(#arGh)"/>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">Tampa General three-tier climb: L1 data orchestration → L2 language interface (OAG) → L3 autonomous agent (final human approval) [Official case]</footer>
+</section>
+
+<!-- 19 how: Apollo + edge -->
+<section class="slide" data-eyebrow="03 · HOW / DEPLOY" data-accent="violet">
+  <header class="s-head"><h2>Apollo & the edge: delivering the ontology to places with <em>no network</em></h2></header>
+  <div class="s-body cols-2">
+    <div>
+      <h3>Declarative pull model (central push → edge autonomy)</h3>
+      <svg class="fig" viewBox="0 0 760 260">
+        <defs><marker id="arH" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+        <g class="node"><rect x="20" y="40" width="180" height="64"/><text class="t" x="110" y="66">Central declaration</text><text class="s" x="110" y="86">artifacts + dependency constraints</text></g>
+        <g class="node"><rect x="250" y="40" width="300" height="64"/><text class="t" x="400" y="66">RELEASE → CANARY → STABLE</text><text class="s" x="400" y="86">release channels</text></g>
+        <g class="node hi"><rect x="600" y="40" width="150" height="64"/><text class="t" x="675" y="66">Autonomous agent</text><text class="s" x="675" y="86">self-judges in-env</text></g>
+        <path class="edge" d="M200 72 H 250" marker-end="url(#arH)"/>
+        <path class="edge" d="M550 72 H 600" marker-end="url(#arH)"/>
+        <text x="20" y="170" fill="var(--ink2)" font-size="13.5">The agent decides for itself: maintenance window? schema version? compliance constraints?</text>
+        <text x="20" y="196" fill="var(--ink2)" font-size="13.5">Only when satisfied does it autonomously pull and deploy.</text>
+        <text x="20" y="238" fill="var(--sand)" font-size="13.5">Airgapped SaaS: encrypted, signed, self-contained artifact bundles cross the air gap via physical media; the agent inside verifies the signature and deploys autonomously.</text>
+      </svg>
+    </div>
+    <div>
+      <h3>Embedded Ontology (edge-native instance)</h3>
+      <ul class="spec">
+        <li><span class="s-k">Offline autonomy</span><span class="s-v">Full CRUD completed offline, <b>latency &lt; 10ms</b> <span class="ev">Official</span></span></li>
+        <li><span class="s-k">Sync</span><span class="s-v">Syncs with the global ontology when online; buffers offline, resolves conflicts on reconnect</span></li>
+        <li><span class="s-k">Base</span><span class="s-v">Single-node OpenShift; OPC UA / MQTT to connect industrial equipment</span></li>
+      </ul>
+      <div class="callout"><span class="c-tag">In one line</span><p><b>One ontology model, two environments, one unified context.</b></p></div>
+      <div class="callout warn" style="margin-top:12px"><span class="c-tag">Section 4 takeaway</span><p>Trade "materialized indexing" for runtime governance and writability; use OAG to cage the LLM in determinism; use Apollo to deliver everywhere from cloud to tactical edge.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">Apollo declarative pull model [Official]</footer>
+</section>
+
+<!-- 20 section cover HOW2 -->
+<section class="slide cover-section" data-accent="violet">
+  <div class="ghost">04</div>
+  <h2>How · Building one, step by step</h2>
+  <p class="thesis">Technically it's the light "five steps + zero code" story; in practice it's systems engineering: <b>use-case delivery + design principles + data fabric + wrestling ERP + FDE on-site</b>.</p>
+  <ul class="mini-agenda"><li>Five-step modeling</li><li>Use-case delivery methodology</li><li>Four design principles</li><li>Data fabric & entity resolution</li><li>HyperAuto / SAP</li></ul>
+</section>
+
+<!-- 21 how2: five steps -->
+<section class="slide" data-eyebrow="04 · HOW / BUILD" data-accent="violet">
+  <header class="s-head"><h2>Five-step flow: <em>Object → Property → Link → Function → Action</em> (Ontology Builder visual modeling)</h2></header>
+  <div class="s-body">
+    <ol class="steps">
+      <li><span class="n">①</span><b>Define Object</b><small><code>books.csv</code> maps to the "Book" entity; the system auto-suggests <code>book_id</code> as primary key</small></li>
+      <li><span class="n">②</span><b>Add Property</b><small>Drag fields (title, price) or add manually (stock status, enum: in-stock/loaned/sold)</small></li>
+      <li><span class="n">③</span><b>Build Link</b><small>Link "Book-Author" as <code>written_by</code> via <code>author_id</code>, cardinality 1:N</small></li>
+      <li><span class="n">④</span><b>Write Function</b><small><code>price×0.8</code> → virtual property "discount price" (not persisted)</small></li>
+      <li><span class="n">⑤</span><b>Create Action</b><small><code>Mark_As_Sold</code>: update DB + send notification email + call <code>/api/inventory/reduce</code> to decrement stock</small></li>
+    </ol>
+    <div class="cols-2" style="margin-top:30px">
+      <div>
+        <p>Business people "draw" entities and "connect" relations on the UI; underneath, the platform auto-generates metadata, creates graph nodes and edges, allocates storage, schedules computation. <b>Domain experts are no longer bystanders—they can drive the modeling directly.</b></p>
+      </div>
+      <div class="callout warn" style="margin-top:0"><span class="c-tag">Reality check</span><p>Step ④ as simple as <code>price×0.8</code> really is zero-code; but a finance multi-factor <code>Calculate_Risk()</code> or a power-grid ML <code>Predict_Failure_Probability()</code> still needs code. "Zero-code" is marketing-friendly phrasing; <b>building a production-grade ontology often takes months</b>.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">Ontology Builder · drag-and-drop + form configuration</footer>
+</section>
+
+<!-- 22 how2: use-case delivery + design principles -->
+<section class="slide" data-eyebrow="04 · HOW / BUILD" data-accent="violet">
+  <header class="s-head"><h2>Methodological discipline: <em>use-case delivery</em> and prioritized <em>four design principles</em></h2></header>
+  <div class="s-body cols-2">
+    <div>
+      <h3>Three keys to Use Case delivery</h3>
+      <ul class="tick">
+        <li><b>Outcome-driven</b>: start from the desired decision. Anti-example "we want a sales dashboard"; good example "we want to make <b>decisions</b> about time and resource allocation across sales regions"</li>
+        <li><b>Problem decomposition</b>: break into small steps, each mapped to a specific tool</li>
+        <li><b>Tool maturity path</b>: Contour (prototype exploration) → Dashboard (gather feedback) → Code Repositories (productionize) → Workshop / Slate (custom apps · decision write-back)</li>
+      </ul>
+      <h3 style="margin-top:18px">Real engineering tradeoff: normalization vs. performance</h3>
+      <p class="dim" style="font-size:14.5px">Normalization (multiple objects + Links) is semantically clean, but Workshop's traversal of many objects degrades performance; and <b>derived properties act only on directly linked objects</b>—across indirect links (<code>Budget→Customer→Orders</code>) you can't compute directly. Fix: use a Function for "internal hops" aggregation, or denormalize moderately. Business semantics first; don't optimize prematurely.</p>
+    </div>
+    <div>
+      <h3>Four design principles (higher priority wins on conflict) <span class="ev">Official</span></h3>
+      <ul class="spec">
+        <li><span class="s-k">P1 Domain-driven</span><span class="s-v">Model the <b>real world</b>, not mirror source tables. Name in business language <code>lastInspectionDate</code>, not <code>dtLastInspMod</code>. The biggest anti-pattern is the "kitchen sink": source tables dragged in 1:1 as objects</span></li>
+        <li><span class="s-k">P2 DRY, rule of three</span><span class="s-v">"Once is chance, twice is pattern, thrice calls for refactor"—extract shared logic into interfaces / shared functions</span></li>
+        <li><span class="s-k">P3 Open-closed</span><span class="s-v">The core model is stable once live; <b>extend</b> via "new objects, new interface implementations" instead of changing the core, avoiding cascading breakage downstream</span></li>
+        <li><span class="s-k">P4 Composition over inheritance</span><span class="s-v">Combine capabilities via multiple interface implementations (<code>Inspectable</code>+<code>Schedulable</code>), no deep inheritance chains</span></li>
+      </ul>
+      <div class="callout"><span class="c-tag">+ Pragmatism</span><p>Deadlines, legacy systems, team skills are all real constraints—allow conscious temporary deviations, but <b>flag the tech debt and plan the migration</b>. Creed: the ontology is software that drives the organization; treat it with the care you give production code.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">Data-driven loop = decide → capture → assess impact (two more loops than automation, emphasizing organizational learning)</footer>
+</section>
+
+<!-- 23 how2: data fabric + entity resolution -->
+<section class="slide" data-eyebrow="04 · HOW / DATA" data-accent="violet">
+  <header class="s-head"><h2>Data side: <em>weave</em>, don't move; SSOT succeeds or fails at <em>entity resolution</em></h2>
+    <p class="lead">Semantic tagging (<code>cust_id</code> / <code>client_number</code> both tagged as <code>Customer.id</code>) → mapping rules stored in the logic layer → resolved in real time at query time, assembling a unified view in memory. Changing a mapping is far easier than redoing physical integration.</p></header>
+  <div class="s-body cols-2">
+    <div>
+      <table class="cmp">
+        <thead><tr><th>Dimension</th><th class="hl">Data Fabric</th><th>Traditional ETL</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Integration</td><td class="hl">Logical, built at query time</td><td>Physical migration, copied to unified store</td></tr>
+          <tr><td class="k">Real-time</td><td class="hl good">High, on-demand access</td><td class="bad">Low, depends on batch</td></tr>
+          <tr><td class="k">Storage cost</td><td class="hl good">Low, no redundancy</td><td class="bad">High, must maintain copies</td></tr>
+          <tr><td class="k">Flexibility</td><td class="hl good">High, just change the mapping</td><td class="bad">Low, must redesign pipelines</td></tr>
+        </tbody>
+      </table>
+      <p class="dim" style="font-size:13.5px;margin-top:10px">Note the tension with the "materialized index" on slide 17: the fabric solves <b>semantic projection</b>; serving as objects and writing back still requires pipeline materialization—the two describe the logical layer and the storage layer respectively.</p>
+    </div>
+    <div>
+      <h3>Entity Resolution: merging into a "golden record"</h3>
+      <ul class="spec">
+        <li><span class="s-k">Deterministic match</span><span class="s-v">Unique IDs like ID number / employee number; 100% accuracy, can't cover the long tail</span></li>
+        <li><span class="s-k">Probabilistic match</span><span class="s-v">When no unique ID: TF-IDF, cosine similarity, random forest, computing confidence scores over name/address/phone</span></li>
+        <li><span class="s-k">Survivorship rules</span><span class="s-v">Arbitration logic on conflict, e.g. "the most recently updated system wins"</span></li>
+      </ul>
+      <div class="callout"><span class="c-tag">Dependency chain</span><p>Whether the "single source of truth (SSOT)" holds up hinges entirely on this stage—three techniques working together.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">Data Fabric · Entity Resolution · Survivorship Rules</footer>
+</section>
+
+<!-- 24 how2: HyperAuto / SAP + FDE/PoV -->
+<section class="slide" data-eyebrow="04 · HOW / DELIVERY" data-accent="violet">
+  <header class="s-head"><h2>Cracking the ERP hard bone: <em>HyperAuto × SAP</em>, and the org side FDE / PoV</h2></header>
+  <div class="s-body cols-2 r75">
+    <div>
+      <svg class="fig" viewBox="0 0 1000 330">
+        <defs><marker id="arI" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+        <marker id="arIh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#a78bfa"/></marker></defs>
+        <g class="grp"><rect x="20" y="30" width="360" height="270"/><text class="glabel" x="36" y="54">SAP · SYSTEM OF RECORD</text></g>
+        <g class="node"><rect x="50" y="80" width="300" height="60"/><text class="t" x="200" y="104">SAP NetWeaver app layer</text><text class="s" x="200" y="124">certified connector (ABAP add-on) · HTTPS · no direct DB access</text></g>
+        <g class="node"><rect x="50" y="170" width="300" height="56"/><text class="t" x="200" y="192">SLT Replication Server</text><text class="s" x="200" y="212">CDC change data capture · deltas only</text></g>
+        <g class="node"><rect x="50" y="246" width="300" height="46"/><text class="t" x="200" y="274">BAPI remote functions (write-back entry)</text></g>
+        <g class="grp"><rect x="580" y="30" width="400" height="270"/><text class="glabel" x="596" y="54">PALANTIR · SYSTEM OF ACTION</text></g>
+        <g class="node hi"><rect x="620" y="80" width="320" height="70"/><text class="t" x="780" y="108">HyperAuto</text><text class="s" x="780" y="130">table schema mapped to typed ontology objects in minutes (manual: months)</text></g>
+        <g class="node"><rect x="620" y="180" width="320" height="60"/><text class="t" x="780" y="204">Auto-inference</text><text class="s" x="780" y="224">foreign-key relations · field semantics · entity boundaries</text></g>
+        <path class="edge hi" d="M350 198 Q 480 190 620 115" marker-end="url(#arIh)"/><text class="elabel" x="480" y="140">CDC deltas</text>
+        <path class="edge" d="M620 260 Q 480 285 350 272" marker-end="url(#arI)"/><text class="elabel" x="485" y="292">write-back: BAPI + OAuth 2.0 auth code (attributed to a specific user, key for audit)</text>
+      </svg>
+      <div class="callout"><span class="c-tag">Division of labor</span><p><b>SAP handles transaction integrity, master-data governance, compliance; Palantir handles cross-system AI decisions and orchestration</b>—the orchestration layer sits atop existing systems, not tearing SAP apart, protecting the "Clean Core." Non-disruptive orchestration <span class="ev sap">SAP</span>.</p></div>
+    </div>
+    <div>
+      <h3>Org side: two non-technical factors that decide success</h3>
+      <ul class="spec">
+        <li><span class="s-k">FDE</span><span class="s-v">Forward Deployed Engineering: engineers embed at the client site, frontline feedback flows back like a "gradient signal" to the product team (officially likened to "human backpropagation"); supports 50+ vertical industries</span></li>
+        <li><span class="s-k">PoV</span><span class="s-v">Proof of Value: use a ready Foundry instance to first show measurable value on <b>real data</b>; the client signs a multi-year license after seeing results; implementation partners report 8–10 week PoV → production <span class="ev ind">Independent/Partner</span></span></li>
+      </ul>
+      <div class="callout warn" style="margin-top:16px"><span class="c-tag">Section 5 takeaway</span><p>"Zero-code" gets you started; what truly lets the ontology drive the org is this <b>methodological discipline</b>.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">HyperAuto · SLT CDC · BAPI · OAuth 2.0 [Official/SAP]</footer>
+</section>
+<!-- 25 section cover cost -->
+<section class="slide cover-section" data-accent="red">
+  <div class="ghost">05</div>
+  <h2>Costs, controversies, and cold reflection</h2>
+  <p class="thesis">Powerful and dangerous are two sides of one coin: deep integration, decision capture, unified governance—both the moat and the hardest dependency to escape, the sharpest dual-use tool, the most imperceptible carrier of a worldview.</p>
+  <ul class="mini-agenda"><li>Strengths: worth the price</li><li>Lock-in is in the bones</li><li>Vetting evidence</li><li>AI sovereignty · dual-use military · encoded bias</li></ul>
+</section>
+
+<!-- 26 strengths vs weaknesses -->
+<section class="slide" data-eyebrow="05 · COST" data-accent="red">
+  <header class="s-head"><h2>Why the strengths are valuable, and why the weaknesses are <em>in the bones</em></h2></header>
+  <div class="s-body cols-2">
+    <div>
+      <h3 style="color:var(--teal)">Where it's strong</h3>
+      <ul class="tick">
+        <li><b>Unified</b>: the only solution bundling schema (objects/links/interfaces) + behavior (actions/functions) + governance (role/attribute-level security) into a single system—others have only a semantic layer, or only graph storage, or only a workflow engine</li>
+        <li><b>Moat & switching cost</b>: the ontology is a unique map of the customer's operations; once the "brain surgery" is done it becomes the "central nervous system." UBS analyst: customers broadly don't believe they could DIY an equivalent from a general LLM <span class="ev ind">Independent</span></li>
+        <li><b>Decision compounding</b>: each decision is captured as a new data asset, getting "smarter" the more it's used</li>
+        <li><b>Enterprise digital twin</b>: AI agents plug into an environment that "already understands business context," not guessing from scratch</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color:var(--red)">Lock-in is an architectural inevitability (not optional)</h3>
+      <ul class="tick">
+        <li><b>The ontology can't run outside Foundry</b>: proprietary components, no independent export/run mechanism—"ontology without Foundry" is impossible</li>
+        <li><b>Data must be integrated, not referenced</b>: every source-system schema change must be coordinated with the ontology owner</li>
+        <li><b>No cross-ontology links</b>: an officially confirmed hard limit—no Link can be made between object types of different Ontology instances</li>
+        <li><b>Operational coupling</b>: a pipeline failure → ontology read/write blocked; an upstream key change → cascading errors in Action / Workshop / AIP Logic. Migration = rebuilding the entire data pipeline and index layer</li>
+      </ul>
+      <div class="callout risk"><span class="c-tag">Real cost</span><p>The ontology is "heavy, slow, expensive": pilot 2–6 weeks, first production domain 2–4 months, multi-domain a quarter to a year <span class="ev ind">Independent research</span>; governance is a long-term capability, and without it comes "semantic drift." Community pain points: large-scale branch management, config management, end-to-end compatibility testing.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">Official rebuttal "every layer is open, supports open-format export" [Official]—partly true, but the deeper you govern with it, the more you depend on it. Deep integration itself is lock-in</footer>
+</section>
+
+<!-- 27 evidence vetting -->
+<section class="slide" data-eyebrow="05 · EVIDENCE" data-accent="red">
+  <header class="s-head"><h2>Vetting evidence: reading any Palantir number, first ask <em>"who said it"</em></h2></header>
+  <div class="s-body">
+    <table class="cmp">
+      <thead><tr><th style="width:15%">Strength</th><th style="width:48%">Claim</th><th>Why to discount it</th></tr></thead>
+      <tbody>
+        <tr><td class="k"><span class="ev">Official</span><span class="ev doubt">Unverified</span></td>
+          <td>Tyson: a "10–15 people × 3 years" migration done by "1 person in 3–4 months"; Airbus Skywise A350 delivery accelerated 33%; Tampa General sepsis mortality down 68%; "tens of billions of objects per type," "7+ ERPs integrated in days"</td>
+          <td>AIPCon slides / official case numbers, no third-party review; marketing magnitudes</td></tr>
+        <tr><td class="k"><span class="ev sap">SAP</span><span class="ev doubt">Unverified</span></td>
+          <td>SAP + Palantir migration "compressed from months to weeks"</td>
+          <td>Early case + partner framing, lacks publicly verifiable detail</td></tr>
+        <tr class="hl"><td class="k"><span class="ev ind">Independent</span></td>
+          <td>Danish police POL-INTEL open-access academic study: the ontology simultaneously shaped the police organization and policing practice, "the ontology is not politically neutral, it materially encodes concepts, priorities, even biases"; patent records (dynamic ontology, versioned & provenance-tracked entity resolution) prove it's a long-term architectural theme; multiple IEEE / arXiv papers analyze Gotham as "dynamic ontology software"</td>
+          <td class="good">Interview-based research / verifiable—relatively credible</td></tr>
+        <tr><td class="k"><span class="ev comp">Competitor</span></td>
+          <td>PuppyGraph, Timbr call themselves "more open, no lock-in" ontology layers</td>
+          <td>Technical descriptions often accurate, but selectively stress favorable dimensions; in reality most cover only semantic elements, <b>lacking Actions, functions, governance, and app-building</b>, so they don't constitute a complete operational layer</td></tr>
+      </tbody>
+    </table>
+    <div class="callout risk"><span class="c-tag">The one lesson to take away</span><p>Any specific number cited must carry an evidence tag—that itself is part of understanding the Palantir narrative.</p></div>
+  </div>
+  <footer class="s-foot">Evidence tiers: [Official] [Independent] [Competitor] [SAP] [Unverified]</footer>
+</section>
+
+<!-- 28 controversies -->
+<section class="slide" data-eyebrow="05 · CONTROVERSY" data-accent="red">
+  <header class="s-head"><h2>Three controversies: <em>AI sovereignty · military dual-use · encoded bias</em></h2></header>
+  <div class="s-body cols-3">
+    <div class="card"><h4><b style="color:var(--red)">AI sovereignty critique</b></h4>
+      <p>Pangeanic Herranz, <i>Why Palantir's Ontology Is Its Deepest and Most Dangerous Moat</i> <span class="ev ind">Independent · critical</span>: true sovereignty means controlling five things—data, infrastructure, models, governance, and <b>the semantic architecture (ontology) connecting the first four</b>. A semantic layer controlled by an external proprietary vendor = weakened AI sovereignty. The business model is called "captive token consumption."</p>
+      <small>Supporting: both Switzerland and Denmark have repeatedly declined to adopt Palantir technology</small></div>
+    <div class="card"><h4><b style="color:var(--red)">Military dual-use</b></h4>
+      <p>The 2024 U.S. Army TITAN program: a <b>$178.4M</b> contract, 10 AI intelligence ground stations, officially called the Army's "first AI-defined vehicle" <span class="ev ind">Independent · DefenseScoop</span>. The "system of record / system of action" framework is structurally similar to "Sensor-to-Shooter" and JADC2 multi-domain operations.</p>
+      <small>Technology that accelerates the supply chain can equally accelerate the kill chain—not a flaw, but an ethical tension inborn in operational ontology</small></div>
+    <div class="card"><h4><b style="color:var(--red)">Encoding organizational bias</b></h4>
+      <p>The Danish police study nails it: when the ontology decides "what is a suspect," "which relations are worth attention," it is no longer a neutral tool but <b>fixes a certain worldview into the system</b>.</p>
+      <small>The more efficient and invisible the fixing, the more it warrants vigilance</small></div>
+  </div>
+  <div class="callout risk" style="margin-top:22px"><span class="c-tag">Section 6 takeaway</span><p>The very features that make it a moat—deep integration, decision capture, unified governance—also make it the hardest dependency to escape, the sharpest dual-use tool, the most imperceptible carrier of a worldview. <b>Before using it, these costs must be seen with eyes wide open.</b></p></div>
+  <footer class="s-foot">POL-INTEL [Independent] · TITAN [Independent] · Herranz [Independent · critical]</footer>
+</section>
+
+<!-- 29 knora closing mechanism -->
+<section class="slide" data-eyebrow="06 · CLOSING" data-accent="sand">
+  <header class="s-head"><h2>Back to the opening: why we now <em>dare</em> let AI approve—the Knora interception mechanism</h2>
+    <p class="lead">Ontology and LLM are not substitutes but a division of labor: <b>the ontology handles determinism and constraints</b> (structured knowledge · business rules · traceable rationale), <b>the LLM handles flexibility and generation</b> (language understanding · planning within the frame · long-tail handling). One enforces "no crossing the line," the other "gets it done cleverly."</p></header>
+  <div class="s-body cols-2 r57">
+    <div>
+      <svg class="fig" viewBox="0 0 780 560">
+        <defs><marker id="arJ" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+        <marker id="arJh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e3c99a"/></marker></defs>
+        <g class="node"><rect x="40" y="20" width="300" height="56"/><text class="t" x="190" y="44">User intent: output 500 → 800</text><text class="s" x="190" y="64">"raise work-order output from 500 to 800"</text></g>
+        <g class="node"><rect x="40" y="120" width="300" height="70"/><text class="t" x="190" y="146">Ontology query & inference</text><text class="s" x="190" y="166">change of 60% &gt; 20% threshold</text><text class="s" x="190" y="182">hits requiresApproval = true</text></g>
+        <g class="node hi"><rect x="60" y="240" width="260" height="64"/><text class="t" x="190" y="266">Constraint check (diamond)</text><text class="s" x="190" y="288">does approvedBy relation exist?</text></g>
+        <g class="node"><rect x="430" y="150" width="300" height="56"/><text class="t" x="580" y="174">Intercept before commit ⛔</text><text class="s" x="580" y="194">violating command stopped pre-write</text></g>
+        <g class="node"><rect x="430" y="250" width="300" height="56"/><text class="t" x="580" y="274">Structured error report</text><text class="s" x="580" y="294">pinpoints which rule was violated</text></g>
+        <g class="node"><rect x="430" y="350" width="300" height="56"/><text class="t" x="580" y="374">Auto-create approval task</text><text class="s" x="580" y="394">route to owner · audit trail</text></g>
+        <g class="node"><rect x="430" y="450" width="300" height="56"/><text class="t" x="580" y="474">Approved → add approvedBy</text><text class="s" x="580" y="494">re-validate</text></g>
+        <g class="node hi"><rect x="60" y="450" width="260" height="56"/><text class="t" x="190" y="482">Re-validate → commit write ✓</text></g>
+        <path class="edge" d="M190 76 V 120" marker-end="url(#arJ)"/>
+        <path class="edge" d="M190 190 V 240" marker-end="url(#arJ)"/>
+        <path class="edge hi" d="M320 260 Q 400 230 430 185" marker-end="url(#arJh)"/><text class="elabel" x="372" y="215">missing</text>
+        <path class="edge" d="M580 206 V 250" marker-end="url(#arJ)"/>
+        <path class="edge" d="M580 306 V 350" marker-end="url(#arJ)"/>
+        <path class="edge" d="M580 406 V 450" marker-end="url(#arJ)"/>
+        <path class="edge flow" d="M430 478 Q 380 400 320 290" marker-end="url(#arJ)"/><text class="elabel" x="352" y="392">back to check</text>
+        <path class="edge hi" d="M190 304 V 450" marker-end="url(#arJh)"/><text class="elabel" x="160" y="380">satisfied</text>
+      </svg>
+    </div>
+    <div>
+      <ul class="tick">
+        <li>Swap "work-order output" for "transfer amount," and the "20% threshold" for a "100K risk line," and this is the mechanism that lets you dare to hand approval to AI</li>
+        <li><b>AI can propose, but the proposal must pass the ontology's rule check</b>; violations are intercepted before commit, and every interception can answer "why"</li>
+      </ul>
+      <div class="callout warn"><span class="c-tag">Cold water</span><p>China lacks a unified ontology theory and implementation standard. Most "ontology implementations" on the market fall into a few patterns: unifying data-governance definitions / static asset modeling / semantic constraints against hallucination / and, most to be wary of—<b>integrators riding the buzzword, reselling old stuff reskinned as "ontology."</b></p></div>
+      <div class="callout"><span class="c-tag">Final verdict</span><p>Palantir Ontology is no silver bullet: heavy, slow, expensive, deep lock-in, dual-use sensitive. <b>In many scenarios, a lightweight schema + solid prompt engineering is far more cost-effective.</b> Worth the investment, but invest with clear eyes.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">Knora case · work-order output change must go through approval</footer>
+</section>
+
+<!-- 30 closer -->
+<section class="slide cover-main" data-accent="acc">
+  <div class="kicker">Three ontologies · three worldviews</div>
+  <h1 style="font-size:52px">OWL lets machines <span style="color:var(--sand)">understand</span> the world,<br>knowledge graphs help machines <span style="color:var(--teal)">retrieve</span> the world,<br>Palantir's ontology lets machines <span style="color:var(--acc)">change</span> the world within the rules you set—<br>and rewrite itself along with the world.</h1>
+  <p class="sub">Step back to see the whole elephant, so you don't mistake one leg for the elephant itself. A war worth fighting, but one to fight with clear eyes.</p>
+  <div class="badges"><span>The execution gap is a real pain</span><span>Materialized indexing is a real tradeoff</span><span>Lock-in is a real cost</span><span>Evidence tiering is a real method</span></div>
+</section>
+<!-- SLIDES-END -->
+
+</div></div>
+<div id="overview"></div>
+<div id="hud"></div>
+
+<script>
+/* ================= engine ================= */
+(function(){
+'use strict';
+var stage=document.getElementById('stage'),
+    slides=[].slice.call(document.querySelectorAll('.slide')),
+    N=slides.length, cur=0, deck=window.DECK||{};
+
+if(deck.title)document.title=deck.title;
+
+/* chrome injection */
+slides.forEach(function(s,i){
+  var rule=document.createElement('div');rule.className='chrome rule';s.appendChild(rule);
+  if(s.dataset.eyebrow){var e=document.createElement('div');e.className='chrome eyebrow';e.textContent=s.dataset.eyebrow;s.appendChild(e);}
+  var m=document.createElement('div');m.className='chrome meta';m.textContent=deck.meta||'';s.appendChild(m);
+  var p=document.createElement('div');p.className='chrome page';
+  p.textContent=String(i+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');s.appendChild(p);
+});
+
+/* scale */
+function fit(){var w=innerWidth,h=innerHeight,k=Math.min(w/1920,h/1080);
+  stage.style.transform='translate('+(w-1920*k)/2+'px,'+(h-1080*k)/2+'px) scale('+k+')';}
+addEventListener('resize',fit);fit();
+
+/* nav */
+function go(i){cur=Math.max(0,Math.min(N-1,i));
+  slides.forEach(function(s,j){s.classList.toggle('active',j===cur)});
+  history.replaceState(null,'','#'+(cur+1));
+  document.getElementById('hud').textContent=(cur+1)+' / '+N+'   ←→ nav · O overview · P print';}
+var h=parseInt((location.hash||'').replace('#',''),10);
+go(isNaN(h)?0:h-1);
+
+addEventListener('keydown',function(ev){
+  if(ev.key==='ArrowRight'||ev.key===' '||ev.key==='PageDown')go(cur+1);
+  else if(ev.key==='ArrowLeft'||ev.key==='PageUp')go(cur-1);
+  else if(ev.key==='Home')go(0); else if(ev.key==='End')go(N-1);
+  else if(ev.key==='o'||ev.key==='O')toggleOverview();
+  else if(ev.key==='p'||ev.key==='P')window.print();
+});
+addEventListener('hashchange',function(){var n=parseInt(location.hash.replace('#',''),10);if(!isNaN(n))go(n-1);});
+
+/* overview */
+var ov=document.getElementById('overview'),ovBuilt=false;
+function toggleOverview(){
+  if(!ovBuilt){slides.forEach(function(s,i){
+    var t=document.createElement('div');t.className='thumb';
+    var c=s.cloneNode(true);c.className='slide active mini';t.appendChild(c);
+    var x=document.createElement('span');x.className='idx';x.textContent=i+1;t.appendChild(x);
+    t.onclick=function(){go(i);ov.classList.remove('on')};ov.appendChild(t);});ovBuilt=true;}
+  ov.classList.toggle('on');}
+
+/* ============ ISO helpers ============ */
+var SVGNS='http://www.w3.org/2000/svg';
+function el(svg,tag,attrs,txt){var n=document.createElementNS(SVGNS,tag);
+  for(var k in attrs)n.setAttribute(k,attrs[k]);if(txt!=null)n.textContent=txt;svg.appendChild(n);return n;}
+function plane(svg,cx,cy,w,opts){opts=opts||{};var h=w/2;
+  var pts=cx+','+(cy-h)+' '+(cx+w)+','+cy+' '+cx+','+(cy+h)+' '+(cx-w)+','+cy;
+  return el(svg,'polygon',{points:pts,'class':'iso-face-t'+(opts.accent?' acc':'')});}
+function cube(svg,x,y,s,opts){opts=opts||{};var h=s/2,d=opts.depth||s*.7;
+  el(svg,'polygon',{points:(x-s)+','+y+' '+x+','+(y+h)+' '+x+','+(y+h+d)+' '+(x-s)+','+(y+d),'class':'iso-face-l'});
+  el(svg,'polygon',{points:(x+s)+','+y+' '+x+','+(y+h)+' '+x+','+(y+h+d)+' '+(x+s)+','+(y+d),'class':'iso-face-r'});
+  el(svg,'polygon',{points:x+','+(y-h)+' '+(x+s)+','+y+' '+x+','+(y+h)+' '+(x-s)+','+y,'class':'iso-face-t'+(opts.accent?' acc':'')});}
+function cyl(svg,x,y,r){el(svg,'rect',{x:x-r,y:y,width:2*r,height:r*1.4,fill:'#0c0f13',stroke:'#3d444d','stroke-width':1.1});
+  el(svg,'ellipse',{cx:x,cy:y+r*1.4,rx:r,ry:r*.45,fill:'#0c0f13',stroke:'#3d444d','stroke-width':1.1});
+  el(svg,'ellipse',{cx:x,cy:y,rx:r,ry:r*.45,fill:'#141920',stroke:'#3d444d','stroke-width':1.1});}
+function arrow(svg,x1,y1,x2,y2,opts){opts=opts||{};
+  var mid=(y1+y2)/2, d='M'+x1+' '+y1+' C '+(x1-120)+' '+mid+', '+(x2-120)+' '+mid+', '+x2+' '+y2;
+  var p=el(svg,'path',{d:d,'class':'edge'+(opts.dashed?' flow':'')+(opts.hi?' hi':''),fill:'none'});
+  var a=Math.atan2(y2-mid,120), s=8;
+  el(svg,'polygon',{points:x2+','+y2+' '+(x2-10)+','+(y2-5)+' '+(x2-10)+','+(y2+5),fill:opts.hi?'var(--a)':'#5c6570'});
+  return p;}
+function stack(sel,cfg){var svg=document.querySelector(sel);if(!svg)return;
+  var cx=cfg.cx,w=cfg.w,gap=cfg.gap||150,layers=cfg.layers,rail=cfg.rail;
+  /* bottom-up so upper layers overlap */
+  for(var i=layers.length-1;i>=0;i--){var L=layers[i],cy=cfg.topY+w/2+i*gap;
+    if(L.kind==='scatter'){
+      for(var s=0;s<(L.count||14);s++){var ang=(s*137)%360, r=40+((s*97)%3)*38;
+        var sx=cx+Math.cos(ang*Math.PI/180)*r*1.7, sy=cy+Math.sin(ang*Math.PI/180)*r*.5;
+        (s%3===0)?cyl(svg,sx,sy,13):cube(svg,sx,sy,15,{depth:12});}
+    }else{
+      plane(svg,cx,cy,w,{accent:L.accent});
+      if(L.kind==='grid'){var n=4;for(var gy=0;gy<n;gy++)for(var gx=0;gx<n;gx++){
+        var u=(gx-n/2+.5)/n, v=(gy-n/2+.5)/n;
+        cube(svg,cx+(u-v)*w*.82,cy+(u+v)*w*.41,w*.075,{depth:w*.05,accent:L.accent&&(gx+gy)%3===0});}}
+      if(L.kind==='graph'){var pts=[[-.45,0],[.05,-.28],[.5,-.02],[.18,.3],[-.2,.22],[.42,.33],[-.5,.35]];
+        pts.forEach(function(q,qi){var nx=cx+(q[0]-q[1])*w*.8, ny=cy+(q[0]+q[1])*w*.4;
+          if(qi)el(svg,'line',{x1:cx,y1:cy,x2:nx,y2:ny,stroke:'#3d444d','stroke-width':1,'stroke-dasharray':'3 3'});
+          cube(svg,nx,ny,11,{depth:8,accent:qi===0});});}
+      if(L.kind==='options'){[[-.35,-.1],[.1,-.22],[.4,.02],[0,.18]].forEach(function(q){
+        var nx=cx+(q[0]-q[1])*w*.8, ny=cy+(q[0]+q[1])*w*.4;
+        el(svg,'rect',{x:nx-34,y:ny-11,width:68,height:22,rx:3,fill:'#141920',stroke:'#3d444d','stroke-width':1,
+          transform:'skewX(-24) rotate(6 '+nx+' '+ny+')'});});}
+    }
+  }
+  /* rail labels top-down */
+  if(rail)layers.forEach(function(L,i){var cy=cfg.topY+w/2+i*gap;
+    el(svg,'path',{d:'M'+(cx+w+18)+' '+cy+' H '+(rail.x-14),'class':'rail','stroke-dasharray':'2 3'});
+    el(svg,'path',{d:'M'+rail.x+' '+(cy-16)+' h-8 v32 h8','class':'rail'});
+    el(svg,'text',{x:rail.x+14,y:cy-2,'class':'iso-label'},L.label);
+    if(L.sub)el(svg,'text',{x:rail.x+14,y:cy+16,'class':'iso-sub'},L.sub);
+    var iy0=L.sub?33:16;
+    (L.items||[]).forEach(function(it,k){el(svg,'text',{x:rail.x+14,y:cy+iy0+k*17,'class':'iso-sub'},'→ '+it);});});
+  if(cfg.arrows!==false&&layers.length>1){
+    var y1=cfg.topY+w/2, y2=cfg.topY+w/2+(layers.length-1)*gap;
+    arrow(svg,cx-w-26,y1+10,cx-w+30,y2-6,{hi:true});
+  }}
+window.ISO={stack:stack,cube:cube,plane:plane,cyl:cyl,arrow:arrow,el:el};
+
+/* ============ loop generator ============ */
+[].forEach.call(document.querySelectorAll('svg[data-loop]'),function(svg){
+  var names=(svg.dataset.nodes||'').split('|'),center=svg.dataset.center;
+  var vb=svg.viewBox.baseVal,cx=vb.width/2,cy=vb.height/2-10,R=Math.min(cx,cy)-70;
+  names.forEach(function(nm,i){
+    var a0=-Math.PI/2+i*2*Math.PI/names.length, a1=-Math.PI/2+(i+1)*2*Math.PI/names.length;
+    var pad=.34;
+    var sx=cx+R*Math.cos(a0+pad),sy=cy+R*Math.sin(a0+pad),ex=cx+R*Math.cos(a1-pad),ey=cy+R*Math.sin(a1-pad);
+    el(svg,'path',{d:'M'+sx+' '+sy+' A '+R+' '+R+' 0 0 1 '+ex+' '+ey,'class':'edge hi'});
+    var aa=a1-pad, tx=cx+R*Math.cos(aa), ty=cy+R*Math.sin(aa), na=aa+Math.PI/2;
+    el(svg,'polygon',{points:(tx+9*Math.cos(na))+','+(ty+9*Math.sin(na))+' '+(tx+4*Math.cos(na-2.6))+','+(ty+4*Math.sin(na-2.6))+' '+(tx+4*Math.cos(na+2.6))+','+(ty+4*Math.sin(na+2.6)),fill:'var(--a)'});
+    var nx=cx+R*Math.cos(a0),ny=cy+R*Math.sin(a0);
+    el(svg,'rect',{x:nx-92,y:ny-24,width:184,height:48,rx:6,fill:'var(--bg2)',stroke:'var(--line2)','stroke-width':1.25});
+    el(svg,'text',{x:nx,y:ny+5,'class':'t',fill:'var(--ink)','font-size':13,'text-anchor':'middle'},nm);});
+  if(center){cyl(svg,cx,cy-16,34);
+    el(svg,'text',{x:cx,y:cy+52,'text-anchor':'middle',fill:'var(--ink2)','font-size':12},center);}});
+
+/* demo iso */
+if(document.querySelector('[data-iso-demo]'))ISO.stack('[data-iso-demo]',{cx:380,topY:40,w:230,gap:130,
+  layers:[{label:'DECISION ORCHESTRATION',kind:'options'},{label:'DYNAMIC ONTOLOGY',kind:'graph',accent:true,sub:'objects · links · actions'},
+          {label:'YOUR DATA PLATFORM',kind:'grid',items:['AWS','SNOWFLAKE']},{label:'OPERATIONAL SYSTEMS',kind:'scatter',items:['SAP','KAFKA','ORACLE']}],
+  rail:{x:840,w:300}});
+
+/* ============ ?check audit ============ */
+if(/[?&]check=1/.test(location.search)){
+  setTimeout(function(){
+    var bad=[];
+    slides.forEach(function(s,i){s.classList.add('active');
+      var ow=s.scrollWidth,oh=s.scrollHeight;
+      if(ow>1930||oh>1090){var worst='',mx=0;
+        [].forEach.call(s.querySelectorAll('*'),function(n){var r=n.getBoundingClientRect?n:null;
+          var b=n.offsetTop+n.offsetHeight;if(b>mx&&n.offsetHeight){mx=b;worst=(n.className&&n.className.baseVal!==undefined?n.className.baseVal:n.className)||n.tagName;}});
+        bad.push({slide:i+1,w:ow,h:oh,hint:String(worst).slice(0,60)});}
+      if(i!==cur)s.classList.remove('active');});
+    var pre=document.createElement('pre');pre.id='check-report';
+    pre.textContent='OVERFLOW-REPORT:'+JSON.stringify({total:N,fails:bad});
+    pre.style.cssText='position:fixed;left:0;bottom:0;font-size:9px;color:#666;z-index:99;max-width:100%;overflow:hidden';
+    document.body.appendChild(pre);
+    document.title=bad.length?('CHECK-FAIL '+bad.length):'CHECK-OK';
+  },600);}
+})();
+</script>
+</body>
+</html>

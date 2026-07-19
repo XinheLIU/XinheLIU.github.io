@@ -1,0 +1,1351 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Recommender Systems 101 (3) Algorithmic Frontiers, Xinhe Liu (Charles)">
+    <meta name="description" content="A survey of advanced recommendation models, multi-objective optimization, representation learning, and real-time system evolution.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Recommender Systems 101 (3) Algorithmic Frontiers | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/writing/" class="">Writing</a>
+    
+        <a href="/technical-notes/" class="">Technical Notes</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <i class="fas fa-search"></i>
+    </a>
+    <a class="lang-switch" href="/recsys/101-intro-3/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/writing/">Writing</a></li>
+        
+            <li><a href="/technical-notes/">Technical Notes</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <i class="fas fa-search"></i>
+        </a>
+        <a class="lang-switch" href="/recsys/101-intro-3/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Recommender Systems 101 (3) Algorithmic Frontiers</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/AI-Machine-Learning/">
+                                <span class="chip bg-color">AI &amp; Machine Learning</span>
+                            </a>
+                        
+                            <a href="/tags/Recommendation/">
+                                <span class="chip bg-color">Recommendation</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Technology/" class="post-category">
+                                Technology
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2023-12-15
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <ul>
+<li><a href="#ranking-model-iterations">Ranking Model Iterations</a>
+<ul>
+<li><a href="#multi-objective-fusion">Multi-objective Fusion</a></li>
+<li><a href="#multi-task-learning">Multi-Task Learning</a></li>
+<li><a href="#multi-domain-modeling">Multi-Domain Modeling</a></li>
+</ul>
+</li>
+<li><a href="#feature-engineering">Feature Engineering</a>
+<ul>
+<li><a href="#interest-representation-and-behavior-sequence-modeling">Interest Representation and Behavior Sequence Modeling</a></li>
+<li><a href="#feature-construction">Feature Construction</a></li>
+</ul>
+</li>
+<li><a href="#recommendation-pipelines">Recommendation Pipelines</a>
+<ul>
+<li><a href="#pipeline-consistency">Pipeline Consistency</a></li>
+<li><a href="#cascade-models">Cascade Models</a></li>
+</ul>
+</li>
+<li><a href="#causal-inference-and-debiasing">Causal Inference and Debiasing</a></li>
+<li><a href="#llms-for-recommendation">LLMs for Recommendation</a></li>
+<li><a href="#large-scale--real-time--deep-learning">Large-scale + Real-time + Deep Learning</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<h2 id="ranking-model-iterations"><a class="markdownIt-Anchor" href="#ranking-model-iterations"></a> Ranking Model Iterations</h2>
+<p>The main challenges of modern recommender systems lie in multi-domain, multi-format, and multi-objective fusion.</p>
+<ul>
+<li><strong>Multi-domain and Multi-format</strong>
+<ul>
+<li><em>Multi-scenario coverage</em>: Live streaming, e-commerce lists, content feeds.</li>
+<li><em>Content diversity</em>: Photo carousels, text-image mixes, horizontal and vertical video formats.</li>
+<li><em>Diverse interactive feedbacks</em>: Supporting deep reading inside posts, instant in-feed interactions (accessing profile, shares, comments, social behaviors).</li>
+</ul>
+</li>
+<li><strong>Multi-objective Balancing: Aligned with Product Positioning</strong>
+<ul>
+<li><em>TikTok</em>: Efficiency-first logic.
+<ul>
+<li>Ecosystem balance: promoting viral hits while preventing filter bubbles.</li>
+<li>Balancing commercial value and user value.</li>
+</ul>
+</li>
+<li><em>Kuaishou</em>:
+<ul>
+<li>Public-private traffic balance (preserving the creator-fan community while breaking out to new users).</li>
+<li>Lower-tier market support (incubating local/niche merchants).</li>
+</ul>
+</li>
+<li><em>Xiaohongshu</em>:
+<ul>
+<li>Community culture: UGC preservation, maintaining user trust.</li>
+<li>“Useful” mindshare: discoverability of high-quality content, knowledge precipitation.</li>
+</ul>
+</li>
+<li><em>Weibo</em>:
+<ul>
+<li>Hot event response: stability under burst traffic.</li>
+<li>Social graph cultivation: recommendation as a bridge to social relationships.</li>
+</ul>
+</li>
+<li><em>E-commerce (Taobao/Pinduoduo)</em>:
+<ul>
+<li>Balancing immediate transactions and Customer Lifetime Value (LTV).</li>
+<li>Merging social loops (“Explore” tab) with transaction values.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="multi-objective-fusion"><a class="markdownIt-Anchor" href="#multi-objective-fusion"></a> Multi-objective Fusion</h3>
+<ul>
+<li><strong>Evolution of Fusion Methods</strong>
+<ul>
+<li><em>Early Phase</em>: Static formula blending + offline grid search.</li>
+<li><em>Mid-term Phase</em>: Reinforcement learning for dynamic parameter search.
+<ul>
+<li>Segmenting online traffic into small pools.</li>
+<li>Generating new parameters based on active performance.</li>
+<li>Gathering user feedback to update parameters.
+<ul>
+<li>User preferences shift quickly (e.g., weekends vs. weekdays).</li>
+<li>Parameter fusion must reflect user preferences in real-time.</li>
+</ul>
+</li>
+<li>Core lies in reward calculations, using Covariance Matrix Adaptation (CMA-ES) or Evolutionary Strategies (ES).</li>
+<li><em>Optimization Tips</em>:
+<ul>
+<li>User usage has periodic patterns; reset/initialize daily.</li>
+<li>Perform prior analysis before applying differentiated fusion parameters.</li>
+<li>Inject anomaly detection to ensure stable parameter updates.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>Late Phase</em>: Blending formula optimization.
+<ul>
+<li><em>Latest Trend</em>: outputting a <strong>fusion score</strong> via models.
+<ul>
+<li>Upgrading to multi-task learning, performing objective fusion using model layers.</li>
+<li>Model-based fusion captures complex non-linear relationships, yielding superior representation power.</li>
+<li>Achieves personalized fusion—the calculated weights are unique to each user.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="/en/recsys/101-intro-3/%E5%A4%9A%E7%9B%AE%E6%A0%87-1.png" class="" title="Multi-objective Optimization Example 1">
+<img src="/en/recsys/101-intro-3/%E5%A4%9A%E7%9B%AE%E6%A0%87-2.png" class="" title="Multi-objective Optimization Example 2">
+<img src="/en/recsys/101-intro-3/%E5%A4%9A%E7%9B%AE%E6%A0%87-3.png" class="" title="Multi-objective Optimization Example 3">
+<img src="/en/recsys/101-intro-3/%E8%9E%8D%E5%90%88%E5%85%AC%E5%BC%8F.png" class="" title="Multi-objective Fusion Formula">
+<h3 id="multi-task-learning"><a class="markdownIt-Anchor" href="#multi-task-learning"></a> Multi-Task Learning</h3>
+<ul>
+<li><strong>Challenges in Multi-task Modeling</strong>
+<ul>
+<li>Loss conflicts and the “seesaw effect” across multiple objectives.</li>
+<li>Inconsistent sample spaces (e.g., clicks vs. conversions).</li>
+<li>Balancing task-specific losses.</li>
+</ul>
+</li>
+<li><strong>Common Multi-task Architectures</strong>
+<ol>
+<li><strong>MMoE (Multi-gate Mixture-of-Experts)</strong>
+<ul>
+<li><em>Core</em>: Sharing bottom expert networks, and designing separate gating networks for each task.</li>
+<li><em>Pros</em>: Gating networks learn relationships across tasks, balancing sharing and specialization.</li>
+<li><em>Application</em>: Widely used in CTR, CVR multi-objective prediction.</li>
+</ul>
+</li>
+<li><strong>SNR (Sub-Network Routing)</strong>
+<ul>
+<li><em>Core</em>: Dynamic routing mechanisms, selecting different expert sub-networks per sample.</li>
+<li><em>Pros</em>: More flexible than MMoE, reducing negative transfer.</li>
+<li><em>Innovation</em>: Routing mechanism optimizes expert utilization.</li>
+</ul>
+</li>
+<li><strong>DMT-GRU (Deep Multitask GRU)</strong>
+<ul>
+<li><em>Core</em>: Combining GRU structures with multi-task frameworks.</li>
+<li><em>Pros</em>: Better captures sequential information and task-specific temporal dependencies.</li>
+<li><em>Application</em>: Suitable for sequence-dependent multi-task scenarios.</li>
+</ul>
+</li>
+<li><strong>MM (Mixture of Multitask)</strong>
+<ul>
+<li><em>Core</em>: Adding fusion layers on top of SNR.</li>
+<li><em>Pros</em>: Better task-specific knowledge transfer; stronger expressive power.</li>
+<li><em>Features</em>: High capacity, integrating multiple multi-task learning techniques.</li>
+</ul>
+</li>
+<li><strong>Evolution of Multi-task Modeling</strong>:
+<ul>
+<li><em>Technical Roadmap</em>: Hard parameter sharing <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> MMoE <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> SNR/PLE.</li>
+<li><em>Team Practice</em>: Adopting SNR models with two key optimizations:
+<ul>
+<li>Simplifying transformation structures within experts.</li>
+<li>Combining shared experts and task-exclusive experts.</li>
+</ul>
+</li>
+<li><em>Expert Configuration</em>: Designing experts based on business feedback and estimation bias analyses.</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>Production Experience</strong>
+<ul>
+<li>Methods like PCGrad and UWL show gains on test datasets but suffer from performance decay in production over time.</li>
+<li>Empirical parameter tuning in online learning environments is often more stable.</li>
+<li>Implementing MMoE on its own can bring significant business gains.</li>
+</ul>
+</li>
+</ul>
+<img src="/en/recsys/101-intro-3/%E5%A4%9A%E4%BB%BB%E5%8A%A1%E5%BB%BA%E6%A8%A1-1.png" class="" title="Multi-task Modeling Example 1">
+<img src="/en/recsys/101-intro-3/%E5%A4%9A%E4%BB%BB%E5%8A%A1%E5%BB%BA%E6%A8%A1-2.png" class="" title="Multi-task Modeling Example 2">
+<img src="/en/recsys/101-intro-3/%E5%A4%9A%E4%BB%BB%E5%8A%A1%E5%BB%BA%E6%A8%A1-3.png" class="" title="Multi-task Modeling MMoE">
+<h3 id="multi-domain-modeling"><a class="markdownIt-Anchor" href="#multi-domain-modeling"></a> Multi-Domain Modeling</h3>
+<p>Multi-domain modeling solves data distribution shifts across different scenarios. Compared to multi-task learning, the motivations differ:</p>
+<ul>
+<li><strong>Multi-task Learning</strong>: Primarily addresses target sparsity (e.g., rare conversions).</li>
+<li><strong>Multi-domain Modeling</strong>: Resolves knowledge transfer from large scenarios to small scenarios.</li>
+</ul>
+<p>Key challenges across multiple recommendation scenarios:</p>
+<ol>
+<li>Huge scale differences: Small scenarios struggle to converge due to sparse training data.</li>
+<li>Even in scenarios of similar scale, knowledge transfer can bring business gains.</li>
+<li>Balancing shared knowledge with domain-specific characteristics.</li>
+</ol>
+<p>Multi-domain modeling is a recent research hotspot, sharing many technical implementations with multi-task learning.</p>
+<img src="/en/recsys/101-intro-3/%E5%A4%9A%E5%9C%BA%E6%99%AF-1.png" class="" title="Multi-domain Modeling Illustration">
+<p>Multi-domain models typically add a <strong>Slot-gate</strong> layer on top of multi-task architectures. This layer enables the same embedding to express different actions depending on the domain. The output of the Slot-gate routes in three directions:</p>
+<ol>
+<li>Connecting expert networks.</li>
+<li>Connecting target tasks.</li>
+<li>Connecting features.</li>
+</ol>
+<img src="/en/recsys/101-intro-3/%E5%A4%9A%E5%9C%BA%E6%99%AF-slot_gate.png" class="" title="Slot-gate Architecture">
+<p>In practice, the main model employs <strong>SNR (Sub-Network Routing)</strong> to replace <strong>CGC (Customized Gate Control)</strong>, aligning with multi-task modeling iterations.</p>
+<p>Scenarios:</p>
+<ul>
+<li>Homepage recommendation: Trending Feed.</li>
+<li>Discover tab: Hot Topic Feed.</li>
+</ul>
+<p>The overall architecture resembles SNR, designing three target towers at the top: Click, Interaction, and Stay Time. These three target towers are further split into six concrete objectives across the two scenarios.</p>
+<p>Furthermore, we added an <strong>Embedding Transform Layer</strong>. Its difference from the Slot-gate is:</p>
+<ul>
+<li><strong>Slot-gate</strong>: Identifies feature importance differences across scenarios.</li>
+<li><strong>Embedding Transform Layer</strong>: Resolves representation mismatches in embedding spaces across domains, performing embedding mappings.</li>
+</ul>
+<p>This design is highly effective for processing features with mismatched dimensions across scenarios, promoting cross-domain knowledge transfer.</p>
+<img src="/en/recsys/101-intro-3/%E5%A4%9A%E5%9C%BA%E6%99%AF-SNR_EPNET.png" class="" title="Joint Multi-domain Multi-task Architecture">
+<h2 id="feature-engineering"><a class="markdownIt-Anchor" href="#feature-engineering"></a> Feature Engineering</h2>
+<h3 id="interest-representation-and-behavior-sequence-modeling"><a class="markdownIt-Anchor" href="#interest-representation-and-behavior-sequence-modeling"></a> Interest Representation and Behavior Sequence Modeling</h3>
+<ul>
+<li><strong>Key Technical Evolution</strong>
+<ul>
+<li><strong>DIN (Deep Interest Network)</strong>
+<ul>
+<li><em>Core</em>: Building multiple sequences for different behaviors, introducing attention mechanisms.</li>
+<li><em>Features</em>: Using local activation units to learn interest distributions relative to the candidate item.</li>
+<li><em>Results</em>: Implemented in trending fine ranking pipelines, bringing significant gains.</li>
+</ul>
+</li>
+<li><strong>SIM (Search Interest Model)</strong>
+<ul>
+<li>Iteration on top of DIN.</li>
+<li>More suitable for interest modeling under search scenarios.</li>
+</ul>
+</li>
+<li><strong>DMT (Deep Multifaceted Transformers)</strong>
+<ul>
+<li><em>Core</em>: Applying Transformer architectures to multi-task learning.</li>
+<li><em>Practice</em>: Simplified the DMT model, removing bias modules and substituting MMoE with SNR.</li>
+<li><em>Results</em>: Achieved business gains upon rollout.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Sequence Modeling Optimization Directions</strong>
+<ol>
+<li><strong>Multi-sequence Fusion (Multi-DIN)</strong>
+<ul>
+<li><em>Method</em>: Expanding multiple behavior sequences, using candidate item features (mid/tag/authorid) as the query.</li>
+<li><em>Pipeline</em>: Separate attention per sequence <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> extract interest representations <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> concatenate other features <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> feed into multi-task ranking.</li>
+</ul>
+</li>
+<li><strong>Long-sequence Modeling</strong>
+<ul>
+<li><em>Experiment</em>: Expanding click/duration/interaction sequences from 20 to 50 items.</li>
+<li><em>Conclusion</em>: Yields superior results, aligning with academic literature.</li>
+<li><em>Tradeoff</em>: Requires higher computing costs.</li>
+</ul>
+</li>
+<li><strong>Lifecycle-level Ultra-long Sequence Modeling</strong>
+<ul>
+<li><em>Difference from standard long sequences</em>:
+<ul>
+<li>Constructing user long behavior sequence features offline.</li>
+<li>Finding corresponding features via search indexing to generate embeddings.</li>
+<li>Modeling the main network and ultra-long sequence network separately.</li>
+</ul>
+</li>
+<li><em>Business Value Evaluation</em>:
+<ul>
+<li>Limited value in fast-paced platforms like Weibo (where user interest shifts rapidly).</li>
+<li>More valuable for low-frequency or returned users.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>Technical Selection Logic</strong>
+<ul>
+<li>Sequence length must align with business pace: fast-paced feeds should not use overly long sequences.</li>
+<li>Balance computing cost and performance gains: longer sequences increase serving overhead.</li>
+<li>Differentiated handling: treat active power users and returned users differently.</li>
+</ul>
+</li>
+</ul>
+<img src="/en/recsys/101-intro-3/%E5%85%B4%E8%B6%A3%E8%A1%A8%E5%BE%81-1.png" class="" title="Interest Representation Model Evolution">
+<img src="/en/recsys/101-intro-3/%E5%85%B4%E8%B6%A3%E8%A1%A8%E5%BE%81-2.png" class="" title="Multi-sequence Fusion Modeling">
+<img src="/en/recsys/101-intro-3/%E5%85%B4%E8%B6%A3%E8%A1%A8%E5%BE%81-3.png" class="" title="Long-sequence Modeling">
+<img src="/en/recsys/101-intro-3/%E5%85%B4%E8%B6%A3%E8%A1%A8%E5%BE%81-4.png" class="" title="Sequence Modeling Optimization Directions">
+<img src="/en/recsys/101-intro-3/%E5%85%B4%E8%B6%A3%E8%A1%A8%E5%BE%81-%E7%94%A8%E6%88%B7%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%BB%BA%E6%A8%A1.png" class="" title="Lifecycle-level Ultra-long Sequence Modeling">
+<h3 id="feature-construction"><a class="markdownIt-Anchor" href="#feature-construction"></a> Feature Construction</h3>
+<p>Challenges and practical experience in feature engineering within large-scale models:</p>
+<ul>
+<li>Adding features that look good in theory does not always yield expected online gains.</li>
+<li>Large-scale models already contain massive ID features, which capture user preferences well.</li>
+<li>Basic statistical features face diminishing marginal returns under these conditions.</li>
+</ul>
+<p>Common Feature Engineering Approaches:</p>
+<ul>
+<li><strong>Matching Features</strong>: Detailed cross-statistics between users and items, content categories, and creators. Highly effective.</li>
+<li><strong>Multimodal Features</strong>: Resolves sparse user behavior logs for low-frequency/long-tail items.
+<ul>
+<li><em>Method 1</em>: Direct fusion of multimodal embeddings.
+<ul>
+<li>Freezing bottom embedding gradients, only updating the top MLP.</li>
+<li><em>Pros</em>: Retains full semantic information.</li>
+<li><em>Cons</em>: Increases model complexity; requires spatial transforms and feature importance matching.</li>
+</ul>
+</li>
+<li><em>Method 2</em>: Multimodal clustering ID-ization.
+<ul>
+<li>Clustering multimodal features offline and feeding clustering IDs into the model.</li>
+<li><em>Pros</em>: Low model complexity; simple online serving; captures ~90% of the value.</li>
+<li>Combined with statistical features of clustering IDs to boost performance.</li>
+<li><em>Cons</em>: Losses granular semantic details.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Feature Crossing</strong>: Co-action Methods
+<ul>
+<li><em>Motivation</em>: Traditional cross methods (DeepFM, Wide&amp;Deep) show subpar gains.</li>
+<li><em>Analysis</em>: Shared embedding spaces between cross-features and DNN layers cause updates to conflict.</li>
+<li><em>Solution</em>: Allocating independent storage spaces for cross-features.</li>
+<li><em>Results</em>: Expanded representation space, yielding online gains.</li>
+</ul>
+</li>
+</ul>
+<img src="/en/recsys/101-intro-3/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-1.png" class="" title="Feature Engineering Example 1">
+<img src="/en/recsys/101-intro-3/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-2.png" class="" title="Feature Engineering Example 2">
+<img src="/en/recsys/101-intro-3/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-3.png" class="" title="Feature Engineering Example 3">
+<img src="/en/recsys/101-intro-3/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-4-%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89.png" class="" title="Feature Crossing Example">
+<h2 id="recommendation-pipelines"><a class="markdownIt-Anchor" href="#recommendation-pipelines"></a> Recommendation Pipelines</h2>
+<h3 id="pipeline-consistency"><a class="markdownIt-Anchor" href="#pipeline-consistency"></a> Pipeline Consistency</h3>
+<p>Consistency between pre-ranking and fine ranking is a critical bottleneck:</p>
+<ul>
+<li><strong>Pre-ranking Truncation Issues</strong>
+<ul>
+<li>Pre-ranking trims candidates from thousands to ~1000.</li>
+<li>If pre-ranking and fine ranking represent user interests differently, high-scoring candidates in fine ranking might be filtered out early.</li>
+<li>Improving consistency directly drives overall business metrics.</li>
+</ul>
+</li>
+<li><strong>Sources of Discrepancy</strong>
+<ul>
+<li>Feature systems differ: pre-ranking features are highly simplified.</li>
+<li>Model structures differ: pre-ranking favors lightweight structures.</li>
+<li>Feature interaction timing: pre-ranking crosses features late, limiting representation power.</li>
+</ul>
+</li>
+<li><strong>Technical Evolution Roads</strong>
+<ul>
+<li><em>Dual-tower (Two-tower) Line</em>:
+<ul>
+<li><em>Pros</em>: High computing efficiency; suitable for large candidate pools.</li>
+<li><em>Cons</em>: Late feature interactions limit representation power.</li>
+<li><em>Attempts</em>: DSSM-autowide and other cross-tower structures, similar to DeepFM.</li>
+</ul>
+</li>
+<li><em>DNN Line (Post-2022)</em>:
+<ul>
+<li><em>Pros</em>: Stronger representation power; higher scoring quality.</li>
+<li><em>Cons</em>: Heavy load on engineering; requires feature pruning, network trimming, and caching.</li>
+<li><em>Tradeoff</em>: Although the number of processed candidates per query decreases, it is accepted due to higher scoring quality.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Team Experience Summary</strong>
+<ul>
+<li>Enhancing dual-tower models (e.g., late feature crossing) brings limited gains.</li>
+<li>Multi-task pre-ranking is still bottlenecked by the dual-tower structure.</li>
+<li>Migrating to DNN architectures is the key path to boosting pre-ranking accuracy.</li>
+<li>Enhancing pre-ranking and fine ranking consistency is a vital optimization direction.</li>
+</ul>
+</li>
+</ul>
+<p>This consistency challenge essentially reflects information loss across multi-stage recommendation funnels, requiring an optimal balance between representation accuracy and computing budgets.</p>
+<img src="/en/recsys/101-intro-3/%E4%B8%80%E8%87%B4%E6%80%A7-1.png" class="" title="Pipeline Consistency Illustration">
+<img src="/en/recsys/101-intro-3/%E4%B8%80%E8%87%B4%E6%80%A7-2.png" class="" title="Pre-ranking Evolution Road">
+<img src="/en/recsys/101-intro-3/%E4%B8%80%E8%87%B4%E6%80%A7-3.png" class="" title="DSSM-autowide Cross Model Results">
+<img src="/en/recsys/101-intro-3/%E4%B8%80%E8%87%B4%E6%80%A7-4.png" class="" title="Multi-task Pre-ranking based on Dual Towers">
+<h3 id="cascade-models"><a class="markdownIt-Anchor" href="#cascade-models"></a> Cascade Models</h3>
+<p>Cascade models are effective solutions to pre-ranking/fine ranking consistency:</p>
+<ul>
+<li><strong>Architectural Advantages</strong>
+<ul>
+<li>Employing DNN and cascade Stacking models to achieve internal “coarse-to-fine” two-stage pre-ranking.</li>
+<li>Using dual towers for fast filtering, followed by a lightweight DNN for final scoring.</li>
+<li>The DNN accommodates complex structures, adapting faster to user interest shifts.</li>
+</ul>
+</li>
+<li><strong>Handling Large Candidate Pools</strong>
+<ul>
+<li>Plays a vital role in recommendation frameworks, filtering from large pools efficiently.</li>
+<li>Bypasses the computing bottleneck of applying full DNNs directly on massive candidates.</li>
+</ul>
+</li>
+<li><strong>Sample Construction Strategies</strong>
+<ul>
+<li>Core lies in designing appropriate training samples.</li>
+<li>Sampling across recommendation funnel stages (millions catalog <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> thousands retrieved <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> hundreds ranked <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> dozens exposed <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> single-digit clicks).</li>
+<li>Combining sample pairs of varying difficulty to boost model learning.</li>
+</ul>
+</li>
+</ul>
+<p>Cascade models combined with global negative sampling bring significant gains, balancing representation power and computing costs.</p>
+<img src="/en/recsys/101-intro-3/%E7%BA%A7%E8%81%94-1.png" class="" title="Cascade Model Example">
+<img src="/en/recsys/101-intro-3/%E7%BA%A7%E8%81%94-2.png" class="" title="Cascade Model Training Pipeline">
+<img src="/en/recsys/101-intro-3/%E7%BA%A7%E8%81%94-3.png" class="" title="Cascade Model Comparison">
+<h2 id="causal-inference-and-debiasing"><a class="markdownIt-Anchor" href="#causal-inference-and-debiasing"></a> Causal Inference and Debiasing</h2>
+<p>Causal Inference Value:</p>
+<ul>
+<li><strong>Balancing Personalization</strong>
+<ul>
+<li>Solving conflicts between popular item biases and niche individual interests.</li>
+<li>Boosting the platform’s personalization accuracy.</li>
+<li>Preventing models from over-recommending popular items that clash with the user’s active interests.</li>
+</ul>
+</li>
+<li><strong>Implementation Methods</strong>
+<ul>
+<li>Constructing specialized pairwise samples: clicked low-popularity items vs. unclicked high-popularity items.</li>
+<li>Designing Bayesian loss functions to guide model training.</li>
+<li>Utilizing counterfactual reasoning to isolate true interest causal paths.</li>
+</ul>
+</li>
+<li><strong>Application Strategies</strong>
+<ul>
+<li><strong>Applying causal inference in retrieval and pre-ranking yields superior gains compared to fine ranking.</strong></li>
+<li>Brings significant improvements to model components with weaker personalization power.</li>
+<li>Displays an inverse relationship with model complexity and representation capacity.</li>
+</ul>
+</li>
+</ul>
+<p>Importance of Debiasing:</p>
+<ul>
+<li><strong>Data Bias Mismatch</strong>
+<ul>
+<li>Recommender systems are prone to exposure, position, and popularity biases.</li>
+<li>These biases cause models to learn from skewed behavior logs rather than true user interests.</li>
+<li>Left unchecked, it creates a feedback loop (Mathew effect), degrading the long-tail content ecosystem.</li>
+</ul>
+</li>
+<li><strong>Core Value of Debiasing</strong>
+<ul>
+<li>Breaking positive feedback loops, preventing filter bubbles.</li>
+<li>Enhancing content diversity, opening up new interests.</li>
+<li>Providing fair exposure opportunities for creators, fostering a healthy ecosystem.</li>
+</ul>
+</li>
+<li><strong>Implementation Challenges</strong>
+<ul>
+<li>Balancing debiasing with short-term recommendation precision.</li>
+<li>Combining causal graphs and intervention models to isolate and eliminate harmful biases.</li>
+<li>Utilizing counterfactual learning and Propensity Score Matching (PSM) to achieve effective debiasing.</li>
+</ul>
+</li>
+</ul>
+<p>Causal inference and debiasing are critical tech supports for building a fair, diverse recommendation ecosystem, ensuring the long-term health of the platform.</p>
+<h2 id="llms-for-recommendation"><a class="markdownIt-Anchor" href="#llms-for-recommendation"></a> LLMs for Recommendation</h2>
+<p>LLM Integration Trends:</p>
+<ul>
+<li><strong>Foundation Models Revolutionizing Recommendations</strong>
+<ul>
+<li>Transformer architectures brought breakthrough progress to sequence modeling, significantly enhancing behavior sequence understanding.</li>
+<li>Self-attention mechanisms capture connections and transitions of user interests across items.</li>
+<li>The pre-train and fine-tune paradigm enables recommendation models to learn from universal data before optimizing for specific scenarios.</li>
+</ul>
+</li>
+<li><strong>Core Value of LLMs in Recommendations</strong>
+<ul>
+<li><strong>Multimodal Understanding</strong>: Integrating text, images, and video to achieve rich item representations.</li>
+<li><strong>Long Text Processing</strong>: Parsing item descriptions and user reviews to extract deep features.</li>
+<li><strong>Cross-domain Transfer</strong>: Leveraging universal knowledge to mitigate cold start and data sparsity.</li>
+<li><strong>Intent Understanding</strong>: Natural language interfaces to capture complex, vague user queries.</li>
+</ul>
+</li>
+<li><strong>Implementation Paths</strong>
+<ul>
+<li><em>LLM as Feature Extractor</em>: Generating high-quality item and user representations to feed into traditional models.</li>
+<li><em>Hybrid Architectures</em>: Combining LLMs with traditional systems, where LLMs handle semantic understanding and traditional layers handle personalization.</li>
+<li><em>End-to-End LLM Recommendation</em>: Re-defining recommendation as a generative task, directly outputting lists via LLMs.</li>
+<li><em>Retrieval-Augmented Generation (RAG)</em>: Combining RAG to boost recommendation recency and accuracy.</li>
+</ul>
+</li>
+</ul>
+<p>LLMs are reshaping the path of recommendation technologies, bringing revolutionary changes to features, architectures, and user interactions, opening up new possibilities for resolving cold-start and explainability bottlenecks.</p>
+<h2 id="large-scale-real-time-deep-learning"><a class="markdownIt-Anchor" href="#large-scale-real-time-deep-learning"></a> Large-scale + Real-time + Deep Learning</h2>
+<p>Real-time Features:</p>
+<ul>
+<li><strong>Capturing Real-time User Interests</strong>
+<ul>
+<li>User interests shift rapidly; real-time features capture the latest preferences.</li>
+<li>Short-term interests often dictate current actions more than long-term interests.</li>
+<li>Real-time features significantly boost relevance and timeliness.</li>
+</ul>
+</li>
+<li><strong>Meeting Latency Demands</strong>
+<ul>
+<li>News and short video feeds require extreme real-time updates.</li>
+<li>E-commerce promotions and live streams must adapt to real-time user actions.</li>
+<li>Real-time features reduce recommendation delays, boosting user experience.</li>
+</ul>
+</li>
+<li><strong>Challenges in Real-time Feature Engineering</strong>
+<ul>
+<li>Real-time collection and processing of massive user behavior logs.</li>
+<li>Balancing calculation efficiency and storage costs.</li>
+<li>Maintaining consistency between real-time and offline features.</li>
+</ul>
+</li>
+</ul>
+<p>Real-time Models:</p>
+<ul>
+<li><strong>Necessity of Real-time Updates</strong>
+<ul>
+<li>Content distribution environments change quickly; models must adapt.</li>
+<li>Cold-start items need fast, accurate model evaluations.</li>
+<li>Real-time updates prevent model drift, maintaining high performance.</li>
+</ul>
+</li>
+<li><strong>Technical Challenges in Online Learning</strong>
+<ul>
+<li>Balancing incremental updates with full-batch training.</li>
+<li>Balancing update frequencies with computing resource constraints.</li>
+<li>Co-optimizing real-time features and model parameters.</li>
+</ul>
+</li>
+<li><strong>Real-time Architecture Design</strong>
+<ul>
+<li>Deploying stream computing frameworks (Flink, Spark Streaming).</li>
+<li>Storage selections (Redis, Cassandra) for real-time reads.</li>
+<li>Hybrid online and nearline learning architectures.</li>
+</ul>
+</li>
+</ul>
+<p>Strategies for Boosting Real-time Capacity:</p>
+<ul>
+<li><strong>Engineering Solutions</strong>
+<ul>
+<li>Deploying unified batch-stream feature architectures.</li>
+<li>Implementing incremental feature calculations and caching.</li>
+<li>Deploying lightweight online models for real-time prediction and heavy offline models for training.</li>
+</ul>
+</li>
+<li><strong>Algorithmic Optimizations</strong>
+<ul>
+<li>Designing model structures suited for incremental updates.</li>
+<li>Deploying online learning algorithms (such as <strong>FTRL, Follow-the-Regularized-Leader</strong>).</li>
+<li>Injecting time decay factors to emphasize recent behaviors.</li>
+</ul>
+</li>
+<li><strong>Best Practices</strong>
+<ul>
+<li>Building real-time feature monitoring dashboards.</li>
+<li>Establishing evaluation pipelines to track model performance decay over time.</li>
+<li>Implementing gray releases and quick-rollback capabilities for model updates.</li>
+</ul>
+</li>
+</ul>
+<p>Real-time computing is a core competitive edge of modern recommender systems, capturing user interest shifts to deliver highly relevant, timely content.</p>
+<img src="/en/recsys/101-intro-3/%E5%AE%9E%E6%97%B6%E6%80%A7%E6%8F%90%E9%AB%98.png" class="" title="Real-time Capability Enhancement Example">
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.datafuntalk.com/live_pc/l_643b8cbae4b09d72378d91d0">DataFunTalk: Weibo Real-time Large Model Evolution</a></li>
+<li><a target="_blank" rel="noopener" href="https://d2l.ai/chapter_recommender-systems/index.html#">D2L.AI: Recommender Systems</a></li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/en/recsys/101-intro-3/">https://xinheliu.github.io/en/recsys/101-intro-3/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/AI-Machine-Learning/">
+                                    <span class="chip bg-color">AI &amp; Machine Learning</span>
+                                </a>
+                            
+                                <a href="/tags/Recommendation/">
+                                    <span class="chip bg-color">Recommendation</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/en/recsys/101-intro-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Recommender Systems 101 (2) Recommendation Strategy">
+                        
+                        <span class="card-title">Recommender Systems 101 (2) Recommendation Strategy</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-12-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Technology/" class="post-category">
+                                    Technology
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI-Machine-Learning/">
+                        <span class="chip bg-color">AI &amp; Machine Learning</span>
+                    </a>
+                    
+                    <a href="/tags/Recommendation/">
+                        <span class="chip bg-color">Recommendation</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/en/causal/intro-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Causal Inference (1) What is Causal Inference">
+                        
+                        <span class="card-title">Causal Inference (1) What is Causal Inference</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-01-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Data-Science/" class="post-category">
+                                    Data Science
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Causal-Inference/">
+                        <span class="chip bg-color">Causal Inference</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

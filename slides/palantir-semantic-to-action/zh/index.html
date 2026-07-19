@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Palantir Ontology · 从语义到行动</title>
+<style>
+/* ============ tokens ============ */
+:root{
+  --bg:#0b0d10; --bg2:#101318; --bg3:#0d1014;
+  --line:#2a2f36; --line2:#3d444d;
+  --ink:#e8eaec; --ink2:#9aa3ad; --ink3:#5c6570;
+  --acc:#aecbdd; --teal:#4fd1c5; --violet:#a78bfa; --sand:#e3c99a; --red:#e07a6b;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --sans:-apple-system,'Helvetica Neue','PingFang SC','Noto Sans SC',sans-serif;
+}
+html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:var(--sans)}
+/* ============ stage ============ */
+#viewport{position:fixed;inset:0;background:#000}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;background:var(--bg)}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;visibility:hidden;opacity:0;pointer-events:none;
+  background:var(--bg);color:var(--ink);box-sizing:border-box;padding:56px 72px 48px;
+  background-image:radial-gradient(circle,#1a1f26 1px,transparent 1px);background-size:56px 56px;background-position:28px 28px}
+.slide.active{visibility:visible;opacity:1;pointer-events:auto;z-index:1}
+.slide{--a:var(--acc)}
+.slide[data-accent="teal"]{--a:var(--teal)} .slide[data-accent="violet"]{--a:var(--violet)}
+.slide[data-accent="sand"]{--a:var(--sand)} .slide[data-accent="red"]{--a:var(--red)}
+/* ============ chrome (injected) ============ */
+.chrome{position:absolute;font-size:11px;letter-spacing:.16em;color:var(--ink3);text-transform:uppercase;font-family:var(--mono)}
+.chrome.eyebrow{top:26px;left:72px;color:var(--a)}
+.chrome.eyebrow::before{content:"";display:inline-block;width:8px;height:8px;border:1px solid var(--a);margin-right:10px;vertical-align:0}
+.chrome.meta{top:26px;right:72px;letter-spacing:.1em}
+.chrome.page{bottom:22px;right:72px;letter-spacing:.2em}
+.chrome.rule{top:52px;left:72px;right:72px;height:1px;background:var(--line)}
+/* ============ head / text ============ */
+.s-head{margin:14px 0 8px}
+.s-head h2{margin:0;font-size:38px;font-weight:600;letter-spacing:.01em}
+.s-head h2 em{font-style:normal;color:var(--a)}
+.s-head .lead{margin:10px 0 0;font-size:19px;color:var(--ink2);max-width:1400px;line-height:1.5}
+.s-foot{position:absolute;bottom:22px;left:72px;font-size:11px;color:var(--ink3)}
+p,li{font-size:16px;line-height:1.55}
+.s-body{margin-top:22px}
+.s-body h3{font-size:15px;margin:18px 0 8px;color:var(--a);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+small,.dim{color:var(--ink2)} .dim3{color:var(--ink3)}
+code{font-family:var(--mono);font-size:.92em;background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+/* ============ grids ============ */
+.cols-2{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.cols-2>.w7{grid-column:auto} .cols-2.r75{grid-template-columns:7fr 5fr}.cols-2.r57{grid-template-columns:5fr 7fr}
+.cols-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px}
+.grid-2x2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid-2x3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
+.card{border:1px solid var(--line);background:var(--bg2);padding:18px 20px;border-radius:6px}
+.card h4{margin:0 0 8px;font-size:16px;color:var(--ink)} .card h4 b{color:var(--a)}
+.card p{margin:0;font-size:14px;color:var(--ink2)}
+.card small{display:block;margin-top:10px;font-size:12px;color:var(--ink3)}
+/* ============ table ============ */
+table.cmp{border-collapse:collapse;width:100%;font-size:13.5px}
+table.cmp th{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);font-weight:500;text-align:left;
+  padding:8px 12px;border-bottom:1px solid var(--line2)}
+table.cmp td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top;line-height:1.45}
+table.cmp td strong,table.cmp td b{color:var(--ink)}
+table.cmp td.k{color:var(--ink3);white-space:nowrap;font-family:var(--mono);font-size:12.5px}
+table.cmp .hl{background:color-mix(in srgb,var(--a) 7%,transparent)}
+table.cmp td.hl{color:var(--ink)}
+table.cmp td.good{color:var(--teal)} table.cmp td.bad{color:var(--red)}
+/* ============ callout ============ */
+.callout{border-left:2px solid var(--a);background:var(--bg2);padding:14px 18px;margin-top:18px;display:flex;gap:14px;align-items:baseline}
+.callout .c-tag{font-size:10px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;font-family:var(--mono);white-space:nowrap}
+.callout p{margin:0;font-size:15.5px;color:var(--ink)}
+.callout.warn{border-color:var(--sand)} .callout.warn .c-tag{color:var(--sand)}
+.callout.risk{border-color:var(--red)} .callout.risk .c-tag{color:var(--red)}
+/* ============ evidence tags ============ */
+.ev{display:inline-block;font-size:10.5px;font-family:var(--mono);letter-spacing:.06em;color:var(--acc);
+  border:1px solid color-mix(in srgb,var(--acc) 45%,transparent);border-radius:3px;padding:0 5px;margin:0 2px;vertical-align:.08em}
+.ev.ind{color:var(--teal);border-color:color-mix(in srgb,var(--teal) 45%,transparent)}
+.ev.doubt{color:var(--red);border-color:color-mix(in srgb,var(--red) 45%,transparent)}
+.ev.comp{color:var(--violet);border-color:color-mix(in srgb,var(--violet) 45%,transparent)}
+.ev.sap{color:var(--sand);border-color:color-mix(in srgb,var(--sand) 45%,transparent)}
+/* ============ spec list ============ */
+ul.spec{list-style:none;margin:0;padding:0}
+ul.spec li{display:grid;grid-template-columns:150px 1fr;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+ul.spec .s-k{font-family:var(--mono);font-size:12.5px;color:var(--a);letter-spacing:.04em}
+ul.spec .s-v{color:var(--ink2)} ul.spec .s-v b,ul.spec .s-v strong{color:var(--ink)}
+/* ============ steps ============ */
+ol.steps{list-style:none;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:18px;margin:8px 0 0;padding:0;position:relative}
+ol.steps::before{content:"";position:absolute;top:15px;left:4%;right:4%;height:1px;background:var(--line2)}
+ol.steps li{position:relative;padding-top:44px;font-size:14px}
+ol.steps .n{position:absolute;top:0;left:0;width:30px;height:30px;border:1px solid var(--a);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--a);font-family:var(--mono);font-size:13px}
+ol.steps b{display:block;color:var(--ink);margin-bottom:5px;font-size:15px}
+ol.steps small{color:var(--ink2);font-size:12.5px;line-height:1.5;display:block}
+/* ============ bullets ============ */
+ul.tick{list-style:none;margin:0;padding:0}
+ul.tick li{padding:6px 0 6px 20px;position:relative;color:var(--ink2);font-size:15px}
+ul.tick li::before{content:"—";position:absolute;left:0;color:var(--a)}
+ul.tick b,ul.tick strong{color:var(--ink)}
+/* ============ SVG figures ============ */
+svg.fig{width:100%;height:auto;display:block}
+svg.fig .node rect{fill:var(--bg2);stroke:var(--line2);stroke-width:1.25;rx:6}
+svg.fig .node.hi rect{stroke:var(--a);fill:color-mix(in srgb,var(--a) 8%,var(--bg2))}
+svg.fig .node .t{fill:var(--ink);font-size:13px;text-anchor:middle;font-weight:600}
+svg.fig .node .s{fill:var(--ink2);font-size:11px;text-anchor:middle}
+svg.fig .node .m{fill:var(--a);font-family:var(--mono);font-size:11px;text-anchor:middle}
+svg.fig .edge{fill:none;stroke:var(--ink3);stroke-width:1.25}
+svg.fig .edge.flow{stroke-dasharray:4 4}
+svg.fig .edge.hi{stroke:var(--a);stroke-width:1.5}
+svg.fig .elabel{fill:var(--ink3);font-size:10.5px;text-anchor:middle;font-family:var(--mono)}
+svg.fig .grp rect{fill:none;stroke:var(--line);stroke-dasharray:5 5;rx:8}
+svg.fig .glabel{fill:var(--ink3);font-size:10px;letter-spacing:.16em;font-family:var(--mono)}
+svg.fig text{font-family:var(--sans)}
+/* iso */
+svg.fig .iso-face-t{fill:#141920;stroke:var(--line2);stroke-width:1.1}
+svg.fig .iso-face-t.acc{fill:color-mix(in srgb,var(--a) 14%,#141920);stroke:var(--a)}
+svg.fig .iso-face-l{fill:#0c0f13;stroke:var(--line2);stroke-width:1.1}
+svg.fig .iso-face-r{fill:#101419;stroke:var(--line2);stroke-width:1.1}
+svg.fig .iso-label{fill:var(--ink);font-size:12px;letter-spacing:.12em;font-family:var(--mono);text-transform:uppercase}
+svg.fig .iso-sub{fill:var(--ink2);font-size:11px}
+svg.fig .rail{stroke:var(--line2);stroke-width:1;fill:none}
+/* ============ figures ============ */
+figure.fig{margin:0;display:flex;flex-direction:column;align-items:center;min-width:0;min-height:0}
+figure.fig img{display:block;max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px}
+figure.fig figcaption{margin-top:10px;font-size:11.5px;line-height:1.5;color:var(--ink3);text-align:center;font-family:var(--mono);letter-spacing:.04em}
+figure.fig .fig-panel{background:#f4f4f2;border:1px solid var(--line);border-radius:8px;padding:14px;width:100%;box-sizing:border-box}
+figure.fig .fig-panel img{border:none;border-radius:4px;width:100%}
+/* ============ covers ============ */
+.cover-main{display:flex;flex-direction:column;justify-content:center}
+.cover-main .kicker{font-family:var(--mono);font-size:13px;letter-spacing:.3em;color:var(--a);text-transform:uppercase}
+.cover-main h1{font-size:64px;font-weight:650;margin:18px 0 10px;max-width:1500px;line-height:1.15}
+.cover-main .sub{font-size:22px;color:var(--ink2);max-width:1200px;line-height:1.5}
+.cover-main .badges{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap}
+.cover-main .badges span{font-size:12px;font-family:var(--mono);color:var(--ink2);border:1px solid var(--line);padding:5px 12px;border-radius:4px}
+.cover-section{display:flex;flex-direction:column;justify-content:center}
+.cover-section .ghost{font-size:150px;font-weight:200;color:transparent;-webkit-text-stroke:1px var(--line2);line-height:1;font-family:var(--mono)}
+.cover-section h2{font-size:46px;margin:8px 0 12px}
+.cover-section .thesis{font-size:20px;color:var(--ink2);max-width:1100px}
+.cover-section .mini-agenda{list-style:none;padding:0;margin:28px 0 0;display:flex;gap:28px}
+.cover-section .mini-agenda li{font-size:13px;color:var(--ink3);font-family:var(--mono)}
+.cover-section .mini-agenda li::before{content:"→ ";color:var(--a)}
+/* ============ overview / help ============ */
+#overview{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:50;display:none;overflow:auto;padding:30px}
+#overview.on{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+#overview .thumb{border:1px solid var(--line);cursor:pointer;position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--bg)}
+#overview .thumb:hover{border-color:var(--acc)}
+#overview .thumb .mini{width:1920px;height:1080px;transform:scale(.18);transform-origin:0 0;position:absolute;pointer-events:none}
+#overview .thumb .idx{position:absolute;right:6px;bottom:4px;font-family:var(--mono);font-size:11px;color:var(--acc);z-index:2}
+#hud{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:#565f6a;z-index:40;letter-spacing:.1em}
+/* ============ print ============ */
+@media print{
+  html,body{overflow:visible;height:auto;background:#0b0d10}
+  #viewport{position:static}
+  #stage{position:static;transform:none!important;width:1920px;height:auto}
+  .slide{position:relative;visibility:visible;opacity:1;page-break-after:always;break-after:page}
+  #hud,#overview{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- SLIDES-START -->
+<script>window.DECK={title:"Palantir Ontology · 从语义到行动",meta:"PALANTIR ONTOLOGY · 从语义到行动",footer:"palantir-ontology-从语义到行动.md"}</script>
+
+<!-- 01 cover -->
+<section class="slide cover-main" data-accent="acc">
+  <div class="kicker">Ontology · 从语义到行动 · 2026-07</div>
+  <h1>当本体从"描述世界"<br>跨到<span style="color:var(--acc)">"驱动世界"</span></h1>
+  <p class="sub">大模型能写诗、能编程、能通过律师资格考试——但为什么没人敢让它独立审批一笔一百万的跨境转账？这份 deck 用一个四十年的故事回答这个问题：<b>OWL 让机器理解世界，知识图谱让机器检索世界，而 Palantir 的本体，让机器在你划定的规则里改变世界，并随世界一起进化。</b></p>
+  <div class="badges"><span>理解 · 检索 · 行动</span><span>Why → What → How → 回环</span><span>写给业务与技术的混合读者</span></div>
+</section>
+
+<!-- 02 三宗罪与笼子 -->
+<section class="slide" data-eyebrow="01 · WHY" data-accent="sand">
+  <header class="s-head"><h2>为什么不敢让 AI 批一百万？三宗罪，和一只<em>"笼子"</em></h2>
+    <p class="lead">在写作、翻译这类容错场景里这些毛病无伤大雅；一旦进入法律、医疗、金融、生产调度这些高价值、强合规的场景，它们就是致命伤。</p></header>
+  <div class="s-body cols-2">
+    <div>
+      <ul class="spec">
+        <li><span class="s-k">幻觉</span><span class="s-v">一本正经地编造不存在的事实</span></li>
+        <li><span class="s-k">不可控</span><span class="s-v">同一个问题问两次，推理路径可能南辕北辙</span></li>
+        <li><span class="s-k">不可审计</span><span class="s-v">出了事，没法回答"当初为什么放行"</span></li>
+      </ul>
+      <h3>行业的解法出奇一致：给 AI 套一个"语义笼子"</h3>
+      <p>工程语境下的本体论，不再是哲学追问，而是一件很具体的事——<b>领域的语义 Schema</b>。一个电商风控本体至少显式写清三样东西：</p>
+      <ul class="tick">
+        <li><b>概念</b>：什么是"用户"、"风险"、"订单"</li>
+        <li><b>关系</b>：用户 → 下单 → 订单</li>
+        <li><b>规则</b>：金额 &gt; 10 万的订单，必须走风控审批</li>
+      </ul>
+      <div class="callout"><span class="c-tag">本质</span><p><b>用确定性的知识，给概率模型套上一根缰绳。</b>模型想"自由发挥"跳过风控？规则不允许。</p></div>
+    </div>
+    <div>
+      <svg class="fig" viewBox="0 0 720 520">
+        <defs><marker id="ar2a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+        <g class="grp"><rect x="40" y="40" width="640" height="300"/><text class="glabel" x="56" y="66">语义笼子 · 结构化的领域知识</text></g>
+        <g class="node hi"><rect x="240" y="120" width="240" height="70"/><text class="t" x="360" y="150">大模型（概率推理）</text><text class="s" x="360" y="170">聪明，但会幻觉、不稳定、黑箱</text></g>
+        <g class="node"><rect x="70" y="250" width="180" height="56"/><text class="t" x="160" y="274">概念</text><text class="s" x="160" y="292">用户 · 风险 · 订单</text></g>
+        <g class="node"><rect x="270" y="250" width="180" height="56"/><text class="t" x="360" y="274">关系</text><text class="s" x="360" y="292">用户→下单→订单</text></g>
+        <g class="node"><rect x="470" y="250" width="180" height="56"/><text class="t" x="560" y="274">规则</text><text class="s" x="560" y="292">&gt;10万 → 必须审批</text></g>
+        <path class="edge" d="M160 250 V 215 H 300 V 190" marker-end="url(#ar2a)"/>
+        <path class="edge" d="M360 250 V 190" marker-end="url(#ar2a)"/>
+        <path class="edge" d="M560 250 V 215 H 420 V 190" marker-end="url(#ar2a)"/>
+        <path class="edge hi" d="M360 340 V 400" marker-end="url(#ar2a)"/>
+        <g class="node"><rect x="220" y="400" width="280" height="60"/><text class="t" x="360" y="426">跑在预设业务框架里的输出</text><text class="s" x="360" y="444">每一步推理都有边界、有依据</text></g>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">"语义笼子"= 本体论（Ontology）的字面含义</footer>
+</section>
+
+<!-- 03 四重盲视 -->
+<section class="slide" data-eyebrow="01 · WHY" data-accent="sand">
+  <header class="s-head"><h2>先打一针疫苗："本体论"这个词，正在被<em>四种方式</em>滥用</h2>
+    <p class="lead">当五个人同时说"我们要上本体论"，他们说的很可能是五件不同的事——每个人摸到的是大象完全不同的部位，却都坚信自己摸到了全部。</p></header>
+  <div class="s-body">
+    <div class="grid-2x2">
+      <div class="card"><h4><b>① 概念混淆</b></h4><p>哲学派、知识图谱派、技术标准派（OWL/SHACL）、产业应用派（数据语义层）、AI 架构派（多智能体共识）——五大流派用同一个词指代完全不同的东西，讨论从一开始就错位。</p></div>
+      <div class="card"><h4><b>② 局部宣称全局</b></h4><p>知识图谱专家说它能解决所有 AI 推理，RAG 工程师说它能彻底消灭幻觉，智能体研究者说它是多智能体的唯一出路。每一种都局部有效，但没有一种能单独解决 AI 的全部问题。</p></div>
+      <div class="card"><h4><b>③ 落地碎片化</b></h4><p>学术界钻研 OWL、描述逻辑，门槛高、路径模糊；大厂各自为政，内部体系互不兼容成技术孤岛；中小企业常把一张 ER 图改个名就当本体论卖。</p></div>
+      <div class="card"><h4><b>④ 刻意淡化成本</b></h4><p>营销话术绝口不提本体"重、慢、贵"：构建要行业专家与技术专家深度协作数月；业务逻辑一个微小变动就可能引发大规模重构；大量场景下，轻量级 Schema 加提示词工程反而性价比更优。</p></div>
+    </div>
+    <div class="callout warn"><span class="c-tag">免疫力</span><p><b>任何只谈"智能"不谈代价、只讲"万能"不讲边界的本体论叙事，都值得打个问号。</b></p></div>
+  </div>
+  <footer class="s-foot">四重"盲视" · 每一重都值得警惕</footer>
+</section>
+
+<!-- 04 四十年 + T1 -->
+<section class="slide" data-eyebrow="01 · WHY" data-accent="sand">
+  <header class="s-head"><h2>四十年，三种本体：生于<em>三个不同的时代与痛点</em></h2></header>
+  <div class="s-body">
+    <ol class="steps">
+      <li><span class="n">①</span><b>1980 年代 · 知识工程期</b><small>本体作为 AI 知识表示工具诞生；Tom Gruber 1993 年定义"概念化的显式规范"。局限刻在基因里：人工输入、封闭系统、扩展有限</small></li>
+      <li><span class="n">②</span><b>1997–2009 · 语义网标准化期</b><small>RDF、OWL、SPARQL 成为 W3C 标准；Berners-Lee 把 Web 从"文档互联"推向"数据互联"。产物仍是静态知识图谱，以读取为中心</small></li>
+      <li><span class="n">③</span><b>2010 年代后期 · 局限暴露期</b><small>IBM Watson 医疗失败让行业看清鸿沟——静态知识推理接不上实时运营；Google 从 OWL 路线转向实用主义知识图谱</small></li>
+      <li><span class="n">④</span><b>2010 年代中期至今 · 操作本体转型期</b><small>把"动作"与"决策捕获"集成进动态数字孪生；理论根基是 Grieves 的数字孪生概念，代表作 Palantir Ontology</small></li>
+    </ol>
+    <table class="cmp" style="margin-top:24px">
+      <thead><tr><th></th><th>诞生背景</th><th>要解决的核心痛点</th><th>留下的缺口</th></tr></thead>
+      <tbody>
+        <tr><td class="k">OWL（语义网本体）</td><td>源于 AI 知识表示与知识工程，语义网运动</td><td>Web"机器可读但不可理解"——让机器能推理复杂知识</td><td>只描述与推理，不驱动业务动作；构建重、扩展难</td></tr>
+        <tr><td class="k">知识图谱 Schema</td><td>Google 2012 年提出并应用</td><td>搜索引擎"关键词匹配"的局限——让机器理解事物关联</td><td>弱约束、重检索，推理与执行能力都弱</td></tr>
+        <tr class="hl"><td class="k">Palantir Ontology</td><td>2016 年 Palantir Foundry 发布</td><td>企业"数据烟囱"、决策滞后、技术业务脱节、缺乏自动化闭环</td><td><strong>正是为填补上面两个缺口而生</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><span class="c-tag">主线</span><p>OWL 和知识图谱的终点都是<b>"回答问题"</b>——它们描述世界，却不改变世界。企业真正的痛在描述之后那一步：分析出"这台设备该修了"，然后呢？还得有人手动切到工单系统、填表、派单。<b>Palantir Ontology 出现的全部理由，就是跨过这道断层。</b></p></div>
+  </div>
+  <footer class="s-foot">第一节结论：本体不是银弹，而是给概率模型的确定性缰绳</footer>
+</section>
+
+<!-- 05 section cover WHAT -->
+<section class="slide cover-section" data-accent="teal">
+  <div class="ghost">02</div>
+  <h2>What · 三种本体，三种世界观</h2>
+  <p class="thesis">法典、地图、可以按的按钮——不理解 OWL 和知识图谱各自的取舍，就无法真正理解 Palantir 到底"离经叛道"在哪里。</p>
+  <ul class="mini-agenda"><li>OWL：让机器理解</li><li>知识图谱：让机器检索</li><li>Palantir：让机器行动</li><li>直线 vs 圆圈</li></ul>
+</section>
+
+<!-- 06 OWL -->
+<section class="slide" data-eyebrow="02 · WHAT" data-accent="teal">
+  <header class="s-head"><h2>第一种 · OWL：一部逻辑严密的<em>"法典"</em>，让机器理解</h2>
+    <p class="lead">目标是构建一个让机器能推理的、无歧义的知识框架。你只声明了"父母"，它替你算出了所有"祖孙"。</p></header>
+  <div class="s-body cols-2">
+    <div>
+      <h3>四大要素</h3>
+      <ul class="spec">
+        <li><span class="s-k">类 Class</span><span class="s-v">领域核心概念：<code>Person</code>、<code>Disease</code>、<code>Drug</code>——类似 OOP 的"类"或数据库的"表"</span></li>
+        <li><span class="s-k">属性 Property</span><span class="s-v">数据属性（<code>hasAge</code>）描述特征；对象属性（<code>treats</code>）连接不同类</span></li>
+        <li><span class="s-k">约束</span><span class="s-v">基数（恰好两个亲生父母）、值域（年龄 &gt; 0）、不相交（<code>Man</code> 与 <code>Woman</code> 无交集）</span></li>
+        <li><span class="s-k">推理规则</span><span class="s-v">OWL 的灵魂。声明 <code>hasParent</code> 传递，或写 SWRL 规则，推理机（HermiT、Pellet）扫描全库自动推导新关系</span></li>
+      </ul>
+      <p style="margin-top:14px"><code>hasParent(?x,?y) ∧ hasParent(?y,?z) → hasGrandparent(?x,?z)</code></p>
+    </div>
+    <div>
+      <h3>一个常被忽略的设计前提</h3>
+      <ul class="tick">
+        <li><b>开放世界假设（OWA）</b>：没写进知识库的信息不算"假"，只算"未知"——擅长在不完备知识上推导，却让"校验数据合不合规"变得别扭</li>
+        <li>为此 W3C 专门制定 <b>SHACL</b>：封闭世界、验证导向，专管"数据长得对不对"。一个管推理、一个管验证——<b>经典本体栈里，"描述"和"约束执行"从来是两套分开的机制</b></li>
+        <li><b>自上而下、专家主导</b>：领域专家出概念规则，知识工程师翻译成 OWL；追求"小而精"</li>
+        <li>代价：构建成本极高、维护困难、海量动态数据扩展性差——所以 GO 基因本体、SNOMED CT 临床术语这类<b>行业标准</b>用它，很少有人拿它扛线上业务</li>
+      </ul>
+      <div class="callout"><span class="c-tag">一句话</span><p>OWL 让机器<b>理解</b>世界——它关心的是"逻辑上能推出什么"。</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">OWL = Web Ontology Language · 思想根植于 AI 知识工程</footer>
+</section>
+
+<!-- 07 KG -->
+<section class="slide" data-eyebrow="02 · WHAT" data-accent="teal">
+  <header class="s-head"><h2>第二种 · 知识图谱：一张巨大的<em>"关系地图"</em>，让机器检索</h2>
+    <p class="lead">工业界的定义直白得多：一个实用的、可伸缩的类型标签系统，用来组织大规模、<b>不完美</b>、且持续变化的数据——"不完美"三个字是它和 OWL 最大的气质差异。</p></header>
+  <div class="s-body cols-2">
+    <div>
+      <h3>对现实的不完备性极度宽容</h3>
+      <ul class="spec">
+        <li><span class="s-k">弱约束</span><span class="s-v">不强制所有"人物"都填"出生日期"，否则数据根本进不来</span></li>
+        <li><span class="s-k">允许缺失</span><span class="s-v">刚上映的电影，可以暂时没有"总票房"</span></li>
+        <li><span class="s-k">容忍矛盾</span><span class="s-v">百科 A 说生于 1900、百科 B 说 1901——同时收下，留待后续融合</span></li>
+      </ul>
+      <div class="callout"><span class="c-tag">一句话</span><p>知识图谱让机器<b>检索</b>世界——它关心的是"图里能查到什么、能补全什么"。</p></div>
+    </div>
+    <div>
+      <h3>构建与推理都和 OWL 相反</h3>
+      <ul class="tick">
+        <li><b>自下而上、自动抽取</b>：NLP 从海量文本抽实体关系（信息抽取）→ 对齐已有知识库（实体链接）→ 归纳类型体系（Schema 归纳）</li>
+        <li><b>数据驱动的统计推理</b>，不追求逻辑必然：路径排序（PRA）、图嵌入（KGE，核心假设 <code>h + r ≈ t</code>）、简单传递规则——都是"大概率成立"而非"逻辑上必然"</li>
+        <li>追求<b>"大而全"</b>：覆盖海量实体、毫秒级关联检索。Google 知识图谱、电商推荐、智能问答背后都是它</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="s-foot">实用主义的类型标签系统</footer>
+</section>
+
+<!-- 08 Palantir + T2 -->
+<section class="slide" data-eyebrow="02 · WHAT" data-accent="teal">
+  <header class="s-head"><h2>第三种 · Palantir：一套<em>"能按按钮"</em>的业务模型，让机器行动</h2>
+    <p class="lead">它不只定义"客户<b>是什么</b>"，还定义"能对客户<b>做什么</b>"（发起信用检查、发营销邮件），以及这些动作如何被自动触发、如何回写到 ERP、如何被审计。</p></header>
+  <div class="s-body">
+    <table class="cmp">
+      <thead><tr><th>维度</th><th>OWL（语义网本体）</th><th>知识图谱（KG）</th><th class="hl">Palantir Ontology</th></tr></thead>
+      <tbody>
+        <tr><td class="k">建模逻辑</td><td>严格形式化逻辑、公理约束</td><td>以图论为基础，重节点与边的存储</td><td class="hl">以业务为导向的语义对象建模</td></tr>
+        <tr><td class="k">构建方式</td><td>领域专家手工自上而下，门槛高</td><td>半自动化抽取 + 人工校对</td><td class="hl">业务建模器拖拽配置，易迭代</td></tr>
+        <tr><td class="k">推理能力</td><td>强逻辑推理，基于公理</td><td>较弱，重图路径查询与检索</td><td class="hl">函数计算 + 事件触发 Action</td></tr>
+        <tr><td class="k">规模风格</td><td>小而精，追求严谨与标准化</td><td>大而全，覆盖海量实体与关联</td><td class="hl">适配业务系统规模，重多源融合</td></tr>
+        <tr><td class="k">典型用途</td><td>行业标准、医学术语库</td><td>智能搜索、问答、反欺诈</td><td class="hl">企业数据语义层、流程自动化、情报分析</td></tr>
+      </tbody>
+    </table>
+    <div class="cols-2" style="margin-top:20px">
+      <div class="callout"><span class="c-tag">反驳一</span><p>"这不就是知识图谱加了个自动化脚本吗？"——如果只是在 KG 上挂几个触发器，批评成立。但它把"可执行"和"会演化"做成了<b>架构层面的三层结构</b>，不是应用层的补丁（How 部分展开）。</p></div>
+      <div class="callout"><span class="c-tag">反驳二</span><p>学术界："按 Gruber 的定义这根本不是本体。"诚实答案：<b>两边都对</b>——"本体"经过四十年语义漂移，学术派守住词源（描述性知识表示），Palantir 重定义用途（操作性数字孪生）。真正要紧的是下一页那条结构性差异。</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">构建方式：业务人员可视化建模器拖拽配置，门槛低、易迭代</footer>
+</section>
+
+<!-- 09 直线 vs 圆圈 -->
+<section class="slide" data-eyebrow="02 · WHAT" data-accent="teal">
+  <header class="s-head"><h2>真正要紧的分野：<em>直线</em>答完即止，<em>圆圈</em>越用越准</h2></header>
+  <div class="s-body">
+    <svg class="fig" viewBox="0 0 1560 280">
+      <defs><marker id="ar9" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+      <marker id="ar9h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#4fd1c5"/></marker></defs>
+      <text class="glabel" x="40" y="40">经典本体 · 线性模型：交互终止，从不写回，也不从历史决策中学习</text>
+      <g class="node"><rect x="40" y="60" width="170" height="50"/><text class="t" x="125" y="90">查询（SPARQL）</text></g>
+      <g class="node"><rect x="280" y="60" width="170" height="50"/><text class="t" x="365" y="90">推理（描述逻辑）</text></g>
+      <g class="node"><rect x="520" y="60" width="150" height="50"/><text class="t" x="595" y="90">返回结果</text></g>
+      <g class="node"><rect x="740" y="60" width="150" height="50" stroke-dasharray="4 4"/><text class="t" x="815" y="90">交互终止 ⏹</text></g>
+      <path class="edge" d="M210 85H280" marker-end="url(#ar9)"/><path class="edge" d="M450 85H520" marker-end="url(#ar9)"/><path class="edge" d="M670 85H740" marker-end="url(#ar9)"/>
+      <text class="glabel" x="40" y="185">操作本体 · 循环模型：每次动作的结果写回数字孪生，累积的决策数据提升下一次执行的精度</text>
+      <g class="node hi"><rect x="40" y="205" width="160" height="50"/><text class="t" x="120" y="235">读取状态</text></g>
+      <g class="node hi"><rect x="280" y="205" width="140" height="50"/><text class="t" x="350" y="235">决策</text></g>
+      <g class="node hi"><rect x="500" y="205" width="170" height="50"/><text class="t" x="585" y="235">执行 Action</text></g>
+      <g class="node hi"><rect x="750" y="205" width="190" height="50"/><text class="t" x="845" y="235">写回数字孪生</text></g>
+      <path class="edge hi" d="M200 230H280" marker-end="url(#ar9h)"/><path class="edge hi" d="M420 230H500" marker-end="url(#ar9h)"/><path class="edge hi" d="M670 230H750" marker-end="url(#ar9h)"/>
+      <path class="edge hi" d="M940 230 H 1010 Q 1040 230 1040 200 V 172 Q 1040 142 1010 142 H 150 Q 120 142 120 172 V 205" marker-end="url(#ar9h)"/>
+      <text x="1070" y="215" fill="var(--teal)" font-size="14">↻ 决策数据累积，系统越用越聪明</text>
+    </svg>
+    <div class="cols-2" style="margin-top:18px">
+      <div>
+        <h3>能力谱几乎互为镜像</h3>
+        <ul class="tick">
+          <li>静态逻辑推理与知识共享——<b>经典本体碾压</b></li>
+          <li>实时操作与数据写入执行——<b>操作本体碾压</b></li>
+        </ul>
+      </div>
+      <div class="callout"><span class="c-tag">严肃结论</span><p>不是谁取代谁，而是<b>互补</b>：需要行业级语义标准时用前者，需要驱动业务闭环时用后者。三种取舍——理解、检索、行动。<b>选错了，不是做得好不好的问题，是南辕北辙的问题。</b></p></div>
+    </div>
+  </div>
+  <footer class="s-foot">第二节结论：三种本体不是优劣之分，而是三种取舍</footer>
+</section>
+<!-- 10 section cover HOW -->
+<section class="slide cover-section" data-accent="acc">
+  <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:64px;align-items:center;min-height:0">
+    <div>
+      <div class="ghost">03</div>
+      <h2>How · 语义怎么变成"可执行、会演化"的系统</h2>
+      <p class="thesis">先认识舞台（Foundry 五步闭环），再看三层架构、五大要素、底层存储的真相，和一次想清楚了的取舍——<b>物化，而不是虚拟</b>。</p>
+      <ul class="mini-agenda" style="flex-wrap:wrap;row-gap:10px"><li>舞台：Palantir 与 Foundry</li><li>三层架构</li><li>五大要素与存储真相</li><li>物化 vs 虚拟</li><li>零代码五步</li><li>端到端案例</li></ul>
+    </div>
+    <figure class="fig">
+      <img src="/images/palantir-ontology/palantir-foundry.jpg" alt="Palantir Foundry 官方分层图：决策编排、模块化工作流、动态本体、模型集成逐层向下，落到你的数据平台与作业系统" loading="lazy" style="width:auto;max-height:700px">
+      <figcaption>Foundry 的分层舞台：决策编排 → 动态本体 → 数据平台 → 作业系统</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 11 舞台 + 五步闭环 -->
+<section class="slide" data-eyebrow="03 · HOW / 舞台" data-accent="acc">
+  <header class="s-head"><h2>先认识舞台：<em>Palantir 与 Foundry</em>，数据到价值的五步闭环</h2>
+    <p class="lead">Palantir 成立于 2003 年，名字取自《指环王》的"真知晶球"；2005 年成为 CIA 的软件供应商。两款核心平台：<b>Gotham</b>（政府/国防，逻辑是"找点"——在通话记录、卫星图像、线人报告里发现隐藏关系网，O-R-E 模型）与 <b>Foundry</b>（商业企业，逻辑是"建模"——把杂乱数据铸成标准化资产，Object/Link/Action/Function 模型）。</p></header>
+  <div class="s-body">
+    <svg class="fig" viewBox="0 0 1660 300">
+      <defs><marker id="arK" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+      <marker id="arKh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker></defs>
+      <g class="node"><rect x="40" y="60" width="270" height="80"/><text class="t" x="175" y="92">CONNECT 连接</text><text class="s" x="175" y="114">数百种预构建连接器 · 打破孤岛</text></g>
+      <g class="node"><rect x="370" y="60" width="270" height="80"/><text class="t" x="505" y="92">TRANSFORM 转化</text><text class="s" x="505" y="114">批 / 流 / CDC 管道 · 洗成可信数据集</text></g>
+      <g class="node hi"><rect x="700" y="60" width="270" height="80"/><text class="t" x="835" y="92">MODEL 建模</text><text class="s" x="835" y="114">Ontology 在这里 · 翻译成业务语言</text></g>
+      <g class="node"><rect x="1030" y="60" width="270" height="80"/><text class="t" x="1165" y="92">APPLY 应用</text><text class="s" x="1165" y="114">Workshop / OSDK · 快速搭场景系统</text></g>
+      <g class="node hi"><rect x="1360" y="60" width="260" height="80"/><text class="t" x="1490" y="92">ACT 行动</text><text class="s" x="1490" y="114">Action + AI Agent · 分析到执行闭环</text></g>
+      <path class="edge" d="M310 100H370" marker-end="url(#arK)"/><path class="edge" d="M640 100H700" marker-end="url(#arK)"/>
+      <path class="edge" d="M970 100H1030" marker-end="url(#arK)"/><path class="edge" d="M1300 100H1360" marker-end="url(#arK)"/>
+      <path class="edge hi" d="M1490 140 V 210 H 175 V 145" marker-end="url(#arKh)"/>
+      <text class="elabel" x="835" y="200">执行结果写回源系统，再次进入管道——终点又是"行动"</text>
+    </svg>
+    <div class="cols-2" style="margin-top:14px">
+      <div>
+        <h3>企业操作系统三件套</h3>
+        <ul class="spec">
+          <li><span class="s-k">Foundry</span><span class="s-v">内核（数据与操作）——Ontology 是它的"对象模型"</span></li>
+          <li><span class="s-k">AIP</span><span class="s-v">AI 运行时（第四节的主角）</span></li>
+          <li><span class="s-k">Apollo</span><span class="s-v">更新机制——前两者合计 300+ 微服务跑在自动伸缩计算网格上，每周编排数万次发布</span></li>
+        </ul>
+      </div>
+      <div class="callout"><span class="c-tag">骨架</span><p>本体（MODEL）是这条链的中枢；而它自己，又由三层构成——下一页。</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">Gotham = 哥谭市 · Foundry = 铸造厂</footer>
+</section>
+
+<!-- 12 三层 iso -->
+<section class="slide" data-eyebrow="03 · HOW / 架构" data-accent="acc">
+  <header class="s-head"><h2>三层架构 = 三个层层递进的<em>问题</em></h2>
+    <p class="lead">语义层答"世界是什么"（治数据看不懂），行为层答"我们能做什么"（治数据用不了、改不了），动态层答"世界如何演化"（治规模大了就得推倒重来）。</p></header>
+  <div class="s-body">
+    <svg class="fig iso" viewBox="0 0 1660 700" data-iso-3l></svg>
+    <script>addEventListener('load',function(){ISO.stack('[data-iso-3l]',{cx:430,topY:60,w:280,gap:185,arrows:true,
+      layers:[
+        {label:'DYNAMIC · 动态层｜世界如何演化',kind:'graph',sub:'自适应演化：免疫系统 × 进化引擎——本体迭代 · 动作优化 · 规则演化 · 兼容性保障',items:['长尾字段高频被搜 → 建议转标准属性','90% 审批同角色通过 → 建议自动批准','历史数据挖新规律 → 生成预警规则','Global Branching：Schema 变更先分支后合并，零停机']},
+        {label:'KINETIC · 行为层｜我们能做什么',kind:'options',accent:true,sub:'Action Type = 标准化的业务动词库，每个动词安全、合规、可追溯',items:['ACID 事务：全成功或全回滚','双向映射：读入构建 + 写回源系统','RBAC+ABAC 权限 · 不可篡改审计 · 血缘','触发：属性变化 / 函数结果 / 定时 / 手动']},
+        {label:'SEMANTIC · 语义层｜世界是什么',kind:'grid',sub:'一本"活的"业务字典 / SSOT 单一事实来源',items:['KNA1 / Account / dim_customer → Customer','实时动态投影，不是静态 Schema','自然语言即可查询（不懂 SQL 也能自助）']}
+      ],
+      rail:{x:900,w:700}});});</script>
+  </div>
+  <footer class="s-foot">三层递进：数据活起来 → 动起来 → 模型长起来</footer>
+</section>
+
+<!-- 13 语义层细节 -->
+<section class="slide" data-eyebrow="03 · HOW / 语义层" data-accent="acc">
+  <header class="s-head"><h2>语义层："活字典"的每个词条都带着<em>类型、约束和权限</em></h2>
+    <p class="lead">Foundry 类型系统分两族：<b>Ontology types</b>（对象/属性/共享属性/链接/动作/接口）管领域建模；<b>Data types</b>（字段/基础/值类型）管值的表示——语义直接借鉴 RDF/OWL/XSD 语义网标准。</p></header>
+  <div class="s-body cols-2">
+    <div>
+      <ul class="spec">
+        <li><span class="s-k">类型≠实例</span><span class="s-v">对象类型是纯元数据不含数据值——<code>Airport</code> 是类型，<code>JFK</code> 是实例；link type 是关系模式，link 是"Melissa Chang → Acme, Inc."这一条（官方类比：两数据集 join 后的单行）</span></li>
+        <li><span class="s-k">共享属性</span><span class="s-v">"创建时间/状态/优先级"集中定义、多处引用，改一处全体同步——DRY 在类型系统层的落实</span></li>
+        <li><span class="s-k">接口</span><span class="s-v">按<b>能力</b>切分的契约：<code>Inspectable</code>、<code>SchedulableResource</code>——面向接口写的调度流无需修改就适用于会议室、场馆、车辆（组合优于深层继承）。接口可定义 Action，但只能改共享属性，且任何 Action 都不允许改主键</span></li>
+        <li><span class="s-k">值类型</span><span class="s-v">把 string 包装成"电子邮件地址/UUID"并附约束——"年龄&gt;0"变成可复用资产</span></li>
+        <li><span class="s-k">自反关系</span><span class="s-v"><code>Employee</code> 上"直接下属 ↔ 经理"——组织层级、BOM 父子件全靠它</span></li>
+      </ul>
+      <div class="callout warn" style="margin-top:12px"><span class="c-tag">实践约束</span><p><b>派生属性只作用于直接链接对象</b>：<code>Budget→Customer→Orders</code> 隔一跳的聚合没法直接派生——写 Function 做"内部跳转"，或适度反规范化。社区共识：业务语义优先，高频展示场景可适度铺平。</p></div>
+    </div>
+    <div>
+      <h3>"活"不是魔法，是管道</h3>
+      <table class="cmp">
+        <thead><tr><th>维度</th><th class="hl">语义层（图模型）</th><th>传统数据库 Schema</th></tr></thead>
+        <tbody>
+          <tr><td class="k">数据同步</td><td class="hl">实时动态投影，底层变化即时反映</td><td>静态定义，依赖 ETL 批量同步</td></tr>
+          <tr><td class="k">灵活性</td><td class="hl">易修改扩展，与底层存储解耦</td><td>修改成本极高，可能服务中断</td></tr>
+          <tr><td class="k">数据形态</td><td class="hl">统一的关联图模型</td><td>分散表结构，关联隐式存在</td></tr>
+        </tbody>
+      </table>
+      <ul class="tick" style="margin-top:12px;font-size:14px">
+        <li>每个对象类型挂<b>支撑数据源</b>：批管道 / 流管道（低延迟）/ 直连；多对多链接的数据源挂在链接类型自身上</li>
+        <li><b>增量索引</b>（OSv2 默认开启）只处理变更——"底层一变、模型即时反映"的工程含义</li>
+        <li>安全是类型系统的一部分：<b>MDO 多数据源对象</b>（列式像 join：联系方式来自公开目录、薪资来自受控 HR 库，属性级切开；行式像 union：各区域供各的行）；<b>受限视图</b>做行级权限并继承到对象实例——代价：严格只读、不能作下游输入、禁止外同步</li>
+      </ul>
+      <p class="dim" style="font-size:13.5px">于是业务人员能直接问："过去 24 小时内，状态为'待维修'且位于'上海工厂'的设备的平均振动值"——系统自动解析对象、条件、聚合。</p>
+    </div>
+  </div>
+  <footer class="s-foot">安全策略从"数据源级"系统性映射到"本体对象级"——零信任叙事的技术底座</footer>
+</section>
+
+<!-- 14 行为层 -->
+<section class="slide" data-eyebrow="03 · HOW / 行为层" data-accent="acc">
+  <header class="s-head"><h2>行为层：真正<em>分道扬镳</em>的地方——"只读模型"变"可执行模型"</h2>
+    <p class="lead">官方把本体元素二分为<b>语义元素</b>（"是什么"）与<b>动力学元素</b>（"能做什么"）。传统数据模型只有前者。核心是 Action Type：<code>Equipment.CreateMaintenanceTicket</code>、<code>Transaction.ApproveTransaction</code>。</p></header>
+  <div class="s-body cols-2 r75">
+    <div>
+      <div class="grid-2x2" style="grid-template-columns:1fr">
+        <div class="card"><h4><b>① ACID 事务保障</b></h4><p>全成功或全回滚，不留中间状态。OSv2 给"批量"一个确切边界：<b>单次 Action 最多编辑 10,000 个对象</b>。</p></div>
+        <div class="card"><h4><b>② 双向映射（以 SAP 为例，机制相当具体）</b></h4><p>写回经远程使能函数（通常是 <b>BAPI</b>）执行；用户驱动的写回走 <b>OAuth 2.0 授权码流程</b>——SAP 侧每个操作都归因到具体用户，安全、许可证合规、审计三件事都系在这个归因上。反向读同步靠 SLT 复制服务器做 <b>CDC</b>：首次全量、之后只捕增量，不冲击生产系统。</p></div>
+        <div class="card"><h4><b>③ 权限 · 审计 · 血缘</b></h4><p>RBAC + ABAC 精细权限（<code>ApproveTransaction</code> 可能只对"财务经理"可见）；不可篡改审计日志（谁、何时、什么参数、成败）；自动生成数据血缘。</p></div>
+      </div>
+    </div>
+    <div>
+      <h3>四种触发方式</h3>
+      <ul class="spec">
+        <li><span class="s-k">属性变化</span><span class="s-v">设备温度超 80℃</span></li>
+        <li><span class="s-k">函数结果</span><span class="s-v">风险评分超 90 分</span></li>
+        <li><span class="s-k">定时</span><span class="s-v">每天凌晨 2 点</span></li>
+        <li><span class="s-k">手动</span><span class="s-v">客服点击"创建工单"</span></li>
+      </ul>
+      <h3 style="margin-top:16px">驱动逻辑是全谱系的</h3>
+      <p class="dim" style="font-size:14px">业务规则、传统 ML 模型、优化器、LLM、跨引擎链式计算——都能挂进来当 Function 用（服务端形态 Functions on Objects，TypeScript/Python 编写）。</p>
+      <div class="callout"><span class="c-tag">分水岭</span><p>"分析出哪些设备要修"和"直接点一下就派出工单"之间，那道<b>人工断层消失了</b>。</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">打通"数据洞察 → 业务操作 → 源系统落地"完整链路</footer>
+</section>
+
+<!-- 15 动态层 -->
+<section class="slide" data-eyebrow="03 · HOW / 动态层" data-accent="acc">
+  <header class="s-head"><h2>动态层：让系统<em>"自己长大"</em>，而不是"推倒重来"</h2>
+    <p class="lead">传统系统的诅咒：GB 涨到 PB、10 人涨到 10 万人，架构扛不住只能推倒重构。动态层是为破诅咒而生的自适应演化层——既是<b>免疫系统</b>（抵御变化），又是<b>进化引擎</b>（驱动演化）。</p></header>
+  <div class="s-body cols-2">
+    <div>
+      <h3>管四件事</h3>
+      <ul class="spec">
+        <li><span class="s-k">本体迭代</span><span class="s-v">据数据/反馈/业务变更自动或半自动更新语义层——发现高频搜索某"长尾"字段，建议转成标准属性</span></li>
+        <li><span class="s-k">动作优化</span><span class="s-v">发现 90% 审批同一角色通过 → 建议"自动批准"；高频失败动作做根因分析</span></li>
+        <li><span class="s-k">规则演化</span><span class="s-v">从历史数据挖新规律生成预警规则、按季节动态调阈值</span></li>
+        <li><span class="s-k">兼容性保障</span><span class="s-v">命脉所在：版本共存、自动迁移、弃用警告、灰度发布</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3>听着像愿景？产品里有具体对应物</h3>
+      <ul class="tick">
+        <li><b>Global Branching</b> 管结构演化：Schema 变更（新增对象类型、改属性定义）先开分支、隔离测试、验证后合并主干，<b>零停机</b>；互补的"本体场景（Scenarios）"管数据层面的沙盘推演</li>
+        <li><b>Schema 迁移</b>：OSv2 支持破坏性变更后，把存量用户编辑<b>迁移过去而不是丢弃</b></li>
+        <li><b>版本化记录"语义状态"而非行级快照</b>：关系的建立与解除、实体身份的合并与拆分、置信度更新。国防本体里每条断言带 <b>1–5 级标准化置信度</b> + 来源系统 + 报告位置与时间戳——所以能"回到任意时点，看当时知道什么"，这是决策回溯与审计合规的根基</li>
+      </ul>
+      <div class="callout"><span class="c-tag">小结</span><p>本体从需要人工维护的静态模型，变成会自我进化的<b>"活的数字孪生"</b>。</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">动态层 = 免疫系统 × 进化引擎</footer>
+</section>
+
+<!-- 16 五要素 + 存储 -->
+<section class="slide" data-eyebrow="03 · HOW / 存储" data-accent="acc">
+  <header class="s-head"><h2>五大原子要素，与一个最该警惕的误解：<em>Object 不是一张 MySQL 表</em></h2></header>
+  <div class="s-body cols-2 r57">
+    <div>
+      <ul class="spec">
+        <li><span class="s-k">Object</span><span class="s-v">业务"名词"：<code>Customer</code>、<code>Equipment</code></span></li>
+        <li><span class="s-k">Property</span><span class="s-v">对象"特征"：<code>name</code>、<code>temperature</code></span></li>
+        <li><span class="s-k">Link</span><span class="s-v">对象"关系"——是图数据库的<b>边</b>，不是外键：独立边集合，动态新增、临时关联、多跳穿透。"窦靖童的爸爸的前妻的前夫"，外键 JOIN 写到崩溃，图的边是原生操作</span></li>
+        <li><span class="s-k">Function</span><span class="s-v">对象"计算能力"——编译成 <b>AST</b> 由内置规则引擎调度；三种触发（On-Change / On-Query / Scheduled）；结果缓存为"虚拟属性"，依赖一变缓存自动失效。例：<code>故障风险分 = 实时温度×0.6 + 维保逾期扣分×0.4</code></span></li>
+        <li><span class="s-k">Action</span><span class="s-v">对象"行为能力"——必须挂载对象，触发最常来自 Function 结果；典型链路 Property → Function 算风险 → 达阈值 → Action；每次执行进"动作执行时序流水表"，全链路可审计</span></li>
+      </ul>
+      <div class="callout" style="margin-top:12px"><span class="c-tag">RID</span><p>串起一切实例的是 <b>RID（Resource Identifier）</b>：每行领到全局唯一、终身不变的 RID；链接靠源/目标 RID 成边；"对象集"本质是一组 RID——静态存主键列表，动态存过滤器（新数据命中自动纳入），临时对象集 24 小时过期。</p></div>
+    </div>
+    <div>
+      <svg class="fig" viewBox="0 0 760 520">
+        <defs><marker id="arL" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+        <g class="node hi"><rect x="230" y="20" width="300" height="70"/><text class="t" x="380" y="50">一个 Object 实例</text><text class="s" x="380" y="70">逻辑视图：业务实体</text></g>
+        <g class="node"><rect x="30" y="200" width="200" height="64"/><text class="t" x="130" y="226">元数据表</text><text class="s" x="130" y="246">类型定义 · 数据源映射规则</text></g>
+        <g class="node"><rect x="280" y="200" width="200" height="64"/><text class="t" x="380" y="226">图节点</text><text class="s" x="380" y="246">全局唯一 UID · 一切的锚点</text></g>
+        <g class="node"><rect x="530" y="200" width="200" height="64"/><text class="t" x="630" y="226">列式宽表</text><text class="s" x="630" y="246">固定字段</text></g>
+        <g class="node"><rect x="150" y="350" width="220" height="64"/><text class="t" x="260" y="376">KV 存储</text><text class="s" x="260" y="396">UID+Key+Value 稀疏动态字段</text></g>
+        <g class="node"><rect x="420" y="350" width="220" height="64"/><text class="t" x="530" y="376">时序分区表</text><text class="s" x="530" y="396">实时高频字段（如温度）</text></g>
+        <path class="edge flow" d="M310 90 L 130 200" marker-end="url(#arL)"/>
+        <path class="edge flow" d="M380 90 V 200" marker-end="url(#arL)"/>
+        <path class="edge flow" d="M450 90 L 630 200" marker-end="url(#arL)"/>
+        <path class="edge flow" d="M340 90 L 260 350" marker-end="url(#arL)"/>
+        <path class="edge flow" d="M420 90 L 530 350" marker-end="url(#arL)"/>
+        <text x="380" y="470" text-anchor="middle" fill="var(--ink2)" font-size="13.5">逻辑上当"业务实体表"用；物理上是五种存储的联合体</text>
+        <text x="380" y="496" text-anchor="middle" fill="var(--ink3)" font-size="12.5">以为它是张表，就会完全误判它的能力边界</text>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">彻底打破传统固定表结构的限制</footer>
+</section>
+
+<!-- 17 官方三层 + 六组件 + OSv2 数字 -->
+<section class="slide" data-eyebrow="03 · HOW / 后端" data-accent="acc">
+  <header class="s-head"><h2>官方拆解：<em>Language / Engine / Toolchain</em>，六个微服务，一组硬数字</h2>
+    <p class="lead">官方明说它"不是薄薄一层语义层，而是数十个底层组件构成的多模态系统"。读写路径分开不是画法巧合，而是 OSv2 的立身之本。</p></header>
+  <div class="s-body cols-2 r57">
+    <div>
+      <ul class="spec">
+        <li><span class="s-k">Language</span><span class="s-v">声明式建模语言：语义的对象/链接/属性（名词），动力学的动作/自动化（动词），加动作如何执行的逻辑片段</span></li>
+        <li><span class="s-k">Engine</span><span class="s-v">运行时。读：高规模 SQL、实时状态订阅、人机混合物化；写：原子持久事务、批量变更、流处理、对外部系统极低延迟镜像的 CDC</span></li>
+        <li><span class="s-k">Toolchain</span><span class="s-v">OSDK（TypeScript/Python/Java 程序化访问）+ 生产级治理的 DevOps 工具</span></li>
+      </ul>
+      <h3 style="margin-top:16px">OSv1 → OSv2：后端自己也"推倒重来"过一次</h3>
+      <ul class="tick" style="font-size:14px">
+        <li><b>OSv1（Phonograph）</b>：索引/查询/编辑耦合的单体，规模上限低——恰好印证动态层要解决的问题</li>
+        <li><b>OSv2</b> 从第一性原理重建：索引与查询子系统解耦、各自水平扩展；<b>OSv1 已于 2026-06-30 弃用</b>，存量需官方迁移工具切 v2</li>
+      </ul>
+      <table class="cmp" style="margin-top:10px">
+        <thead><tr><th colspan="2">OSv2 的代差数字</th></tr></thead>
+        <tbody>
+          <tr><td class="k">增量索引</td><td><b>默认开启</b>（只处理变更，不全量重刷）</td></tr>
+          <tr><td class="k">规模</td><td>单类型<b>数百亿</b>对象 · 每类型至多 <b>2,000</b> 属性</td></tr>
+          <tr><td class="k">批量边界</td><td>单次 Action 最多编辑 <b>10,000</b> 对象</td></tr>
+          <tr><td class="k">权限</td><td>对象级 → <b>属性级</b>（MDO 的基础）· 原生流式低延迟索引</td></tr>
+          <tr><td class="k">Search Around</td><td>多跳展开跑在 Spark 上，默认 <b>100,000</b> 对象上限</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <svg class="fig" viewBox="0 0 820 620">
+        <defs><marker id="arM" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+        <marker id="arMh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker></defs>
+        <g class="node"><rect x="40" y="30" width="230" height="64"/><text class="t" x="155" y="56">源系统 / 数据集</text><text class="s" x="155" y="76">批 · 流 · CDC 管道</text></g>
+        <g class="node"><rect x="480" y="30" width="300" height="64"/><text class="t" x="630" y="56">Workshop / OSDK / AIP Agent</text><text class="s" x="630" y="76">应用与智能体</text></g>
+        <g class="node hi"><rect x="40" y="180" width="230" height="70"/><text class="t" x="155" y="208">Funnel</text><text class="s" x="155" y="230">一切写入在此汇流</text></g>
+        <g class="node"><rect x="480" y="180" width="140" height="70"/><text class="t" x="550" y="208">OSS</text><text class="s" x="550" y="230">读取门面</text></g>
+        <g class="node"><rect x="650" y="180" width="150" height="70"/><text class="t" x="725" y="204">Actions 服务</text><text class="s" x="725" y="222">ACID</text><text class="s" x="725" y="238">≤10,000/次</text></g>
+        <g class="node"><rect x="150" y="360" width="300" height="70"/><text class="t" x="300" y="388">对象数据库</text><text class="s" x="300" y="410">增量索引 · 数百亿对象/类型</text></g>
+        <g class="node"><rect x="520" y="470" width="180" height="60" stroke-dasharray="4 4"/><text class="t" x="610" y="496">OMS</text><text class="s" x="610" y="514">全部类型定义</text></g>
+        <g class="node"><rect x="120" y="470" width="240" height="60" stroke-dasharray="4 4"/><text class="t" x="240" y="496">Functions on Objects</text><text class="s" x="240" y="514">服务端逻辑</text></g>
+        <path class="edge" d="M155 94 V 180" marker-end="url(#arM)"/>
+        <path class="edge hi" d="M560 94 Q 550 130 552 180" marker-end="url(#arMh)"/><text class="elabel" x="500" y="140">读：搜索/过滤/聚合</text>
+        <path class="edge hi" d="M700 94 Q 722 130 724 180" marker-end="url(#arMh)"/><text class="elabel" x="760" y="140">写：触发动作</text>
+        <path class="edge" d="M650 220 H 270" marker-end="url(#arM)"/><text class="elabel" x="420" y="210">编辑经 Funnel</text>
+        <path class="edge" d="M155 250 Q 155 320 210 360" marker-end="url(#arM)"/>
+        <path class="edge" d="M550 250 Q 480 330 400 366" marker-end="url(#arM)"/>
+        <path class="edge flow" d="M725 250 Q 780 380 700 420 Q 500 540 280 100 Q 240 60 270 62" marker-end="url(#arM)"/>
+        <text class="elabel" x="620" y="420">写回 BAPI / Webhook → 源系统</text>
+        <path class="edge flow" d="M610 470 Q 590 350 560 254" marker-end="url(#arM)"/>
+        <path class="edge flow" d="M280 470 Q 500 430 690 254" marker-end="url(#arM)"/>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">OMS · 对象数据库 · OSS · Actions · Funnel · Functions on Objects</footer>
+</section>
+<!-- 18 物化 vs 虚拟 -->
+<section class="slide" data-eyebrow="03 · HOW / 取舍" data-accent="acc">
+  <header class="s-head"><h2>物化，而不是虚拟：一个<em>想清楚了</em>的架构取舍</h2>
+    <p class="lead">直觉的答案是虚拟化：数据留在原处、查询时联邦（Timbr 把本体建模编译成优化 SQL 下推源库执行；dbt MetricFlow、Cube 也是查询时生成 SQL 的只读逻辑层）。Palantir 恰恰选了相反的路。</p></header>
+  <div class="s-body cols-2 r57">
+    <div>
+      <table class="cmp">
+        <thead><tr><th>维度</th><th>虚拟语义层（Timbr/dbt 式）</th><th class="hl">物化索引层（Palantir）</th></tr></thead>
+        <tbody>
+          <tr><td class="k">数据位置</td><td>留在源库，零迁移</td><td class="hl">索引进对象数据库</td></tr>
+          <tr><td class="k">查询性能</td><td>取决于源库负载与优化器</td><td class="hl good">稳定低延迟，与源负载解耦</td></tr>
+          <tr><td class="k">新鲜度</td><td class="good">查询时实时</td><td class="hl">取决于管道 / CDC 同步频率</td></tr>
+          <tr><td class="k">源系统故障</td><td class="bad">查询跟着不可用</td><td class="hl good">读取不受影响</td></tr>
+          <tr><td class="k">写回能力</td><td class="bad">基本只读</td><td class="hl good">原生 Action 受控写入</td></tr>
+          <tr><td class="k">成本</td><td class="good">无集成步骤、低存储</td><td class="hl bad">集成强制、存储加倍、锁定加深</td></tr>
+        </tbody>
+      </table>
+      <div class="callout" style="margin-top:14px"><span class="c-tag">为什么选贵的</span><p>因为反复出现的那个词：<b>行动</b>。只读可以虚拟，行动不能——受控写入路径、事务保证、亚秒级读取、AI Agent 高频访问不把生产 ERP 打挂，都要求一个自己说了算的存储与索引层。<b>虚拟化优化"描述世界"的成本，物化优化"改变世界"的可靠性。</b></p></div>
+      <p class="dim" style="font-size:13px">注：PuppyGraph 的定性"heavily materialized and indexed layer"技术上准确；Timbr 材料里"Palantir 封闭、全有或全无"出自竞对营销，单方立场，读时打折。</p>
+    </div>
+    <div>
+      <svg class="fig" viewBox="0 0 700 600" style="max-width:600px;margin:0 auto">
+        <defs><marker id="arN" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+        <marker id="arNh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker></defs>
+        <g class="grp"><rect x="20" y="20" width="660" height="230"/><text class="glabel" x="36" y="44">虚拟语义层 · 查询时联邦</text></g>
+        <g class="node"><rect x="50" y="70" width="130" height="54"/><text class="t" x="115" y="102">查询</text></g>
+        <g class="node"><rect x="240" y="70" width="220" height="54"/><text class="t" x="350" y="94">本体遍历编译成 SQL</text><text class="s" x="350" y="112">复用源库自己的优化器</text></g>
+        <g class="node"><rect x="520" y="50" width="130" height="50"/><text class="t" x="585" y="80">源库 A</text></g>
+        <g class="node"><rect x="520" y="130" width="130" height="50"/><text class="t" x="585" y="160">源库 B</text></g>
+        <path class="edge" d="M180 97 H 240" marker-end="url(#arN)"/>
+        <path class="edge" d="M460 88 Q 490 80 520 76" marker-end="url(#arN)"/><text class="elabel" x="490" y="66">下推</text>
+        <path class="edge" d="M460 108 Q 490 130 520 148" marker-end="url(#arN)"/>
+        <g class="grp"><rect x="20" y="290" width="660" height="290"/><text class="glabel" x="36" y="314">物化索引层 · 读写与源解耦</text></g>
+        <g class="node"><rect x="50" y="340" width="120" height="50"/><text class="t" x="110" y="370">源库 A</text></g>
+        <g class="node"><rect x="50" y="420" width="120" height="50"/><text class="t" x="110" y="450">源库 B</text></g>
+        <g class="node hi"><rect x="250" y="375" width="140" height="60"/><text class="t" x="320" y="400">Funnel</text><text class="s" x="320" y="420">批/流/CDC</text></g>
+        <g class="node"><rect x="460" y="375" width="180" height="60"/><text class="t" x="550" y="400">对象数据库</text><text class="s" x="550" y="420">预索引 · 亚秒读</text></g>
+        <g class="node"><rect x="250" y="500" width="140" height="54"/><text class="t" x="320" y="524">查询 → OSS</text></g>
+        <g class="node hi"><rect x="460" y="500" width="180" height="54"/><text class="t" x="550" y="524">Action 受控写回</text><text class="s" x="550" y="542">事务级</text></g>
+        <path class="edge" d="M170 365 Q 210 370 250 390" marker-end="url(#arN)"/>
+        <path class="edge" d="M170 445 Q 210 440 250 418" marker-end="url(#arN)"/>
+        <path class="edge" d="M390 405 H 460" marker-end="url(#arN)"/>
+        <path class="edge hi" d="M390 520 Q 420 470 465 435" marker-end="url(#arNh)"/><text class="elabel" x="400" y="480">读走索引，不碰源库</text>
+        <path class="edge hi" d="M460 520 Q 260 560 110 470" marker-end="url(#arNh)"/><text class="elabel" x="280" y="568">受控事务写回源系统</text>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">PuppyGraph 第三方架构分析 · Timbr"本体遍历编译"</footer>
+</section>
+
+<!-- 19 实体解析 -->
+<section class="slide" data-eyebrow="03 · HOW / 数据" data-accent="acc">
+  <header class="s-head"><h2>物化的前提：数据得<em>进得来、对得上</em>——实体解析三板斧</h2>
+    <p class="lead">进得来靠数百种预构建连接器 + 批/流/CDC 管道；对得上靠<b>实体解析</b>——把跨系统描述同一实体的多条记录合并成"黄金记录"。</p></header>
+  <div class="s-body cols-2">
+    <div>
+      <ul class="spec">
+        <li><span class="s-k">确定性匹配</span><span class="s-v">靠身份证号、工号等唯一 ID 精准匹配——准确率 100%，但覆盖不了没有统一 ID 的长尾数据</span></li>
+        <li><span class="s-k">概率性匹配</span><span class="s-v">没有唯一 ID 时，分析姓名、地址、电话的相似度（TF-IDF、余弦相似度、随机森林），算出"是否同一实体"的置信度得分——补上确定性匹配的盲区</span></li>
+        <li><span class="s-k">幸存者规则</span><span class="s-v">同一实体信息冲突时的仲裁逻辑（如"以最近更新的系统为准"），确定最终黄金记录</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3>国防场景里更进一步</h3>
+      <ul class="tick">
+        <li>多数据源对象把<b>社交媒体账号、海关护照号、企业注册记录</b>合并成同一个 <code>Person</code></li>
+        <li>每条断言带 <b>1–5 级置信度</b>和完整溯源（来源系统、位置、时间戳）</li>
+        <li>统一对象保留全部来源链接——<b>受制裁实体横跨司法辖区与语言的空壳公司网络，就是这样被自动浮出水面的</b></li>
+      </ul>
+      <div class="callout"><span class="c-tag">串联</span><p>连接器管"进得来"，实体解析管"对得上"，Funnel 物化管"读得快、写得回"——三者共同支撑上一页的取舍。</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">Entity Resolution：确定性 + 概率性 + 幸存者规则</footer>
+</section>
+
+<!-- 20 零代码五步 -->
+<section class="slide" data-eyebrow="03 · HOW / 建模" data-accent="acc">
+  <header class="s-head"><h2>全程零代码：<em>五步</em>搭一个本体（Ontology Builder）</h2>
+    <p class="lead">100% 可视化拖拽 + 表单配置，构建顺序恰好是对象 → 属性 → 关联 → 函数 → 动作。业务人员在界面上"画"实体、"连"关系；平台自动生成元数据、建图的节点与边、分配存储、调度计算。</p></header>
+  <div class="s-body">
+    <ol class="steps">
+      <li><span class="n">①</span><b>定义 Object</b><small>从 <code>books.csv</code> 映射"图书"实体；系统自动推荐 <code>book_id</code> 为主键</small></li>
+      <li><span class="n">②</span><b>添加 Property</b><small>拖字段（书名、价格），或手动加（库存状态，枚举：在库/已借出/已售出）</small></li>
+      <li><span class="n">③</span><b>建立 Link</b><small>按 <code>author_id</code> 关联"图书-作者"为 <code>written_by</code>，基数 1:N</small></li>
+      <li><span class="n">④</span><b>编写 Function</b><small><code>价格 × 0.8</code> 算出虚拟属性"折扣价"</small></li>
+      <li><span class="n">⑤</span><b>创建 Action</b><small><code>Mark_As_Sold</code>：更新数据库 + 发通知邮件 + 调 <code>/api/inventory/reduce</code> 减库存</small></li>
+    </ol>
+    <div class="cols-2" style="margin-top:26px">
+      <div>
+        <h3>同一套模板跨行业复用，差异只在两处</h3>
+        <ul class="tick">
+          <li><b>Function 的复杂度</b>：条件匹配 → 多因子加权 → ML 推理</li>
+          <li><b>Action 的闭环类型</b>：金融风控是"风险分 &gt; 90 且命中制裁名单即 <code>Block_Transaction</code>"的<b>阻断型</b>；电力预测性维护是"故障概率 &gt; 70% 自动建工单派工程师"的<b>执行型</b></li>
+          <li><b>HyperAuto</b>（软件定义数据集成）对 SAP/Oracle 这类结构化源：自动推断外键、字段语义、实体边界，<b>数分钟</b>映射成类型化对象与关系边（传统手动以月计）；源表变更时映射增量更新——Lowe's 全球供应链数字孪生就是这么长出来的</li>
+        </ul>
+      </div>
+      <div class="callout warn"><span class="c-tag">两点诚实的边界</span><p>其一，自动映射准确率仍需人工验证：跨表计算字段、非标准编码要手动补。其二，"折扣价 = 价格 × 0.8"当然零代码，但多因子风控评分、调用外部 ML 模型的 Function 大概率还是落回代码——<b>零代码覆盖建模主干，不覆盖全部逻辑复杂度</b>。即便如此方向成立：懂业务的人不再是旁观者，而能直接主导建模。</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">Ontology Builder · HyperAuto · Lowe's 案例</footer>
+</section>
+
+<!-- 21 端到端案例 -->
+<section class="slide" data-eyebrow="03 · HOW / 案例" data-accent="acc">
+  <header class="s-head"><h2>一个贯穿三层的端到端案例：<em>设备预测性维护</em></h2>
+    <p class="lead">看清第 5、6 步发生了什么：系统不是一次次修设备，而是<b>从修设备的历史里学会了"这个型号本身有问题"，然后改写了自己的模型</b>。</p></header>
+  <div class="s-body cols-2 r57">
+    <div>
+      <svg class="fig" viewBox="0 0 780 560">
+        <defs><marker id="arO" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+        <marker id="arOh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#4fd1c5"/></marker></defs>
+        <g class="grp"><rect x="20" y="20" width="740" height="150"/><text class="glabel" x="36" y="44">语义层 · 定义与分析</text></g>
+        <g class="node"><rect x="50" y="70" width="280" height="70"/><text class="t" x="190" y="98">① Equipment 对象</text><text class="s" x="190" y="120">temperature · status 等属性</text></g>
+        <g class="node"><rect x="430" y="70" width="290 " height="70"/><text class="t" x="575" y="98">② Function 实时算 riskScore</text><text class="s" x="575" y="120">判断是否超阈值</text></g>
+        <path class="edge" d="M330 105 H 430" marker-end="url(#arO)"/>
+        <g class="grp"><rect x="20" y="200" width="740" height="150"/><text class="glabel" x="36" y="224">行为层 · 触发与执行</text></g>
+        <g class="node hi"><rect x="50" y="250" width="320" height="70"/><text class="t" x="210" y="278">③ CreateMaintenanceTicket</text><text class="s" x="210" y="300">riskScore 超阈值自动触发</text></g>
+        <g class="node"><rect x="430" y="250" width="290" height="70"/><text class="t" x="575" y="278">④ 写回 ERP / 工单系统</text><text class="s" x="575" y="300">业务流转闭环</text></g>
+        <path class="edge" d="M575 140 Q 575 180 260 230 L 210 250" marker-end="url(#arO)"/>
+        <path class="edge" d="M370 285 H 430" marker-end="url(#arO)"/>
+        <g class="grp"><rect x="20" y="380" width="740" height="150"/><text class="glabel" x="36" y="404">动态层 · 反馈与优化</text></g>
+        <g class="node"><rect x="50" y="430" width="320" height="70"/><text class="t" x="210" y="458">⑤ 监控：同型号工单高频发生</text><text class="s" x="210" y="480">触发根因分析</text></g>
+        <g class="node hi"><rect x="430" y="430" width="290" height="70"/><text class="t" x="575" y="458">⑥ 确认设计缺陷</text><text class="s" x="575" y="480">改写自己的模型 ↓</text></g>
+        <path class="edge" d="M575 320 Q 575 360 260 410 L 210 430" marker-end="url(#arO)"/>
+        <path class="edge" d="M370 465 H 430" marker-end="url(#arO)"/>
+        <path class="edge hi flow" d="M720 440 Q 760 260 720 120 Q 700 90 720 88" marker-end="url(#arOh)"/>
+        <path class="edge hi flow" d="M700 500 Q 400 560 90 330 Q 70 310 85 305" marker-end="url(#arOh)"/>
+      </svg>
+    </div>
+    <div>
+      <h3>第 ⑥ 步的两条虚线（青色）</h3>
+      <ul class="tick">
+        <li><b>语义层长出新属性</b>：<code>modelVulnerability</code>（型号缺陷）</li>
+        <li><b>行为层长出新策略</b>：<code>ProactiveReplacement</code>（主动更换）——下次同类问题在爆发前就被主动处置</li>
+      </ul>
+      <div class="callout"><span class="c-tag">对比</span><p>OWL 和知识图谱能描述"设备坏了"，但<b>没有哪个会因为"最近老坏"就自己长出一条新规则</b>。这就是"会演化"的字面含义。</p></div>
+      <div class="callout warn" style="margin-top:12px"><span class="c-tag">第三节结论</span><p>语义层让数据活起来，行为层让数据动起来，动态层让模型长起来；往下是 Language/Engine/Toolchain 与 OSv2 读写分离、增量索引的真实后端；再往下是为"行动"的可靠性选择重物化的取舍。<b>它不是"知识图谱加脚本"，是把整个数据操作系统重新组织了一遍。</b></p></div>
+    </div>
+  </div>
+  <footer class="s-foot">工业设备维护 · 一次完整的价值实现横跨三层</footer>
+</section>
+
+<!-- 22 section cover 回环 -->
+<section class="slide cover-section" data-accent="violet">
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center;min-height:0">
+    <div>
+      <div class="ghost">04</div>
+      <h2>回环 · 本体如何救大模型</h2>
+      <p class="thesis">从"数据驱动"到"知识驱动"：四大挑战对四种解法，OAG 换掉 RAG 的检索对象，自主性是<b>刻度盘</b>而不是开关——最后回到那笔没人敢批的转账。</p>
+      <ul class="mini-agenda" style="flex-wrap:wrap;row-gap:10px"><li>四挑战 × 四解法</li><li>ODA 本体驱动智能体</li><li>OAG 机制</li><li>工程链与权限</li><li>拦截那笔转账</li></ul>
+    </div>
+    <figure class="fig">
+      <div class="fig-panel"><img src="/images/palantir-ontology/palantir-aip-architect.png" alt="AIP 架构分层图：预置与自定义 AI 产品之下是 Ontology 层，再往下是数据 / AI / 工作流服务、安全治理层与 Apollo 软件交付层" loading="lazy"></div>
+      <figcaption>AIP 架构：Ontology 层承上（AI 产品）启下（数据 / AI / 工作流服务）</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 23 四挑战 + ODA -->
+<section class="slide" data-eyebrow="04 · 回环" data-accent="violet">
+  <header class="s-head"><h2>企业 AI 的四大挑战，恰好对应本体的<em>四种解法</em></h2>
+    <p class="lead">传统 AI 是"数据驱动"——从海量数据学模式；本体驱动的核心是"知识驱动"——把隐性分散的规则显性化、结构化，给智能体一个坚实的"世界观"。智能体不再是黑盒，而是<b>在清晰业务地图上行动的导航员</b>。</p></header>
+  <div class="s-body">
+    <div class="cols-2">
+      <table class="cmp">
+        <thead><tr><th>挑战</th><th>症状</th><th>本体的解法</th></tr></thead>
+        <tbody>
+          <tr><td class="k">语义鸿沟</td><td>同一概念在 ERP/MES/CRM 表述不一</td><td>统一语义"翻译层"：都映射到标准本体实体</td></tr>
+          <tr class="hl"><td class="k">模型幻觉</td><td>生成随机、推理黑箱，可能"自信地"违规</td><td><b>业务硬约束 + 全链路可解释</b>：决策必过规则校验，可回溯到具体规则节点</td></tr>
+          <tr><td class="k">执行断层</td><td>"看得破，管不了"</td><td>Action 元素：业务操作封装成智能体可调的接口</td></tr>
+          <tr><td class="k">知识沉淀难</td><td>专家经验困在人脑</td><td>隐性经验数字资产化：固化成可复用的本体规则</td></tr>
+        </tbody>
+      </table>
+      <table class="cmp">
+        <thead><tr><th>维度</th><th>传统知识图谱</th><th>RAG</th><th class="hl">本体驱动智能体 ODA</th></tr></thead>
+        <tbody>
+          <tr><td class="k">角色定位</td><td>被动查询工具</td><td>文本生成器</td><td class="hl"><b>业务参与者，自主执行</b></td></tr>
+          <tr><td class="k">知识形态</td><td>静态（实体、关系）</td><td>动态（实时检索的文本）</td><td class="hl">动态（实体+关系+事件+逻辑+行为）</td></tr>
+          <tr><td class="k">推理方式</td><td>符号推理（图遍历）</td><td>概率推理（LLM 生成）</td><td class="hl">符号 + 概率协同</td></tr>
+          <tr><td class="k">可解释性</td><td class="good">高（路径清晰）</td><td class="bad">低（生成黑箱）</td><td class="hl good">高（可追溯至本体规则）</td></tr>
+          <tr><td class="k">执行能力</td><td class="bad">无</td><td class="bad">无</td><td class="hl good">有（Action 驱动业务系统）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <footer class="s-foot">ODA = Ontology-Driven Agent · 左表第二行是治幻觉的关键</footer>
+</section>
+<!-- 24 OAG 机制 -->
+<section class="slide" data-eyebrow="04 · 回环 / OAG" data-accent="violet">
+  <header class="s-head"><h2>OAG：把"检索<em>文本块</em>"换成"检索<em>业务对象</em>"</h2>
+    <p class="lead">RAG 把文档切块、算向量、按余弦相似度捞"长得像"的文本；OAG（Ontology-Augmented Generation）强制 LLM 通过受治理的本体检索<b>带类型的对象</b>。差异落在四个机制上。</p></header>
+  <div class="s-body cols-2">
+    <div>
+      <ul class="spec">
+        <li><span class="s-k">① 结构化检索</span><span class="s-v">经 OSS 拿到类型化对象、确定性属性值、显式关系边——不是相似度排名的文本片段</span></li>
+        <li><span class="s-k">② Schema+权限约束</span><span class="s-v">检索结果受本体 Schema 和调用者权限裁剪。"检回三年前已废弃的提案当最新方案用"这类 RAG 经典事故被<b>结构性消除</b></span></li>
+        <li><span class="s-k">③ 确定性工具调用</span><span class="s-v">数学和优化不让 LLM 硬算：AIP Logic 识别出子任务，经本体函数调 NVIDIA cuOpt（供应链优化）、Prophet（时序预测），只把验证过的输出交回 LLM 做语言合成。<b>LLM 从"全能推理器"重新定位为"协调器"</b>：任务分解、工具编排、结果解释</span></li>
+        <li><span class="s-k">④ 完整溯源</span><span class="s-v">每次推理可回溯到具体对象、属性与关系边——答案不是"模型觉得"，而是<b>"依据在此"</b></span></li>
+      </ul>
+      <div class="callout" style="margin-top:12px"><span class="c-tag">位移</span><p>幻觉从高到低（<b>减少不是消除</b>，LLM 本质仍是概率的）；权限从文档级到对象/属性级；实时性从"向量索引更新"到 OSS 直读；行动力从"只能生成文本"到"能触发 Action"。<b>k-LLM 架构</b>按任务复杂度与治理约束在 xAI/OpenAI/Anthropic/Meta/Google/自托管间路由——LLM 是可替换组件，<b>价值沉淀在本体、治理与编排层</b>。</p></div>
+    </div>
+    <div>
+      <svg class="fig" viewBox="0 0 760 660">
+        <defs><marker id="arP" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+        <marker id="arPh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#a78bfa"/></marker></defs>
+        <g class="grp"><rect x="20" y="20" width="720" height="180"/><text class="glabel" x="36" y="44">RAG · 捞"长得像"的文本</text></g>
+        <g class="node"><rect x="40" y="70" width="110 " height="50"/><text class="t" x="95" y="100">问题</text></g>
+        <g class="node"><rect x="190" y="70" width="120" height="50"/><text class="t" x="250" y="100">向量化</text></g>
+        <g class="node"><rect x="350" y="70" width="130" height="50"/><text class="t" x="415" y="100">向量索引</text></g>
+        <g class="node"><rect x="520" y="60" width="200" height="70"/><text class="t" x="620" y="88">文本块</text><text class="s" x="620" y="110">无类型 · 文档级权限</text></g>
+        <path class="edge" d="M150 95 H 190" marker-end="url(#arP)"/><path class="edge" d="M310 95 H 350" marker-end="url(#arP)"/>
+        <path class="edge" d="M480 95 H 520" marker-end="url(#arP)"/><text class="elabel" x="500" y="85">Top-k</text>
+        <text x="380" y="170" text-anchor="middle" fill="var(--ink3)" font-size="12">→ LLM 生成（黑箱，权限粗、能检回废弃文档）</text>
+        <g class="grp"><rect x="20" y="230" width="720" height="410"/><text class="glabel" x="36" y="254">OAG · 取"带类型"的对象</text></g>
+        <g class="node hi"><rect x="250" y="280" width="260" height="76"/><text class="t" x="380" y="308">LLM = 协调器</text><text class="s" x="380" y="330">任务分解 · 工具编排 · 结果解释</text></g>
+        <g class="node"><rect x="40" y="420" width="200" height="64"/><text class="t" x="140" y="446">OSS 结构化检索</text><text class="s" x="140" y="466">Schema+权限裁剪的类型化对象</text></g>
+        <g class="node"><rect x="520" y="420" width="200" height="64"/><text class="t" x="620" y="446">确定性引擎</text><text class="s" x="620" y="466">cuOpt · Prophet</text></g>
+        <g class="node"><rect x="150" y="550" width="220" height="60"/><text class="t" x="260" y="576">答案 + 对象级溯源</text></g>
+        <g class="node hi"><rect x="430" y="550" width="250" height="60"/><text class="t" x="555" y="574">Ontology Action</text><text class="s" x="555" y="592">提议动作 · 默认暂存</text></g>
+        <path class="edge hi" d="M280 356 Q 160 380 145 420" marker-end="url(#arPh)"/><text class="elabel" x="185" y="390">结构化检索</text>
+        <path class="edge flow" d="M240 440 Q 330 400 350 356" marker-end="url(#arP)"/>
+        <path class="edge hi" d="M480 356 Q 600 380 615 420" marker-end="url(#arPh)"/><text class="elabel" x="580" y="390">数学/优化子任务</text>
+        <path class="edge flow" d="M520 440 Q 430 400 415 356" marker-end="url(#arP)"/><text class="elabel" x="470" y="410">验证过的输出</text>
+        <path class="edge" d="M330 356 Q 265 460 262 550" marker-end="url(#arP)"/>
+        <path class="edge hi flow" d="M430 356 Q 550 460 553 550" marker-end="url(#arPh)"/>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">AIP = Palantir 的 AI 平台 · OAG 对 RAG 是两条路线</footer>
+</section>
+
+<!-- 25 工程链 -->
+<section class="slide" data-eyebrow="04 · 回环 / 工程链" data-accent="violet">
+  <header class="s-head"><h2>围绕 OAG 的<em>完整工程链</em>，与"继承来的权限"</h2></header>
+  <div class="s-body cols-2">
+    <div>
+      <ul class="spec">
+        <li><span class="s-k">AIP Logic</span><span class="s-v">低代码 LLM 函数编排器。输入本体对象或字符串，输出对象或本体编辑；写回两档——<b>自动应用</b> 或 <b>暂存待人工审核</b>；可由 Automate 定时/事件驱动</span></li>
+        <li><span class="s-k">AIP Evals</span><span class="s-v">把非确定性系统拉回工程纪律：同一提示跑<b>数百次</b>做统计评估，用生产实际数据测边缘情况；内置精确匹配/正则/Levenshtein 评估器，复杂判断用 LLM-as-a-Judge 按标准打 1–5 分；追踪多次执行的<b>方差</b>——方差高说明提示或标准不稳定，<b>不许上生产</b></span></li>
+        <li><span class="s-k">Agent Studio</span><span class="s-v">配置多个专业化 copilot 组成协调网络，以本体为安全的共享交换媒介，每个 Agent 有自己的领域知识和操作权限</span></li>
+        <li><span class="s-k">对象监视器</span><span class="s-v">持续评估对象状态（库存低于阈值、生命体征异常），条件满足即自动触发通知与动作——"动词"体系里的哨兵</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Agent 权限没有另起炉灶</h3>
+      <ul class="tick">
+        <li><b>从人类用户或项目的权限结构继承</b>：数据访问受与人类相同的安全策略管控</li>
+        <li>可调用的逻辑资产受权限约束，行动范围可精确限定，全部活动进遥测日志</li>
+        <li>官方对 Data–Logic–Action–Security 四重集成的量级描述：实时协调<b>数万</b>名人类与 Agent 的细粒度策略</li>
+      </ul>
+      <div class="callout"><span class="c-tag">值得抄下来</span><p><b>Ontology 建模的是决策，而非数据。</b></p></div>
+      <h3 style="margin-top:16px">从增强到自动化：一个刻度盘，不是一个开关</h3>
+      <p class="dim" style="font-size:14.5px">Tampa General 医院三级递进：<b>L1 数据协调</b>（"患者-房间-床位"统一运营孪生）→ <b>L2 语言接口</b>（OAG 自然语言查实时状态）→ <b>L3 自主 Agent</b>（监控、起草、协调、告警——只把最终批准留给人）。配套哲学是<b>"默认暂存"</b>：动作默认暂存移交人类终审；随日志与运营数据积累，组织再挑受信任、经充分测试的流程放开自动闭环——自主权范围动态扩缩，变更即时生效。</p>
+    </div>
+  </div>
+  <footer class="s-foot">AIP Logic · Evals · Agent Studio · 对象监视器</footer>
+</section>
+
+<!-- 26 System of Action 循环 -->
+<section class="slide" data-eyebrow="04 · 回环 / 飞轮" data-accent="violet">
+  <header class="s-head"><h2>从 System of Record 到 <em>System of Action</em>：循环及其副产品</h2>
+    <p class="lead">SAP 们记录"发生了什么"，这个循环参与"接下来做什么"。更要紧的是副产品：<b>决策数据</b>——这是第二节"线性 vs 循环"的完整闭环。</p></header>
+  <div class="s-body cols-2 r57">
+    <div>
+      <svg class="fig" viewBox="0 0 760 520">
+        <defs><marker id="arQ" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#a78bfa"/></marker>
+        <marker id="arQ2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+        <g class="node hi"><rect x="280" y="30" width="220" height="64"/><text class="t" x="390" y="56">读取</text><text class="s" x="390" y="78">OSS 亚秒级检索活跃状态</text></g>
+        <g class="node hi"><rect x="520" y="200" width="200" height="64"/><text class="t" x="620" y="226">决策</text><text class="s" x="620" y="248">人 或 Agent</text></g>
+        <g class="node hi"><rect x="280" y="370" width="220" height="64"/><text class="t" x="390" y="396">执行</text><text class="s" x="390" y="418">Action 事务提交 + 写回下游</text></g>
+        <g class="node hi"><rect x="50" y="200" width="200" height="64"/><text class="t" x="150" y="226">索引</text><text class="s" x="150" y="248">Funnel 同步更新数字孪生</text></g>
+        <path class="edge hi" d="M500 70 Q 620 100 622 200" marker-end="url(#arQ)"/>
+        <path class="edge hi" d="M620 264 Q 600 370 500 396" marker-end="url(#arQ)"/>
+        <path class="edge hi" d="M280 400 Q 150 370 150 264" marker-end="url(#arQ)"/>
+        <path class="edge hi" d="M150 200 Q 170 100 280 64" marker-end="url(#arQ)"/>
+        <g class="node"><rect x="270" y="190" width="240" height="84" stroke-dasharray="4 4"/><text class="t" x="390" y="220">副产品：决策数据</text><text class="s" x="390" y="242">上下文 · 评估过的选项 · 下游影响</text><text class="s" x="390" y="260">+ 决策谱系（何时/哪版数据/哪个应用）</text></g>
+        <path class="edge flow" d="M250 232 Q 220 232 195 232" marker-end="url(#arQ2)"/>
+        <path class="edge flow" d="M510 232 Q 540 232 555 232" marker-end="url(#arQ2)"/>
+      </svg>
+    </div>
+    <div>
+      <h3>决策数据回头变成</h3>
+      <ul class="tick">
+        <li><b>微调训练集</b></li>
+        <li>Agent 提示词里的<b>目标原则</b></li>
+        <li>代理的<b>长短期记忆</b></li>
+        <li>人与 Agent <b>同权访问、同策略管控</b></li>
+      </ul>
+      <div class="callout"><span class="c-tag">飞轮</span><p>部落知识被显性化，形成<b>决策中心学习</b>：经典本体回答完问题就结束，操作本体把每个答案变成下一个问题的训练数据。</p></div>
+      <div class="callout" style="margin-top:12px"><span class="c-tag">分工</span><p>本体与大模型不是替代：<b>本体提供确定性与约束</b>（结构化知识、业务规则、可追溯依据，限定行为边界），<b>大模型提供灵活性与生成</b>（语言理解、框架内规划、应对长尾）。一个管"不许越界"，一个管"聪明地把事办了"。</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">读取 → 决策 → 执行 → 索引 ↻</footer>
+</section>
+
+<!-- 27 Knora 拦截 -->
+<section class="slide" data-eyebrow="04 · 回环 / 硬约束" data-accent="violet">
+  <header class="s-head"><h2>回到那笔转账：硬约束是怎么<em>拦住 AI</em> 的（Knora 案例）</h2>
+    <p class="lead">场景是"工单产量变更须经审批"，逻辑和转账一模一样。把"工单产量"换成"转账金额"、"20% 阈值"换成"10 万元风控线"，就是开篇那个问题的可交付工程答案。</p></header>
+  <div class="s-body cols-2 r57">
+    <div>
+      <svg class="fig" viewBox="0 0 780 560">
+        <defs><marker id="arR" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+        <marker id="arRh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#a78bfa"/></marker></defs>
+        <g class="node"><rect x="40" y="20" width="330" height="60"/><text class="t" x="205" y="46">① 意图：WO-2026-0312</text><text class="s" x="205" y="66">计划产量 500 → 800</text></g>
+        <g class="node"><rect x="40" y="120" width="330" height="60"/><text class="t" x="205" y="144">② 引擎查本体：变更幅度 60%</text><text class="s" x="205" y="164">超 20% 阈值 → requiresApproval = true</text></g>
+        <g class="node hi"><rect x="60" y="220" width="290" height="60"/><text class="t" x="205" y="244">③ 约束校验</text><text class="s" x="205" y="264">approvedBy（审批人）关系存在？</text></g>
+        <g class="node"><rect x="430" y="120" width="310" height="64"/><text class="t" x="585" y="146">④ 拦截写入 ⛔</text><text class="s" x="585" y="166">违规数据在落库之前被拦下</text></g>
+        <g class="node"><rect x="430" y="230" width="310" height="76"/><text class="t" x="585" y="256">系统响应（四连）</text><text class="s" x="585" y="276">结构化错误报告（指出违反哪条规则）</text><text class="s" x="585" y="292">建审批任务并路由 · 审计日志"待审批"</text></g>
+        <g class="node"><rect x="430" y="360" width="310" height="60"/><text class="t" x="585" y="384">⑤ 审批通过 → 补 approvedBy</text><text class="s" x="585" y="404">路由给 BOM 工程师 + 生产经理</text></g>
+        <g class="node hi"><rect x="60" y="440" width="290" height="60"/><text class="t" x="205" y="464">重新触发规则校验</text><text class="s" x="205" y="484">全部合规 → 执行写入，闭环完成 ✓</text></g>
+        <path class="edge" d="M205 80 V 120" marker-end="url(#arR)"/>
+        <path class="edge" d="M205 180 V 220" marker-end="url(#arR)"/>
+        <path class="edge hi" d="M350 240 Q 400 200 430 160" marker-end="url(#arRh)"/><text class="elabel" x="390" y="196">缺失</text>
+        <path class="edge" d="M585 184 V 230" marker-end="url(#arR)"/>
+        <path class="edge" d="M585 306 V 360" marker-end="url(#arR)"/>
+        <path class="edge" d="M430 400 Q 300 430 240 440" marker-end="url(#arR)"/>
+        <path class="edge hi" d="M205 280 V 440" marker-end="url(#arRh)"/><text class="elabel" x="175" y="366">存在 → 直接写入</text>
+      </svg>
+    </div>
+    <div>
+      <ul class="tick">
+        <li>第 ③④ 步的"拦截 + 暂存待审"并非案例独创——正是 AIP Logic 写回的"<b>暂存待人工审核</b>"模式与"<b>默认暂存</b>"哲学的同一机制</li>
+        <li><b>AI 可以提议，但提议必须穿过本体的规则校验</b>；违规指令在落库之前被拦下</li>
+        <li>每一次拦截都能回答<b>"为什么"</b>——精确到具体规则节点</li>
+      </ul>
+      <div class="callout"><span class="c-tag">回答开篇</span><p>开篇不敢做的事——让 AI 独立审批百万转账——现在有了可交付的工程答案：<b>不是让模型更听话，而是让系统结构性地不允许它越界。</b></p></div>
+    </div>
+  </div>
+  <footer class="s-foot">Knora 案例 · 工单产量变更须经审批</footer>
+</section>
+
+<!-- 28 冷水与锁定 -->
+<section class="slide" data-eyebrow="05 · 冷思考" data-accent="red">
+  <header class="s-head"><h2>最后泼一盆冷水：成本、<em>锁定</em>，与"治理才刚开始"</h2>
+    <p class="lead">这正是第一节"刻意淡化成本"那重盲视警告过我们的。国内没有统一的本体理论体系与落地标准；市面上的"本体论落地"多是范式：数据治理口径归一 / 资产静态建模 / 语义约束治幻觉 / 以及最需警惕的——集成商蹭概念，旧东西换皮当本体卖。</p></header>
+  <div class="s-body cols-2">
+    <div>
+      <h3 style="color:var(--red)">锁定不是合同条款，是架构性质（三层）</h3>
+      <ul class="tick">
+        <li><b>本体无法脱离 Foundry 独立运行</b>——没有导出后另起炉灶的机制</li>
+        <li><b>数据必须经 Funnel 物化集成</b>——不能只是"引用"</li>
+        <li><b>不同本体实例之间无法建立链接</b>——联邦化部署里，供应链本体的"供应商"连不上财务本体的"应付账款"</li>
+      </ul>
+      <div class="callout risk"><span class="c-tag">同一枚硬币</span><p>让受控写入、决策捕获、统一权限面成立的<b>操作耦合</b>，就是让你走不掉的耦合——管道故障时，本体的读写一起停。护城河与其说是 AI，不如说是"先做脑外科手术、再长成中枢神经系统"的集成工程：初始建模痛苦漫长，一旦嵌入，切换成本高到接近<b>器官移植</b>。</p></div>
+    </div>
+    <div>
+      <h3>三句诚实的话</h3>
+      <ul class="tick">
+        <li>Hacker News 上"这不过是面向对象编程"的嘲讽反而点破要害——<b>价值不在理论新颖，在执行深度</b></li>
+        <li>本体上线不是终点而是起点：模型随业务漂移，一次变更会级联影响应用、函数、API 和 Agent——<b>本体上线之日，才是治理开始之时</b></li>
+        <li>它不是银弹：很多场景下，<b>轻量 Schema 加提示词工程反而更划算</b>。跳出来看清整头象，才不会把某一条腿当成大象本身</li>
+      </ul>
+      <div class="callout warn" style="margin-top:14px"><span class="c-tag">定性</span><p>本体是块硬骨头：牵涉语义、操作、演化，早已不是躺在论文里的学术概念；要真做好，是一场<b>持久战</b>。</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">成本之外，还要算一笔"锁定"的账</footer>
+</section>
+
+<!-- 29 closer -->
+<section class="slide cover-main" data-accent="acc">
+  <div class="kicker">三种本体 · 三种世界观 · 一场值得打的持久战</div>
+  <h1 style="font-size:52px">OWL 让机器<span style="color:var(--sand)">理解</span>世界，<br>知识图谱帮机器<span style="color:var(--teal)">检索</span>世界，<br>而 Palantir 的本体，让机器在你划定的规则里<span style="color:var(--acc)">改变</span>世界——<br>再随世界一起，改写自己。</h1>
+  <p class="sub">方向是清楚的；但请带着第一节的四重"盲视"疫苗、第五节的锁定账本，清醒地上路。</p>
+  <div class="badges"><span>理解 · 检索 · 行动</span><span>直线 → 圆圈</span><span>System of Record → System of Action</span><span>自主性是刻度盘，不是开关</span></div>
+</section>
+<!-- SLIDES-END -->
+
+</div></div>
+<div id="overview"></div>
+<div id="hud"></div>
+
+<script>
+/* ================= engine ================= */
+(function(){
+'use strict';
+var stage=document.getElementById('stage'),
+    slides=[].slice.call(document.querySelectorAll('.slide')),
+    N=slides.length, cur=0, deck=window.DECK||{};
+
+if(deck.title)document.title=deck.title;
+
+/* chrome injection */
+slides.forEach(function(s,i){
+  var rule=document.createElement('div');rule.className='chrome rule';s.appendChild(rule);
+  if(s.dataset.eyebrow){var e=document.createElement('div');e.className='chrome eyebrow';e.textContent=s.dataset.eyebrow;s.appendChild(e);}
+  var m=document.createElement('div');m.className='chrome meta';m.textContent=deck.meta||'';s.appendChild(m);
+  var p=document.createElement('div');p.className='chrome page';
+  p.textContent=String(i+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');s.appendChild(p);
+});
+
+/* scale */
+function fit(){var w=innerWidth,h=innerHeight,k=Math.min(w/1920,h/1080);
+  stage.style.transform='translate('+(w-1920*k)/2+'px,'+(h-1080*k)/2+'px) scale('+k+')';}
+addEventListener('resize',fit);fit();
+
+/* nav */
+function go(i){cur=Math.max(0,Math.min(N-1,i));
+  slides.forEach(function(s,j){s.classList.toggle('active',j===cur)});
+  history.replaceState(null,'','#'+(cur+1));
+  document.getElementById('hud').textContent=(cur+1)+' / '+N+'   ←→ nav · O overview · P print';}
+var h=parseInt((location.hash||'').replace('#',''),10);
+go(isNaN(h)?0:h-1);
+
+addEventListener('keydown',function(ev){
+  if(ev.key==='ArrowRight'||ev.key===' '||ev.key==='PageDown')go(cur+1);
+  else if(ev.key==='ArrowLeft'||ev.key==='PageUp')go(cur-1);
+  else if(ev.key==='Home')go(0); else if(ev.key==='End')go(N-1);
+  else if(ev.key==='o'||ev.key==='O')toggleOverview();
+  else if(ev.key==='p'||ev.key==='P')window.print();
+});
+addEventListener('hashchange',function(){var n=parseInt(location.hash.replace('#',''),10);if(!isNaN(n))go(n-1);});
+
+/* overview */
+var ov=document.getElementById('overview'),ovBuilt=false;
+function toggleOverview(){
+  if(!ovBuilt){slides.forEach(function(s,i){
+    var t=document.createElement('div');t.className='thumb';
+    var c=s.cloneNode(true);c.className='slide active mini';t.appendChild(c);
+    var x=document.createElement('span');x.className='idx';x.textContent=i+1;t.appendChild(x);
+    t.onclick=function(){go(i);ov.classList.remove('on')};ov.appendChild(t);});ovBuilt=true;}
+  ov.classList.toggle('on');}
+
+/* ============ ISO helpers ============ */
+var SVGNS='http://www.w3.org/2000/svg';
+function el(svg,tag,attrs,txt){var n=document.createElementNS(SVGNS,tag);
+  for(var k in attrs)n.setAttribute(k,attrs[k]);if(txt!=null)n.textContent=txt;svg.appendChild(n);return n;}
+function plane(svg,cx,cy,w,opts){opts=opts||{};var h=w/2;
+  var pts=cx+','+(cy-h)+' '+(cx+w)+','+cy+' '+cx+','+(cy+h)+' '+(cx-w)+','+cy;
+  return el(svg,'polygon',{points:pts,'class':'iso-face-t'+(opts.accent?' acc':'')});}
+function cube(svg,x,y,s,opts){opts=opts||{};var h=s/2,d=opts.depth||s*.7;
+  el(svg,'polygon',{points:(x-s)+','+y+' '+x+','+(y+h)+' '+x+','+(y+h+d)+' '+(x-s)+','+(y+d),'class':'iso-face-l'});
+  el(svg,'polygon',{points:(x+s)+','+y+' '+x+','+(y+h)+' '+x+','+(y+h+d)+' '+(x+s)+','+(y+d),'class':'iso-face-r'});
+  el(svg,'polygon',{points:x+','+(y-h)+' '+(x+s)+','+y+' '+x+','+(y+h)+' '+(x-s)+','+y,'class':'iso-face-t'+(opts.accent?' acc':'')});}
+function cyl(svg,x,y,r){el(svg,'rect',{x:x-r,y:y,width:2*r,height:r*1.4,fill:'#0c0f13',stroke:'#3d444d','stroke-width':1.1});
+  el(svg,'ellipse',{cx:x,cy:y+r*1.4,rx:r,ry:r*.45,fill:'#0c0f13',stroke:'#3d444d','stroke-width':1.1});
+  el(svg,'ellipse',{cx:x,cy:y,rx:r,ry:r*.45,fill:'#141920',stroke:'#3d444d','stroke-width':1.1});}
+function arrow(svg,x1,y1,x2,y2,opts){opts=opts||{};
+  var mid=(y1+y2)/2, d='M'+x1+' '+y1+' C '+(x1-120)+' '+mid+', '+(x2-120)+' '+mid+', '+x2+' '+y2;
+  var p=el(svg,'path',{d:d,'class':'edge'+(opts.dashed?' flow':'')+(opts.hi?' hi':''),fill:'none'});
+  var a=Math.atan2(y2-mid,120), s=8;
+  el(svg,'polygon',{points:x2+','+y2+' '+(x2-10)+','+(y2-5)+' '+(x2-10)+','+(y2+5),fill:opts.hi?'var(--a)':'#5c6570'});
+  return p;}
+function stack(sel,cfg){var svg=document.querySelector(sel);if(!svg)return;
+  var cx=cfg.cx,w=cfg.w,gap=cfg.gap||150,layers=cfg.layers,rail=cfg.rail;
+  /* bottom-up so upper layers overlap */
+  for(var i=layers.length-1;i>=0;i--){var L=layers[i],cy=cfg.topY+w/2+i*gap;
+    if(L.kind==='scatter'){
+      for(var s=0;s<(L.count||14);s++){var ang=(s*137)%360, r=40+((s*97)%3)*38;
+        var sx=cx+Math.cos(ang*Math.PI/180)*r*1.7, sy=cy+Math.sin(ang*Math.PI/180)*r*.5;
+        (s%3===0)?cyl(svg,sx,sy,13):cube(svg,sx,sy,15,{depth:12});}
+    }else{
+      plane(svg,cx,cy,w,{accent:L.accent});
+      if(L.kind==='grid'){var n=4;for(var gy=0;gy<n;gy++)for(var gx=0;gx<n;gx++){
+        var u=(gx-n/2+.5)/n, v=(gy-n/2+.5)/n;
+        cube(svg,cx+(u-v)*w*.82,cy+(u+v)*w*.41,w*.075,{depth:w*.05,accent:L.accent&&(gx+gy)%3===0});}}
+      if(L.kind==='graph'){var pts=[[-.45,0],[.05,-.28],[.5,-.02],[.18,.3],[-.2,.22],[.42,.33],[-.5,.35]];
+        pts.forEach(function(q,qi){var nx=cx+(q[0]-q[1])*w*.8, ny=cy+(q[0]+q[1])*w*.4;
+          if(qi)el(svg,'line',{x1:cx,y1:cy,x2:nx,y2:ny,stroke:'#3d444d','stroke-width':1,'stroke-dasharray':'3 3'});
+          cube(svg,nx,ny,11,{depth:8,accent:qi===0});});}
+      if(L.kind==='options'){[[-.35,-.1],[.1,-.22],[.4,.02],[0,.18]].forEach(function(q){
+        var nx=cx+(q[0]-q[1])*w*.8, ny=cy+(q[0]+q[1])*w*.4;
+        el(svg,'rect',{x:nx-34,y:ny-11,width:68,height:22,rx:3,fill:'#141920',stroke:'#3d444d','stroke-width':1,
+          transform:'skewX(-24) rotate(6 '+nx+' '+ny+')'});});}
+    }
+  }
+  /* rail labels top-down */
+  if(rail)layers.forEach(function(L,i){var cy=cfg.topY+w/2+i*gap;
+    el(svg,'path',{d:'M'+(cx+w+18)+' '+cy+' H '+(rail.x-14),'class':'rail','stroke-dasharray':'2 3'});
+    el(svg,'path',{d:'M'+rail.x+' '+(cy-16)+' h-8 v32 h8','class':'rail'});
+    el(svg,'text',{x:rail.x+14,y:cy-2,'class':'iso-label'},L.label);
+    if(L.sub)el(svg,'text',{x:rail.x+14,y:cy+16,'class':'iso-sub'},L.sub);
+    var iy0=L.sub?33:16;
+    (L.items||[]).forEach(function(it,k){el(svg,'text',{x:rail.x+14,y:cy+iy0+k*17,'class':'iso-sub'},'→ '+it);});});
+  if(cfg.arrows!==false&&layers.length>1){
+    var y1=cfg.topY+w/2, y2=cfg.topY+w/2+(layers.length-1)*gap;
+    arrow(svg,cx-w-26,y1+10,cx-w+30,y2-6,{hi:true});
+  }}
+window.ISO={stack:stack,cube:cube,plane:plane,cyl:cyl,arrow:arrow,el:el};
+
+/* ============ loop generator ============ */
+[].forEach.call(document.querySelectorAll('svg[data-loop]'),function(svg){
+  var names=(svg.dataset.nodes||'').split('|'),center=svg.dataset.center;
+  var vb=svg.viewBox.baseVal,cx=vb.width/2,cy=vb.height/2-10,R=Math.min(cx,cy)-70;
+  names.forEach(function(nm,i){
+    var a0=-Math.PI/2+i*2*Math.PI/names.length, a1=-Math.PI/2+(i+1)*2*Math.PI/names.length;
+    var pad=.34;
+    var sx=cx+R*Math.cos(a0+pad),sy=cy+R*Math.sin(a0+pad),ex=cx+R*Math.cos(a1-pad),ey=cy+R*Math.sin(a1-pad);
+    el(svg,'path',{d:'M'+sx+' '+sy+' A '+R+' '+R+' 0 0 1 '+ex+' '+ey,'class':'edge hi'});
+    var aa=a1-pad, tx=cx+R*Math.cos(aa), ty=cy+R*Math.sin(aa), na=aa+Math.PI/2;
+    el(svg,'polygon',{points:(tx+9*Math.cos(na))+','+(ty+9*Math.sin(na))+' '+(tx+4*Math.cos(na-2.6))+','+(ty+4*Math.sin(na-2.6))+' '+(tx+4*Math.cos(na+2.6))+','+(ty+4*Math.sin(na+2.6)),fill:'var(--a)'});
+    var nx=cx+R*Math.cos(a0),ny=cy+R*Math.sin(a0);
+    el(svg,'rect',{x:nx-92,y:ny-24,width:184,height:48,rx:6,fill:'var(--bg2)',stroke:'var(--line2)','stroke-width':1.25});
+    el(svg,'text',{x:nx,y:ny+5,'class':'t',fill:'var(--ink)','font-size':13,'text-anchor':'middle'},nm);});
+  if(center){cyl(svg,cx,cy-16,34);
+    el(svg,'text',{x:cx,y:cy+52,'text-anchor':'middle',fill:'var(--ink2)','font-size':12},center);}});
+
+/* demo iso */
+if(document.querySelector('[data-iso-demo]'))ISO.stack('[data-iso-demo]',{cx:380,topY:40,w:230,gap:130,
+  layers:[{label:'DECISION ORCHESTRATION',kind:'options'},{label:'DYNAMIC ONTOLOGY',kind:'graph',accent:true,sub:'对象 · 关联 · 动作'},
+          {label:'YOUR DATA PLATFORM',kind:'grid',items:['AWS','SNOWFLAKE']},{label:'OPERATIONAL SYSTEMS',kind:'scatter',items:['SAP','KAFKA','ORACLE']}],
+  rail:{x:840,w:300}});
+
+/* ============ ?check audit ============ */
+if(/[?&]check=1/.test(location.search)){
+  setTimeout(function(){
+    var bad=[];
+    slides.forEach(function(s,i){s.classList.add('active');
+      var ow=s.scrollWidth,oh=s.scrollHeight;
+      if(ow>1930||oh>1090){var worst='',mx=0;
+        [].forEach.call(s.querySelectorAll('*'),function(n){var r=n.getBoundingClientRect?n:null;
+          var b=n.offsetTop+n.offsetHeight;if(b>mx&&n.offsetHeight){mx=b;worst=(n.className&&n.className.baseVal!==undefined?n.className.baseVal:n.className)||n.tagName;}});
+        bad.push({slide:i+1,w:ow,h:oh,hint:String(worst).slice(0,60)});}
+      if(i!==cur)s.classList.remove('active');});
+    var pre=document.createElement('pre');pre.id='check-report';
+    pre.textContent='OVERFLOW-REPORT:'+JSON.stringify({total:N,fails:bad});
+    pre.style.cssText='position:fixed;left:0;bottom:0;font-size:9px;color:#666;z-index:99;max-width:100%;overflow:hidden';
+    document.body.appendChild(pre);
+    document.title=bad.length?('CHECK-FAIL '+bad.length):'CHECK-OK';
+  },600);}
+})();
+</script>
+</body>
+</html>

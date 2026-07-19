@@ -1,0 +1,24 @@
+<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tj-grad" x1="0" y1="0" x2="34" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0071e3"/>
+      <stop offset="1" stop-color="#10a37f"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer ring -->
+  <circle cx="17" cy="17" r="16" stroke="url(#tj-grad)" stroke-width="1.5"/>
+
+  <!-- Yang half (filled S-curve) -->
+  <path d="M17 1.5
+           a15.5 15.5 0 0 1 0 31
+           a7.75 7.75 0 0 1 0 -15.5
+           a7.75 7.75 0 0 0 0 -15.5 Z"
+        fill="url(#tj-grad)"/>
+
+  <!-- Yang eye (dot in filled half) -->
+  <circle cx="17" cy="24.75" r="2" fill="#ffffff"/>
+
+  <!-- Yin eye (dot in empty half) -->
+  <circle cx="17" cy="9.25" r="2" fill="url(#tj-grad)"/>
+</svg>

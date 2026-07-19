@@ -1,0 +1,1344 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Computational Advertising (2) Computational Ad System, Xinhe Liu (Charles)">
+    <meta name="description" content="A technical walkthrough of ad-system architecture, candidate generation, ranking, modeling, and engineering constraints.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Computational Advertising (2) Computational Ad System | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/writing/" class="">Writing</a>
+    
+        <a href="/technical-notes/" class="">Technical Notes</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <i class="fas fa-search"></i>
+    </a>
+    <a class="lang-switch" href="/ads/intro-2/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/writing/">Writing</a></li>
+        
+            <li><a href="/technical-notes/">Technical Notes</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <i class="fas fa-search"></i>
+        </a>
+        <a class="lang-switch" href="/ads/intro-2/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Computational Advertising (2) Computational Ad System</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Ads/">
+                                <span class="chip bg-color">Ads</span>
+                            </a>
+                        
+                            <a href="/tags/AI-Machine-Learning/">
+                                <span class="chip bg-color">AI &amp; Machine Learning</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Technology/" class="post-category">
+                                Technology
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2024-07-30
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <ul>
+<li><a href="#ad-system-overview">Ad System Overview</a>
+<ul>
+<li><a href="#how-are-ads-delivered">How are Ads Delivered?</a></li>
+<li><a href="#overview-of-the-relationship-between-ad-strategies-and-systems">Overview of the Relationship Between Ad Strategies and Systems</a></li>
+<li><a href="#ads-vs-recommendation-vs-search">Ads vs. Recommendation vs. Search</a></li>
+</ul>
+</li>
+<li><a href="#ranking">Ranking</a>
+<ul>
+<li><a href="#retrieval-recall">Retrieval (Recall)</a>
+<ul>
+<li><a href="#key-value-retrieval">Key-Value Retrieval</a></li>
+<li><a href="#vector-indexing-ann-approximate-nearest-neighbor">Vector Indexing: ANN (Approximate Nearest Neighbor)</a></li>
+<li><a href="#deep-retrieval-kdd-21-bytedance-ai-lab">Deep Retrieval (KDD 21, ByteDance AI Lab)</a></li>
+<li><a href="#retrieval-strategies">Retrieval Strategies</a></li>
+</ul>
+</li>
+<li><a href="#pre-ranking-coarse-ranking">Pre-ranking (Coarse Ranking)</a>
+<ul>
+<li><a href="#ltr-learning-to-rank">LTR (Learning to Rank)</a></li>
+<li><a href="#r2s-model">R2S Model</a></li>
+<li><a href="#pre-ranking-strategies">Pre-ranking Strategies</a></li>
+</ul>
+</li>
+<li><a href="#fine-ranking">Fine Ranking</a>
+<ul>
+<li><a href="#click-through-rate-prediction-problem">Click-Through Rate Prediction Problem</a></li>
+<li><a href="#recommendation-models-and-deep-models">Recommendation Models and Deep Models</a></li>
+<li><a href="#fine-ranking-strategies">Fine Ranking Strategies</a></li>
+<li><a href="#calibration-in-fine-ranking">Calibration in Fine Ranking</a></li>
+</ul>
+</li>
+<li><a href="#re-ranking--blending">Re-ranking / Blending</a>
+<ul>
+<li><a href="#long-term-direction-incrementality-bidding--deep-organic-integration">Long-Term Direction: Incrementality Bidding &amp; Deep Organic Integration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#bidding">Bidding</a>
+<ul>
+<li><a href="#auction-and-billing-mechanisms-in-ad-systems">Auction and Billing Mechanisms in Ad Systems</a>
+<ul>
+<li><a href="#separation-of-bidding-points-and-billing-points">Separation of Bidding Points and Billing Points</a></li>
+<li><a href="#gfp-billing-in-adx-ad-exchange-markets">GFP Billing in ADX (Ad Exchange) Markets</a></li>
+</ul>
+</li>
+<li><a href="#bidding-products">Bidding Products</a></li>
+<li><a href="#bidding-strategies">Bidding Strategies</a></li>
+<li><a href="#bidding-algorithms">Bidding Algorithms</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<h2 id="ad-system-overview"><a class="markdownIt-Anchor" href="#ad-system-overview"></a> Ad System Overview</h2>
+<h3 id="how-are-ads-delivered"><a class="markdownIt-Anchor" href="#how-are-ads-delivered"></a> How are Ads Delivered?</h3>
+<p>Bidding ad workflow: Ad Candidates <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> Model Scoring <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> Auction/Billing (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>T</mi><mi>R</mi><mo>×</mo><mi>C</mi><mi>V</mi><mi>R</mi><mo>×</mo><mi>B</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">CTR \times CVR \times Bid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span></span></span></span>, second-price billing) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> User Feedback <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> Model Training.</p>
+<ul>
+<li><strong>Before Send (Online Auction Phase):</strong>
+<ul>
+<li>A user request triggers the core orchestrator component.</li>
+<li>The orchestrator manages a multi-stage pipeline:
+<ul>
+<li><strong>Retrieval (Recall)</strong>: Filters out a candidate set from millions of ads (incorporating targeting rules, pacing, and frequency capping).</li>
+<li><strong>Pre-ranking</strong>: Trims the candidate set to reduce computational load.</li>
+<li><strong>Fine Ranking</strong>: Scores the remaining candidates, predicting and calibrating CTR and CVR.</li>
+<li>Returns the top candidates with their final expected revenues.</li>
+</ul>
+</li>
+<li>While returning the winning ad, the billing pipeline calculates costs.</li>
+</ul>
+</li>
+<li><strong>After Send (Logging &amp; Feedback Phase):</strong>
+<ul>
+<li>Upon sending the ad, the system logs billing events, updates pacing states, and pushes feature snapshots for training.</li>
+<li><em>Sample Joining</em>:
+<ul>
+<li>Collects feature snapshots from the online auction logs.</li>
+<li>Collects user action labels (impressions, clicks, conversions).</li>
+<li>Joins features and labels using unique request IDs, pushing samples to a message queue.</li>
+</ul>
+</li>
+<li><em>Streaming Model Updates</em>:
+<ul>
+<li>Streaming jobs fetch joined samples for real-time online training, updating model parameters.</li>
+<li>Model parameters are pushed to online prediction nodes periodically to keep predictions fresh.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="overview-of-the-relationship-between-ad-strategies-and-systems"><a class="markdownIt-Anchor" href="#overview-of-the-relationship-between-ad-strategies-and-systems"></a> Overview of the Relationship Between Ad Strategies and Systems</h3>
+<p>Ad monetization involves three parties: publishers, advertisers, and users. The platform maximizes revenue by balancing the interests of all three, necessitating a complex system.<br />
+The stages in the pipeline: pre-ranking reduces model scoring pressure; fine ranking predicts the exact value for sorting; re-ranking is dominated by organic feed blending constraints.<br />
+Sorting: Fine ranking sorts ads based on expected revenue (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi><mo>=</mo><mi>p</mi><mi>C</mi><mi>T</mi><mi>R</mi><mo>×</mo><mi>p</mi><mi>C</mi><mi>V</mi><mi>R</mi><mo>×</mo><mi>B</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">eCPM = pCTR \times pCVR \times Bid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span></span></span></span>). Placements must pass an <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">eCPM</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> threshold to enter the auction.<br />
+Bidding: For advertisers, bidding expresses cost and acquisition targets; for platforms, bidding products are levers for pacing and optimization. Bidding formulas require heavy parameter tuning.<br />
+Conversions: Defining the conversion event shapes both model labels and bidding goals.<br />
+Attribution: Calculating advertiser ROI, billing, and model training rely on attribution, which involves resolving touchpoint windows and billing points.</p>
+<h3 id="ads-vs-recommendation-vs-search"><a class="markdownIt-Anchor" href="#ads-vs-recommendation-vs-search"></a> Ads vs. Recommendation vs. Search</h3>
+<p>Business Differences:</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Search</th>
+<th>Recommendation</th>
+<th>Ads</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>User Intent</strong></td>
+<td>Active and explicit</td>
+<td>Passive discovery</td>
+<td>Semi-active, inferred intent</td>
+</tr>
+<tr>
+<td><strong>Monetization Goal</strong></td>
+<td>Weak</td>
+<td>Medium</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td><strong>Feedback Type</strong></td>
+<td>Explicit (clicks, bounce)</td>
+<td>Implicit (dwell time, clicks)</td>
+<td>Explicit + conversion (purchases, installs)</td>
+</tr>
+<tr>
+<td><strong>Strategic Bottleneck</strong></td>
+<td>Query intent, recency</td>
+<td>Personalization, diversity</td>
+<td>Balancing ad-revenue and user experience</td>
+</tr>
+</tbody>
+</table>
+<p>System Differences:</p>
+<ol>
+<li><strong>Candidate Pool Scale</strong>
+<ul>
+<li>Search/Recommendation: Billions.</li>
+<li>Ads: Millions.</li>
+<li><em>Reason</em>: Ads must pass strict active billing limits, advertiser budgets, targeting rules, and compliance filters, shrinking candidates early.</li>
+</ul>
+</li>
+<li><strong>Ultimate Objectives</strong>
+<ul>
+<li>Search: Ranking task.
+<ul>
+<li>Sort items based on relevance to the query (Learning to Rank - LTR).</li>
+</ul>
+</li>
+<li>Recommendation: Directly optimizing expected engagement per request (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">(</mo><msub><mi>R</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E(R_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> e.g., stay time).
+<ul>
+<li>Heavy reliance on personalization and rich user feedback logs due to the lack of explicit queries.</li>
+</ul>
+</li>
+<li>Ads: Requires predicting the exact probability of clicks and conversions (CTR, CVR).</li>
+</ul>
+</li>
+<li><strong>Model Assumptions</strong>
+<ul>
+<li>Search: Information Retrieval (PageRank) + Machine Learning to Rank.</li>
+<li>Recommendation:
+<ul>
+<li><em>Online-offline mismatch</em>: User actions on a single request do not directly correspond to long-term satisfaction (stay time vs. stay duration). Offline metrics and online gains often diverge.</li>
+<li><em>Implicit offline goals</em>: Models must combine multiple single-request feedbacks to approximate long-term user satisfaction. Requires:
+<ol>
+<li>Identifying which behaviors serve as good short-term proxies for long-term satisfaction.</li>
+<li>Tuning the blending formula to balance diverse user feedbacks.</li>
+</ol>
+</li>
+<li><em>Control-oriented</em>: The model operates on a control problem—optimizing the strategy to find and maximize short-term proxies for long-term satisfaction.</li>
+<li><em>Non-independent requests</em>: The model must run multi-step optimizations across multiple requests (Listwise optimization to diversify a session feed).</li>
+</ul>
+</li>
+<li>Ads:
+<ul>
+<li><em>Online-offline alignment</em>: Offline metrics (measuring single-request revenue) align strongly with online revenues (total monetization), as request volume is less sensitive to ad system updates.</li>
+<li><em>Explicit offline goals</em>: The ranking formula (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">eCPM</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span>) is clear; offline models train on explicit labels (pCTR, pCVR).</li>
+<li><em>Precision-oriented</em>: Ad models focus on prediction accuracy.</li>
+</ul>
+</li>
+<li><em>Shared Architecture</em>: Both share the three-stage funnel: Retrieval <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> Pre-ranking <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> Fine Ranking.</li>
+</ul>
+</li>
+</ol>
+<h2 id="ranking"><a class="markdownIt-Anchor" href="#ranking"></a> Ranking</h2>
+<p>Ranking is the core of ad delivery, scored by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>o</mi><mi>r</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi mathvariant="normal">_</mi><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">sorted\_eCPM</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span>:</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>s</mi><mi>o</mi><mi>r</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi mathvariant="normal">_</mi><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi><mo>=</mo><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi><mo>+</mo><mi>h</mi><mi>i</mi><mi>d</mi><mi>d</mi><mi>e</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>c</mi><mi>o</mi><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">sorted\_eCPM = eCPM + hidden\_cost
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">h</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi><mo>=</mo><mi>p</mi><mi>C</mi><mi>T</mi><mi>R</mi><mo>×</mo><mi>p</mi><mi>C</mi><mi>V</mi><mi>R</mi><mo>×</mo><mi>r</mi><mi>a</mi><mi>n</mi><mi>k</mi><mi mathvariant="normal">_</mi><mi>b</mi><mi>i</mi><mi>d</mi><mo>×</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">eCPM = pCTR \times pCVR \times rank\_bid \times 1000
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">b</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span></span></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>a</mi><mi>n</mi><mi>k</mi><mi mathvariant="normal">_</mi><mi>b</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">rank\_bid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">b</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span></span></span></span> is the advertiser’s bid (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mi>p</mi><mi>a</mi><mi mathvariant="normal">_</mi><mi>b</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">cpa\_bid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">b</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span></span></span></span>) adjusted by risk control and pacing strategies.</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>i</mi><mi>d</mi><mi>d</mi><mi>e</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>c</mi><mi>o</mi><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">hidden\_cost</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">h</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span></span></span></span> is a control variable incorporating user experience, platform health, ad-load intervals, cold-start boosts, and down-ranking parameters.</li>
+<li>The system must identify the single highest-value ad for each request.</li>
+</ul>
+<h3 id="retrieval-recall"><a class="markdownIt-Anchor" href="#retrieval-recall"></a> Retrieval (Recall)</h3>
+<p><strong>Objective</strong>: Filter millions of candidates down to ~10,000.<br />
+<strong>Features</strong>: Multi-channel, indexing.<br />
+<strong>Goal</strong>: Unsupervised matching (ANN/quantization) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> Supervised matching directly predicting fine-ranking outputs (DR).<br />
+<strong>Challenges</strong>: Huge database sizes; strict online latency bounds (&lt;10ms); complex targeting filters (billions of intersection bitmaps).</p>
+<p>Common Retrieval Algorithms:</p>
+<h4 id="key-value-retrieval"><a class="markdownIt-Anchor" href="#key-value-retrieval"></a> Key-Value Retrieval</h4>
+<ul>
+<li><strong>Inverted Indexing</strong>: Filtering eligible items, building inverted indexes on targeting criteria (e.g. city, age, gender), sorting items within each index key by popularity, recency, or click rates, and writing results to a KV store.</li>
+</ul>
+<h4 id="vector-indexing-ann-approximate-nearest-neighbor"><a class="markdownIt-Anchor" href="#vector-indexing-ann-approximate-nearest-neighbor"></a> Vector Indexing: ANN (Approximate Nearest Neighbor)</h4>
+<ul>
+<li><strong>Vectorized Retrieval</strong>: Representing users and ads as embeddings, and indexing them to allow online vector search (approximated nearest neighbors). User embeddings combine context and demographics.</li>
+<li><strong>Hierarchical Navigable Small World (HNSW)</strong>
+<ul>
+<li>NSW links items to their nearest neighbors to build a navigable graph. When searching or inserting a new vector, it routes via “highways” to find the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span> nearest neighbors.</li>
+<li>HNSW adds skip-list concepts, building a multi-layer graph to speed up search.</li>
+<li>
+<img src="/en/ads/intro-2/Ads-Model-HNSW.png" class="" title="HNSW Architecture">
+</li>
+</ul>
+</li>
+<li><strong>Inverted File with Product Quantization (IVF_PQ)</strong>: Clusters vectors to build a cluster-ID inverted index, speeding up distance computations.</li>
+<li><em>ANN Limitations in Ads</em>:
+<ul>
+<li>ANN only guarantees a lower bound on search quality, not a guarantee on recall.</li>
+<li>When targeting criteria are dense, ANN search quality decays.</li>
+<li>Chasing <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>T</mi><mi>R</mi><mo>×</mo><mi>C</mi><mi>V</mi><mi>R</mi><mo>×</mo><mi>B</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">CTR \times CVR \times Bid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span></span></span></span> directly within vector spaces is difficult, limiting retrieval models to single-target proxy functions (fitting expected fine-ranking outputs).</li>
+</ul>
+</li>
+<li><strong>Quantized Retrieval</strong>: Brute-force retrieval (Quantization + GPU) on Douyin Ads.<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><munder><mo><mi>max</mi><mo>⁡</mo></mo><mrow><msub><mi>t</mi><mi>u</mi></msub><mo separator="true">,</mo><msub><mi>t</mi><mi>a</mi></msub></mrow></munder><mi>P</mi><mrow><mo fence="true">(</mo><mi>Q</mi><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">;</mo><msub><mi>t</mi><mi>u</mi></msub><msup><mo stretchy="false">)</mo><mi>T</mi></msup><mi>Q</mi><mo stretchy="false">(</mo><msub><mi>a</mi><mi>i</mi></msub><mo separator="true">;</mo><msub><mi>t</mi><mi>a</mi></msub><mo stretchy="false">)</mo><mo fence="true">)</mo></mrow><mo>&gt;</mo><mi>Q</mi><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">;</mo><msub><mi>t</mi><mi>u</mi></msub><msup><mo stretchy="false">)</mo><mi>T</mi></msup><mi>Q</mi><mo stretchy="false">(</mo><msub><mi>a</mi><mi>j</mi></msub><mo separator="true">;</mo><msub><mi>t</mi><mi>a</mi></msub><mo stretchy="false">)</mo><mspace width="1em"/><mi mathvariant="normal">∣</mi><mspace width="1em"/><msup><mi>u</mi><mi>T</mi></msup><msub><mi>a</mi><mi>i</mi></msub><mo>&gt;</mo><msup><mi>u</mi><mi>T</mi></msup><msub><mi>a</mi><mi>j</mi></msub><mspace width="1em"/><msub><mi>t</mi><mi>u</mi></msub><mo separator="true">,</mo><msub><mi>t</mi><mi>a</mi></msub><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><msup><mn>2</mn><mi>q</mi></msup></msup></mrow><annotation encoding="application/x-tex">\max_{t_u, t_a} P \left( Q(u; t_u)^T Q(a_i; t_a) \right) &gt; Q(u; t_u)^T Q(a_j; t_a) \quad \vert \quad u^T a_i &gt; u^T a_j \quad t_u, t_a \in \mathbb{R}^{2^q}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.727439em;vertical-align:-0.8361080000000001em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4305599999999999em;"><span style="top:-2.4em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">max</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8361080000000001em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord mathnormal">u</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.177439em;vertical-align:-0.286108em;"></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord mathnormal">u</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:1em;"></span><span class="mord">∣</span><span class="mspace" style="margin-right:1em;"></span><span class="mord"><span class="mord mathnormal">u</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.177439em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal">u</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:1em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.92998em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord mathbb">R</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.92998em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7385428571428572em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>s.t.</mtext><mspace width="1em"/><msubsup><mi>t</mi><mi>u</mi><mi>k</mi></msubsup><mo>&lt;</mo><msubsup><mi>t</mi><mi>u</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mo separator="true">,</mo><mspace width="1em"/><msubsup><mi>t</mi><mi>a</mi><mi>k</mi></msubsup><mo>&lt;</mo><msubsup><mi>t</mi><mi>a</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mo separator="true">,</mo><mspace width="1em"/><mi>k</mi><mo>∈</mo><mrow><mo fence="true">[</mo><mn>1</mn><mo separator="true">,</mo><msup><mn>2</mn><mi>q</mi></msup><mo>−</mo><mn>1</mn><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">\text{s.t.} \quad t_u^k &lt; t_u^{k + 1}, \quad t_a^k &lt; t_a^{k + 1}, \quad k \in \left[ 1, 2^q - 1 \right]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.146108em;vertical-align:-0.247em;"></span><span class="mord text"><span class="mord">s.t.</span></span><span class="mspace" style="margin-right:1em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.146108em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.146108em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714392em;"><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose delimcenter" style="top:0em;">]</span></span></span></span></span></span></p>
+Using 8-bit quantization achieves offline NDCG loss within 0.02%.</li>
+<li><strong>Index Rule Learning (IRL)</strong>: Rather than filtering by targeting rules post-vector search, IRL learns features that filter out ineligible ads early during the search, saving computing overhead.</li>
+</ul>
+<h4 id="deep-retrieval-kdd-21-bytedance-ai-lab"><a class="markdownIt-Anchor" href="#deep-retrieval-kdd-21-bytedance-ai-lab"></a> Deep Retrieval (KDD 21, ByteDance AI Lab)</h4>
+<ul>
+<li>Deep Retrieval (DR) learns an index structure end-to-end, directly linking retrieval targets with training objectives.</li>
+<li><em>Key Contributions</em>:
+<ul>
+<li>Breaks the limitations of inner-product or distance-based searches, enabling indexing to synchronize with arbitrary deep networks.</li>
+<li>Uses graph-based encoding, allowing a single item to carry multiple indexes to enhance representation.</li>
+<li>Employs an online Expectation-Maximization (EM) algorithm to support streaming updates.</li>
+<li>Built for large-scale production, handling massive catalogs and complex filtering rules efficiently.</li>
+<li>Proved the viability of end-to-end index learning in industrial retrieval.</li>
+</ul>
+</li>
+</ul>
+<h4 id="retrieval-strategies"><a class="markdownIt-Anchor" href="#retrieval-strategies"></a> Retrieval Strategies</h4>
+<ul>
+<li>Designing multi-channel retrieval sources and filtering rules.</li>
+<li>Integrating with targeting systems to identify the most relevant audience (“You might also like”).</li>
+</ul>
+<h3 id="pre-ranking-coarse-ranking"><a class="markdownIt-Anchor" href="#pre-ranking-coarse-ranking"></a> Pre-ranking (Coarse Ranking)</h3>
+<p><strong>Objective</strong>: Filter ~10,000 candidates down to ~1,000.<br />
+<strong>Features</strong>: Dual-tower architectures, cached ad-side embeddings, zero online cross-features.<br />
+<strong>Goal</strong>: Supervised learning; L2R vs. predicting CTR/CVR directly.<br />
+<strong>Challenges</strong>: Latency constraints.</p>
+<h4 id="ltr-learning-to-rank"><a class="markdownIt-Anchor" href="#ltr-learning-to-rank"></a> LTR (Learning to Rank)</h4>
+<ul>
+<li><strong>Pointwise</strong>: Scores each document (ad) independently. The model learns absolute relevance scores.</li>
+<li><strong>Pairwise</strong>: Models the relative order between two documents, evaluating document pairs. It does not account for absolute positions in the list, treating errors at the top of the list the same as errors at the bottom.</li>
+<li><strong>Listwise</strong>: Scores the entire list of candidates for a query. Models the optimal ranking function <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span></span></span></span> directly.</li>
+<li><em>Representative Algorithms</em>: RankSVM, GBDT, RankNet, LambdaRank, LambdaMART.
+<ul>
+<li><strong>RankNet</strong>: Employs a logistic loss function to optimize pairwise classification errors.</li>
+<li><strong>LambdaRank</strong>: Defines the gradient of the loss function (Lambda) as the NDCG change when swapping two documents, optimizing NDCG directly.</li>
+<li><strong>LambdaMART</strong>: Combines GBDT with LambdaRank.</li>
+</ul>
+</li>
+<li><em>LTR Metrics</em>: Precision, Recall, AUC, DCG (Discounted Cumulative Gain), and NDCG.</li>
+<li><em>Ads Challenge</em>: Online-offline metric alignment. Chasing NDCG improvements does not always translate to online ad revenue gains, necessitating multi-dimensional evaluations.</li>
+</ul>
+<h4 id="r2s-model"><a class="markdownIt-Anchor" href="#r2s-model"></a> R2S Model</h4>
+<ul>
+<li>A simplified, lightweight version of fine-ranking models, optimized for top-ranking candidates.</li>
+<li>Pointwise sigmoid cross-entropy treats candidates independently (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>=</mo><mi>l</mi><mi>a</mi><mi>b</mi><mi>e</mi><mi>l</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(y_i = label|x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">a</span><span class="mord mathnormal">b</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord">∣</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>). In pre-ranking, candidates are list-dependent (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>=</mo><mi>l</mi><mi>a</mi><mi>b</mi><mi>e</mi><mi>l</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo separator="true">,</mo><mi>l</mi><mi>i</mi><mi>s</mi><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(y_i = label|x, list)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">a</span><span class="mord mathnormal">b</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord">∣</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">i</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span>).</li>
+<li><strong>Softmax Loss (Weighted Cross-Entropy)</strong>: Formulates pre-ranking as a multi-class classification problem—selecting the single highest-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>o</mi><mi>r</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi mathvariant="normal">_</mi><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">sorted\_eCPM</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> ad from the candidate list.
+<ul>
+<li>Optimizes <code>softmax_cross_entropy_with_logits</code> using sampled softmax loss.</li>
+</ul>
+</li>
+<li><em>Features</em>: Incorporating sparse NAS and user-side feature extraction layers.</li>
+<li><em>Trend</em>: Deep pre-ranking networks.</li>
+</ul>
+<h4 id="pre-ranking-strategies"><a class="markdownIt-Anchor" href="#pre-ranking-strategies"></a> Pre-ranking Strategies</h4>
+<ul>
+<li>Primarily focused on model structural improvements; strategies are usually shared with fine-ranking objectives.</li>
+</ul>
+<h3 id="fine-ranking"><a class="markdownIt-Anchor" href="#fine-ranking"></a> Fine Ranking</h3>
+<p><strong>Objective</strong>: Score ~1,000 candidates, select the top winners.<br />
+<strong>Features</strong>: Deep networks, cached embeddings, high-order online feature crossing.<br />
+<strong>Goal</strong>: Predicting CTR and CVR: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>u</mi><mi>s</mi><mi>e</mi><mi>r</mi><mo separator="true">,</mo><mi>c</mi><mi>o</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo separator="true">,</mo><mi>a</mi><mi>d</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(user, content, ad)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">u</span><span class="mord mathnormal">s</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mclose">)</span></span></span></span>.<br />
+<strong>Challenges</strong>:</p>
+<ul>
+<li><em>Data</em>: Extreme conversion sparsity (positive samples can be 0.1% or 0.01% of negatives), causing extreme class imbalances.</li>
+<li><em>Systematic bias</em>: Exposure bias, position bias, and contextual variance (search vs. feed).</li>
+<li><em>Double Objectives</em>: Requires predicting both relative sorting order (for selection) and absolute probabilities (for bidding and billing).</li>
+</ul>
+<h4 id="click-through-rate-prediction-problem"><a class="markdownIt-Anchor" href="#click-through-rate-prediction-problem"></a> Click-Through Rate Prediction Problem</h4>
+<p>Evolution:</p>
+<ul>
+<li><strong>Binary Logistic Regression (KDD 2013, Google)</strong>: Employs <strong>FTRL</strong> (Follow-the-Regularized-Leader) to train models online on massive sparse datasets.
+<ul>
+<li>FTRL combines past gradients to re-weight parameters, minimizes deviations from prior parameters, and applies L1 regularization to ensure sparsity.</li>
+</ul>
+</li>
+<li><strong>GBDT + LR (Facebook, 2014)</strong>: A two-stage pipeline where continuous features are fed into GBDT trees, and the tree leaf indices are used as categorical features in a linear LR model.
+<ul>
+<li>GBDT captures non-linear feature combinations and performs automated feature selection.</li>
+</ul>
+</li>
+<li><strong>Feature Crossing (LinkedIn, 2014)</strong>:
+<ul>
+<li><em>Global prediction</em>: Linear models using demographics and ad features (shares global coefficients to generalize and handle cold start).</li>
+<li><em>Feature crossing</em>: Pairwise feature interactions to capture non-linear relationships.</li>
+<li><em>User/Ad-specific coefficients</em>: Learning unique coefficients per user or per ad.</li>
+</ul>
+</li>
+<li><strong>Calibration (Twitter, 2015)</strong>: A two-stage pipeline of Ranking + Calibration (Isotonic Regression).</li>
+</ul>
+<h4 id="recommendation-models-and-deep-models"><a class="markdownIt-Anchor" href="#recommendation-models-and-deep-models"></a> Recommendation Models and Deep Models</h4>
+<img src="/en/ads/intro-2/Ads-Model-Fine-Ranking-Models.png" class="" title="Ad Fine Ranking Model Evolution">
+<ul>
+<li><strong>Collaborative Filtering to Factorization Machine (FM)</strong>: Matrix factorization extracts latent user and item vectors (embeddings), scoring them using inner products.</li>
+<li><strong>Wide &amp; Deep (Google, 2016)</strong>: Combines a linear model (Wide part, for memory/memorization) with a deep neural network (Deep part, for generalization).
+<ul>
+<li>Variations: DeepFM (replacing the Wide part with an FM layer) and Deep &amp; Cross Network (DCN).</li>
+<li><em>All-Embedding</em>: Upgrading deep ranking models to end-to-end embedding networks.</li>
+</ul>
+</li>
+<li><strong>DIN &amp; DIEN (Alibaba)</strong>:
+<ul>
+<li><strong>DIN</strong>: Introduces local activation units to simulate attention, weighting user history items based on their relevance to the candidate item.</li>
+<li><strong>DIEN</strong>: Models the dynamic evolution of user interests over time using GRU layers with attention.</li>
+</ul>
+</li>
+</ul>
+<p>Model Improvements in 4 Areas:</p>
+<ol>
+<li><strong>Model Complexity</strong>: Deepening networks (e.g., Wide &amp; Deep <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> Deep Crossing).
+<ul>
+<li>Multi-Task learning (Shared-Bottom, MMoE, PLE).</li>
+<li>LHUC (Learning Hidden Unit Contributions) to personalize neural network weights.</li>
+</ul>
+</li>
+<li><strong>Feature Crossing</strong>: Transitioning from manual crossing to automated high-order crossing (e.g., AutoInt, CDot).</li>
+<li><strong>Model Ensembles</strong>: Combining diverse architectures (e.g., transfer learning for cold ads, combining batch and online networks).</li>
+<li><strong>Cross-domain Integration</strong>: Borrowing structures from NLP (e.g. BERT-based sequence modeling).</li>
+</ol>
+<h4 id="fine-ranking-strategies"><a class="markdownIt-Anchor" href="#fine-ranking-strategies"></a> Fine Ranking Strategies</h4>
+<ul>
+<li>Incorporating platform long-term values (LTV, creator health) into the ranking score.</li>
+<li>Balancing exploration and exploitation (EE) for cold ads.</li>
+<li>Integrating with re-ranking flow controls.</li>
+</ul>
+<h4 id="calibration-in-fine-ranking"><a class="markdownIt-Anchor" href="#calibration-in-fine-ranking"></a> Calibration in Fine Ranking</h4>
+<ul>
+<li>Unlike recommendation, ad predictions affect bidding and billing directly. Predicted CTR and CVR must align with posterior click and conversion rates.</li>
+<li>Platforms apply <strong>Isotonic Regression</strong> and <strong>Empirical Bayes</strong> calibration to correct for system-level high- or low-estimations, accounting for conversion feedback delays.</li>
+</ul>
+<h3 id="re-ranking-blending"><a class="markdownIt-Anchor" href="#re-ranking-blending"></a> Re-ranking / Blending</h3>
+<p>Re-ranking organizes organic posts and commercial ads in the final feed:</p>
+<ol>
+<li><strong>RecRank</strong>: Sorting organic recommendations.</li>
+<li><strong>Ad Load Controller</strong>: Inserting ad placements into the feed while respecting ad-load limits and minimum organic gaps.</li>
+<li><strong>Auction</strong>: Scoring and running auctions for the designated ad slots, determining the final winning ads.</li>
+</ol>
+<h4 id="long-term-direction-incrementality-bidding-deep-organic-integration"><a class="markdownIt-Anchor" href="#long-term-direction-incrementality-bidding-deep-organic-integration"></a> Long-Term Direction: Incrementality Bidding &amp; Deep Organic Integration</h4>
+<ul>
+<li><strong>Uplift Bidding</strong>: Bidding based on the conversion lift attributable to the ad:<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>U</mi><mi>p</mi><mi>l</mi><mi>i</mi><mi>f</mi><mi>t</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mi>o</mi><mi>n</mi><mi>v</mi><mi>e</mi><mi>r</mi><mi>t</mi><mi mathvariant="normal">∣</mi><mi>a</mi><mi>d</mi><mo stretchy="false">)</mo><mo>−</mo><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mi>o</mi><mi>n</mi><mi>v</mi><mi>e</mi><mi>r</mi><mi>t</mi><mi mathvariant="normal">∣</mi><mi>n</mi><mi>o</mi><mi mathvariant="normal">_</mi><mi>a</mi><mi>d</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Uplift = P(convert | ad) - P(convert | no\_ad)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">t</span><span class="mord">∣</span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.06em;vertical-align:-0.31em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">t</span><span class="mord">∣</span><span class="mord mathnormal">n</span><span class="mord mathnormal">o</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mclose">)</span></span></span></span></span></p>
+</li>
+<li>Eliminates paying for conversions that would have occurred organically.</li>
+<li><em>Bidding Formula</em>:<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>B</mi><mi>i</mi><mi>d</mi><mo>=</mo><mi>U</mi><mi>p</mi><mi>l</mi><mi>i</mi><mi>f</mi><mi>t</mi><mo>×</mo><mi>r</mi><mi>a</mi><mi>n</mi><mi>k</mi><mi mathvariant="normal">_</mi><mi>b</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">Bid = Uplift \times rank\_bid
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">b</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span></span></span></span></span></p>
+</li>
+</ul>
+<h2 id="bidding"><a class="markdownIt-Anchor" href="#bidding"></a> Bidding</h2>
+<h3 id="auction-and-billing-mechanisms-in-ad-systems"><a class="markdownIt-Anchor" href="#auction-and-billing-mechanisms-in-ad-systems"></a> Auction and Billing Mechanisms in Ad Systems</h3>
+<ul>
+<li>Ad inventory allocation is resolved through auctions.</li>
+<li>Bidding mechanisms shape advertiser behaviors and platform revenues.</li>
+</ul>
+<p>Common Auction Types:</p>
+<ol>
+<li><strong>Generalized First Price (GFP)</strong>: High bidder wins, pays their exact bid.
+<ul>
+<li><em>Pros</em>: Simple logic.</li>
+<li><em>Cons</em>: Highly unstable; bidders constantly adjust bids to probe competitor prices.</li>
+</ul>
+</li>
+<li><strong>Generalized Second Price (GSP)</strong>: High bidder wins, pays the bid of the runner-up (plus a minimum increment).
+<ul>
+<li><em>Pros</em>: Mitigates bid probing; truth-telling is a dominant strategy in single-slot auctions.</li>
+<li><em>Cons</em>: In multi-slot auctions, GSP is not completely strategy-proof.</li>
+</ul>
+</li>
+<li><strong>Vickrey-Clarke-Groves (VCG)</strong>: High bidder wins, pays the external cost they impose on other bidders (the total value loss of competitors due to their presence).
+<ul>
+<li><em>Pros</em>: Strategy-proof; truth-telling is a Nash equilibrium.</li>
+<li><em>Cons</em>: Exceptionally complex for advertisers to understand.</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><em>Industry standard</em>: Most platforms employ GSP.</li>
+</ul>
+<h4 id="separation-of-bidding-points-and-billing-points"><a class="markdownIt-Anchor" href="#separation-of-bidding-points-and-billing-points"></a> Separation of Bidding Points and Billing Points</h4>
+<ul>
+<li>Bidding occurs at impressions (<code>send/show</code>).</li>
+<li>Bidding points have evolved: CPM <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> CPC <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> CPA <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> oCPC/oCPM.</li>
+<li><em>Billing separation (oCPX)</em>: Bidding on deep actions (conversions, CVR), but billing on clicks (oCPC) or impressions (oCPM).
+<ul>
+<li>Reduces publisher risks (billing is closer to impressions).</li>
+<li>Aligns with advertiser ROI (bidding is based on conversions).</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Billing Method</th>
+<th>Bidding Point</th>
+<th>Billing Point</th>
+<th>Model Predicts</th>
+<th>Publisher Risk</th>
+<th>Advertiser Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CPM</strong></td>
+<td>show</td>
+<td>show</td>
+<td>-</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td><strong>CPC</strong></td>
+<td>click</td>
+<td>click</td>
+<td>pCTR</td>
+<td>Medium</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td><strong>CPA</strong></td>
+<td>convert</td>
+<td>convert</td>
+<td>pCTR, pCVR</td>
+<td>High</td>
+<td>Low</td>
+</tr>
+<tr>
+<td><strong>oCPC</strong></td>
+<td>convert</td>
+<td>click</td>
+<td>pCTR, pCVR</td>
+<td>Medium</td>
+<td>Low</td>
+</tr>
+<tr>
+<td><strong>oCPM</strong></td>
+<td>convert</td>
+<td>show</td>
+<td>pCTR, pCVR</td>
+<td>Low</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table>
+<h4 id="gfp-billing-in-adx-ad-exchange-markets"><a class="markdownIt-Anchor" href="#gfp-billing-in-adx-ad-exchange-markets"></a> GFP Billing in ADX (Ad Exchange) Markets</h4>
+<ul>
+<li>RTB markets and Ad Exchanges (including Google Ad Manager) have transitioned from second-price (GSP) to first-price (GFP) auctions.</li>
+<li><em>Drivers for GFP in ADX</em>:
+<ul>
+<li><strong>Multi-layered auctions</strong>: Header Bidding and unified auctions led to inconsistencies in GSP (e.g. ADX second-price outputs losing against external first-price bids).</li>
+<li><strong>Market equilibrium</strong>: Bidders adjusting to average values naturally converges the market to first-price.</li>
+<li><strong>Transparency</strong>: GFP reduces publishers’ incentives to manipulate second-price values (e.g., rigging reserve prices).</li>
+<li>Google’s shift to GFP in 2019 simplified programmatic bidding and boosted clearing prices.</li>
+</ul>
+</li>
+</ul>
+<h3 id="bidding-products"><a class="markdownIt-Anchor" href="#bidding-products"></a> Bidding Products</h3>
+<ul>
+<li>Platforms provide automated bidding products to help advertisers maximize volume and control costs.</li>
+<li>Automated bidding couples directly with the ranking system.</li>
+</ul>
+<p>Core Design Parameters:</p>
+<ul>
+<li><strong>Objective/Constraint</strong>: E.g., capping average CPA (TargetCost), spending full budget (NoBid/MaxConversion), or capping individual cost (CostCap).</li>
+<li><strong>Pacing cycle</strong>: Daily or weekly budgets.</li>
+<li><strong>Control granularity</strong>: Campaign or ad group levels.</li>
+<li><strong>Control algorithms</strong>: Proportional-Integral-Derivative (PID) control, Model Predictive Control (MPC).</li>
+</ul>
+<div class="mermaid">
+  graph TD
+    A["Bidding Product Design"]
+    B["Control Algorithm (PID/MPC)"]
+    C["Historical Data"]
+    D["Pacing Cycle"]
+    E["Pacing Granularity"]
+
+    A --> B
+    A --> C
+    A --> D
+    A --> E
+</div>
+
+<p>Bidding Product Profiles:</p>
+<table>
+<thead>
+<tr>
+<th>Product Name</th>
+<th>Constraint &amp; Objective</th>
+<th>Pacing Cycle</th>
+<th>Control Granularity</th>
+<th>Control Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TargetCost</strong> (Manual Bid)</td>
+<td>Keep average CPA near target (constraint), maximize volume (goal)</td>
+<td>Daily</td>
+<td>Campaign / Ad Group</td>
+<td>MPC dynamically adjusts <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>a</mi><mi>n</mi><mi>k</mi><mi mathvariant="normal">_</mi><mi>b</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">rank\_bid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">b</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span></span></span></span> based on real-time CPA ratios</td>
+</tr>
+<tr>
+<td><strong>NoBid</strong> (Max Conversion)</td>
+<td>Spend full budget (constraint), minimize CPA (goal)</td>
+<td>Daily</td>
+<td>Campaign</td>
+<td>Dynamically explores <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>a</mi><mi>n</mi><mi>k</mi><mi mathvariant="normal">_</mi><mi>b</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">rank\_bid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">b</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span></span></span></span> using budget delivery curves</td>
+</tr>
+<tr>
+<td><strong>CostCap</strong></td>
+<td>Keep average CPA below ceiling (constraint), maximize volume</td>
+<td>Daily</td>
+<td>Campaign</td>
+<td>Adjusts <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>a</mi><mi>n</mi><mi>k</mi><mi mathvariant="normal">_</mi><mi>b</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">rank\_bid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">b</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span></span></span></span> to balance pacing speeds and CPA constraints</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ul>
+<li>Guo, C., Pleiss, G., &amp; Weinberger, K. Q. (2017). <a target="_blank" rel="noopener" href="https://www.semanticscholar.org/paper/On-Calibration-of-Modern-Neural-Networks-Guo-Pleiss/d65ce2b8300541414bfe51d03906fca72e93523c">On Calibration of Modern Neural Networks</a>.</li>
+<li>M. Milgrom. <a target="_blank" rel="noopener" href="https://book.douban.com/subject/35128229/">Price Discovery</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://blog.google/products/admanager/update-first-price-auctions-google-ad-manager/">Google Ad Manager Transition to First-Price Auction</a>.</li>
+</ul>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/en/ads/intro-2/">https://xinheliu.github.io/en/ads/intro-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Ads/">
+                                    <span class="chip bg-color">Ads</span>
+                                </a>
+                            
+                                <a href="/tags/AI-Machine-Learning/">
+                                    <span class="chip bg-color">AI &amp; Machine Learning</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/en/ads/intro-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Computational Advertising (1) Introduction to Ad Business">
+                        
+                        <span class="card-title">Computational Advertising (1) Introduction to Ad Business</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-07-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Technology/" class="post-category">
+                                    Technology
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Ads/">
+                        <span class="chip bg-color">Ads</span>
+                    </a>
+                    
+                    <a href="/tags/AI-Machine-Learning/">
+                        <span class="chip bg-color">AI &amp; Machine Learning</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/en/ads/intro-3/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Computational Advertising (3) Ad Strategy">
+                        
+                        <span class="card-title">Computational Advertising (3) Ad Strategy</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-08-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Technology/" class="post-category">
+                                    Technology
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Ads/">
+                        <span class="chip bg-color">Ads</span>
+                    </a>
+                    
+                    <a href="/tags/AI-Machine-Learning/">
+                        <span class="chip bg-color">AI &amp; Machine Learning</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>
