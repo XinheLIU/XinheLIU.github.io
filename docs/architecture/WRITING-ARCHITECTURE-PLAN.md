@@ -2,7 +2,7 @@
 
 Last updated: 2026-08-24
 
-Status: In implementation — Phase 0 in progress (see Progress Board below)
+Status: In implementation — Phase 0 complete (2026-08-24); Phase 1 next (see Progress Board below)
 
 ## Progress Board
 
@@ -712,4 +712,4 @@ The architecture is complete when:
 
 ## 18. Immediate Next Step
 
-Start with Phase 0 only: repair repository integrity, preserve current work, establish build baselines, choose a tracked home for this plan, and capture public routes. Do not begin content movement until those checks pass.
+Phase 0 completed on 2026-08-24 (see Progress Board and `docs/architecture/PHASE-0-BASELINE.md`). Next: Phase 1 — finalize metadata fields and internal-link syntax, document the authoring contract, and build the read-only audit before any content movement.
