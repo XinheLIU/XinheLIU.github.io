@@ -2,7 +2,7 @@
 
 Last updated: 2026-08-24
 
-Status: In implementation — Phases 0–2 complete (2026-08-24); Phase 3 next (see Progress Board below)
+Status: In implementation — Phases 0–3 complete (2026-08-24, except the manual ML Pages-source switch); Phase 4 next (see Progress Board below)
 
 ## Progress Board
 
@@ -748,9 +748,9 @@ The architecture is complete when:
 
 ## 18. Immediate Next Step
 
-Phases 0–2 completed on 2026-08-24 (see Progress Board and
-`docs/architecture/`). Next: Phase 3 — book framework convergence, starting
-with Coding-with-Agents (full Honkit → VitePress migration, then its Pages
-workflow), followed by MachineLearning (recover sources, then mdBook →
-VitePress), ComputerScience (align with the contract), and
-Coding-Interview-Questions (align only compatible rules).
+Phases 0–3 completed on 2026-08-24 (see Progress Board and
+`docs/architecture/`). One manual step remains: set the MachineLearning
+repository's GitHub Pages source to "GitHub Actions". Next: Phase 4 — the
+personal-site content model: integrate series entries with the site archive,
+tags, categories, and related-work behavior, then migrate existing posts
+incrementally by topic (agentic engineering first).
