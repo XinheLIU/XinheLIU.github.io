@@ -13,41 +13,48 @@
       }
     },
     "Coding-with-Agents": {
-      "files": 95,
-      "results": 145,
+      "files": 96,
+      "results": 150,
       "byRule": {
         "code-fence-no-language": 46,
         "image-cross-repo": 2,
         "image-missing": 4,
         "link-content-resolved": 4,
+        "meta-missing-field": 5,
         "meta-missing-frontmatter": 89
       }
     },
     "ComputerScience": {
       "files": 118,
-      "results": 181,
+      "results": 193,
       "byRule": {
         "code-fence-no-language": 7,
         "image-absolute": 42,
         "image-remote": 2,
+        "manifest-id-mismatch": 6,
+        "manifest-locale-mismatch": 6,
         "meta-missing-field": 15,
         "meta-missing-frontmatter": 115
       }
     },
     "Coding-Interview-Questions": {
       "files": 479,
-      "results": 1846,
+      "results": 1862,
       "byRule": {
         "code-fence-no-language": 5,
+        "manifest-id-mismatch": 8,
+        "manifest-locale-mismatch": 8,
         "meta-missing-field": 1796,
         "meta-missing-frontmatter": 45
       }
     },
     "MachineLearning": {
       "files": 33,
-      "results": 34,
+      "results": 62,
       "byRule": {
         "code-fence-no-language": 1,
+        "manifest-id-mismatch": 14,
+        "manifest-locale-mismatch": 14,
         "meta-missing-frontmatter": 33
       }
     }
@@ -2757,6 +2764,41 @@
           "file": "book/zh-cn/02-anatomy/how-agents-work.md"
         },
         {
+          "rule": "meta-missing-field",
+          "severity": "error",
+          "line": 1,
+          "message": "missing required field: created",
+          "file": "book/index.md"
+        },
+        {
+          "rule": "meta-missing-field",
+          "severity": "error",
+          "line": 1,
+          "message": "missing required field: id",
+          "file": "book/index.md"
+        },
+        {
+          "rule": "meta-missing-field",
+          "severity": "error",
+          "line": 1,
+          "message": "missing required field: locale",
+          "file": "book/index.md"
+        },
+        {
+          "rule": "meta-missing-field",
+          "severity": "error",
+          "line": 1,
+          "message": "missing required field: status",
+          "file": "book/index.md"
+        },
+        {
+          "rule": "meta-missing-field",
+          "severity": "error",
+          "line": 1,
+          "message": "missing required field: updated",
+          "file": "book/index.md"
+        },
+        {
           "rule": "meta-missing-frontmatter",
           "severity": "info",
           "line": 1,
@@ -3742,6 +3784,90 @@
           "file": "zh/book/01-foundations/02-computing-foundations/hardware.md"
         },
         {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 1: frontmatter id of en/book/01-foundations/02-computing-foundations/computer-systems.md does not match item id \"computer-systems\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 1: frontmatter id of zh/book/01-foundations/02-computing-foundations/computer-systems.md does not match item id \"computer-systems\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 2: frontmatter id of en/book/01-foundations/02-computing-foundations/software.md does not match item id \"software\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 2: frontmatter id of zh/book/01-foundations/02-computing-foundations/software.md does not match item id \"software\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 3: frontmatter id of en/book/01-foundations/01-environment-and-tools/git/git.md does not match item id \"git\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 3: frontmatter id of zh/book/01-foundations/01-environment-and-tools/git/git.md does not match item id \"git\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 1: en/book/01-foundations/02-computing-foundations/computer-systems.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 1: zh/book/01-foundations/02-computing-foundations/computer-systems.md declares locale \"null\" but manifest maps \"zh-CN\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 2: en/book/01-foundations/02-computing-foundations/software.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 2: zh/book/01-foundations/02-computing-foundations/software.md declares locale \"null\" but manifest maps \"zh-CN\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 3: en/book/01-foundations/01-environment-and-tools/git/git.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 3: zh/book/01-foundations/01-environment-and-tools/git/git.md declares locale \"null\" but manifest maps \"zh-CN\"",
+          "file": "collections/book.yml"
+        },
+        {
           "rule": "meta-missing-field",
           "severity": "error",
           "line": 1,
@@ -4690,6 +4816,118 @@
           "line": 129,
           "message": "fenced code block has no language",
           "file": "book/dynamic-programming.md"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 1: frontmatter id of book/binary-search.md does not match item id \"binary-search\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 2: frontmatter id of book/arrays.md does not match item id \"arrays\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 3: frontmatter id of book/bfs.md does not match item id \"bfs\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 4: frontmatter id of book/dfs.md does not match item id \"dfs\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 5: frontmatter id of book/binary-search-trees.md does not match item id \"binary-search-trees\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 6: frontmatter id of book/core-dp.md does not match item id \"core-dp\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 7: frontmatter id of book/backtracking.md does not match item id \"backtracking\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 8: frontmatter id of book/bit-manipulation.md does not match item id \"bit-manipulation\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 1: book/binary-search.md declares locale \"undefined\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 2: book/arrays.md declares locale \"undefined\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 3: book/bfs.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 4: book/dfs.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 5: book/binary-search-trees.md declares locale \"undefined\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 6: book/core-dp.md declares locale \"undefined\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 7: book/backtracking.md declares locale \"undefined\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 8: book/bit-manipulation.md declares locale \"undefined\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
         },
         {
           "rule": "meta-missing-field",
@@ -17589,6 +17827,202 @@
           "line": 13,
           "message": "fenced code block has no language",
           "file": "CLAUDE.md"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 1: frontmatter id of book/src/01-mathematical-foundations/README.md does not match item id \"mathematical-foundations\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 10: frontmatter id of book/src/10-bayesian-methods/README.md does not match item id \"bayesian-methods\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 11: frontmatter id of book/src/11-deep-learning/README.md does not match item id \"deep-learning\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 12: frontmatter id of book/src/12-ai-business/README.md does not match item id \"ai-business\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 13: frontmatter id of book/src/13-personal-insights/README.md does not match item id \"personal-insights\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 14: frontmatter id of book/src/14-book-summaries/README.md does not match item id \"book-summaries\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 2: frontmatter id of book/src/02-linear-algebra/README.md does not match item id \"linear-algebra\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 3: frontmatter id of book/src/03-statistics/README.md does not match item id \"statistics\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 4: frontmatter id of book/src/04-data-analysis/README.md does not match item id \"data-analysis\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 5: frontmatter id of book/src/05-ml-pipeline/README.md does not match item id \"ml-pipeline\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 6: frontmatter id of book/src/06-supervised-learning-regression/README.md does not match item id \"supervised-learning-regression\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 7: frontmatter id of book/src/07-supervised-learning-classification/README.md does not match item id \"supervised-learning-classification\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 8: frontmatter id of book/src/08-supervised-learning-ensemble/README.md does not match item id \"supervised-learning-ensemble\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-id-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 9: frontmatter id of book/src/09-unsupervised-learning/README.md does not match item id \"unsupervised-learning\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 1: book/src/01-mathematical-foundations/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 10: book/src/10-bayesian-methods/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 11: book/src/11-deep-learning/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 12: book/src/12-ai-business/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 13: book/src/13-personal-insights/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 14: book/src/14-book-summaries/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 2: book/src/02-linear-algebra/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 3: book/src/03-statistics/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 4: book/src/04-data-analysis/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 5: book/src/05-ml-pipeline/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 6: book/src/06-supervised-learning-regression/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 7: book/src/07-supervised-learning-classification/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 8: book/src/08-supervised-learning-ensemble/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
+        },
+        {
+          "rule": "manifest-locale-mismatch",
+          "severity": "error",
+          "line": 1,
+          "message": "collections/book.yml item 9: book/src/09-unsupervised-learning/README.md declares locale \"null\" but manifest maps \"en\"",
+          "file": "collections/book.yml"
         },
         {
           "rule": "meta-missing-frontmatter",

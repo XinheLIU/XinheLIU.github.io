@@ -60,7 +60,19 @@ This section is the living draft board. Check items off as implementation comple
 
 ### Phase 3 — Book Framework Convergence
 
-- [ ] Not started.
+- [x] `Coding-with-Agents`: Honkit → VitePress. Live, URL-compatible (`.html` output, README→`index.html` parity, language chooser landing). Sidebar generated from `SUMMARY.md` per locale, local search, Mermaid now renders as diagrams.
+- [x] `MachineLearning`: sources recovered, mdBook → VitePress (KaTeX support, `SUMMARY.md` sidebar, legacy Jekyll URLs preserved via redirect stubs, Pages workflow added). Live switch needs the repo's Pages source changed to GitHub Actions (manual repo setting).
+- [x] `ComputerScience`: VitePress retained; content contract adopted via `collections/book.yml` (stable bilingual chapters; the in-progress stage restructure joins later).
+- [x] `Coding-Interview-Questions`: specialized VitePress retained; starter `collections/book.yml` for concept chapters (`problems/` joins incrementally).
+
+### Phase 3 verification status
+
+- [x] Independent build per book (all four build locally; ComputerScience's pre-existing `validate-book` gate failure is recorded, not introduced by Phase 3).
+- [x] Book-specific themes preserved (CwA custom CSS carried into VitePress; ML gets a minimal academic theme; CS/CIQ untouched).
+- [x] Route compatibility verified: CwA keeps every Honkit URL (live-checked); ML legacy Jekyll URLs redirected; CS/CIQ routes unchanged.
+- [x] Search, sidebar, Mermaid, images, locale behavior verified on the migrated surfaces.
+- [x] Renderer conversion and manifest changes are reviewable as separate commits in each repository.
+- [ ] MachineLearning Pages source switch (manual GitHub repo setting; pending user action).
 
 ### Phase 4 — Personal-Site Content Model
 
