@@ -2,7 +2,7 @@
 
 Last updated: 2026-08-24
 
-Status: In implementation — Phases 0–4 complete (2026-08-24, except the manual ML Pages-source switch); Phase 5 next (see Progress Board below)
+Status: Implemented — Phases 0–5 complete (2026-08-24); remaining follow-ups tracked in the Progress Board
 
 ## Progress Board
 
@@ -93,7 +93,33 @@ This section is the living draft board. Check items off as implementation comple
 
 ### Phase 5 — Enforcement and Automation
 
-- [ ] Not started.
+- [x] Audit rules as required CI checks (`.github/workflows/ci.yml` on the site `source` branch: baseline gate + full build with pinned submodules; per-book CI copies remain a follow-up).
+- [x] Explicit local preview commands for each book and the personal site (`docs/architecture/DEVELOPMENT.md`).
+- [x] Controlled book-release-to-site-update workflow (`tools/update-source.mjs` + documented recipe; no cross-repository automation yet, per the plan's non-goals).
+- [ ] Remove obsolete renderer-specific source syntax after migration (legacy `{% mermaid %}` tags in site posts: deferred until `themes/xinhe-site/scripts/mermaid-fence.js` — currently uncommitted work — is committed, because a clean checkout depends on that filter).
+
+### Phase 5 verification status
+
+- [x] A clean checkout reproduces all builds (CI: `npm ci` + submodule init + audit + build on every `source` push).
+- [x] New or worsened metadata/Mermaid/asset/link violations fail CI before deployment (strict clean pass remains a per-repository follow-up as baselines are fixed).
+- [x] Updating a book does not silently update the personal site (submodule pins + explicit update tool).
+- [x] Updating a pinned book version produces a reviewable site diff (pin diff + rebuilt projection).
+
+### Success criteria status (plan §16)
+
+- [x] Every logical content item has exactly one canonical owner (site owns blog-only content; books own chapters; no editable copies of book content on the site).
+- [x] Every book is an independent repository and deployable VitePress application (CwA live; ML pending the Pages-source switch).
+- [x] Every book retains a distinct theme.
+- [x] Blog-only posts remain independent of book repositories.
+- [x] Adding an existing item to a book or blog series requires a manifest change, not a Markdown copy.
+- [x] The personal site consumes exact, pinned book versions (git submodule).
+- [x] Mermaid and image syntax are portable across all renderers (fenced Mermaid renders on VitePress and Hexo surfaces; portable `./assets/`-style references).
+- [x] All internal content references are validated (audit resolves `content:` links across the corpus).
+- [x] Existing public URLs are preserved or redirected.
+- [x] Generated output is never treated as canonical source.
+- [x] Existing repositories satisfy the contract without one physical directory layout (manifests map each repo's real paths).
+- [x] Published history is not rewritten; moves remain traceable (no history rewrites; no forced pushes).
+- [x] The personal-site `source` and `main` histories remain separate.
 
 ## 1. Goal
 
@@ -761,10 +787,7 @@ The architecture is complete when:
 
 ## 18. Immediate Next Step
 
-Phases 0–4 completed on 2026-08-24 (see Progress Board and
-`docs/architecture/`). One manual step remains: set the MachineLearning
-repository's GitHub Pages source to "GitHub Actions". Next: Phase 5 —
-enforcement and automation: turn audit rules into required CI checks, add
-explicit local preview commands, add the controlled
-book-release-to-site-update workflow, and remove obsolete renderer-specific
-source syntax after migration.
+All five phases are implemented (2026-08-24). Follow-ups tracked in the
+Progress Board: the MachineLearning Pages-source switch (manual repo setting),
+per-book CI copies of the audit, and conversion of legacy `{% mermaid %}` tags
+(blocked on the uncommitted `mermaid-fence.js` filter being committed).

@@ -31,6 +31,8 @@ function parseArgs(argv) {
   return opts;
 }
 
+const BASELINE_INDEX = process.argv.indexOf('--check-baseline')
+const BASELINE = BASELINE_INDEX !== -1 ? process.argv[BASELINE_INDEX + 1] : null
 const opts = parseArgs(process.argv.slice(2));
 const HERE = process.cwd();
 const DEFAULT_REPOS = [
@@ -351,7 +353,41 @@ for (const repo of filesByRepo) {
   summary[repo.repoName] = { files: repo.fileCount, results: repo.results.length, byRule };
 }
 
+const SEVERITY_ORDER = { ok: 0, info: 1, warning: 2, error: 3 }
 const report = { version: 1, summary, results: filesByRepo.map((r) => ({ repo: r.repoName, results: r.results })) };
+
+// Baseline gate: fail on any NEW finding or severity upgrade vs the committed
+// audit-report.json. Improvements (fixed findings) are always allowed.
+if (BASELINE) {
+  const base = JSON.parse(fs.readFileSync(path.resolve(HERE, BASELINE), 'utf8'))
+  const keyOf = (r) => `${r.repo}\u0000${r.file}\u0000${r.rule}\u0000${r.line}\u0000${r.message}`
+  const baseMap = new Map()
+  for (const repo of base.results || []) {
+    for (const r of repo.results || []) {
+      baseMap.set(keyOf({ ...r, repo: repo.repo }), r.severity)
+    }
+  }
+  const newIssues = []
+  for (const repo of filesByRepo) {
+    for (const r of repo.results) {
+      const key = keyOf({ ...r, repo: repo.repoName })
+      const prev = baseMap.get(key)
+      if (prev === undefined) {
+        if (r.severity === 'error' || r.severity === 'warning') newIssues.push({ repo: repo.repoName, rule: r.rule, file: r.file, line: r.line, message: r.message })
+      } else if ((SEVERITY_ORDER[r.severity] || 0) > (SEVERITY_ORDER[prev] || 0)) {
+        newIssues.push({ repo: repo.repoName, rule: r.rule, file: r.file, line: r.line, message: r.message })
+      }
+    }
+  }
+  if (newIssues.length > 0) {
+    console.error(`Baseline check FAILED: ${newIssues.length} new or worsened finding(s):`)
+    for (const n of newIssues.slice(0, 40)) {
+      console.error(`  [${n.repo}] ${n.rule} ${n.file}:${n.line} ${n.message}`)
+    }
+    process.exit(1)
+  }
+  console.log('Baseline check passed: no new or worsened findings.')
+}
 
 // Human-readable output.
 console.log(`Content contract audit (v1)`);

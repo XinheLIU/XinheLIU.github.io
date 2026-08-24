@@ -1,0 +1,36 @@
+# Continuous integration for the personal-site source branch.
+# - Content audit must not regress vs docs/architecture/audit-report.json.
+# - The Hexo build must succeed with the pinned book submodules.
+
+name: CI
+
+on:
+  push:
+    branches: ["source"]
+  pull_request:
+    branches: ["source"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Content audit (baseline gate)
+        run: node tools/audit-content.mjs --check-baseline docs/architecture/audit-report.json
+
+      - name: Build site
+        run: npm run build
