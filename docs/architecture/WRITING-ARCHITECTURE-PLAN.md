@@ -2,7 +2,7 @@
 
 Last updated: 2026-08-24
 
-Status: In implementation — Phase 0 complete (2026-08-24); Phase 1 next (see Progress Board below)
+Status: In implementation — Phase 0 complete, Phase 1 complete (2026-08-24); Phase 2 next (see Progress Board below)
 
 ## Progress Board
 
@@ -28,7 +28,17 @@ This section is the living draft board. Check items off as implementation comple
 
 ### Phase 1 — Content Contract
 
-- [ ] Not started.
+- [x] Finalize metadata fields and internal-link syntax (`CONTENT-CONTRACT.md` §1, §6; `content:<id>` adopted).
+- [x] Document Markdown, Mermaid, image, math, and locale rules (`CONTENT-CONTRACT.md` §2–§5).
+- [x] Build a read-only audit that reports current violations without rewriting content (`scripts/audit-content.mjs`; no content files modified).
+- [x] Define manifests that can reference each repository's existing source paths (`CONTENT-CONTRACT.md` §7 with worked examples for all four books).
+
+### Phase 1 verification status
+
+- [x] The contract handles bilingual and single-language content.
+- [x] The contract represents both book and blog publication metadata (`book.yml` vs `series.yml`).
+- [x] The contract does not require physical path normalization (locale read from frontmatter; manifests map existing paths).
+- [x] Audit output is deterministic (sha256-identical JSON across repeated runs; baseline in `docs/architecture/audit-report.json`).
 
 ### Phase 2 — Coding with Agents Pilot
 
@@ -712,4 +722,8 @@ The architecture is complete when:
 
 ## 18. Immediate Next Step
 
-Phase 0 completed on 2026-08-24 (see Progress Board and `docs/architecture/PHASE-0-BASELINE.md`). Next: Phase 1 — finalize metadata fields and internal-link syntax, document the authoring contract, and build the read-only audit before any content movement.
+Phase 0 and Phase 1 completed on 2026-08-24 (see Progress Board and
+`docs/architecture/`). Next: Phase 2 — the Coding with Agents pilot: add
+collection manifests referencing pilot items at their current paths, move the
+pilot renderer to VitePress (or a compatible adapter), pin the repository as a
+personal-site source, and render one `excerpt` entry.
