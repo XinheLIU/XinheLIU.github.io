@@ -75,6 +75,25 @@
                         <span class="tag"><%= archiveClusterLabels[post.topic_cluster] || (archiveIsChinese ? '归档' : 'Archive') %></span>
                     </article>
                 <% }); %>
+                <% series_entries().forEach(function(entry) {
+                    var entryIsChinese = (entry.site_locale || '').indexOf('zh') === 0;
+                    if (entryIsChinese !== archiveIsChinese) return;
+                    var entryYear = String(date(entry.date, 'YYYY'));
+                    var entryMonth = String(date(entry.date, 'MM'));
+                    if (page.year && (entryYear !== String(page.year) || (page.month && entryMonth !== String(page.month)))) return;
+                %>
+                    <article class="archive-row has-preview">
+                        <a class="post-preview preview-grid" href="<%- url_for(entry.path) %>">
+                            <span><%= archiveIsChinese ? '来自书籍' : 'From the book' %></span>
+                        </a>
+                        <div class="summary-stack">
+                            <span class="meta"><%= date(entry.date, 'YYYY-MM-DD') %> · <%= archiveIsChinese ? '来自书籍' : 'From the book' %></span>
+                            <h3><a class="archive-row-link" href="<%- url_for(entry.path) %>"><%= entry.title %></a></h3>
+                            <p><%= entry.summary %></p>
+                        </div>
+                        <span class="tag">Book</span>
+                    </article>
+                <% }); %>
             </div>
 
             <div class="archive-utilities">

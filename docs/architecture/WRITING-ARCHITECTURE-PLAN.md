@@ -2,7 +2,7 @@
 
 Last updated: 2026-08-24
 
-Status: In implementation — Phases 0–3 complete (2026-08-24, except the manual ML Pages-source switch); Phase 4 next (see Progress Board below)
+Status: In implementation — Phases 0–4 complete (2026-08-24, except the manual ML Pages-source switch); Phase 5 next (see Progress Board below)
 
 ## Progress Board
 
@@ -30,7 +30,7 @@ This section is the living draft board. Check items off as implementation comple
 
 - [x] Finalize metadata fields and internal-link syntax (`CONTENT-CONTRACT.md` §1, §6; `content:<id>` adopted).
 - [x] Document Markdown, Mermaid, image, math, and locale rules (`CONTENT-CONTRACT.md` §2–§5).
-- [x] Build a read-only audit that reports current violations without rewriting content (`scripts/audit-content.mjs`; no content files modified).
+- [x] Build a read-only audit that reports current violations without rewriting content (`tools/audit-content.mjs`; no content files modified).
 - [x] Define manifests that can reference each repository's existing source paths (`CONTENT-CONTRACT.md` §7 with worked examples for all four books).
 
 ### Phase 1 verification status
@@ -76,7 +76,20 @@ This section is the living draft board. Check items off as implementation comple
 
 ### Phase 4 — Personal-Site Content Model
 
-- [ ] Not started.
+- [x] Existing blog-only writing stays under `source/_posts` during the initial migration (no bulk moves).
+- [x] Decision after the pilot: new blog-only writing continues to use `source/_posts`; the Hexo projection works well, so no separate canonical directory is introduced yet.
+- [x] Pinned book sources under `sources/` (Coding-with-Agents pinned; further books join as their `series.yml` manifests appear).
+- [x] Temporary Hexo projections generated into gitignored `.generated/`.
+- [x] Archive, tag, category, language, and related-work behavior preserved; series entries now appear in the archive (main + year pages, locale-filtered), on matching tag pages (case-insensitive), with "From the book" ownership markers; language switching and related-work behavior unchanged.
+- [x] Incremental post migration by topic — agentic engineering first: the two existing `coding-with-agents-intro` posts stay site-owned as book landing pages (their canonical URLs are the site's `/books/` permalinks); agentic content now flows from the book through the series pipeline.
+
+### Phase 4 verification status
+
+- [x] Existing blog URLs remain stable.
+- [x] Site-owned and book-owned entries appear in one archive.
+- [x] Content ownership is visible and unambiguous (book badges + "In the book" links).
+- [x] No book-derived body has a second editable copy in the site repository.
+- [x] Existing post history remains traceable with `git log --follow` (no files were moved).
 
 ### Phase 5 — Enforcement and Automation
 
@@ -748,9 +761,10 @@ The architecture is complete when:
 
 ## 18. Immediate Next Step
 
-Phases 0–3 completed on 2026-08-24 (see Progress Board and
+Phases 0–4 completed on 2026-08-24 (see Progress Board and
 `docs/architecture/`). One manual step remains: set the MachineLearning
-repository's GitHub Pages source to "GitHub Actions". Next: Phase 4 — the
-personal-site content model: integrate series entries with the site archive,
-tags, categories, and related-work behavior, then migrate existing posts
-incrementally by topic (agentic engineering first).
+repository's GitHub Pages source to "GitHub Actions". Next: Phase 5 —
+enforcement and automation: turn audit rules into required CI checks, add
+explicit local preview commands, add the controlled
+book-release-to-site-update workflow, and remove obsolete renderer-specific
+source syntax after migration.

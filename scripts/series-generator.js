@@ -1,8 +1,13 @@
 'use strict'
 // Personal-site series generator (Hexo).
-// Reads the disposable projection written by scripts/aggregate-series.mjs and
-// registers post pages, series index pages, and asset copies. Canonical book
-// Markdown is never touched: the projection lives in .generated/ (gitignored).
+// Reads the disposable projection written by tools/aggregate-series.mjs and
+// registers post pages, series index pages, tag/category pages, and asset
+// copies. Canonical book Markdown is never touched: the projection lives in
+// .generated/ (gitignored).
+//
+// A `series_entries()` helper exposes the flattened entry list so the archive,
+// tag, and category templates can show book-owned entries beside site-owned
+// posts (one archive).
 const fs = require('fs')
 const path = require('path')
 const jsYaml = require('js-yaml')
@@ -29,8 +34,15 @@ const INDEX_META = {
   },
 }
 
+let SERIES_ENTRIES = []
+
+hexo.extend.helper.register('series_entries', function () {
+  return SERIES_ENTRIES
+})
+
 hexo.extend.generator.register('series', async function () {
   const routes = []
+  SERIES_ENTRIES = []
   if (!fs.existsSync(GEN)) return routes
 
   // 1. Asset copies declared by the aggregator.
@@ -43,7 +55,9 @@ hexo.extend.generator.register('series', async function () {
   }
 
   // 2. Projected post pages.
-  const itemIndex = {} // seriesId -> { en: {...}, zh: {...} }
+  const itemIndex = {} // seriesId -> { itemId: { en: {...}, 'zh-CN': {...} } }
+  const tagLocales = new Map() // tag -> Set(locale)
+  const catLocales = new Map()
   const seriesDirs = fs.readdirSync(GEN).filter((d) => {
     const p = path.join(GEN, d)
     return fs.statSync(p).isDirectory()
@@ -62,6 +76,8 @@ hexo.extend.generator.register('series', async function () {
         const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/)
         if (!m) continue
         const data = jsYaml.load(m[1])
+        const tagsRaw = Array.isArray(data.tags) ? data.tags.slice() : []
+        const catsRaw = Array.isArray(data.categories) ? data.categories.slice() : []
         const post = await hexo.post.render(filePath, data)
         post.layout = 'post'
         post.path = String(data.permalink || '').replace(/^\//, '') + 'index.html'
@@ -81,9 +97,33 @@ hexo.extend.generator.register('series', async function () {
           url: String(data.permalink || '').replace(/^\//, ''),
           book_url: data.book_url || '',
         }
+        SERIES_ENTRIES.push({
+          id: itemId,
+          series: seriesId,
+          title: data.title,
+          date: post.date,
+          path: post.path,
+          permalink: data.permalink,
+          tags: tagsRaw,
+          categories: catsRaw,
+          summary: locale === 'zh-CN' ? data.summary_zh : data.summary_en,
+          site_locale: locale,
+          mode: data.series_mode,
+          book_url: data.book_url || '',
+          topic_cluster: SERIES_SLUG,
+        })
+        for (const tag of SERIES_ENTRIES[SERIES_ENTRIES.length - 1].tags) {
+          if (!tagLocales.has(tag)) tagLocales.set(tag, new Set())
+          tagLocales.get(tag).add(locale)
+        }
+        for (const cat of SERIES_ENTRIES[SERIES_ENTRIES.length - 1].categories) {
+          if (!catLocales.has(cat)) catLocales.set(cat, new Set())
+          catLocales.get(cat).add(locale)
+        }
       }
     }
   }
+  SERIES_ENTRIES.sort((a, b) => String(a.id).localeCompare(String(b.id)) || String(a.site_locale).localeCompare(String(b.site_locale)))
 
   // 3. Series index pages (one per locale).
   for (const seriesId of Object.keys(itemIndex).sort()) {
@@ -109,6 +149,9 @@ hexo.extend.generator.register('series', async function () {
       routes.push({ path: pathPrefix.replace(/^\//, '') + 'index.html', layout: 'series', data })
     }
   }
+
+  // 4. Series entries join EXISTING tag/category pages via case-insensitive
+  //    name matching in the templates (no new pages, no path collisions).
 
   return routes
 })

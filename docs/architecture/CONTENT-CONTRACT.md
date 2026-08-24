@@ -257,11 +257,11 @@ layout.
 
 ## 9. Audit Tool
 
-`scripts/audit-content.mjs` in the personal-site repository is the Phase 1
+`tools/audit-content.mjs` in the personal-site repository is the Phase 1
 read-only audit. Usage:
 
 ```bash
-node scripts/audit-content.mjs [--repos dir1,dir2,...] [--json out.json] [--exclude glob,...]
+node tools/audit-content.mjs [--repos dir1,dir2,...] [--json out.json] [--exclude glob,...]
 ```
 
 - Walks the given repositories (default: the five sibling repositories in the

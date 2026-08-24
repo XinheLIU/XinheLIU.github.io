@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "aggregate": "node scripts/aggregate-series.mjs",
+    "aggregate": "node tools/aggregate-series.mjs",
     "build": "npm run aggregate && hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
