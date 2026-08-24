@@ -99,6 +99,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="referrer" content="no-referrer-when-downgrade">
 
+    <% if (page.canonical_url) { %>
+    <link rel="canonical" href="<%- page.canonical_url %>">
+    <% } %>
+
     <!-- Open Graph / Twitter -->
     <meta property="og:type" content="<%= ogType %>">
     <meta property="og:title" content="<%= pageTitle %>">

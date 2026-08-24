@@ -176,6 +176,7 @@ items:
 | `items[].source` / `items[].content` | yes (one of) | Same forms as `book.yml`. |
 | `items[].published_at` | yes | `YYYY-MM-DD` publication date on the personal site. |
 | `items[].mode` | yes | `link` \| `excerpt` \| `full` (default `excerpt`). |
+| `items[].book_url` | no | Where the canonical book surface hosts the item: either a single URL string or a locale map (`en:`/`zh-CN:`). The personal site links here for `link`/`excerpt` modes and emits canonical metadata for `full` mode. |
 
 Publication modes (plan §8):
 

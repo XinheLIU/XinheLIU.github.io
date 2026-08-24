@@ -11,7 +11,7 @@ const jsYaml = require('js-yaml');
 
 const EXCLUDE_DIRS = new Set([
   'node_modules', '.git', 'public', '.deploy_git', '_book', 'dist', 'cache',
-  '.vitepress', '.temp', 'tmp', 'docs',
+  '.vitepress', '.temp', 'tmp', 'docs', 'sources', '.generated',
 ]);
 
 const ALLOWED_LOCALES = new Set(['en', 'zh-CN']);
@@ -82,6 +82,7 @@ function splitFrontmatter(text) {
 }
 
 function isRealDate(s) {
+  if (s instanceof Date) return !isNaN(s.getTime());
   if (!DATE_RE.test(s)) return false;
   const [y, mo, d] = s.split('-').map(Number);
   if (mo < 1 || mo > 12 || d < 1 || d > 31) return false;
@@ -204,12 +205,13 @@ for (const repoRoot of repoDirs) {
     if (data.status !== undefined && !ALLOWED_STATUS.has(String(data.status))) {
       push('meta-status-unknown', 'error', 1, `status "${data.status}" not in {draft, published, archived}`);
     }
+    const dateKey = (v) => (v instanceof Date ? v.toISOString().slice(0, 10) : String(v));
     for (const d of ['created', 'updated']) {
-      if (data[d] !== undefined && data[d] !== null && !isRealDate(String(data[d]))) {
+      if (data[d] !== undefined && data[d] !== null && !isRealDate(data[d])) {
         push('meta-date-format', 'error', 1, `${d} "${data[d]}" is not a valid YYYY-MM-DD date`);
       }
     }
-    if (isRealDate(String(data.updated)) && isRealDate(String(data.created)) && String(data.updated) < String(data.created)) {
+    if (isRealDate(data.updated) && isRealDate(data.created) && dateKey(data.updated) < dateKey(data.created)) {
       push('meta-date-order', 'error', 1, `updated ${data.updated} is earlier than created ${data.created}`);
     }
     if (typeof data.id === 'string' && data.locale !== undefined) {
@@ -311,7 +313,7 @@ function validateManifests(repoRoot) {
         }
       }
       if (f === 'series.yml') {
-        if (item.published_at && !isRealDate(String(item.published_at))) {
+        if (item.published_at && !isRealDate(item.published_at)) {
           push('manifest-published-at', 'error', 1, `${at}: published_at must be YYYY-MM-DD`, rel);
         }
         if (item.mode !== undefined && !['link', 'excerpt', 'full'].includes(item.mode)) {

@@ -3,24 +3,24 @@
   "summary": {
     "site-source": {
       "files": 66,
-      "results": 347,
+      "results": 329,
       "byRule": {
         "code-fence-no-language": 3,
         "image-absolute": 16,
         "mermaid-legacy-tag": 81,
-        "meta-date-format": 18,
         "meta-missing-field": 208,
         "meta-missing-frontmatter": 21
       }
     },
     "Coding-with-Agents": {
       "files": 95,
-      "results": 147,
+      "results": 145,
       "byRule": {
         "code-fence-no-language": 46,
         "image-cross-repo": 2,
         "image-missing": 4,
-        "meta-missing-frontmatter": 95
+        "link-content-resolved": 4,
+        "meta-missing-frontmatter": 89
       }
     },
     "ComputerScience": {
@@ -755,132 +755,6 @@
           "line": 762,
           "message": "legacy Hexo mermaid tag found: {% endmermaid %}",
           "file": "source/_posts/ads-intro-3/zh-CN.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Mon Dec 16 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/recsys-101-intro-3/en.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Mon Dec 16 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/recsys-101-intro-3/zh-CN.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Sat Dec 14 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/ab-test-intro-1/en.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Sat Dec 14 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/ab-test-intro-1/zh-CN.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Sat Dec 14 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/ab-test-intro-2/en.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Sat Dec 14 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/ab-test-intro-2/zh-CN.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Sat Dec 14 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/causal-intro-1/en.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Sat Dec 14 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/causal-intro-1/zh-CN.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Sat Dec 14 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/recsys-101-intro-1/en.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Sat Dec 14 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/recsys-101-intro-1/zh-CN.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Sat Dec 14 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/recsys-101-intro-2/en.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Sat Dec 14 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/recsys-101-intro-2/zh-CN.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Sun Dec 15 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/ads-intro-3/en.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Sun Dec 15 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/ads-intro-3/zh-CN.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Thu Dec 12 2024 22:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/ads-intro-2/en.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Thu Dec 12 2024 22:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/ads-intro-2/zh-CN.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Wed Dec 11 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/ads-intro-1/en.md"
-        },
-        {
-          "rule": "meta-date-format",
-          "severity": "error",
-          "line": 1,
-          "message": "updated \"Wed Dec 11 2024 21:30:00 GMT+0800 (China Standard Time)\" is not a valid YYYY-MM-DD date",
-          "file": "source/_posts/ads-intro-1/zh-CN.md"
         },
         {
           "rule": "meta-missing-field",
@@ -2855,6 +2729,34 @@
           "file": "CLAUDE.md"
         },
         {
+          "rule": "link-content-resolved",
+          "severity": "ok",
+          "line": 57,
+          "message": "content: target \"how-agents-work\" resolved (Coding-with-Agents/book/en/02-anatomy/how-agents-work.md, Coding-with-Agents/book/zh-cn/02-anatomy/how-agents-work.md)",
+          "file": "book/en/02-anatomy/context-management.md"
+        },
+        {
+          "rule": "link-content-resolved",
+          "severity": "ok",
+          "line": 57,
+          "message": "content: target \"how-agents-work\" resolved (Coding-with-Agents/book/en/02-anatomy/how-agents-work.md, Coding-with-Agents/book/zh-cn/02-anatomy/how-agents-work.md)",
+          "file": "book/zh-cn/02-anatomy/context-management.md"
+        },
+        {
+          "rule": "link-content-resolved",
+          "severity": "ok",
+          "line": 69,
+          "message": "content: target \"context-management\" resolved (Coding-with-Agents/book/en/02-anatomy/context-management.md, Coding-with-Agents/book/zh-cn/02-anatomy/context-management.md)",
+          "file": "book/en/02-anatomy/how-agents-work.md"
+        },
+        {
+          "rule": "link-content-resolved",
+          "severity": "ok",
+          "line": 72,
+          "message": "content: target \"context-management\" resolved (Coding-with-Agents/book/en/02-anatomy/context-management.md, Coding-with-Agents/book/zh-cn/02-anatomy/context-management.md)",
+          "file": "book/zh-cn/02-anatomy/how-agents-work.md"
+        },
+        {
           "rule": "meta-missing-frontmatter",
           "severity": "info",
           "line": 1,
@@ -2922,28 +2824,7 @@
           "severity": "info",
           "line": 1,
           "message": "no YAML frontmatter",
-          "file": "book/en/02-anatomy/context-management.md"
-        },
-        {
-          "rule": "meta-missing-frontmatter",
-          "severity": "info",
-          "line": 1,
-          "message": "no YAML frontmatter",
           "file": "book/en/02-anatomy/hooks.md"
-        },
-        {
-          "rule": "meta-missing-frontmatter",
-          "severity": "info",
-          "line": 1,
-          "message": "no YAML frontmatter",
-          "file": "book/en/02-anatomy/how-agents-work.md"
-        },
-        {
-          "rule": "meta-missing-frontmatter",
-          "severity": "info",
-          "line": 1,
-          "message": "no YAML frontmatter",
-          "file": "book/en/02-anatomy/human-agent-collaboration-modes.md"
         },
         {
           "rule": "meta-missing-frontmatter",
@@ -3188,28 +3069,7 @@
           "severity": "info",
           "line": 1,
           "message": "no YAML frontmatter",
-          "file": "book/zh-cn/02-anatomy/context-management.md"
-        },
-        {
-          "rule": "meta-missing-frontmatter",
-          "severity": "info",
-          "line": 1,
-          "message": "no YAML frontmatter",
           "file": "book/zh-cn/02-anatomy/hooks.md"
-        },
-        {
-          "rule": "meta-missing-frontmatter",
-          "severity": "info",
-          "line": 1,
-          "message": "no YAML frontmatter",
-          "file": "book/zh-cn/02-anatomy/how-agents-work.md"
-        },
-        {
-          "rule": "meta-missing-frontmatter",
-          "severity": "info",
-          "line": 1,
-          "message": "no YAML frontmatter",
-          "file": "book/zh-cn/02-anatomy/human-agent-collaboration-modes.md"
         },
         {
           "rule": "meta-missing-frontmatter",

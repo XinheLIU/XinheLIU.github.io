@@ -2,7 +2,7 @@
 
 Last updated: 2026-08-24
 
-Status: In implementation — Phase 0 complete, Phase 1 complete (2026-08-24); Phase 2 next (see Progress Board below)
+Status: In implementation — Phases 0–2 complete (2026-08-24); Phase 3 next (see Progress Board below)
 
 ## Progress Board
 
@@ -42,7 +42,21 @@ This section is the living draft board. Check items off as implementation comple
 
 ### Phase 2 — Coding with Agents Pilot
 
-- [ ] Not started.
+- [x] Pilot content units (3, EN+ZH): `how-agents-work` (book-first), `context-management` (blog-first), `human-agent-collaboration-modes` (book-first) — covers Mermaid, local images, `content:` links, excerpt/full/link modes.
+- [x] Add collection manifests referencing the pilot items in their current paths (`collections/book.yml`, `collections/series.yml` in Coding-with-Agents, commit 348058d on main).
+- [x] Preserve the existing book theme while moving the pilot renderer to VitePress (new pilot VitePress app renders `book/` chapters in place; Honkit remains the deployed renderer until Phase 3).
+- [x] Add the repository to the personal site as a pinned source (`sources/Coding-with-Agents` submodule, pinned at 9e3f14c).
+- [x] Render one `excerpt` entry and one `full` entry on the personal site (`/agentic-engineering/how-agents-work/` excerpt; `/agentic-engineering/context-management/` full; plus a `link`-mode entry and EN/ZH index pages).
+
+### Phase 2 verification status
+
+- [x] Each locale has exactly one editable Markdown source (site consumes the pinned book files; the Hexo projection lives in gitignored `.generated/`).
+- [x] The book builds and deploys independently (Honkit build passes; GitHub Actions Pages redeploys from main. Pilot VitePress app builds locally; its Pages wiring arrives with Phase 3).
+- [x] The personal site renders the selected content (8 new pages: 3 items × EN/ZH + 2 series indexes).
+- [x] Mermaid, images, and links work on both surfaces (VitePress pilot app and Hexo pages both render the diagram, image, and resolved `content:` links; known limitation: the live Honkit book shows Mermaid fences as code blocks until the Phase 3 renderer migration).
+- [x] Existing public URLs still resolve (no existing routes changed; only additive pages).
+- [x] A personal-site failure does not block the book build (book builds run standalone; verified before site-side work).
+- [x] No pilot Markdown file was moved solely to satisfy a target directory layout (chapters stayed in `book/en` and `book/zh-cn`).
 
 ### Phase 3 — Book Framework Convergence
 
@@ -722,8 +736,9 @@ The architecture is complete when:
 
 ## 18. Immediate Next Step
 
-Phase 0 and Phase 1 completed on 2026-08-24 (see Progress Board and
-`docs/architecture/`). Next: Phase 2 — the Coding with Agents pilot: add
-collection manifests referencing pilot items at their current paths, move the
-pilot renderer to VitePress (or a compatible adapter), pin the repository as a
-personal-site source, and render one `excerpt` entry.
+Phases 0–2 completed on 2026-08-24 (see Progress Board and
+`docs/architecture/`). Next: Phase 3 — book framework convergence, starting
+with Coding-with-Agents (full Honkit → VitePress migration, then its Pages
+workflow), followed by MachineLearning (recover sources, then mdBook →
+VitePress), ComputerScience (align with the contract), and
+Coding-Interview-Questions (align only compatible rules).

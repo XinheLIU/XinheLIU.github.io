@@ -1,0 +1,42 @@
+<!-- Series index layout: lists aggregated book-series entries. -->
+<div class="container content">
+    <header class="post-hero">
+        <div class="container">
+            <p class="eyebrow"><%= page.eyebrow %></p>
+            <h1 class="page-title"><%= page.title %></h1>
+            <% if (page.subtitle) { %><p class="page-subtitle"><%= page.subtitle %></p><% } %>
+            <% if (page.lang_switch) { %>
+            <p class="lang-switch-note"><a href="<%- url_for(page.lang_switch) %>"><%= (page.site_locale || '').indexOf('zh') === 0 ? 'Read in English' : '阅读中文版' %></a></p>
+            <% } %>
+        </div>
+    </header>
+
+    <div class="card">
+        <div class="card-content">
+            <% page.items.forEach(function (item) { %>
+            <article class="series-item">
+                <h2 class="series-item-title">
+                    <a href="<%- url_for(item.url) %>"><%= item.title %></a>
+                </h2>
+                <% if (item.summary) { %><p class="series-item-summary"><%= item.summary %></p><% } %>
+                <p class="series-item-meta">
+                    <% if (item.mode === 'excerpt') { %><span class="series-mode">excerpt</span><% } %>
+                    <% if (item.mode === 'full') { %><span class="series-mode">full text</span><% } %>
+                    <% if (item.mode === 'link') { %><span class="series-mode">book link</span><% } %>
+                    <% if (item.book_url) { %>· <a href="<%- item.book_url %>"><%= page.book_label %> →</a><% } %>
+                </p>
+            </article>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<style>
+    .series-item { padding: 0.6rem 0; border-bottom: 1px solid var(--border-color, rgba(128,128,128,0.2)); }
+    .series-item:last-child { border-bottom: none; }
+    .series-item-title { margin: 0 0 0.25rem; font-size: 1.25rem; }
+    .series-item-summary { margin: 0 0 0.25rem; opacity: 0.85; }
+    .series-item-meta { margin: 0; font-size: 0.85rem; opacity: 0.75; }
+    .series-mode { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; }
+    .lang-switch-note { margin-top: 0.5rem; }
+</style>
