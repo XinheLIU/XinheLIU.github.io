@@ -1,0 +1,798 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <meta name="keywords" content="上下文管理, Xinhe Liu (Charles)">
+    <meta name="description" content="*本章开头的[编程智能体工作原理](how-agents-work.md)向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 → 重复。这个循环的质量几乎完全取决于&#34;读取上下文&#34;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。* [How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html) 超长上下文窗口并不能自动使智能体变得更聪明——如果不加以管理，额外的上下文会成为负担而非资产。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    
+    <link rel="canonical" href="https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/context-management.html">
+    
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="上下文管理 | Xinhe Liu (Charles)">
+    <meta property="og:description" content="*本章开头的[编程智能体工作原理](how-agents-work.md)向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 → 重复。这个循环的质量几乎完全取决于&#34;读取上下文&#34;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。* [How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html) 超长上下文窗口并不能自动使智能体变得更聪明——如果不加以管理，额外的上下文会成为负担而非资产。">
+    <meta property="og:url" content="https://xinheliu.github.io/agentic-engineering/context-management/index.html">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="上下文管理 | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="*本章开头的[编程智能体工作原理](how-agents-work.md)向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 → 重复。这个循环的质量几乎完全取决于&#34;读取上下文&#34;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。* [How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html) 超长上下文窗口并不能自动使智能体变得更聪明——如果不加以管理，额外的上下文会成为负担而非资产。">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;family=Noto+Serif+SC:wght@500;600;700&display=swap">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>上下文管理 | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/home-zh/" aria-label="昕和首页">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>昕和</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="主导航">
+    
+        <a href="/home-zh/" class="">首页</a>
+    
+        <a href="/library-zh/" class="">图书馆</a>
+    
+        <a href="/projects-zh/" class="">项目</a>
+    
+        <a href="/about-zh/" class="">个人信息和联系方式</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="搜索" aria-label="搜索">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a class="lang-switch" href="/en/agentic-engineering/context-management/" title="English" aria-label="English">EN</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="主题切换" aria-label="主题切换">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="打开菜单">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/home-zh/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>昕和</strong>
+            </span>
+        </a>
+        <p>昕和的个人主页、写作与技术笔记。</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/home-zh/">首页</a></li>
+        
+            <li><a href="/library-zh/">图书馆</a></li>
+        
+            <li><a href="/projects-zh/">项目</a></li>
+        
+            <li><a href="/about-zh/">个人信息和联系方式</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="搜索">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        <a class="lang-switch" href="/en/agentic-engineering/context-management/">EN</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">标签</a>
+        <a href="/categories/">分类</a>
+        <a href="/archives-zh/">归档</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+<header class="post-hero content">
+    <div class="container">
+        
+            <p class="eyebrow">智能体工程</p>
+        
+        <h1 class="page-title">上下文管理</h1>
+        <div class="post-meta">
+            <time datetime="2026-08-24">2026-08-24</time>
+            
+                <span class="dot">·</span>
+                <span>8 分钟</span>
+            
+            
+                <span class="post-hero-tags">
+                    
+                        <a class="chip" href="/tags/context/">context</a>
+                    
+                        <a class="chip" href="/tags/agents/">agents</a>
+                    
+                </span>
+            
+        </div>
+        <hr class="post-hero-rule">
+    </div>
+</header>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <hr />
+<p>layout: post<br />
+title: 上下文管理<br />
+date: ‘2026-08-24 12:00:00’<br />
+permalink: /agentic-engineering/context-management/<br />
+categories:</p>
+<ul>
+<li>智能体工程<br />
+tags:</li>
+<li>context</li>
+<li>agents<br />
+site_locale: zh-CN<br />
+lang_switch: /en/agentic-engineering/context-management/<br />
+summary_en: &gt;-<br />
+<em>本章开头的<a href="how-agents-work.md">编程智能体工作原理</a>向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 →<br />
+重复。这个循环的质量几乎完全取决于&quot;读取上下文&quot;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。</em> <a target="_blank" rel="noopener" href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html">How Long Contexts<br />
+Fail</a><br />
+超长上下文窗口并不能自动使智能体变得更聪明——如果不加以管理，额外的上下文会成为负担而非资产。<br />
+summary_zh: &gt;-<br />
+<em>本章开头的<a href="how-agents-work.md">编程智能体工作原理</a>向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 →<br />
+重复。这个循环的质量几乎完全取决于&quot;读取上下文&quot;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。</em> <a target="_blank" rel="noopener" href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html">How Long Contexts<br />
+Fail</a><br />
+超长上下文窗口并不能自动使智能体变得更聪明——如果不加以管理，额外的上下文会成为负担而非资产。<br />
+topic_cluster: agentic-engineering<br />
+confidentiality_safe: true<br />
+series_id: agentic-engineering<br />
+content_id: context-management<br />
+series_mode: full<br />
+book_url: <a href="https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/context-management.html">https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/context-management.html</a><br />
+canonical_url: <a href="https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/context-management.html">https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/context-management.html</a></li>
+</ul>
+<hr />
+<h1 id="上下文管理"><a class="markdownIt-Anchor" href="#上下文管理"></a> 上下文管理</h1>
+<p>Last updated: 2026-07-27</p>
+<blockquote>
+<p><em>本章开头的<a href="how-agents-work.md">编程智能体工作原理</a>向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 → 重复。这个循环的质量几乎完全取决于&quot;读取上下文&quot;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。</em></p>
+</blockquote>
+<h3 id="长上下文为何会失效"><a class="markdownIt-Anchor" href="#长上下文为何会失效"></a> 长上下文为何会失效</h3>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html">How Long Contexts Fail</a></p>
+</blockquote>
+<p>超长上下文窗口并不能自动使智能体变得更聪明——如果不加以管理，额外的上下文会成为负担而非资产。</p>
+<ul>
+<li>超大上下文窗口（最多 100 万 token）让人很想&quot;把所有东西都塞进去&quot;。</li>
+<li>在实践中，随着上下文增长，智能体的表现往往<em>下降</em>，而非提升。</li>
+<li>真正的挑战是有效的上下文管理，而非单纯增大窗口大小。</li>
+</ul>
+<p><strong>失效模式：</strong></p>
+<p><strong>1. 上下文污染：错误变成&quot;真相&quot;</strong><br />
+一个幻觉或错误事实进入上下文，在摘要和计划中被反复引用，智能体就此陷入不可能或无关的目标——无法在没有干预的情况下自我恢复。</p>
+<p><strong>2. 上下文干扰：过度拟合历史记录</strong><br />
+随着上下文增长，模型开始过度关注过去的 token，而忽视其预训练知识。Gemini 2.5 在超过约 10 万 token 后开始重复动作而非创新。Databricks 发现准确率在达到最大窗口之前就已下降，尤其是对小模型。长上下文最适合摘要和检索——而非无边界的智能体推理。</p>
+<p><strong>3. 上下文混乱：工具过多或信息无关带来的过载</strong><br />
+暴露所有可能的工具（MCP 风格）可能适得其反。所有模型在上下文中有大量工具时性能都会下降，甚至可能在不需要工具时也调用工具。例如：Llama 3.1 8B 在有 46 个工具时失败，但在 19 个工具时成功——即使两者都在上下文范围内。凡是在提示词中的内容，模型都必须处理——嘈杂的工具定义和无用的上下文会主动降低性能。</p>
+<p><strong>4. 上下文冲突：多轮次与多来源之间的矛盾</strong><br />
+多轮次的&quot;碎片化&quot;提示词比单个精心组织的提示词表现差得多（平均性能下降约 39%；即使是 o3 也从 98.1% 降至 64.1%）。一旦模型&quot;确定&quot;了一条错误路径，它往往会过度依赖过去的输出，无法自我纠正。智能体尤其脆弱，因为它们聚合了多个工具、文档和子模型——每个都可能引入潜在冲突。</p>
+<p><strong>对智能体设计的启示：</strong></p>
+<p>最脆弱的配置恰恰是我们最关心的那种：在漫长历史记录上运行的多步骤、多工具、多来源智能体。缓解措施包括动态或选择性工具加载、“上下文隔离区&quot;以隔离不可靠的内容，以及更严格的上下文管理，而非&quot;把所有东西都倒进去”。</p>
+<h2 id="研究-规划-实现工作流"><a class="markdownIt-Anchor" href="#研究-规划-实现工作流"></a> 研究 → 规划 → 实现工作流</h2>
+<p>如果说有一个概念能将有效的 AI 辅助开发与令人沮丧的提示词乱按区分开来，那就是上下文工程——这是一种刻意构建模型所见内容以获得更好结果的实践。</p>
+<p>Thoughtworks 的 Birgitta Böckeler 对此的简洁定义是：<em>策划模型所见内容，以获得更好的结果。</em> 对于编程智能体而言，这涵盖了从项目级配置文件（<code>CLAUDE.md</code>、<code>.cursorrules</code>）到单个提示词结构的一切。</p>
+<p>新兴的最佳实践遵循三个阶段：</p>
+<p><strong>研究</strong> — 让智能体先探索代码库。理解架构、识别相关文件，并构建一份包含文件路径、函数签名和系统关系的精简研究文档。</p>
+<p><strong>规划</strong> — 在写任何代码之前，创建一份智能体（和你）可以审阅的分步实现计划。这是早期发现误解的关键。</p>
+<p><strong>实现</strong> — 按计划逐步执行，随着任务完成压缩并更新上下文。保持上下文窗口精简——实践者建议将利用率保持在 40% 以下以获得最佳效果。</p>
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid">flowchart LR
+    Research[研究] --&gt; Plan[规划] --&gt; Implement[实现] --&gt; Compact[压缩与更新] --&gt; Research<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这个工作流正是上下文策略的落地——完整的智能体循环见<a href="/agentic-engineering/how-agents-work/">编程智能体的工作原理</a>。</p>
+<p>核心洞见：你编写的提示词、规格说明和计划<em>本身就是</em>产品。代码只是输出。正如一位实践者所说：“<a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> &gt; 提示词 &gt; 研究 &gt; 计划 &gt; 实现”。将人的精力集中在流水线中杠杆效应最高的部分。</p>
+<hr />
+<h2 id="上下文管理原则"><a class="markdownIt-Anchor" href="#上下文管理原则"></a> 上下文管理原则</h2>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.stockapp.com/good-context-good-code/">Good Context Leads to Good Code: How We Built an AI-Native Eng Culture</a></p>
+</blockquote>
+<p>核心洞见：高质量软件不仅仅关乎编写代码——它关乎在整个开发生命周期中<strong>系统性地在人类与 AI 智能体之间构建和共享上下文</strong>。没有明确的、结构化的上下文，即使是强大的 AI 工具也会犯错或产出低质量的结果。</p>
+<p><strong>1. 将代码库视为共享的上下文工作区</strong></p>
+<p>将代码、文档和智能体指引组织在一个 monorepo 中，使人类和 AI 都能访问相同的上下文。自然语言文档是供 AI 消费的一等制品。上下文制品包括：高层设计文档（“为什么&quot;和&quot;是什么”）、实现计划（“如何”）、API/工具的指南与教程，以及 schema 定义和本地化的 README。</p>
+<p><strong>2. 分层构建上下文</strong></p>
+<p>逐步建构上下文的过程：</p>
+<ol>
+<li><strong>设计</strong> — 人类定义需求和约束</li>
+<li><strong>规划</strong> — 智能体将其转化为可操作的任务</li>
+<li><strong>实现</strong> — 智能体生成大部分代码；人类审查</li>
+<li><strong>兜底</strong> — 测试和安全机制锚定上下文，防止回归</li>
+<li><strong>审查</strong> — 人类 + 智能体根据上下文验证工作</li>
+<li><strong>更新与优化</strong> — 为未来工作更新文档和上下文制品</li>
+</ol>
+<p><strong>3. 始终在富含上下文的流程中使用智能体</strong></p>
+<p>智能体贯穿使用——用于提交信息、文档、规划、测试和调试——但从不脱离上下文或监督。智能体应增强人的意图，而非取代它。上下文成为人类专业知识与智能体能力之间的共同语言。</p>
+<p><strong>4. 使用工具来扩展和暴露上下文</strong></p>
+<p>使用 MCP 服务器和命令行工具，让智能体能够访问和更新外部真实来源，如 Notion / 任务跟踪器（如 Linear）、数据库状态和日志，以及 git 历史和 PR 元数据。这将上下文从静态文档扩展到实时系统和项目数据。</p>
+<p><strong>5. 上下文使 AI + 人类审查的组合成为可能</strong></p>
+<p>与其依赖单一智能体或单一人类审查者，不如使用多个模型（Claude、Gemini、o3 等）来交叉验证输出。共享的上下文仓库让这些模型能够一致且连贯地运作。</p>
+<p><strong>核心原则总结：</strong></p>
+<table>
+<thead>
+<tr>
+<th>应该做</th>
+<th>不应该做</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>在代码库中明确存储上下文（文档、计划、schema）</td>
+<td>让智能体在过时或不完整的上下文中运行</td>
+</tr>
+<tr>
+<td>在实现<em>之前</em>设计上下文</td>
+<td>只把上下文放在自己脑子里</td>
+</tr>
+<tr>
+<td>随每次变更更新上下文</td>
+<td>假设智能体会推断出未明说的约束</td>
+</tr>
+<tr>
+<td>使用工具将外部项目信息纳入上下文</td>
+<td>不经审查就信任智能体的输出</td>
+</tr>
+</tbody>
+</table>
+
+            </div>
+            
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/agentic-engineering/context-management/index.html">https://xinheliu.github.io/agentic-engineering/context-management/index.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/context/">
+                                    <span class="chip bg-color">context</span>
+                                </a>
+                            
+                                <a href="/tags/agents/">
+                                    <span class="chip bg-color">agents</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>昕和 · 个人网站、写作与技术笔记</span>
+        <div class="footer-links">
+            <a href="/writing-zh/">写作</a>
+            <a href="/projects-zh/">项目</a>
+            <a href="/about-zh/">个人信息和联系方式</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">标签</a>
+            <a href="/categories/">分类</a>
+            <a href="/archives-zh/">归档</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>
