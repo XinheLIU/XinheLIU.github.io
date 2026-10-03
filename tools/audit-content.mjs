@@ -164,7 +164,8 @@ const filesByRepo = [];
 const index = new Map(); // id -> [{repo, file, locale}]
 
 for (const repoRoot of repoDirs) {
-  const repoName = path.basename(repoRoot) === '.' ? path.basename(HERE) : path.basename(repoRoot);
+  // The baseline uses the source repository's identity, not its checkout folder name.
+  const repoName = repoRoot === HERE ? 'site-source' : path.basename(repoRoot);
   const results = [];
   let currentFile = null;
   const push = (rule, severity, line, message) => results.push({ rule, severity, line, message, file: currentFile });

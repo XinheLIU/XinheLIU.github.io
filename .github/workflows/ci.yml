@@ -29,6 +29,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Writing activity tests
+        run: node --test tests/writing-activity.test.mjs
+
       - name: Content audit (baseline gate)
         run: node tools/audit-content.mjs --check-baseline docs/architecture/audit-report.json
 

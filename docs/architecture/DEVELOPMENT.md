@@ -2,6 +2,8 @@
 
 Status: 2026-08-24
 
+Last updated: 2026-10-03
+
 This file records the explicit local preview commands for each repository and
 the controlled book-to-site update workflow (plan §15 Phase 5).
 
@@ -28,6 +30,44 @@ npm run build
 ```
 
 The same steps run in `.github/workflows/ci.yml` (audit baseline gate + build).
+
+## Writing activity and importing old posts
+
+The home page counts essays, notes, and book chapters from their explicit
+creation and revision dates. It does not count Git commits or filesystem
+modification times. The initial view shows six months; the previous/next
+controls browse the complete retained history.
+
+When importing a legacy Hexo post, preserve its original date in frontmatter:
+
+```yaml
+date: 2023-05-12 10:00:00
+updated: 2024-01-10 10:00:00
+```
+
+For portable content and book chapters, use the existing content contract:
+
+```yaml
+created: 2023-05-12
+updated: 2024-01-10
+```
+
+- `created` takes precedence over legacy `date`. Set it to the original
+  creation date, even if the post is being imported today.
+- An explicit `last_updated` takes precedence over `updated` for legacy
+  posts. Omit both when no genuine revision date is known; do not put the
+  import date there. Equal creation/update dates count once.
+- `published_at` in a publication manifest controls publication on the
+  site, not the original writing date. Keep these distinct during migration.
+- Translation pairs use the same stable `id`. Existing legacy posts grouped
+  as `<article>/en.md` and `<article>/zh-CN.md` are paired automatically.
+  A chapter listed in both book and blog manifests counts once.
+- Rebuild with `npm run build` after importing or correcting dates. The
+  history is regenerated from source metadata with no six-month truncation.
+  Old dates appear in their historical window, not as activity today.
+- Book activity reads the pinned, published manifests. Chapters need to join
+  those manifests before they appear; a metadata-only placeholder without a
+  source date contributes no invented writing activity.
 
 ## Content audit
 

@@ -9,61 +9,12 @@
         }
     });
 
+    var writingSnapshot = writing_activity_snapshot(isChinese ? 'zh-CN' : 'en');
+
     var notesCount = allPosts.filter(function(post) {
         return !!post.note_type;
     }).length;
 
-    // Build contribution graph data (last 365 days)
-    var today = new Date();
-    var oneYearAgo = new Date(today);
-    oneYearAgo.setDate(today.getDate() - 364);
-
-    var contributions = {};
-    allPosts.forEach(function(post) {
-        var postDate = new Date(post.date);
-        var dateKey = postDate.toISOString().split('T')[0];
-        if (postDate >= oneYearAgo && postDate <= today) {
-            if (!contributions[dateKey]) {
-                contributions[dateKey] = { published: 0, updated: 0 };
-            }
-            contributions[dateKey].published += 1;
-        }
-
-        if (post.updated && post.updated !== post.date) {
-            var updateDate = new Date(post.updated);
-            var updateKey = updateDate.toISOString().split('T')[0];
-            if (updateDate >= oneYearAgo && updateDate <= today) {
-                if (!contributions[updateKey]) {
-                    contributions[updateKey] = { published: 0, updated: 0 };
-                }
-                contributions[updateKey].updated += 1;
-            }
-        }
-    });
-
-    // Generate 52 weeks of contribution cells
-    var weeks = [];
-    for (var w = 0; w < 52; w++) {
-        var week = [];
-        for (var d = 0; d < 7; d++) {
-            var cellDate = new Date(oneYearAgo);
-            cellDate.setDate(oneYearAgo.getDate() + w * 7 + d);
-            if (cellDate <= today) {
-                var cellKey = cellDate.toISOString().split('T')[0];
-                var cellData = contributions[cellKey] || { published: 0, updated: 0 };
-                var level = 0;
-                if (cellData.published > 0) {
-                    level = cellData.published >= 2 ? 4 : 2;
-                } else if (cellData.updated > 0) {
-                    level = cellData.updated >= 2 ? 3 : 1;
-                }
-                week.push({ date: cellKey, level: level });
-            }
-        }
-        if (week.length > 0) weeks.push(week);
-    }
-
-    var activeDaysCount = Object.keys(contributions).length;
 %>
 
 <section class="profile-hero">
@@ -90,8 +41,8 @@
                     </p>
                     <p class="profile-bio">
                         <%= isChinese
-                            ? '这里集中放置我的专业方向、写作边界、GitHub 和联系入口。'
-                            : 'A compact place for my professional focus, writing boundaries, GitHub, and contact details.' %>
+                            ? '记录我在数据、AI 和编程智能体上的学习与实践。这里有文章、技术笔记和持续更新的书稿。'
+                            : 'Essays, technical notes, and evolving books from my work and learning in data, AI, and coding agents.' %>
                     </p>
                 </div>
 
@@ -120,35 +71,16 @@
                     </div>
                 </div>
 
-                <!-- Contribution graph -->
-                <div class="contribution-section">
-                    <h2 class="contribution-title">
-                        <%= activeDaysCount %> <%= isChinese
-                            ? (activeDaysCount === 1 ? '天写作活动' : '天写作活动')
-                            : (activeDaysCount === 1 ? 'day of writing activity in the last year' : 'days of writing activity in the last year') %>
-                    </h2>
-                    <div class="contribution-graph">
-                        <% weeks.forEach(function(week) { %>
-                            <div class="contribution-column">
-                                <% week.forEach(function(cell) { %>
-                                    <span class="contribution-cell level-<%= cell.level %>" data-date="<%= cell.date %>" title="<%= cell.date %>"></span>
-                                <% }); %>
-                            </div>
-                        <% }); %>
-                    </div>
-                    <div class="contribution-legend">
-                        <span><%= isChinese ? '少' : 'Less' %></span>
-                        <span class="legend-cell level-0"></span>
-                        <span class="legend-cell level-1"></span>
-                        <span class="legend-cell level-2"></span>
-                        <span class="legend-cell level-3"></span>
-                        <span class="legend-cell level-4"></span>
-                        <span><%= isChinese ? '多' : 'More' %></span>
-                    </div>
-                    <p class="contribution-note">
-                        <%= isChinese ? '绿色：发布文章 · 蓝色：更新文章' : 'Green: published posts · Blue: updated posts' %>
-                    </p>
+                <div class="contribution-section" data-writing-activity data-locale="<%= isChinese ? 'zh-CN' : 'en' %>">
+                    <%- writing_activity_html(writingSnapshot, isChinese) %>
                 </div>
+                <div class="writing-period-controls" aria-label="<%= isChinese ? '写作日期范围' : 'Writing date range' %>">
+                    <button type="button" class="btn btn-secondary" data-writing-previous><%= isChinese ? '← 更早六个月' : '← Previous 6 months' %></button>
+                    <button type="button" class="btn btn-secondary" data-writing-next disabled><%= isChinese ? '后六个月 →' : 'Next 6 months →' %></button>
+                    <button type="button" class="btn btn-secondary" data-writing-latest disabled><%= isChinese ? '最近六个月' : 'Latest 6 months' %></button>
+                </div>
+                <script type="application/json" id="writing-activity-snapshot"><%- writing_activity_json(writingSnapshot) %></script>
+                <script defer src="<%- url_for('/js/writing-activity.js') %>"></script>
 
                 <!-- CTA buttons -->
                 <div class="profile-actions">
