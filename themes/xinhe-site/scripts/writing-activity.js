@@ -47,7 +47,7 @@ function manifestRecords() {
 hexo.extend.helper.register('writing_activity_snapshot', function (locale) {
     const catalogPath = path.join(hexo.base_dir, '.generated/catalog.json');
     const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
-    const records = catalog.length ? catalog.map(function (item) {
+    const records = catalog.some(item => item.created_at || item.updated_at) ? catalog.map(function (item) {
         return { id: item.owner + ':' + item.id, locale: item.locale, title: item.title,
             url: item.site_url || item.source_url, created_at: item.created_at || '', updated_at: item.updated_at || '' };
     }) : manifestRecords();
