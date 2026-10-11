@@ -1,0 +1,732 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <meta name="keywords" content="再见，黑天鹅飞过的2020, Xinhe Liu (Charles)">
+    <meta name="description" content="2020，从新闻媒体，专栏著作到每个人的朋友圈，都是与过去很多年如此不同的一年；也许过去很多年回头看，也许它会渐渐变得和其他年份一样平平无奇，又或者更加惊心动魄，但我想对于我个人而言，多半仍然是难忘的一年。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="再见，黑天鹅飞过的2020 | Xinhe Liu (Charles)">
+    <meta property="og:description" content="2020，从新闻媒体，专栏著作到每个人的朋友圈，都是与过去很多年如此不同的一年；也许过去很多年回头看，也许它会渐渐变得和其他年份一样平平无奇，又或者更加惊心动魄，但我想对于我个人而言，多半仍然是难忘的一年。">
+    <meta property="og:url" content="https://xinheliu.github.io/writing/farewell-to-2020-zh/">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="再见，黑天鹅飞过的2020 | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="2020，从新闻媒体，专栏著作到每个人的朋友圈，都是与过去很多年如此不同的一年；也许过去很多年回头看，也许它会渐渐变得和其他年份一样平平无奇，又或者更加惊心动魄，但我想对于我个人而言，多半仍然是难忘的一年。">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;family=Noto+Serif+SC:wght@500;600;700&display=swap">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>再见，黑天鹅飞过的2020 | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/home-zh/" aria-label="昕和首页">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>昕和</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="主导航">
+    
+        <a href="/home-zh/" class="">首页</a>
+    
+        <a href="/library-zh/" class="">图书馆</a>
+    
+        <a href="/projects-zh/" class="">项目</a>
+    
+        <a href="/about-zh/" class="">个人信息和联系方式</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="搜索" aria-label="搜索">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a class="lang-switch" href="/" title="English" aria-label="English">EN</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="主题切换" aria-label="主题切换">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="打开菜单">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/home-zh/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>昕和</strong>
+            </span>
+        </a>
+        <p>昕和的个人主页、写作与技术笔记。</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/home-zh/">首页</a></li>
+        
+            <li><a href="/library-zh/">图书馆</a></li>
+        
+            <li><a href="/projects-zh/">项目</a></li>
+        
+            <li><a href="/about-zh/">个人信息和联系方式</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="搜索">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        <a class="lang-switch" href="/">EN</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">标签</a>
+        <a href="/categories/">分类</a>
+        <a href="/archives-zh/">归档</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+<header class="post-hero content">
+    <div class="container">
+        
+            <p class="eyebrow">写作</p>
+        
+        <h1 class="page-title">再见，黑天鹅飞过的2020</h1>
+        <div class="post-meta">
+            <time datetime="2026-01-15">2026-01-15</time>
+            
+                <span class="dot">·</span>
+                <span>8 分钟</span>
+            
+            
+                <span class="post-hero-tags">
+                    
+                        <a class="chip" href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/">个人成长</a>
+                    
+                </span>
+            
+        </div>
+        <hr class="post-hero-rule">
+    </div>
+</header>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>2020，从新闻媒体，专栏著作到每个人的朋友圈，都是与过去很多年如此不同的一年；也许过去很多年回头看，也许它会渐渐变得和其他年份一样平平无奇，又或者更加惊心动魄，但我想对于我个人而言，多半仍然是难忘的一年。</p>
+<p>好巧不巧，很多个人生活的变化与席卷世界的新冠疫情凑到了一起。一月二月新冠疫情尚未从中国登陆北美的时间中，工作组里变动继续接着去年余波阵阵，的两位老板一位工作职位被调整，另一位想必已经决定离开，其他几位工作的同事也走的走，变得变。三月四月找的下家最后on board的过程恰恰受到新冠和抽签双重因素的影响最后未能完成，接着就是长达数月的在家上班。这段时间虽然多些机会静下心来做些平时没机会做的事情，但总的来说还是多少有些生产力降低，空白和浪费的。下半年客观地说确是急转直下：四月份老板离开后一个人的工作和周旋，七月开始小小的肩膀疼痛最后竟然变成麻烦的病症拖到年末，以及决定回国后十月，十一月找工作，一路从美国折腾回国，隔离，到年末工作也并没有着落。</p>
+<p>那么，也只能主观地总结一下了</p>
+<h2 id="勉强找出的成就"><a class="markdownIt-Anchor" href="#勉强找出的成就"></a> 勉强找出的成就</h2>
+<h3 id="全景"><a class="markdownIt-Anchor" href="#全景"></a> 全景</h3>
+<p>如上所说，不论是工作还是生活，和往年相比多少有些尽力支撑和来回折腾，付出了不少努力却因为种种困难转化率很低。但我想，徘徊，压力，试错和坚持能迫使自己来回审视以往的经历，自己和世界；疫情缺乏与外界的交流也提供比平时多一些宁静地思考。今年第一次有了一种一直想有的体验，就是自己的知识和经验有了几个大概的结构和轮廓，碎片化的信息之间不仅是有了链接，而且有一些大概的位置和坐标；多数自己是不懂，不知道的，很多一知半解和有相反信息的碎片有了一些边界。</p>
+<p>当然这仅仅是经历提纯为经验的简单起步，离成为真正有见识的人还很远。但有时候，经验的获得往往需要有目的，系统地学习，和他人交流，加上自己的实践的结合，且要多次的反思和记录来深化。我自己的标准是当对有些具体问题有一个全景化的认识，可以说稍微有一些经验，这离能够提出有价值的见解又还有一段距离。</p>
+<p>一个例子比如所谓”职业规划与职业选择“ - 首先这不是一个具体的问题，但却常常被当做一个大问题来谈。在这个大问题中，有很多可以细化为具体的问题，很多不能，例如”什么样的人，什么样的职业和哪些因素结合，社会地位高，收入高，晋升快“是一个比较具体，可以分析的问题。到”我能不能成为这样的人，成为了又如何，我应该做什么“ 就含有更多的不可预测，不确定因素和主观成分。</p>
+<p>而在探索这样的问题的过程中，多半只能是”走一步看一步“-需要结合自己的经验，别人的观点，客观数据得出一个大概的结论，有所行动，而在行动中又发现很多自己原来不知道的信息和变化，回来再有新的小问题，甚至有时候连问什么也不知道。比如在高盛工作的这几年，因为处在做相对创新业务的组，基本上个人和组每年都做的全新的工作，进来做的业务到离开时已经基本结束，中间从小组到部门到公司又有很多人来人走，中间的细微之处，每个人性格，经历角色，业务上用来评定分配价值的可以量化的和主观的部分，都是需要费心观察总结的，而自己的总结肯定是不完美的，但也必须凑合着用；经过多次的迭代，商业，个人发展，管理，领导力这些大学课本上虚拟的概念和亲身体会的经历如何拼接起来，形成不完整的，反映现实的全景，其实不是容易的过程。</p>
+<p>同样的，三四月份美国各家银行，基金间找工作，回国后在国内找工作、和猎头一起工作，其中的流程，经历和接触到的人和企业其实都是几个小时的接触，但谈开去其实有很多可以展开的话题就多了-从中美产业全景，价值分配的异同，到文化的差异，乃至未来的发展方向和空间，所谓”机会多vs起点高“，而这些话题和我的关系，是需要反复思考总结才能理清楚的，理清楚有什么用，又更难回答了。</p>
+<p>这还只是社会面，职业选择个人的选择和成长有关，这就又是另一条线了。我想不论什么问题，尽量做到”深入浅出“，思考分析-虽然最后未必就比随机游走结果好，但起码人生体验更深。</p>
+<h3 id="道路"><a class="markdownIt-Anchor" href="#道路"></a> 道路</h3>
+<p>同样的，再多的学习，读书，原则也无法替代问题、困难和选择真正降临在自己身上不得不做的信仰一跃。有时候，愿景和目标哪怕经常改变，也比总是排一排眼前就近可以选的，然后选一个最优的贪心策略好-人多少还是要折腾一下的。有了愿景和目标，走出或走不出一条道路来，尽力去走，就是不后悔的生活方式。</p>
+<p>人的行为客观上是受情绪，社会，自身所限的，希望自己能够做到</p>
+<ul>
+<li>如何看世界——没有人是一座孤岛，世界总有自己的位置。在发展和上升空间受限的时候，能够去更大的时间和空间中寻找自己的位置。</li>
+<li>如何看做人——具体到自己身上，就是优化信息环境，优化决策模型两样事情。</li>
+<li>如何看做事——先找到重要的，对自己和对别人有意义的事情，再寻找资源；不要做机会主义者。</li>
+</ul>
+<h3 id="坚持"><a class="markdownIt-Anchor" href="#坚持"></a> 坚持</h3>
+<p>看看去年提的目标，有一些做到了，有一些没有。尽管面临和很多波动和困难，还是有不少好习惯能够延续下来；例如早起，学习，锻炼，做过相关的尽量做好记录等。希望明年能继续进步。三点最重要</p>
+<ul>
+<li>完美主义是陷阱，重复迭代比堆砌完美靠谱，尤其是没有短期激励的事情。</li>
+<li>企业要做数据沉淀，个人行为也需要沉淀和数据，自己往往没有别人了解自己。</li>
+<li>Plan is nothing, planning is everything. 计划高手往往鲁棒性也高。</li>
+</ul>
+<h2 id="希望做的更好的事情"><a class="markdownIt-Anchor" href="#希望做的更好的事情"></a> 希望做的更好的事情</h2>
+<p>希望2021年，能在这几个方面多注意</p>
+<h3 id="交友"><a class="markdownIt-Anchor" href="#交友"></a> 交友</h3>
+<p>这倒不限于平常多和朋友联系交流，找人家要信息或者是机会。更多是几方面</p>
+<ul>
+<li>说这些年经历了不少不同的地方，遇见许多不同的人，人到了这个阶段的朋友们开始逐渐”去相干“，大家生活状态，价值观，追求，所处的环境等方方面面越发不同了起来，这时候交往和网络效应对拓宽自身眼界的益处才体现出来；华尔街的人，硅谷的人，香港的人，国内的工程师，产品经理，证券从业者，各行各业的打工人，创业者大家的不同、联系合作和网络——”头脑中容纳相反的想法,而在行为上还维持正常行事的能力“的一流智力似乎是现在这个时代越发需要的。</li>
+<li>共情和理解，发自内心的关心和真诚，总是稀缺和最有价值的财富。</li>
+<li>”求之于势，不责于人“-很多时候，从人那里才能看到势，关心别人就是关心自己。</li>
+</ul>
+<h3 id="治变"><a class="markdownIt-Anchor" href="#治变"></a> 治变</h3>
+<p>有些事情，例如回国，即使已经做好所谓准备，实际上执行过程还是充满了变数和偏差，当然这不仅仅是今年特殊的黑天鹅的原因，更多还是随机应变的技巧能力的不足。工作人员变动，外部环境，生病-这些总不可能一一预料和准备，但再应变一次应该比现在好。”奇正相生“-人生过的久，这方面能力也应该见长。以后还是要多做总结，多下研究。</p>
+<h3 id="学习"><a class="markdownIt-Anchor" href="#学习"></a> 学习</h3>
+<p>今年疫情期间上了很多课，读了不少平常没有静心去读的书。体验是不错，可是回顾觉得很多还是重复以前的知识，获得新知效率并没有那么高，希望以后做好</p>
+<ul>
+<li>结果导向。例如去年立flag写作，其实完不成是因为写给自己看其实并不是好的计划，还是应该有目的的写作</li>
+<li>有选择。尽量选择垂直的方向，减少重复的学习而把一个topic学到极致，更深入，形成T型知识结构。</li>
+<li>少而精，系统性学习而非堆砌内容-比如疫情期间上了几门课其实远远不如回国后花了不到两周时间仔细梳理了相关论文的结构。</li>
+</ul>
+<p>再见特别的2020，We are all survivors and thrivers, 祝每个善良的人更加强大。</p>
+<p>2020年12月31日</p>
+<p>于兰州</p>
+
+            </div>
+            
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/writing/farewell-to-2020-zh/">https://xinheliu.github.io/writing/farewell-to-2020-zh/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/">
+                                    <span class="chip bg-color">个人成长</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<nav class="post-nav" aria-label="文章导航">
+    
+    <a class="post-nav-card" href="/writing/hello-2020-zh/" rel="prev">
+        <span class="post-nav-label">&larr;&nbsp;上一篇</span>
+        <span class="post-nav-title">你好2020</span>
+    </a>
+    
+    
+    <a class="post-nav-card post-nav-card-next" href="/writing/returning-to-china-and-job-search-zh/" rel="next">
+        <span class="post-nav-label">下一篇&nbsp;&rarr;</span>
+        <span class="post-nav-title">回国与求职复盘</span>
+    </a>
+    
+</nav>
+
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>昕和 · 个人网站、写作与技术笔记</span>
+        <div class="footer-links">
+            <a href="/writing-zh/">写作</a>
+            <a href="/projects-zh/">项目</a>
+            <a href="/about-zh/">个人信息和联系方式</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">标签</a>
+            <a href="/categories/">分类</a>
+            <a href="/archives-zh/">归档</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

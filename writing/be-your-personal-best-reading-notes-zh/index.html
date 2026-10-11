@@ -1,0 +1,1474 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <meta name="keywords" content="读书笔记《做最好的自己》李开复, Xinhe Liu (Charles)">
+    <meta name="description" content="五一期间想再读这本大学学过的书，网上竟然找不到电子版和读书笔记，ChatGPT也给出了完全胡说的摘要。自己买了二手书一读，再次感慨是一本被书名耽误的好书和有前瞻性的书。而且再看其中的内容，很多是工作之后才真的开始懂的。其实自我提升的书都属于知易行难，实践远远比阅读的人少，但实践什么时候开始都不算晚。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="读书笔记《做最好的自己》李开复 | Xinhe Liu (Charles)">
+    <meta property="og:description" content="五一期间想再读这本大学学过的书，网上竟然找不到电子版和读书笔记，ChatGPT也给出了完全胡说的摘要。自己买了二手书一读，再次感慨是一本被书名耽误的好书和有前瞻性的书。而且再看其中的内容，很多是工作之后才真的开始懂的。其实自我提升的书都属于知易行难，实践远远比阅读的人少，但实践什么时候开始都不算晚。">
+    <meta property="og:url" content="https://xinheliu.github.io/writing/be-your-personal-best-reading-notes-zh/">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="读书笔记《做最好的自己》李开复 | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="五一期间想再读这本大学学过的书，网上竟然找不到电子版和读书笔记，ChatGPT也给出了完全胡说的摘要。自己买了二手书一读，再次感慨是一本被书名耽误的好书和有前瞻性的书。而且再看其中的内容，很多是工作之后才真的开始懂的。其实自我提升的书都属于知易行难，实践远远比阅读的人少，但实践什么时候开始都不算晚。">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;family=Noto+Serif+SC:wght@500;600;700&display=swap">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>读书笔记《做最好的自己》李开复 | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/home-zh/" aria-label="昕和首页">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>昕和</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="主导航">
+    
+        <a href="/home-zh/" class="">首页</a>
+    
+        <a href="/library-zh/" class="">图书馆</a>
+    
+        <a href="/projects-zh/" class="">项目</a>
+    
+        <a href="/about-zh/" class="">个人信息和联系方式</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="搜索" aria-label="搜索">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a class="lang-switch" href="/" title="English" aria-label="English">EN</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="主题切换" aria-label="主题切换">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="打开菜单">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/home-zh/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>昕和</strong>
+            </span>
+        </a>
+        <p>昕和的个人主页、写作与技术笔记。</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/home-zh/">首页</a></li>
+        
+            <li><a href="/library-zh/">图书馆</a></li>
+        
+            <li><a href="/projects-zh/">项目</a></li>
+        
+            <li><a href="/about-zh/">个人信息和联系方式</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="搜索">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        <a class="lang-switch" href="/">EN</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">标签</a>
+        <a href="/categories/">分类</a>
+        <a href="/archives-zh/">归档</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+<header class="post-hero content">
+    <div class="container">
+        
+            <p class="eyebrow">写作</p>
+        
+        <h1 class="page-title">读书笔记《做最好的自己》李开复</h1>
+        <div class="post-meta">
+            <time datetime="2026-08-13">2026-08-13</time>
+            
+                <span class="dot">·</span>
+                <span>23 分钟</span>
+            
+            
+                <span class="post-hero-tags">
+                    
+                        <a class="chip" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                    
+                </span>
+            
+        </div>
+        <hr class="post-hero-rule">
+    </div>
+</header>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>五一期间想再读这本大学学过的书，网上竟然找不到电子版和读书笔记，ChatGPT也给出了完全胡说的摘要。自己买了二手书一读，再次感慨是一本被书名耽误的好书和有前瞻性的书。而且再看其中的内容，很多是工作之后才真的开始懂的。其实自我提升的书都属于知易行难，实践远远比阅读的人少，但实践什么时候开始都不算晚。</p>
+<p>在这本书里，李开复将成功分为了六种态度和行为构成的同心圆，他指出这些方面间具有对立统一的关系，推荐以东方中庸的智慧来达到完整和平衡的境界。这一点很有中西结合的智慧和实践的洞见，也是其他类似书籍中所没有的，非常值得参考。</p>
+<p>在这本书里，李开复将成功分为了六种态度和行为构成的同心圆，他指出这些方面间具有对立统一的关系，推荐以东方中庸的智慧来达到完整和平衡的境界。这一点很有中西结合的智慧和实践的洞见，也是其他类似书籍中所没有的，非常值得参考</p>
+<h2 id="成功同心圆"><a class="markdownIt-Anchor" href="#成功同心圆"></a> 成功同心圆</h2>
+<ul>
+<li>多元化成功
+<ul>
+<li>多元化成功的视角下，衡量成功的标准有很多种，可以是财富，也可以是一个人的创造力或影响力，可以是一个人对他人的帮助或者贡献，也可以是一个人在自身基础上的提高和超越。</li>
+<li>最基本的衡量标准是该行为是否对社会、自己或者他人有一，是否让一个人在自主选择的过程中不断超越自己，由此获得最大的快乐</li>
+<li>社会越发达、人才体系和成功标准越多元化，每个人更能发挥自己的特长，两者互为因果</li>
+</ul>
+</li>
+<li>做最好的自己
+<ul>
+<li>让自己每一天都有收获和新的提高、”做最好的自己“是通过多元化成功的必然路径，只有一元化成功才会强迫人们复制他人的成功模式</li>
+<li>追逐自己的兴趣、爱好，善于发现并发掘自身潜力的人们相比迫于家长或社会的压力的人更容易获得名利和财富。</li>
+<li>在多元化成功模型中，只要主动选择，每个人都有成功的机会</li>
+</ul>
+</li>
+<li>成功同心圆
+<ul>
+<li>价值观是指导态度和行为的根本因素</li>
+<li>有了正确价值观的引导，可以完善自己的人格，端正人生态度。态度是行动的前提，是为人处世的基本原则</li>
+<li>人生态度体现在最基本的行为方式，通过正向的行为来寻找通往成功的道路。</li>
+<li>完整的原则来培养自己的各个方面，均衡的原则是根据自己的目标和实际情况，走不偏激不极端的路线，在对立统一中选择最佳状态</li>
+<li><strong>有勇气来改变可以改变的事情，有胸怀来接受不可改变的事情，有智慧分辨两者的不同</strong></li>
+</ul>
+</li>
+</ul>
+<p><img src="/writing/be-your-personal-best-reading-notes-zh/8020e9645dc83df7.jpg" alt="读书笔记《做最好的自己》李开复 · 配图 1" /></p>
+<h2 id="态度对内掌控"><a class="markdownIt-Anchor" href="#态度对内掌控"></a> 态度：对内掌控</h2>
+<h3 id="价值观"><a class="markdownIt-Anchor" href="#价值观"></a> 价值观</h3>
+<ul>
+<li>价值观对人的行为和生活有不可估量的影响
+<ul>
+<li>美好的价值有很多种，”诚信”、“善良”、“仁爱”、“勇敢”、“自由”、“活力”、“创造”、“和谐”、“平等“、”正直”，每个人可以选出自己认为最重要的几项价值</li>
+</ul>
+</li>
+<li>李开复倡导“诚信”（诚实守信）是大部分人和企业价值观中共同的一部分。
+<ul>
+<li>诚信是建立长期合作的先决条件，是企业盈利的前提、是信息社会的基础</li>
+<li>自律性诚信在现代社会越来越重要</li>
+</ul>
+</li>
+</ul>
+<h3 id="积极主动be-proactive"><a class="markdownIt-Anchor" href="#积极主动be-proactive"></a> 积极主动Be Proactive</h3>
+<p>积极主动</p>
+<ul>
+<li>中国文化强调群体意识，推崇“从上”“从众”，这些思想潜移默化影响者一代又一代青年。现行教育体制下，学生习惯处处听从父母和老师安排，遇到问题可以从父母和老师那里获得帮助，养成了被动的习惯。父母和老师也习惯于越俎代庖，帮助孩子和学生设计人生，导致他们忽略了真正的性格和兴趣。</li>
+<li>Proactive是心理学家维克托-弗兰克介绍给大众的。他说，在极端恶劣的环境里，人也会拥有选择自己态度的自由。</li>
+<li>积极主动的人
+<ul>
+<li>相信自己有选择的权利</li>
+<li>相信人可以主导事情的进展</li>
+<li>遇到问题独立思考</li>
+<li>遇到困难积极进取，不怨天尤人。</li>
+<li>相信一切靠自己，自己可以做的更好。</li>
+<li>问自己可以放弃哪些不重要的事，做重要的事</li>
+</ul>
+</li>
+</ul>
+<p>积极主动的7步</p>
+<ol>
+<li>拥有积极的态度，乐观面对人生，有勇气改变可以改变的事情</li>
+<li>远离被动，从小事做起
+<ol>
+<li>不要盲目听信人言，应该冷静辨析，积极求证</li>
+<li>不要让事情找你，要主动对事情施加影响</li>
+<li>有主见，不要习惯性同意或追随别人</li>
+<li>不要说“我办不到”，尽力去尝试</li>
+<li>语言训练
+<ol>
+<li>不要抱怨环境和他人</li>
+<li>赋予自己选择的权利，“我选择”“我要”“我情愿”“我打算”</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>对自己负责，掌控自己的命运
+<ol>
+<li>做有意义、负责任的选择，并主动承担后果</li>
+<li>不表达“但愿”“我不得不”</li>
+<li>接受自己的挫折，辨析自己可以改变的部分</li>
+</ol>
+</li>
+<li>积极尝试，邂逅机遇
+<ol>
+<li>给自己设置有挑战性，但并非遥不可及的目标</li>
+<li>珍惜每一次尝试，尽力而为</li>
+</ol>
+</li>
+<li>充分准备，把握机遇
+<ol>
+<li>事事用心、事事尽力</li>
+<li>克服苦难和挫折，把挫折转化为行动力</li>
+<li>不要在需要立即行动的时候犹豫不决</li>
+</ol>
+</li>
+<li>积极争取，创造机遇
+<ol>
+<li>除了时刻准备，要主动做事情，为自己创造机遇</li>
+</ol>
+</li>
+<li>积极推销自己
+<ol>
+<li>发现自己的优点，善于展示自己</li>
+</ol>
+</li>
+</ol>
+<h3 id="同理心"><a class="markdownIt-Anchor" href="#同理心"></a> 同理心</h3>
+<ul>
+<li>同理心是人际交往中，体会到他人情绪和想法，理解他人立场和感受并站在他人角度思考和处理问题的能力
+<ul>
+<li>“推己及人”，“己所不欲勿施于人” (Whatever is hurtful to you, do not to any other person)</li>
+</ul>
+</li>
+<li>同理心是人际交往的基础
+<ul>
+<li>同理心是信任的基础，信任是人际交往的基础</li>
+</ul>
+</li>
+</ul>
+<p>6点</p>
+<ul>
+<li>我怎样对待别人，别人就怎样对待我</li>
+<li>想要得到他人的理解，就首先要理解他人
+<ul>
+<li>当别人表达意见，要理解他的立场和感情，还要设法让对方明白你已经完全了解了他的想法</li>
+<li>如果对方有错误，武断的否定效率远不如引导他从自己的立场认识到自己的错误</li>
+<li>理解的价值
+<ul>
+<li>增加知识</li>
+<li>增加说服力</li>
+<li>豁达心胸</li>
+<li>赢得Buy-in（诚意）</li>
+</ul>
+</li>
+<li>如何更好理解他人？
+<ul>
+<li>从关心别人，体量别人的角度出发</li>
+<li>主动反省自己</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>别人眼中的自己才是真正存在的自己</strong>
+<ul>
+<li>一个人了解另一个人，更多是凭直觉而非思考做出判断，这种判断往往比较准确</li>
+<li>别人眼中即使只反映了你在某方面的表现，也是真实、可信的</li>
+</ul>
+</li>
+<li><strong>只能修正自己，不能修正别人</strong>
+<ul>
+<li>如果被误解，别怪听众，你才是传达信息的人</li>
+</ul>
+</li>
+<li>真诚坦白的人，才是值得信任的人
+<ul>
+<li>不介意让别人知道自己的缺点和动机，更容易赢得对方的信任</li>
+<li><strong>言行如一，一诺千金，言出必行</strong></li>
+<li>坦白地承认自己的错误，并为错误道歉</li>
+</ul>
+</li>
+<li>真情流露的人，才能得到真情回报
+<ul>
+<li>尽量敞开心扉，说出自己心中的话</li>
+</ul>
+</li>
+</ul>
+<h3 id="自信"><a class="markdownIt-Anchor" href="#自信"></a> 自信</h3>
+<ul>
+<li>自信是在认识自己的基础上充分相信自己， <strong>相信自己可以在面对困难和挑战的时候，将自己的潜能释放出来</strong> ，相信自己可以在理想和兴趣下坚定不移的走向成功
+<ul>
+<li>自信是对自身能力的正面评估，并形成坦然面对艰难险阻的心理状态</li>
+</ul>
+</li>
+<li>自信来源于成功的暗示，自卑来源于失败的暗示</li>
+</ul>
+<p>获取自信6步</p>
+<ol>
+<li>尊重自己，鼓励自己
+<ol>
+<li>相信自己有足够的潜能，“天生我才必有用”</li>
+</ol>
+</li>
+<li>赞美自己，从潜意识做起
+<ol>
+<li>用具体的事例反复训练大脑，相信自己是值得信任的，并且为自己自豪。</li>
+</ol>
+</li>
+<li>用言行激发自信
+<ol>
+<li>正确对待他人的看法</li>
+<li>有自己的想法和主见</li>
+<li>表达自己的想法</li>
+<li>自信的表达方式
+<ol>
+<li>“我”“我认为”“我希望”“我要求”</li>
+<li>目光接触，声音清晰</li>
+<li>不让他人打断</li>
+<li>拒绝沉默</li>
+<li>为表达和沟通做好充分准备</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>从成功获得自信，从失败增加自觉
+<ol>
+<li>成长性思维，坚信做好事情的能力</li>
+<li>不要自负，自信与自我偏执、不允许自己犯错和自我中心、失去客观立场绝不等同</li>
+<li>不要畏惧失败，明确自己不能接受的最坏结果。从失败中学习，提升对能力边界的认知</li>
+</ol>
+</li>
+<li>制定具体目标，由自觉达到自信
+<ol>
+<li>不会过度自我批评，也不会盲目乐观，能够客观评价自己。坦诚面对自己能力基线，不会轻易地接受能力范围外的工作和设置不合理的目标</li>
+<li>对自己和他人同样坦诚，坦诚面对失败会得到他人的信赖</li>
+<li>培养自信的目标要可行，可度量</li>
+</ol>
+</li>
+<li>发挥优势，放飞自我
+<ol>
+<li>客观评估、采纳他人反馈中可行性较高的建议或目标</li>
+<li>自信和积极主动是相辅相成的</li>
+<li>自信的关键在于认识并且发觉自身的优势。发现优势比弥补劣势更重要。</li>
+</ol>
+</li>
+</ol>
+<h3 id="自省"><a class="markdownIt-Anchor" href="#自省"></a> 自省</h3>
+<ul>
+<li>勇于承认错误，主动接受批评和自我批评
+<ul>
+<li>认真反省，保证不犯同样的错误</li>
+<li>不掩饰错误，客观评价自己</li>
+<li>复盘和自我批评</li>
+</ul>
+</li>
+<li>不断追求进步，足够好是不够的（Good enough is not enough）</li>
+<li>虚心听取他人意见和接受批评，寻找mentor
+<ul>
+<li>学会倾听</li>
+<li>用积极切实的行动改正错误</li>
+</ul>
+</li>
+<li>事后认真反省，努力改变自己
+<ul>
+<li>哪些事情可以做得更好，哪些事情团队可以做得跟高</li>
+</ul>
+</li>
+<li>培养自省的习惯
+<ul>
+<li><strong>每个月和目标总结自己的成功和失败之处</strong></li>
+<li>每个月有改进计划</li>
+</ul>
+</li>
+</ul>
+<h3 id="勇气"><a class="markdownIt-Anchor" href="#勇气"></a> 勇气</h3>
+<p>勇气是在挑战面前勇往直前，勇于接受挑战的力量</p>
+<ul>
+<li>不畏失败，敢于尝试
+<ul>
+<li>进取的冒险精神是勇敢的体现</li>
+</ul>
+</li>
+<li>承认错误，从失败中学习
+<ul>
+<li>不要惧怕失败，冷静的分析原因</li>
+</ul>
+</li>
+<li>远离恐惧，挑战困难
+<ul>
+<li>“唯一值得恐惧的是恐惧本身”“实现明天理想的唯一障碍是今天的疑虑”</li>
+<li>正视现实，有勇气迎接挑战。</li>
+</ul>
+</li>
+<li>用于放弃已经获得的东西
+<ul>
+<li>为了谋求新的发展空间，要抛弃成功的障碍</li>
+<li>对他人的要求和过高的预期也学会说“不”</li>
+</ul>
+</li>
+<li>有智慧的勇气
+<ul>
+<li>抛开眼前的利益得失，最大限度的追求成功的同时不要陷入偏激、愚勇的死胡同</li>
+</ul>
+</li>
+</ul>
+<h3 id="胸怀"><a class="markdownIt-Anchor" href="#胸怀"></a> 胸怀</h3>
+<ul>
+<li>务实
+<ul>
+<li>接受自己无法改变的人和事，不要怨天尤人</li>
+<li>父母、环境（喜欢vs应该做的事，困难等）、天赋、经历</li>
+<li>接受自己：不活在别人的价值观里，善于发现自身的兴趣和特长，正确对待缺点和局限</li>
+</ul>
+</li>
+<li>宽恕
+<ul>
+<li>以责人之心责己，以恕己之心恕人</li>
+<li>做事避免斤斤计较和零和思维</li>
+<li>告诉自己“未必如此”发现他人的合理性</li>
+<li>告诉自己“人难免会” 体谅对方的处境</li>
+<li>不要为别人的过失不快乐</li>
+</ul>
+</li>
+<li>自律
+<ul>
+<li>self regulation， 包括自我控制和自我调整的能力</li>
+<li>认知自己的潜能、素质</li>
+<li>认知自己的感情、态度（不会爆发也不会压抑）善于和自己对话</li>
+</ul>
+</li>
+<li>尊重
+<ul>
+<li>尊重不同见解的权利。“我不同意你，但我支持你”</li>
+</ul>
+</li>
+<li>涵养
+<ul>
+<li>有容德乃大，无求品自高</li>
+<li>天行健，君子以自强不息；地势坤，君子以厚德载物</li>
+<li>把握人与自然，人与社会，人与人的关系；做到 <strong>宠辱不惊，得失置之度外</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="行为对外影响"><a class="markdownIt-Anchor" href="#行为对外影响"></a> 行为：对外影响</h2>
+<h3 id="追寻理想"><a class="markdownIt-Anchor" href="#追寻理想"></a> 追寻理想</h3>
+<ul>
+<li>一个人拥有对自己，对家庭，对社会的理想和责任，他就更容易形成自己的价值观。 “人不必问自己，生命的意义是什么，而必须认识到，自己才是被生命诘问的人”（维克多-弗兰克）</li>
+<li>理想是引领人生的瞪大，没有理想，就没有坚定的方向，没有方向，就没有充实的生活。每一个成功的人都有对理想的责任感和对人生的使命感。</li>
+<li>理想源于自我，理想源于个性，理想应当是最适合自己的人生目标。</li>
+</ul>
+<p>如何追寻理想</p>
+<ul>
+<li>人生目标要尽量有价值</li>
+<li>人生目标要尽量摆脱名利羁绊
+<ul>
+<li>人生的财富：积极的精神 &gt; 良好的体格 &gt; 和谐的人际关系 &gt; 脱离恐惧、未来成功的希望 &gt; 信念的容量 &gt; 与他人分享幸福的愿望 &gt; 热爱自己的工作 &gt; 对事物开放的胸怀 &gt; 严于律己 &gt; 理解他人的能力 &gt; 经济保障的能力</li>
+</ul>
+</li>
+<li>人生目标要成为自己的智囊
+<ul>
+<li>用愿景指导目标和决策</li>
+</ul>
+</li>
+<li>人生目标可以让自己从心底感动
+<ul>
+<li>Follow your heart
+<ul>
+<li>闭上眼睛，记录最先浮现在脑海里的理想记录下来</li>
+<li>回顾过去，最快乐和有成就感的时光是否有某些共同点</li>
+<li>十五年后，达到完美的人生状态下，你将会处在何种环境？</li>
+<li>如果你只剩六个月生命，你会做什么？</li>
+<li>幻想一下五年后达到理想状态的你——在哪里？在做什么？和谁在一起</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>人生目标要既富有挑战性，又不脱离实际，及放眼未来，又明确、具体。
+<ul>
+<li>尽量放开思路，站在更高的起点上</li>
+<li>评估和调整目标：保证不要过于困难，凭自身条件不可能实现</li>
+</ul>
+</li>
+</ul>
+<h3 id="发现兴趣"><a class="markdownIt-Anchor" href="#发现兴趣"></a> 发现兴趣</h3>
+<ul>
+<li>激情是成功的原动力和必要前提
+<ul>
+<li>“我是否愿意为了这个目标全身心投入？是否会像热爱爱人一样热爱他？”</li>
+</ul>
+</li>
+<li>兴趣是点燃激情的火种
+<ul>
+<li>真正的激情只有一个来源，那就是兴趣。因为追逐兴趣二充满激情，因为激情而享受欢乐</li>
+</ul>
+</li>
+<li>对兴趣的误解
+<ul>
+<li>过分简化定义：工作有不同侧面，好奇、创意、耐心、有远见、喜欢动手、喜欢抠细节、为他人服务等方方面面。要去尝试和了解</li>
+<li>不是事先设计出来的：需要发掘和培养</li>
+</ul>
+</li>
+</ul>
+<p>5点建议</p>
+<ul>
+<li>选你所爱
+<ul>
+<li>亲身体验并用头脑判断。对于某件事是否能够重复，愉快且成功的完成。是否有向往，是否总让你感到满足</li>
+<li>唯有接触才能尝试，唯有尝试才能找到最爱</li>
+<li>时刻保持开拓视野和接触尝试的好习惯</li>
+</ul>
+</li>
+<li>爱你所选
+<ul>
+<li><strong>今天有没有比昨天哪一点做得更好</strong></li>
+<li><strong>有没有解决一个新的问题？</strong></li>
+<li><strong>有没有学到新东西</strong></li>
+<li><strong>能不能比别人做得更好</strong></li>
+<li><strong>你的工作和专业对别人有没有帮助</strong></li>
+<li><strong>周围的人是否肯定你的工作</strong></li>
+</ul>
+</li>
+<li>把握每一个选择兴趣的机会
+<ul>
+<li>选择学校，专业，公司尽量保证宽度</li>
+<li>不要为了读研而读研</li>
+</ul>
+</li>
+<li>忠于自己的兴趣
+<ul>
+<li>找到真正的兴趣所在并不容易，一旦找到了，就要努力把相关知识学好，积累知识和技能</li>
+<li>如果需要追随兴趣需要花费的努力太大，或者喜欢的工作中有枯燥的部分，可能需要改变的是你的态度</li>
+</ul>
+</li>
+<li>找到最佳结合点
+<ul>
+<li>综合考虑理想、兴趣、天赋和就业，努力找到四者交集</li>
+<li>人生目标就像罗盘，兴趣就像风帆，两者缺一不可</li>
+</ul>
+</li>
+</ul>
+<h3 id="有效执行"><a class="markdownIt-Anchor" href="#有效执行"></a> 有效执行</h3>
+<p>关键在于执行，执行力包括</p>
+<ul>
+<li>周密计划的能力
+<ul>
+<li>设立明确的目标，把总体目标简化为阶段目标
+<ul>
+<li>SMART原则（Specific, measurable, attaianble, relevant or result-based, time-based）</li>
+</ul>
+</li>
+<li>分析差距
+<ul>
+<li>Begin with the End in Mind</li>
+</ul>
+</li>
+<li>以循环方式修正
+<ul>
+<li>PDCAR循环：Plan, Do, Check, Action / Action Again, Record</li>
+</ul>
+</li>
+<li><strong>多管齐下，有Plan B和Plan Z</strong></li>
+</ul>
+</li>
+<li>追求的毅力
+<ul>
+<li>坚定方向，锲而不舍，执着不怕挫折</li>
+<li>付出努力而看不到进步的时候因为一时的困难而放弃</li>
+<li>林肯在当选总统的前三十年经历过失业、经商失败、爱人死亡、精神失常、演说失败、多次竞选失败（议员、参议院、地方官、副总统）</li>
+</ul>
+</li>
+<li>执行的魄力
+<ul>
+<li>能把事情做起来并争取完成的能力</li>
+<li>养成良好的习惯： <strong>把自己当做“别人”，给自己一个承诺，要做到可衡量的目标，像对待和别人的承诺一样认真</strong></li>
+<li>使用合理的时间管理方法：一般三要素
+<ul>
+<li>Prioritize, 分轻重缓急</li>
+<li><strong>有高效时间：利用好每天20%高效时间</strong></li>
+<li><strong>给自己设立合理的最后期限</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="努力学习"><a class="markdownIt-Anchor" href="#努力学习"></a> 努力学习</h3>
+<p>学习的四种境界</p>
+<ol>
+<li>熟能生巧：在老师/课程指导下学习，掌握课本上内容，知道问题答案
+<ol>
+<li>精神饱满、心无杂念</li>
+<li>劳逸结合</li>
+<li>有节奏和方法</li>
+<li>刻意练习</li>
+</ol>
+</li>
+<li>举一反三：具备思考的能力，掌握学习的方法
+<ol>
+<li>中国教育给学生打下了坚实的理论基础，往往忽略了思考能力的培养。学生习惯用“教学”的方式被动接受知识</li>
+<li>思考能力的本质是“多问为什么”“为什么这样做”（批判性思维）以及用逻辑的方式看问题</li>
+</ol>
+</li>
+<li>无师自通：掌握自学的方法
+<ol>
+<li>能够理解知识，能够举一反三的通过问问题学习其他的观察角度，能从全新的角度出发思考问题</li>
+<li>学会做研究，充分利用各种媒体、资源，人</li>
+</ol>
+</li>
+<li>融汇贯通：学到的知识能灵活运用于工作和实践
+<ol>
+<li>听到的会忘掉，看到的能记住， <strong>做过的才真正明白。</strong></li>
+<li><strong>人必须通过实践来学习，自以为懂得是不够的</strong>
+<ol>
+<li>模拟实际工作的场景</li>
+<li>以实际工作的方法和标准去评价每件事</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>终身学习</p>
+<ul>
+<li>青年时代的知识最宝贵</li>
+<li>学好基础学科（数学、信息技术、英语）</li>
+<li>从终身学习出发找第一份工作
+<ul>
+<li>帮助自己继续学习（良好的培训环境和员工）</li>
+<li>五年后更好的发展机会</li>
+<li>符合或帮助了解自己的兴趣和理想</li>
+</ul>
+</li>
+</ul>
+<h3 id="人际交流"><a class="markdownIt-Anchor" href="#人际交流"></a> 人际交流</h3>
+<p>原则：以诚待人，平等交往</p>
+<ul>
+<li>不要唯我独尊，要谦恭忍让
+<ul>
+<li>不要有“应该”思维，客观看待自己和他人</li>
+</ul>
+</li>
+<li>不要零和竞争，要共同进步
+<ul>
+<li>人际关系的主题不是为何获得优势地位</li>
+</ul>
+</li>
+<li>企业需要大于自身素质
+<ul>
+<li>有企业角度的思维习惯</li>
+</ul>
+</li>
+<li>面对不平等
+<ul>
+<li>人人间存在差别是不争的事实。对一个人来说最重要的是面对机遇和选择</li>
+<li>如果起点比别人低，必须加快速度而不是一味抱怨</li>
+<li>相反，如果因此放弃了自己的机遇和选择，那么该负责的是自己</li>
+<li>顽强，乐观和正面的精神能感染所有人</li>
+</ul>
+</li>
+</ul>
+<p>做有人际魅力的人</p>
+<ul>
+<li>努力建立良好的第一印象
+<ul>
+<li>真诚，对别人有兴趣</li>
+<li>微笑，多替别人名字</li>
+<li>耐心倾听</li>
+<li>让别人感到他们对你很重要</li>
+<li>《人性的弱点：如何赢得朋友和影响他人》</li>
+</ul>
+</li>
+<li>活泼主动，展示真我
+<ul>
+<li>内向的人发挥自己的特点和优势（善于思考、感悟）内向者善于组织思想，外向者善于组织人和事。外向者善于表达，内向者善于感悟</li>
+<li>主动，开朗的原则。</li>
+<li>针对想认识的人，准备一些共同的话题</li>
+<li>不要在乎“面子”</li>
+</ul>
+</li>
+<li>有兴趣爱好
+<ul>
+<li>成为别人眼中的益友</li>
+</ul>
+</li>
+</ul>
+<p>建立高质量人脉网</p>
+<ul>
+<li>与人合作，不要只就事论事。多谈话，多认识人</li>
+<li>细心倾听，理解别人的意见。</li>
+<li>请每一个你认识的人帮你扩大人脉网</li>
+<li>想了解某一个人，要尝试多种渠道。（找简历，和认识他的人聊天等等）</li>
+<li>经营人际网，保证高素质
+<ul>
+<li>了解每个人的优缺点</li>
+</ul>
+</li>
+</ul>
+<p>学习交流技巧</p>
+<ul>
+<li>语言交流
+<ul>
+<li>演讲能力
+<ul>
+<li>调整心态</li>
+<li>多练习</li>
+<li>有方法
+<ul>
+<li>演讲前深呼吸，放松肌肉</li>
+<li>演讲时候针对忘词，停顿有处理方法。开场白，和观众互动等套路</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>电梯演讲训练</li>
+</ul>
+</li>
+<li>肢体语言
+<ul>
+<li>面部表情是内心情绪的呈现</li>
+</ul>
+</li>
+</ul>
+<p>建立终身友谊，从家人和朋友上学习</p>
+<ul>
+<li>益者三友，友直、友谅、友多闻</li>
+<li>三人行必有我师，学习别人的经验和亲自积累</li>
+<li>有倾诉和交流渠道</li>
+</ul>
+<h3 id="合作沟通"><a class="markdownIt-Anchor" href="#合作沟通"></a> 合作沟通</h3>
+<p>团队合作的原则</p>
+<ul>
+<li>团队至上，互信互助
+<ul>
+<li>个人利益不能凌驾于团队利益之上</li>
+<li>建立信任。成员能够坦诚分享自己的忧虑、弱点、动机、风险和目标</li>
+<li>有责任感和互相负责</li>
+</ul>
+</li>
+<li>共同的目标
+<ul>
+<li>让成员一起参与目标的选择和确定过程</li>
+<li>有情绪明确的负责机制（每个人负责什么部分、如何衡量他的工作）</li>
+</ul>
+</li>
+<li>个人品质
+<ul>
+<li>做坦诚的人，不设防的与成员沟通。充满激情的辩论重要的事情，愿意指出彼此的问题来达成团队目标</li>
+<li>能够承认错误，坦白自己的弱点</li>
+<li>认同团队至上，坚定信念，艰辛团队合作是力量的来源</li>
+<li>分享自己的想法和承认他人的贡献</li>
+</ul>
+</li>
+<li>团队领导
+<ul>
+<li>灵魂，教练和啦啦队</li>
+<li>与成员一起构建团队的愿景、目标、运作规划和团队文化，并与成员合作培养团队意识。</li>
+<li>关心成员的成长和进步以及事业上的大小事情</li>
+<li>设法寻求最优秀和符合团队需要的成员加入到团队中</li>
+<li>以身作则，坦诚开放身先士卒</li>
+</ul>
+</li>
+</ul>
+<p>合作离不开沟通，有效沟通的秘诀</p>
+<ul>
+<li>悉心倾听
+<ul>
+<li>不要打断对方</li>
+<li>确认听懂了对方的意思</li>
+<li>专注有诚意</li>
+<li>表情形体语言或简短肯定传达反馈</li>
+<li>避免机械问答，打断对方，只考虑自己</li>
+</ul>
+</li>
+<li>大方积极
+<ul>
+<li>用于把握表达意见，推销自己，表达观点的机会</li>
+<li>积极沟通
+<ul>
+<li>目光接触</li>
+<li>assertive: 避免【也许、可能、会不会、如果、听说】等词汇</li>
+<li>坚持真理：不要随意接受别人看法，批判性思考</li>
+<li>自信表述：不要被别人打断</li>
+<li>赢得尊重：不用担心观众不尊重自己，做值得尊重的人</li>
+</ul>
+</li>
+<li><strong>拒绝沉默：沉默代表没有意见，没有想法</strong></li>
+</ul>
+</li>
+<li>直截了当
+<ul>
+<li>不要拐弯抹角，打太极拳（旁敲侧击）</li>
+<li>避免当面不说，背后批评</li>
+<li>避免三角沟通：开诚布公是团队合作最重要的环节</li>
+</ul>
+</li>
+<li>不同意的艺术
+<ul>
+<li>有建设性的不同意</li>
+<li>考虑到别人的立场</li>
+<li>对事不对人，从事情出发</li>
+<li>保持自信</li>
+<li>提反对意见用委婉平和的口气
+<ul>
+<li>把”但是“替换成”而且“</li>
+</ul>
+</li>
+<li>循循善诱，苏格拉底式提问的技巧</li>
+<li>当众论事，事后批评
+<ul>
+<li>扬善于公庭,归过于私室</li>
+</ul>
+</li>
+<li>只在必要时争论
+<ul>
+<li>批评只针对想法而非具体的人</li>
+<li>保持认真倾听</li>
+<li>做出判断之前会听取每一种观点</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="完整与均衡"><a class="markdownIt-Anchor" href="#完整与均衡"></a> 完整与均衡</h2>
+<p>在同心圆某方向走到极端，很可能在其他方方达不到基本要求</p>
+<ul>
+<li>关键在于如何选择
+<ul>
+<li><strong>有勇气来改变可以改变的事情，有胸怀来接受不可改变的事情，有智慧分辨两者的不同</strong></li>
+</ul>
+</li>
+<li>用中庸拒绝极端
+<ul>
+<li>中庸强调至诚至善，不偏不倚，行中道。
+<ul>
+<li>自省极端成为自卑，极端自信变成自负</li>
+<li>勇气极端成为愚昧，胸怀极端成为懦弱</li>
+<li>积极极端成为霸道，同理心极端成为盲从</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>用理智反对片面
+<ul>
+<li>中庸强调择善而从和变通
+<ul>
+<li>该坚持的要有底线</li>
+<li>不同的场合下可以变通，考虑对方的想法和场合</li>
+<li>运用智慧处理复杂的情况</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>用务实发挥影响
+<ul>
+<li>解决问题先影响自己，再影响别人，最后才可能影响环境</li>
+</ul>
+</li>
+<li>用冷静掌控抉择
+<ul>
+<li>重重思考，轻轻放下</li>
+<li>决策有方法论
+<ul>
+<li>分析利弊的方法</li>
+<li>概率论的方法</li>
+<li>学会谋之于众</li>
+</ul>
+</li>
+<li>坦然接受结果</li>
+</ul>
+</li>
+<li>用学习积累经验
+<ul>
+<li>从每一次正确或者错误的判断中学习</li>
+<li>自己的经历成为模板化，能够调用的知识</li>
+</ul>
+</li>
+<li>用自觉端正态度
+<ul>
+<li>对自己的素质，潜能，特长，缺陷，经验有基本认知。遇到挫折不轻言失败，取得成绩不沾沾自喜</li>
+<li>不要对能力判断过高（浮躁，冒进，不善于合作）</li>
+<li>也不要低估潜能（畏首畏尾，踟蹰不前，没有勇气）</li>
+<li>改善短板，发挥长板</li>
+</ul>
+</li>
+<li>用真心追随智慧
+<ul>
+<li>该自信还是自省？该积极还是有同理心？该勇敢还是有胸怀？以自己的价值观和理想指引给出解答</li>
+<li>高尚，有远大理想的人，必然会在积极成功的路上运用自己最高的智慧</li>
+</ul>
+</li>
+</ul>
+<p>全球化时代的人才，要融汇中西，做德才兼备、以德为先的人。</p>
+<p>中美文化和教育的差距</p>
+<ul>
+<li>美国青年 vs 中国青年
+<ul>
+<li>创新精神 vs 求稳务实</li>
+<li>有热情 vs 有毅力</li>
+<li>有主动性 vs 讲纪律</li>
+<li>擅长独立工作，想的深远 vs 扎实的理论基础</li>
+<li>直截了当的沟通、争论 vs 含蓄、心里有想法不直说</li>
+<li>自信 vs 谦虚</li>
+<li>直接表达不同意 vs 不同意也不说不</li>
+</ul>
+</li>
+</ul>
+<p>希望大家成为有勇气也有胸怀，有理智也有激情，既自信又谦虚，既聪慧又善于表达；追寻理想和兴趣，终身学习和执行、深谙与人相处之道；一个从思考中认识自我、从学习中寻求真理、从独立中体验自主、从计划中把我时间、从表达中锻炼口才、从交友中品味成熟、从实践中赢得价值、从兴趣中攫取快乐、从追求中获得力量、融汇中西的国际化人才。</p>
+<p>用诚信的价值观指导事业和人生，完整均衡的培养六种态度。用态度指导六种行为，运用”选择成功“的智慧，寻找并选择最适合自己的成功之路。</p>
+<p><img src="/writing/be-your-personal-best-reading-notes-zh/35c867d2afd9048e.jpg" alt="读书笔记《做最好的自己》李开复 · 配图 2" /></p>
+
+            </div>
+            
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/writing/be-your-personal-best-reading-notes-zh/">https://xinheliu.github.io/writing/be-your-personal-best-reading-notes-zh/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">读书笔记</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<nav class="post-nav" aria-label="文章导航">
+    
+    <a class="post-nav-card" href="/writing/reflections-at-the-start-of-2023-zh/" rel="prev">
+        <span class="post-nav-label">&larr;&nbsp;上一篇</span>
+        <span class="post-nav-title">2023年初的小作文</span>
+    </a>
+    
+    
+    <a class="post-nav-card post-nav-card-next" href="/writing/palantir-ontology-zh/" rel="next">
+        <span class="post-nav-label">下一篇&nbsp;&rarr;</span>
+        <span class="post-nav-title">Palantir Ontology 深度解构：当本体从「描述世界」走向「驱动世界」</span>
+    </a>
+    
+</nav>
+
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>昕和 · 个人网站、写作与技术笔记</span>
+        <div class="footer-links">
+            <a href="/writing-zh/">写作</a>
+            <a href="/projects-zh/">项目</a>
+            <a href="/about-zh/">个人信息和联系方式</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">标签</a>
+            <a href="/categories/">分类</a>
+            <a href="/archives-zh/">归档</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>
