@@ -1,3 +1,12 @@
 [submodule "sources/Coding-with-Agents"]
 	path = sources/Coding-with-Agents
 	url = https://github.com/XinheLIU/Coding-with-Agents.git
+[submodule "sources/ComputerScience"]
+	path = sources/ComputerScience
+	url = https://github.com/XinheLIU/ComputerScience.git
+[submodule "sources/MachineLearning"]
+	path = sources/MachineLearning
+	url = https://github.com/XinheLIU/MachineLearning.git
+[submodule "sources/Coding-Interview-Questions"]
+	path = sources/Coding-Interview-Questions
+	url = https://github.com/XinheLIU/Coding-Interview-Questions.git
