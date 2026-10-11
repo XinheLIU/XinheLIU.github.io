@@ -75,9 +75,9 @@
                     <%- writing_activity_html(writingSnapshot, isChinese) %>
                 </div>
                 <div class="writing-period-controls" aria-label="<%= isChinese ? '写作日期范围' : 'Writing date range' %>">
-                    <button type="button" class="btn btn-secondary" data-writing-previous><%= isChinese ? '← 更早六个月' : '← Previous 6 months' %></button>
-                    <button type="button" class="btn btn-secondary" data-writing-next disabled><%= isChinese ? '后六个月 →' : 'Next 6 months →' %></button>
-                    <button type="button" class="btn btn-secondary" data-writing-latest disabled><%= isChinese ? '最近六个月' : 'Latest 6 months' %></button>
+                    <button type="button" class="btn btn-secondary" data-writing-previous><%= isChinese ? '← 更早一年' : '← Previous year' %></button>
+                    <button type="button" class="btn btn-secondary" data-writing-next disabled><%= isChinese ? '后一年 →' : 'Next year →' %></button>
+                    <button type="button" class="btn btn-secondary" data-writing-latest disabled><%= isChinese ? '最近一年' : 'Latest year' %></button>
                 </div>
                 <script type="application/json" id="writing-activity-snapshot"><%- writing_activity_json(writingSnapshot) %></script>
                 <script defer src="<%- url_for('/js/writing-activity.js') %>"></script>

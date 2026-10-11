@@ -34,7 +34,7 @@ test('translations and multiple publication surfaces count once per logical writ
   assert.equal(history.writingEvents([record({ updated_at: '2023-05-12' })], 'en').length, 1)
 })
 
-test('full history survives while the homepage renders only its six-month window', () => {
+test('full history survives while the homepage renders only its one-year window', () => {
   const snapshot = { events: history.writingEvents([record(), record({ id: 'book:agents', created_at: '2026-07-27', updated_at: '2026-08-24', title: 'How Agents Work' })], 'en') }
   assert.equal(snapshot.events.length, 3)
   const current = activity.render(snapshot, false, now)
@@ -51,12 +51,12 @@ test('calendar includes today, month-end and Shanghai date boundaries; titles ar
   const snapshot = { events: history.writingEvents([record({ created_at: '2026-10-03', title: '<script>test</script>' })], 'en') }
   const html = activity.render(snapshot, false, now)
   const dates = [...html.matchAll(/data-date="([^"]+)"/g)].map(match => match[1])
-  assert.equal(dates[0], '2026-04-03')
+  assert.equal(dates[0], '2025-10-03')
   assert.equal(dates.at(-1), '2026-10-03')
-  assert.equal(dates.length, 184)
+  assert.equal(dates.length, 366)
   assert.ok(html.includes('&lt;script&gt;test&lt;/script&gt;'))
-  assert.deepEqual(activity.windowDates(new Date('2024-08-31T00:00:00Z')), { start: '2024-02-29', end: '2024-08-31' })
-  assert.deepEqual(activity.windowDates(new Date('2026-10-02T16:00:00Z')), { start: '2026-04-03', end: '2026-10-03' })
+  assert.deepEqual(activity.windowDates(new Date('2024-02-29T00:00:00Z')), { start: '2023-02-28', end: '2024-02-29' })
+  assert.deepEqual(activity.windowDates(new Date('2026-10-02T16:00:00Z')), { start: '2025-10-03', end: '2026-10-03' })
 })
 
 test('Hexo integration ignores auto-filled updated and includes dated book catalog entries', () => {
@@ -78,7 +78,7 @@ test('Hexo integration ignores auto-filled updated and includes dated book catal
   assert.ok(!snapshot.events.some(event => event.title === 'Draft'))
 })
 
-test('history navigation reaches imported dates and returns to the current six months', () => {
+test('history navigation reaches imported dates and returns to the current year', () => {
   const snapshot = { events: history.writingEvents([record()], 'en') }
   const button = () => ({ disabled: false, addEventListener(name, handler) { this.click = handler } })
   const previous = button(), next = button(), latest = button()
@@ -93,7 +93,7 @@ test('history navigation reaches imported dates and returns to the current six m
   next.click()
   assert.ok(!panel.innerHTML.includes('An old essay'))
   latest.click()
-  assert.ok(panel.innerHTML.includes('2026-04-03 → 2026-10-03'))
+  assert.ok(panel.innerHTML.includes('2025-10-03 → 2026-10-03'))
   assert.equal(latest.disabled, true)
 })
 

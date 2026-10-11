@@ -20,7 +20,7 @@
     var start = new Date(end + 'T00:00:00Z');
     var day = start.getUTCDate();
     start.setUTCDate(1);
-    start.setUTCMonth(start.getUTCMonth() - 6);
+    start.setUTCMonth(start.getUTCMonth() - 12);
     var lastDay = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, 0)).getUTCDate();
     start.setUTCDate(Math.min(day, lastDay));
     return { start: start.toISOString().slice(0, 10), end: end };
@@ -91,9 +91,6 @@
     return heading + '<p class="activity-summary">' + stats + '</p>' +
       '<p class="contribution-note">' + summary.start + ' → ' + summary.end + '</p>' +
       '<div class="contribution-graph" role="group" aria-label="' + (isChinese ? '每日写作记录' : 'Daily writing activity') + '">' + columns.join('') + '</div>' +
-      '<div class="contribution-legend"><span>' + (isChinese ? '少' : 'Less') + '</span>' +
-      [0,1,2,3,4].map(function (level) { return '<span class="contribution-cell level-' + level + '" aria-hidden="true"></span>'; }).join('') +
-      '<span>' + (isChinese ? '多' : 'More') + '</span></div>' +
       '<p class="contribution-note">' + (isChinese ? '博客、笔记与书稿，按发布与更新日期记录，包含历史文章收录。' : 'Essays, notes, and book chapters, dated by publication and revision, including archived articles added to the site.') + '</p>' +
       '<h3 class="activity-recent-title">' + (isChinese ? '这段时间的写作' : 'Writing in this period') + '</h3>' +
       (items.length ? '<ul class="activity-recent">' + items.join('') + '</ul>' : '<p>' + (isChinese ? '这段时间暂无写作记录。' : 'No writing recorded in this period.') + '</p>');
