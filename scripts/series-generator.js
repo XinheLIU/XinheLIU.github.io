@@ -85,6 +85,8 @@ hexo.extend.generator.register('series', async function () {
           title: data.title,
           date: post.date,
           path: post.path,
+          content: post.content,
+          featured_asset: post.featured_asset,
           permalink: data.permalink,
           tags: tagsRaw,
           categories: catsRaw,

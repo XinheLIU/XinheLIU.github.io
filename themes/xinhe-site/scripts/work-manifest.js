@@ -63,6 +63,13 @@ hexo.extend.helper.register('getRelatedWorks', function(key, locale) {
 
 hexo.extend.helper.register('getAllWorks', function(locale) {
     var works = hexo.locals.get('data').works || [];
+    var nativePosts = hexo.locals.get('posts').toArray();
+    var previewByUrl = new Map();
+    var previewAsset = this.post_preview_asset;
+    nativePosts.concat(this.series_entries()).forEach(function(post) {
+        var url = '/' + String(post.path || '').replace(/^\//, '').replace(/index\.html$/, '');
+        previewByUrl.set(url, previewAsset(post));
+    });
     var fs = require('fs');
     var path = require('path');
     var catalogPath = path.join(hexo.base_dir, '.generated', 'catalog.json');
@@ -74,7 +81,7 @@ hexo.extend.helper.register('getAllWorks', function(locale) {
         .filter(function(work) {
             return work !== null;
         });
-    var posts = hexo.locals.get('posts').toArray().filter(function(post) {
+    var posts = nativePosts.filter(function(post) {
         return (post.site_locale || 'en') === locale;
     }).map(function(post) {
         return {
@@ -113,7 +120,11 @@ hexo.extend.helper.register('getAllWorks', function(locale) {
         if (seenUrls.has(item.url)) return false;
         seenUrls.add(item.url);
         return true;
-    }));
+    })).map(function(work) {
+        return Object.assign({}, work, {
+            featured_asset: work.featured_asset || previewByUrl.get(work.url) || ''
+        });
+    });
 });
 
 hexo.extend.helper.register('getTopicClusters', function(locale) {

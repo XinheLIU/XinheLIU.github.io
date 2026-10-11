@@ -138,11 +138,11 @@
                 <% works.forEach(function(work) { %>
                     <article class="archive-row has-preview" data-topic="<%= work.topic_cluster || 'all' %>" data-format="<%= work.type %>" data-owner="<%= work.owner_name || '' %>" data-title="<%= (work.title || '').toLowerCase() %>" data-summary="<%= (work.summary || '').toLowerCase() %>">
                         <% if (work.featured_asset) { %>
-                            <a class="post-preview post-preview-image" href="<%- url_for(work.url) %>" <%= work.external ? 'target="_blank" rel="noopener"' : '' %>>
+                            <a class="post-preview post-preview-image" href="<%- url_for(work.url) %>" <%- work.external ? 'target="_blank" rel="noopener"' : '' %>>
                                 <img src="<%- url_for(work.featured_asset) %>" alt="<%= work.title %>">
                             </a>
                         <% } else { %>
-                            <a class="post-preview preview-grid" href="<%- url_for(work.url) %>" <%= work.external ? 'target="_blank" rel="noopener"' : '' %>>
+                            <a class="post-preview preview-grid" href="<%- url_for(work.url) %>" <%- work.external ? 'target="_blank" rel="noopener"' : '' %>>
                                 <span><%= typeLabels[work.type] || (isChinese ? '归档' : 'Archive') %></span>
                             </a>
                         <% } %>
@@ -154,10 +154,10 @@
                                 <% if (work.owner_name) { %> · <%= work.owner_name %><% } %>
                             </span>
                             <h3>
-                                <a class="archive-row-link" href="<%- url_for(work.url) %>" <%= work.external ? 'target="_blank" rel="noopener"' : '' %>>
+                                <a class="archive-row-link" href="<%- url_for(work.url) %>" <%- work.external ? 'target="_blank" rel="noopener"' : '' %>>
                                     <%= work.title %>
                                     <% if (work.external) { %>
-                                        <span style="margin-left: 0.5rem; display: inline-flex; vertical-align: middle;"><%= externalIcon() %></span>
+                                        <span aria-hidden="true" style="margin-left: 0.5rem; display: inline-flex; vertical-align: middle;"><%- externalIcon() %></span>
                                     <% } %>
                                 </a>
                             </h3>
