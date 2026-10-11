@@ -63,13 +63,57 @@ hexo.extend.helper.register('getRelatedWorks', function(key, locale) {
 
 hexo.extend.helper.register('getAllWorks', function(locale) {
     var works = hexo.locals.get('data').works || [];
-    return works
+    var fs = require('fs');
+    var path = require('path');
+    var catalogPath = path.join(hexo.base_dir, '.generated', 'catalog.json');
+    var catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
+    var manual = works
         .map(function(work) {
             return localizeWork(work, locale);
         })
         .filter(function(work) {
             return work !== null;
         });
+    var posts = hexo.locals.get('posts').toArray().filter(function(post) {
+        return (post.site_locale || 'en') === locale;
+    }).map(function(post) {
+        return {
+            key: post.content_id || post.slug || post.path,
+            type: 'article',
+            title: post.title,
+            summary: locale === 'zh-CN' ? (post.summary_zh || post.excerpt) : (post.summary_en || post.excerpt),
+            url: '/' + String(post.path || '').replace(/^\//, '').replace(/index\.html$/, ''),
+            date: post.date,
+            topic_cluster: post.topic_cluster || 'writing',
+            owner_name: locale === 'zh-CN' ? '个人网站' : 'Personal site',
+            external: false
+        };
+    });
+    var seenUrls = new Set(manual.map(function(work) { return work.url; }));
+    var combined = manual.concat(posts.filter(function(item) {
+        if (seenUrls.has(item.url)) return false;
+        seenUrls.add(item.url);
+        return true;
+    }));
+    return combined.concat(catalog.filter(function(item) {
+        return item.locale === locale && (item.site_url || item.source_url);
+    }).map(function(item) {
+        return {
+            key: item.id,
+            type: item.content_type,
+            title: item.title,
+            summary: item.summary,
+            url: item.site_url || item.source_url,
+            date: item.published_at,
+            topic_cluster: item.topic_cluster,
+            owner_name: item.owner_name,
+            external: /^https?:\/\//.test(item.site_url || item.source_url)
+        };
+    }).filter(function(item) {
+        if (seenUrls.has(item.url)) return false;
+        seenUrls.add(item.url);
+        return true;
+    }));
 });
 
 hexo.extend.helper.register('getTopicClusters', function(locale) {
