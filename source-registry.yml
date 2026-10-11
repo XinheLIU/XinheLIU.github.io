@@ -1,0 +1,29 @@
+sources:
+  - id: coding-with-agents
+    name: Coding with Agents
+    path: sources/Coding-with-Agents
+    local_path: ../Coding-with-Agents
+    public_url: https://xinheliu.github.io/Coding-with-Agents
+    content_type: book
+    locales: [en, zh-CN]
+  - id: computer-science
+    name: Computer Science Notes
+    path: sources/ComputerScience
+    local_path: ../ComputerScience
+    public_url: https://xinheliu.github.io/ComputerScience
+    content_type: note
+    locales: [en, zh-CN]
+  - id: machine-learning
+    name: Machine Learning Notes
+    path: sources/MachineLearning
+    local_path: ../MachineLearning
+    public_url: https://xinheliu.github.io/MachineLearning
+    content_type: note
+    locales: [en]
+  - id: coding-interview-questions
+    name: Coding Interview Questions
+    path: sources/Coding-Interview-Questions
+    local_path: ../Coding-Interview-Questions
+    public_url: https://xinheliu.github.io/Coding-Interview-Questions
+    content_type: book
+    locales: [en]
