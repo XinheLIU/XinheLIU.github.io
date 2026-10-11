@@ -196,7 +196,7 @@
             <time datetime="2026-08-24">2026-08-24</time>
             
                 <span class="dot">·</span>
-                <span>7 min read</span>
+                <span>6 min read</span>
             
             
                 <span class="post-hero-tags">
@@ -232,35 +232,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <hr />
-<p>layout: post<br />
-title: Context Management<br />
-date: ‘2026-08-24 12:00:00’<br />
-permalink: /en/agentic-engineering/context-management/<br />
-categories:</p>
-<ul>
-<li>agentic-engineering<br />
-tags:</li>
-<li>context</li>
-<li>agents<br />
-site_locale: en<br />
-lang_switch: /agentic-engineering/context-management/<br />
-summary_en: &gt;-<br />
-*Earlier in this chapter, <a href="how-agents-work.md">How Coding Agents Work</a> showed you the agent loop: read context → plan<br />
-→ act → observe → repeat. The quality of that loop depends almost entirely on the “read context” step. Get context<br />
-right, and agents produce remarkable work. Get it wrong, and no…<br />
-summary_zh: ‘’<br />
-topic_cluster: agentic-engineering<br />
-confidentiality_safe: true<br />
-series_id: agentic-engineering<br />
-content_id: context-management<br />
-series_mode: full<br />
-book_url: <a href="https://xinheliu.github.io/Coding-with-Agents/en/02-anatomy/context-management.html">https://xinheliu.github.io/Coding-with-Agents/en/02-anatomy/context-management.html</a><br />
-canonical_url: <a href="https://xinheliu.github.io/Coding-with-Agents/en/02-anatomy/context-management.html">https://xinheliu.github.io/Coding-with-Agents/en/02-anatomy/context-management.html</a><br />
-owner: coding-with-agents</li>
-</ul>
-<hr />
-<h1 id="context-management"><a class="markdownIt-Anchor" href="#context-management"></a> Context Management</h1>
+                <h1 id="context-management"><a class="markdownIt-Anchor" href="#context-management"></a> Context Management</h1>
 <p>Last updated: 2026-07-27</p>
 <blockquote>
 <p><em>Earlier in this chapter, <a href="how-agents-work.md">How Coding Agents Work</a> showed you the agent loop: read context → plan → act → observe → repeat. The quality of that loop depends almost entirely on the “read context” step. Get context right, and agents produce remarkable work. Get it wrong, and no amount of prompting will save you.</em></p>
@@ -293,11 +265,8 @@ Multi-turn “sharded” prompts perform much worse than a single, well-formed p
 <p><strong>Research</strong> — Have the agent explore the codebase first. Understand the architecture, identify relevant files, and build a compact research document with file paths, function signatures, and system relationships.</p>
 <p><strong>Planning</strong> — Create a step-by-step implementation plan that the agent (and you) can review before any code is written. This is where you catch misunderstandings early.</p>
 <p><strong>Implementation</strong> — Execute the plan incrementally, compacting and updating context as tasks complete. Keep the context window lean — practitioners recommend staying under 40% utilization for best results.</p>
-<div class="mermaid">
-  flowchart LR
-    Research[Research] --> Plan[Plan] --> Implement[Implement] --> Compact[Compact & Update] --> Research
-</div>
-
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid">flowchart LR
+    Research[Research] --&gt; Plan[Plan] --&gt; Implement[Implement] --&gt; Compact[Compact &amp; Update] --&gt; Research<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>This workflow is the context strategy in action — see <a href="/en/agentic-engineering/how-agents-work/">How Coding Agents Work</a> for the full agent loop behind it.</p>
 <p>The key insight: the prompts, specs, and plans you write <em>are</em> the product. The code is just the output. As one practitioner put it, “<a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> &gt; prompts &gt; research &gt; plans &gt; implementation.” Focus your human effort on the highest-leverage part of the pipeline.</p>
 <hr />
