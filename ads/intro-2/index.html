@@ -194,7 +194,7 @@
             <time datetime="2025-09-12">2025-09-12</time>
             
                 <span class="dot">·</span>
-                <span>45 分钟</span>
+                <span>46 分钟</span>
             
             
                 <span class="post-hero-tags">
@@ -285,8 +285,8 @@
 </li>
 <li><a href="#reference">Reference</a></li>
 </ul>
-<h2 id="广告系统Overview">广告系统Overview</h2>
-<h3 id="广告是怎样投放出来的？">广告是怎样投放出来的？</h3>
+<h2 id="广告系统overview"><a class="markdownIt-Anchor" href="#广告系统overview"></a> 广告系统Overview</h2>
+<h3 id="广告是怎样投放出来的"><a class="markdownIt-Anchor" href="#广告是怎样投放出来的"></a> 广告是怎样投放出来的？</h3>
 <p>竞价广告整体流程：广告候选 -&gt; 模型打分 -&gt; 竞价/计费(ctr <em>cvr</em> bid 二价收费）-&gt; 用户反馈 -&gt; 模型训练</p>
 <ul>
 <li>
@@ -324,14 +324,14 @@
 </ul>
 </li>
 </ul>
-<h3 id="广告策略和系统的关系概览">广告策略和系统的关系概览</h3>
-<p>流量变现角色与诉求：流量变现主要有平台、客户、用户三个参与角色，平台要最大化收入，需调和三方利益，打造复杂广告系统。<br>
-广告系统模块：精排前减轻预估压力，精排估准价值排序，精排后主要由自然内容排序规则支配。<br>
-排序：精排依据预期挣钱多少排序，涉及多个参数和公式，门槛ecpm_thres影响广告投放和计费。<br>
-出价：对广告主是表达诉求，对平台是约束和策略抓手，出价公式复杂，调参任务重。<br>
-转化：如何定义转化、会同时影响模型和出价<br>
+<h3 id="广告策略和系统的关系概览"><a class="markdownIt-Anchor" href="#广告策略和系统的关系概览"></a> 广告策略和系统的关系概览</h3>
+<p>流量变现角色与诉求：流量变现主要有平台、客户、用户三个参与角色，平台要最大化收入，需调和三方利益，打造复杂广告系统。<br />
+广告系统模块：精排前减轻预估压力，精排估准价值排序，精排后主要由自然内容排序规则支配。<br />
+排序：精排依据预期挣钱多少排序，涉及多个参数和公式，门槛ecpm_thres影响广告投放和计费。<br />
+出价：对广告主是表达诉求，对平台是约束和策略抓手，出价公式复杂，调参任务重。<br />
+转化：如何定义转化、会同时影响模型和出价<br />
 归因：对广告主计算ROI、平台计费和模型表现都很重要，涉及谁归因、付费事件等多方面问题</p>
-<h3 id="广告vs推荐vs搜索">广告vs推荐vs搜索</h3>
+<h3 id="广告vs推荐vs搜索"><a class="markdownIt-Anchor" href="#广告vs推荐vs搜索"></a> 广告vs推荐vs搜索</h3>
 <p>业务层面不同</p>
 <table>
 <thead>
@@ -421,7 +421,7 @@
 <ul>
 <li>在线离线一致：离线指标（衡量单次request收益），与在线收益（衡量总收益）有较强的一致性 （request次数受广告本身变化影响较点击率小）</li>
 <li>离线目标明确：由于排序公式（ecpm）相对清晰，离线训练的label明确，如pctr，pcvr</li>
-<li>精度导向：广告模型本质处理预测问题，迭代的方向是提升预测精度<br>
+<li>精度导向：广告模型本质处理预测问题，迭代的方向是提升预测精度<br />
 模型架构一致</li>
 </ul>
 </li>
@@ -429,7 +429,7 @@
 </ul>
 </li>
 </ol>
-<h2 id="排序-Ranking">排序 (Ranking)</h2>
+<h2 id="排序-ranking"><a class="markdownIt-Anchor" href="#排序-ranking"></a> 排序 (Ranking)</h2>
 <ul>
 <li>Ranking是广告投放的核心问题，我们用sorted_eCPM指标来评估这一目标：
 <ul>
@@ -444,20 +444,20 @@
 <li>hidden_cost是考虑用户体验/平台生态等因素后的控制项（冷启动/稳定性，dislike，扶持等，体现用户价值/生态价值，广告策略的主要抓手）</li>
 <li>广告系统做的就是从千万量级的广告库中找出最有价值的一条广告(对于每个请求)</li>
 </ul>
-<h3 id="召回">召回</h3>
-<p>解决问题：原始百万级广告中筛选出万量级广告<br>
-模型特点：【多路、检索】<br>
-建模目标：预估召回的目标 （ANN/量化）（无监督） -&gt; 直接预估召回结果（DR）（监督）<br>
+<h3 id="召回"><a class="markdownIt-Anchor" href="#召回"></a> 召回</h3>
+<p>解决问题：原始百万级广告中筛选出万量级广告<br />
+模型特点：【多路、检索】<br />
+建模目标：预估召回的目标 （ANN/量化）（无监督） -&gt; 直接预估召回结果（DR）（监督）<br />
 建模挑战：广告量太大（1000亿成交额，100亿点击，100000亿曝光）；时间短（100ms以内，精排10ms）；定向条件（600w bitmap)</p>
 <p>常见算法</p>
-<h4 id="Key-value召回">Key-value召回</h4>
-<p>(倒排索引) 召回：线地筛选出可推item，然后根据对应的规则构建倒排，然后每个key里面的item也可以根据一定的算法得到对应的score，根据score排序之后写入到kv存储里面。score考虑的因素可以是：曝光、点击、创建时间、点赞、分享、时长、跟key的相关性等<br>
-向量化召回 ：ANN（Approximate Nearest Neighbor)以及Quantization<br>
+<h4 id="key-value召回"><a class="markdownIt-Anchor" href="#key-value召回"></a> Key-value召回</h4>
+<p>(倒排索引) 召回：线地筛选出可推item，然后根据对应的规则构建倒排，然后每个key里面的item也可以根据一定的算法得到对应的score，根据score排序之后写入到kv存储里面。score考虑的因素可以是：曝光、点击、创建时间、点赞、分享、时长、跟key的相关性等<br />
+向量化召回 ：ANN（Approximate Nearest Neighbor)以及Quantization<br />
 向量化召回：一般是指query是一个embedding，然后根据query来计算得到相似的item，作为召回的结果。构建召回阶段，主要是获取到候选的item，得到候选item的embedding，然后再根据embedding利用不同的算法进行预处理，得到线上可快速搜索的结构，最后把构建好的数据dump下来，然后发到线上供召回使用。在线召回阶段，load离线dump的数据，然后rebuild对应的模型结构，构建完成之后就可以进行召回处理了(加各种过滤规则）</p>
 <ul>
 <li>分别包含：User 侧、group侧、context侧，相关还会包括src gid</li>
 </ul>
-<h4 id="聚类算法：Ann（approximate-nearest-neighbor）">聚类算法：Ann（approximate nearest neighbor）</h4>
+<h4 id="聚类算法annapproximate-nearest-neighbor"><a class="markdownIt-Anchor" href="#聚类算法annapproximate-nearest-neighbor"></a> 聚类算法：Ann（approximate nearest neighbor）</h4>
 <p>是指一系列用于解决最近邻查找问题的近似算法。最近邻查找问题，即在给定的向量集合中查找出与目标向量距离最近的N个向量。</p>
 <ul>
 <li>
@@ -501,15 +501,13 @@
 <p>Quant Recall（量化召回）（Loss-aware Quantization for Recall ）（可以在ANN框架下，也可以脱离ANN，直接暴力计算）</p>
 </li>
 <li>
-<p>量化召回 Brute-force Retrieval (Quantization + GPU) On Douyin Ads<br>
-$$<br>
-\max_{t_u, t_a} P \left( Q(u; t_u)^T Q(a_i; t_a) \right) &gt; Q(u; t_u)^T Q(a_j; t_a) \quad \vert \quad u^T a_i &gt; u^T a_j \quad t_u, t_a \in \mathbb{R}<sup>{2</sup>q}<br>
-$$</p>
+<p>量化召回 Brute-force Retrieval (Quantization + GPU) On Douyin Ads</p>
 </li>
 </ul>
-<p>$$<br>
-\text{s.t.} \quad t_u^k &lt; t_u^{k + 1}, \quad t_a^k &lt; t_a^{k + 1}, \quad k \in \left[ 1, 2^q - 1 \right]<br>
-$$</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><munder><mo><mi>max</mi><mo>⁡</mo></mo><mrow><msub><mi>t</mi><mi>u</mi></msub><mo separator="true">,</mo><msub><mi>t</mi><mi>a</mi></msub></mrow></munder><mi>P</mi><mrow><mo fence="true">(</mo><mi>Q</mi><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">;</mo><msub><mi>t</mi><mi>u</mi></msub><msup><mo stretchy="false">)</mo><mi>T</mi></msup><mi>Q</mi><mo stretchy="false">(</mo><msub><mi>a</mi><mi>i</mi></msub><mo separator="true">;</mo><msub><mi>t</mi><mi>a</mi></msub><mo stretchy="false">)</mo><mo fence="true">)</mo></mrow><mo>&gt;</mo><mi>Q</mi><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">;</mo><msub><mi>t</mi><mi>u</mi></msub><msup><mo stretchy="false">)</mo><mi>T</mi></msup><mi>Q</mi><mo stretchy="false">(</mo><msub><mi>a</mi><mi>j</mi></msub><mo separator="true">;</mo><msub><mi>t</mi><mi>a</mi></msub><mo stretchy="false">)</mo><mspace width="1em"/><mi mathvariant="normal">∣</mi><mspace width="1em"/><msup><mi>u</mi><mi>T</mi></msup><msub><mi>a</mi><mi>i</mi></msub><mo>&gt;</mo><msup><mi>u</mi><mi>T</mi></msup><msub><mi>a</mi><mi>j</mi></msub><mspace width="1em"/><msub><mi>t</mi><mi>u</mi></msub><mo separator="true">,</mo><msub><mi>t</mi><mi>a</mi></msub><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><msup><mn>2</mn><mi>q</mi></msup></msup></mrow><annotation encoding="application/x-tex">\max_{t_u, t_a} P \left( Q(u; t_u)^T Q(a_i; t_a) \right) &gt; Q(u; t_u)^T Q(a_j; t_a) \quad \vert \quad u^T a_i &gt; u^T a_j \quad t_u, t_a \in \mathbb{R}^{2^q}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.727439em;vertical-align:-0.8361080000000001em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4305599999999999em;"><span style="top:-2.4em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">max</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8361080000000001em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord mathnormal">u</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.177439em;vertical-align:-0.286108em;"></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord mathnormal">u</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord mathnormal">Q</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:1em;"></span><span class="mord">∣</span><span class="mspace" style="margin-right:1em;"></span><span class="mord"><span class="mord mathnormal">u</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.177439em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal">u</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:1em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.92998em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord mathbb">R</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.92998em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7385428571428572em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>s.t.</mtext><mspace width="1em"/><msubsup><mi>t</mi><mi>u</mi><mi>k</mi></msubsup><mo>&lt;</mo><msubsup><mi>t</mi><mi>u</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mo separator="true">,</mo><mspace width="1em"/><msubsup><mi>t</mi><mi>a</mi><mi>k</mi></msubsup><mo>&lt;</mo><msubsup><mi>t</mi><mi>a</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msubsup><mo separator="true">,</mo><mspace width="1em"/><mi>k</mi><mo>∈</mo><mrow><mo fence="true">[</mo><mn>1</mn><mo separator="true">,</mo><msup><mn>2</mn><mi>q</mi></msup><mo>−</mo><mn>1</mn><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">\text{s.t.} \quad t_u^k &lt; t_u^{k + 1}, \quad t_a^k &lt; t_a^{k + 1}, \quad k \in \left[ 1, 2^q - 1 \right]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.146108em;vertical-align:-0.247em;"></span><span class="mord text"><span class="mord">s.t.</span></span><span class="mspace" style="margin-right:1em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.146108em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.146108em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999998em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714392em;"><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose delimcenter" style="top:0em;">]</span></span></span></span></span></span></p>
 <ul>
 <li>Q为量化函数，t_u和t_a为我们要学习的一组阈值，q为目标bit数（在我们的场景中q=8），t_u^k是t向量的第k个元素。即，当量化函数的复杂度在q以内时，最大化內积保序的概率。在实践中我们发现（方案见技术实现），使用8bit的量化能够实现离线ndcg的损失在万分2以内。</li>
 <li>和ANN可结合：ANN+定向结合方法</li>
@@ -519,9 +517,9 @@ $$</p>
 </ul>
 </li>
 </ul>
-<h4 id="Deep-Retrieval-KDD-21-ByteDance-AI-Lab">Deep Retrieval (KDD 21, ByteDance AI Lab)</h4>
-<p>Deep Retrieval 介绍 deep retrieval<br>
-DR希望能够在学习的同时构建一个可以搜索的结构，从而能把学习的目标和召回更加直接的联系起来。从这个角度来讲，DR和近似近邻搜索算法在本质上有较大的不同。<br>
+<h4 id="deep-retrieval-kdd-21-bytedance-ai-lab"><a class="markdownIt-Anchor" href="#deep-retrieval-kdd-21-bytedance-ai-lab"></a> Deep Retrieval (KDD 21, ByteDance AI Lab)</h4>
+<p>Deep Retrieval 介绍 deep retrieval<br />
+DR希望能够在学习的同时构建一个可以搜索的结构，从而能把学习的目标和召回更加直接的联系起来。从这个角度来讲，DR和近似近邻搜索算法在本质上有较大的不同。<br />
 Deep Retrieval的主要贡献：</p>
 <ul>
 <li>打破点乘或者距离搜索限制，索引可以和任意深度复杂结构同步，端到端的学习</li>
@@ -530,21 +528,21 @@ Deep Retrieval的主要贡献：</p>
 <li>算法系统为产品而设计，支持大规模分布式在线学习，高效支持大规模候选集与复杂过滤逻辑</li>
 <li>证明了端到端学习在大规模召回场景的理论和实际上的可行性，给了我们未来更大的想象空间</li>
 </ul>
-<h4 id="召回策略">召回策略</h4>
+<h4 id="召回策略"><a class="markdownIt-Anchor" href="#召回策略"></a> 召回策略</h4>
 <ul>
 <li>各类召回路逻辑（业务逻辑 &amp; 模型逻辑）和过滤策略的迭代；需要在系统资源限制下同时满足和平衡三方诉求和各行业平衡</li>
 <li>和定向策略结合，为广告主找到合适的受众（”猜你喜欢“）</li>
 </ul>
-<h3 id="粗排">粗排</h3>
-<p>解决问题：从万量级的广告中优选出几百个广告<br>
-模型特点：【双塔、广告侧向量缓存、无交叉特征】<br>
-建模目标：有监督，L2R vs 直接预估ctr, cvr等<br>
+<h3 id="粗排"><a class="markdownIt-Anchor" href="#粗排"></a> 粗排</h3>
+<p>解决问题：从万量级的广告中优选出几百个广告<br />
+模型特点：【双塔、广告侧向量缓存、无交叉特征】<br />
+建模目标：有监督，L2R vs 直接预估ctr, cvr等<br />
 建模挑战：降低计算复杂度</p>
-<h4 id="LTR">LTR</h4>
+<h4 id="ltr"><a class="markdownIt-Anchor" href="#ltr"></a> LTR</h4>
 <ul>
 <li>Pointwise方法将文档（广告）转换为特征向量后，让模型对每个文档（广告）单独打分，打分结果就是模型输出。Pointwise模型学习的是文档（广告）在给定查询下的相关性</li>
 <li>Pairwise方法则主要考虑文档（广告）之间的先后顺序。每两个文档（广告）形成一个文档（广告）对，并有二者之间的先后顺序。模型学习和输出的都是文档（广告）对之间的先后顺序。这也是我们的LTR模型目前所采用的的方法，值得一提的是，pairwise方法考虑了两个文档（广告）对的相对先后顺序，却没有考虑文档（广告）出现在列表中的位置，排在前列的文档（广告）更为重要，如果靠前的文档（广告）出现判断错误，代价明显高于排在后面的文档（广告）。</li>
-<li>Listwise方法将一个查询（请求）对应的所有结果列表作为一个实例。文档列表方法根据K个训练实例（一个査询（请求）及其对应的所有结果评分作为一个实例）训练得到最优评分函数F，对于一个新的用户査询（请求），函数F对每一个文档（广告）打分，之后按照得分顺序由高到低排序，就是对应的结果。 所以关键问题是：拿到训练数据，如何才能训练得到最优的打分函数？<br>
+<li>Listwise方法将一个查询（请求）对应的所有结果列表作为一个实例。文档列表方法根据K个训练实例（一个査询（请求）及其对应的所有结果评分作为一个实例）训练得到最优评分函数F，对于一个新的用户査询（请求），函数F对每一个文档（广告）打分，之后按照得分顺序由高到低排序，就是对应的结果。 所以关键问题是：拿到训练数据，如何才能训练得到最优的打分函数？<br />
 常见算法（90s - 2010s)</li>
 <li>RankSVM</li>
 <li>GBDT</li>
@@ -561,7 +559,7 @@ Deep Retrieval的主要贡献：</p>
 </ul>
 </li>
 </ul>
-<p>LTR Metrics<br>
+<p>LTR Metrics<br />
 搜索系统的离线测评</p>
 <ul>
 <li>基础：Precision, Recall, AUC</li>
@@ -577,7 +575,7 @@ Deep Retrieval的主要贡献：</p>
 </li>
 <li>DCG 加以“归一化”的指标叫做 nDCG （Normalized Discounted Cumulative Gain）
 <ul>
-<li>直接使用 DCG 也存在一个问题。如果我们有两个查询关键字，返回的文档数不一样，那么直接比较这两个查询关键字的 DCG 值是不“公平”的。原因在于 DCG 的“加和”特性，结果肯定是越加越大，因此不能直接比较两个不同查询关键字的 DCG 值。<br>
+<li>直接使用 DCG 也存在一个问题。如果我们有两个查询关键字，返回的文档数不一样，那么直接比较这两个查询关键字的 DCG 值是不“公平”的。原因在于 DCG 的“加和”特性，结果肯定是越加越大，因此不能直接比较两个不同查询关键字的 DCG 值。<br />
 广告系统的问题：离线和在线指标一致性</li>
 </ul>
 </li>
@@ -585,7 +583,7 @@ Deep Retrieval的主要贡献：</p>
 </li>
 <li>会出现NDCG等指标变好，线上没有收益的情况，需要研究多种指标</li>
 </ul>
-<h4 id="R2S模型">R2S模型</h4>
+<h4 id="r2s模型"><a class="markdownIt-Anchor" href="#r2s模型"></a> R2S模型</h4>
 <ul>
 <li>
 <p>精排型的简化版</p>
@@ -620,16 +618,16 @@ Deep Retrieval的主要贡献：</p>
 <p>发展方向：Deep化</p>
 </li>
 </ul>
-<h4 id="粗排策略">粗排策略</h4>
+<h4 id="粗排策略"><a class="markdownIt-Anchor" href="#粗排策略"></a> 粗排策略</h4>
 <ul>
 <li>粗排模型迭代较多 策略迭代较少</li>
 <li>因为粗排通常是近似精排、如策略有迭代会迭代精排排序目标</li>
 </ul>
-<h3 id="精排">精排</h3>
-<p>CTR Prediction Problem<br>
-解决问题：几百个广告选出最好的<br>
-模型特点：【双塔、广告侧向量缓存、特征交叉】<br>
-建模目标：预估CTR和CVR ~ f(user, content, ads)<br>
+<h3 id="精排"><a class="markdownIt-Anchor" href="#精排"></a> 精排</h3>
+<p>CTR Prediction Problem<br />
+解决问题：几百个广告选出最好的<br />
+模型特点：【双塔、广告侧向量缓存、特征交叉】<br />
+建模目标：预估CTR和CVR ~ f(user, content, ads)<br />
 建模挑战：</p>
 <ul>
 <li>数据
@@ -646,7 +644,7 @@ Deep Retrieval的主要贡献：</p>
 </ul>
 </li>
 </ul>
-<h4 id="点击率预测问题">点击率预测问题</h4>
+<h4 id="点击率预测问题"><a class="markdownIt-Anchor" href="#点击率预测问题"></a> 点击率预测问题</h4>
 <p>历史</p>
 <ul>
 <li>二分类 Logistic Regression（KDD2013， Google）
@@ -689,12 +687,12 @@ Deep Retrieval的主要贡献：</p>
 </li>
 <li>排序模型（Twitter, 2015)
 <ul>
-<li>排序 + Calibration（保序回归）的架构<br>
+<li>排序 + Calibration（保序回归）的架构<br />
 现状（2016~)</li>
 </ul>
 </li>
 </ul>
-<h4 id="推荐模型和深度模型">推荐模型和深度模型</h4>
+<h4 id="推荐模型和深度模型"><a class="markdownIt-Anchor" href="#推荐模型和深度模型"></a> 推荐模型和深度模型</h4>
 <img src="/ads/intro-2/Ads-Model-Fine-Ranking-Models.png" class="" title="广告精排模型演进">
 <ul>
 <li>推荐模型基础：Collaborative Filtering (CF) -&gt; Factorization Machine (FM)
@@ -718,7 +716,7 @@ Deep Retrieval的主要贡献：</p>
 </li>
 </ul>
 <p>模型改进的4个方向</p>
-<hr>
+<hr />
 <ol>
 <li>是改变神经网络的复杂程度。 从最简单的单层神经网络模型 AutoRec，到经典的深度神经网络结构 Deep Crossing，它们主要的进化方式在于增加了深度神经网络的层数和结构复杂度。</li>
 </ol>
@@ -752,14 +750,14 @@ Deep Retrieval的主要贡献：</p>
 <ol start="4">
 <li>让深度推荐模型和其他领域进行交叉。 我们从 DIN、DIEN、DRN 等模型中可以看出，深度推荐模型无时无刻不在从其他研究领域汲取新的知识。事实上，这个过程从未停歇，我们从推荐系统顶会 Recsys2020 中可以看到，NLP 领域的著名模型 Bert 又与推荐模型结合起来，并且产生了非常好的效果。一般来说，自然语言处理、图像处理、强化学习这些领域都是推荐系统经常汲取新知识的地方。</li>
 </ol>
-<h4 id="精排策略">精排策略</h4>
+<h4 id="精排策略"><a class="markdownIt-Anchor" href="#精排策略"></a> 精排策略</h4>
 <ul>
 <li>策略主要模块</li>
 <li>引入客户生态价值、长期价值（客户和广告主LTV）干预排序</li>
 <li>平衡探索 &amp; 利用（EE策略）冷启动等</li>
 <li>和混排结合 流量策略</li>
 </ul>
-<h4 id="精排的Calibration">精排的Calibration</h4>
+<h4 id="精排的calibration"><a class="markdownIt-Anchor" href="#精排的calibration"></a> 精排的Calibration</h4>
 <ul>
 <li>和推荐不同，由于广告的精排预估不仅影响排序，还影响出价和计费（见下文、出价模块），因此广告的CTR、CVR预估要尽可能和后验接近</li>
 <li>因此一般需要对精排预估值做”校准“（Calibiration), 弥补CTR的预估能力，常见的算法主要是保序回归，因为convert回流延迟问题，一般要结合对转化时间回流时间的预估模型进行</li>
@@ -771,7 +769,7 @@ Deep Retrieval的主要贡献：</p>
 <li>LEE RICHARDSON &amp; TAYLOR POSPISIL，<a target="_blank" rel="noopener" href="https://www.unofficialgoogledatascience.com/2021/04/why-model-calibration-matters-and-how.html">Why model calibration matters and how to achieve it</a></li>
 <li>Gneiting, T., Balabdaoui, F., &amp; Raftery, A. E. (2007). P<a target="_blank" rel="noopener" href="https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jrssb.pdf">robabilistic forecasts, calibration and sharpness.</a>Journal of the Royal Statistical Society: Series B (Statistical Methodology), 69(2), 243 - 268.</li>
 </ul>
-<h3 id="重排-混排">重排/混排</h3>
+<h3 id="重排混排"><a class="markdownIt-Anchor" href="#重排混排"></a> 重排/混排</h3>
 <ol>
 <li>RecRank</li>
 <li>主要使用规则系统进行推荐文章的排序，后续还会进行文章样式的选择。</li>
@@ -780,7 +778,7 @@ Deep Retrieval的主要贡献：</p>
 <li>Auction</li>
 <li>在已经确定广告位与推荐结果后，预估广告CTR和CVR，然后进行广告位置拍卖，从而确定投放的广告。这一步将主要是广告与广告之间的竞争，推荐的分数将不会再起到较大作用。</li>
 </ol>
-<h4 id="长期方向：增效竞价及与自然内容深度结合">长期方向：增效竞价及与自然内容深度结合</h4>
+<h4 id="长期方向增效竞价及与自然内容深度结合"><a class="markdownIt-Anchor" href="#长期方向增效竞价及与自然内容深度结合"></a> 长期方向：增效竞价及与自然内容深度结合</h4>
 <ul>
 <li>使用Uplift竞价方法，通过比较广告展示（R = P(convert=1|send=1)）与未展示（Q = P(convert=1|send=0)）时的转化率，计算增量转化率 (Uplift = R - Q)。</li>
 <li>目标与理念：以真实转化增量为依据，实现广告主与平台共赢，避免高估“本来就会转化”的用户。</li>
@@ -792,8 +790,8 @@ Deep Retrieval的主要贡献：</p>
 </li>
 <li>优势总结：该方法精准衡量广告真实增量，提升ROI及平台整体收益，同时兼顾双方利益。</li>
 </ul>
-<h2 id="出价">出价</h2>
-<h3 id="广告系统的拍卖和计费机制">广告系统的拍卖和计费机制</h3>
+<h2 id="出价"><a class="markdownIt-Anchor" href="#出价"></a> 出价</h2>
+<h3 id="广告系统的拍卖和计费机制"><a class="markdownIt-Anchor" href="#广告系统的拍卖和计费机制"></a> 广告系统的拍卖和计费机制</h3>
 <ul>
 <li>大部分市场比如商品市场一般不需要特殊的机制设计，发挥作用的是价格机制，但不完全依赖价格机制的分配其实非常常见，比如肾脏移植、升学求职、online dating等双边市场。机制设计在现实中比较成功的应用是在肾脏移植、升学择校上。</li>
 <li>在互联网环境下，广告资源的分配常借助拍卖模式进行。像搜索引擎的广告位、社交媒体的展示广告等，众多广告主竞争有限的广告曝光机会，如同传统拍卖中竞买者争夺拍品。广告平台将广告展示位置、展示时段等资源当作 “拍卖品”，广告主通过出价竞争这些资源，从而实现广告投放。拍卖的市场机制为广告系统提供了有效的竞争环境塑造方式。广告系统中，拍卖机制的引入促使广告主基于自身对广告效果的预期和收益评估来出价。</li>
@@ -832,8 +830,8 @@ Deep Retrieval的主要贡献：</p>
 <li>《拍卖理论》，<a target="_blank" rel="noopener" href="https://book.douban.com/subject/5325875/">拍卖理论</a> (豆瓣)</li>
 <li><a target="_blank" rel="noopener" href="https://milgrom.people.stanford.edu/sites/g/files/sbiybj4391/f/clock_auctions_and_radio_spectrum_reallocation_jpe_publication.pdf">clock auctions and radio spectrum realloction</a></li>
 </ul>
-<h4 id="出价点和计费点分离">出价点和计费点分离</h4>
-<p>竞价点和出价点的分离、出价点和计费点的分离<br>
+<h4 id="出价点和计费点分离"><a class="markdownIt-Anchor" href="#出价点和计费点分离"></a> 出价点和计费点分离</h4>
+<p>竞价点和出价点的分离、出价点和计费点的分离<br />
 所谓竞价点 一般指send/show，即决定要出哪个广告的事件点，最早期只有CPM广告，一切都很简单，每个展示多少钱，每个广告对展示出价，排序最高的胜出即可。Google首创了CPC广告按点击出价*预估点击率来排序的方案，引入了模型因素，从CPM-CPC-CPA就顺理成章了。</p>
 <p>竞价点比较特殊的一点是它比较固定的，无论何种计费类型，都需要投放系统来决定排序，所以要根据send/show的ecpm来排序。对cpc是点击出价<em>预估点击率，对cpa来说是转化出价</em>预估点击率*预估转化率。</p>
 <p>从客户追求ROI的角度考虑，出价点越靠后越好，这样更接近客户考核的后端目标，客户更容易衡量ROI是否达成，但对平台来说就额外引入了风险，因为这些计费方式下 计费点和出价点是一致的，如果模型预估不准，会影响平台收入，这又分预估偏低和偏高：预估偏低的话 广告主没有拿到可以拿到的量，媒体收入变少，二者都受损；预估偏高的话，广告主拿到了很多展示不需要付费，广告主无所谓，但媒体损失了很多展示拿不到钱，就比较亏，这种情况下媒体有动力去估准，但广告主有动力不让低估。</p>
@@ -925,11 +923,11 @@ Deep Retrieval的主要贡献：</p>
 </tbody>
 </table>
 <p>send/show计费有啥区别？差别不大，因为同一个广告位的ssr取决于用户行为，基本不受广告本身影响（素材类型会有一点点影响），不过按发送计费的好处是计费更靠前，超投的风险更低，预算花费可以做得更准，坏处是如果一个广告没展示其实并不能真的算是一个负例，从这个意义上讲，预估点击率时应该拆分发送到展示、展示到点击两步，因为第一步并不是这个广告的特征。</p>
-<h4 id="ADX（联盟广告）下GFP计费">ADX（联盟广告）下GFP计费</h4>
+<h4 id="adx联盟广告下gfp计费"><a class="markdownIt-Anchor" href="#adx联盟广告下gfp计费"></a> ADX（联盟广告）下GFP计费</h4>
 <p>业界一个主要的动向是RTB市场的ADX在全面转向公开bid信息的first price auction，包括google ad manager。注意这里的扣费指的是 ADX/媒体向DSP结算过程，而非向广告主结算的过程。</p>
 <p>Google在2019-2021年期间将Ad Manager、AdMob、AdSense的广告拍卖机制从二价切换为一价，主要驱动因素如下：</p>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://blog.google/products/admanager/update-first-price-auctions-google-ad-manager/">An update on first price auctions for Google Ad Manager</a><br>
+<p><a target="_blank" rel="noopener" href="https://blog.google/products/admanager/update-first-price-auctions-google-ad-manager/">An update on first price auctions for Google Ad Manager</a><br />
 关键原因</p>
 </blockquote>
 <ol>
@@ -960,8 +958,8 @@ Deep Retrieval的主要贡献：</p>
 <li>媒体从瀑布流（waterfall）转向头部竞价（header bidding）后，一价机制能提高清算价预期值</li>
 <li>新机制使ADX服务同质化，买方侧费用趋近于零</li>
 </ul>
-<p>与大媒体的自有流量不同，平台可以有统一且强力的控制机制，例如底价设置、防止伪造虚拟候选人等。<br>
-在联盟场景中，联盟平台要面向太多的媒体流量进行投放，每个媒体也会接入多个媒体变现平台（穿山甲、广点通等），因此竞价从来都是掌握在各个小媒体的手中。这对代表客户的投放平台来说本身就是黑盒的，小媒体有足够的动力研究如何设置底价，如果创造虚拟竞争者等让 GSP 实际上名存实亡，且这个过程中让整个竞价体系极其复杂，因此 GG 联盟于 2019 年切换成统一 GFP，各家媒体也都广泛使用 GFP，以降低竞价复杂性，提升竞价透明度。相关内容可参照谷歌转用首价竞拍机制_竞价，Simplifying programmatic: first price auctions for Google Ad Manager。<br>
+<p>与大媒体的自有流量不同，平台可以有统一且强力的控制机制，例如底价设置、防止伪造虚拟候选人等。<br />
+在联盟场景中，联盟平台要面向太多的媒体流量进行投放，每个媒体也会接入多个媒体变现平台（穿山甲、广点通等），因此竞价从来都是掌握在各个小媒体的手中。这对代表客户的投放平台来说本身就是黑盒的，小媒体有足够的动力研究如何设置底价，如果创造虚拟竞争者等让 GSP 实际上名存实亡，且这个过程中让整个竞价体系极其复杂，因此 GG 联盟于 2019 年切换成统一 GFP，各家媒体也都广泛使用 GFP，以降低竞价复杂性，提升竞价透明度。相关内容可参照谷歌转用首价竞拍机制_竞价，Simplifying programmatic: first price auctions for Google Ad Manager。<br />
 GFP 解决了流量侧的竞价透明度和简易性问题，但给平台的出价带来了一些困难。但在通投下，站内和站外流量下的不同的计费机制直接导致了无法采用统一出价的方式去优化</p>
 <p>GSP vs GFP</p>
 <ol>
@@ -983,7 +981,7 @@ GFP 解决了流量侧的竞价透明度和简易性问题，但给平台的出�
 <li><a target="_blank" rel="noopener" href="https://www.blog.google/products/admanager/simplifying-programmatic-first-price-auctions-google-ad-manager/">https://www.blog.google/products/admanager/simplifying-programmatic-first-price-auctions-google-ad-manager/</a></li>
 <li><a target="_blank" rel="noopener" href="https://support.google.com/admanager/answer/9298008?hl=en">https://support.google.com/admanager/answer/9298008?hl=en</a></li>
 </ul>
-<h3 id="出价产品">出价产品</h3>
+<h3 id="出价产品"><a class="markdownIt-Anchor" href="#出价产品"></a> 出价产品</h3>
 <ul>
 <li>和排序不同，出价产品和策略更多是从客户视角出发，帮助客户实现最大化ROI和跑量；由于平台存在信息、数据等优势、越深的转化目标/自动化成都，平台帮助客户出价的优势越大</li>
 <li>平台一般不会使用客户原始出价排序，而是把出价产品/策略耦合耦合在投放系统中
@@ -1099,7 +1097,7 @@ GFP 解决了流量侧的竞价透明度和简易性问题，但给平台的出�
 </tr>
 </tbody>
 </table>
-<h3 id="出价策略">出价策略</h3>
+<h3 id="出价策略"><a class="markdownIt-Anchor" href="#出价策略"></a> 出价策略</h3>
 <blockquote>
 <p>实现出价产品目标的策略</p>
 </blockquote>
@@ -1143,7 +1141,7 @@ GFP 解决了流量侧的竞价透明度和简易性问题，但给平台的出�
 </ul>
 </li>
 </ul>
-<h3 id="出价算法">出价算法</h3>
+<h3 id="出价算法"><a class="markdownIt-Anchor" href="#出价算法"></a> 出价算法</h3>
 <ul>
 <li>最优化：
 <ul>
@@ -1191,7 +1189,7 @@ GFP 解决了流量侧的竞价透明度和简易性问题，但给平台的出�
 </li>
 <li>全链路控制：调整出价会影响全链路、打通统一控制</li>
 </ul>
-<h2 id="Reference">Reference</h2>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
 <ul>
 <li>深度学习推荐系统</li>
 <li>计算广告</li>

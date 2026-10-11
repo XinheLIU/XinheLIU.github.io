@@ -243,7 +243,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="因果推断的历史">因果推断的历史</h2>
+<h2 id="因果推断的历史"><a class="markdownIt-Anchor" href="#因果推断的历史"></a> 因果推断的历史</h2>
 <ul>
 <li>哲学探索阶段（古代到 19 世纪）：
 <ul>
@@ -261,7 +261,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="Why：相关≠因果">Why：相关≠因果</h2>
+<h2 id="why相关因果"><a class="markdownIt-Anchor" href="#why相关因果"></a> Why：相关≠因果</h2>
 <p>为什么我们需要因果关系：基于相关的推断可以做出高精度的预测、但有些情况需要因果关系指导决策</p>
 <ul>
 <li>预测问题
@@ -280,10 +280,10 @@
 </ul>
 </li>
 </ul>
-<h3 id="相关性和因果性的差异来源">相关性和因果性的差异来源</h3>
+<h3 id="相关性和因果性的差异来源"><a class="markdownIt-Anchor" href="#相关性和因果性的差异来源"></a> 相关性和因果性的差异来源</h3>
 <ol>
 <li>
-<p><strong>Spurious correlation</strong><br>
+<p><strong>Spurious correlation</strong><br />
 <a target="_blank" rel="noopener" href="https://www.tylervigen.com/spurious-correlations">Spurious Correlations</a></p>
 <img src="/causal/intro-1/spurious-correlation.png" class="" title="Spurious Correlation">
 </li>
@@ -356,7 +356,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="What：反事实难题">What：反事实难题</h2>
+<h2 id="what反事实难题"><a class="markdownIt-Anchor" href="#what反事实难题"></a> What：反事实难题</h2>
 <p>先把哲学上复杂的定义放到一边，只关注因果关系最实用的（最有助于你工作的）那部分定义。</p>
 <ul>
 <li>一句话：因果关系试图回答的是what-if的问题。即假如其他一切不变，只改变X，如果Y的取值发生了改变，则认为X-Y有因果关系，更准确地说是X导致了Y。
@@ -367,8 +367,8 @@
 <li>现实中，我们只能观察到个体的某一个潜在结果，所以个体粒度的因果关系是不能确定的。这个难题被称作因果推断的根本难题，本质上是一个缺失数据（missing data）的问题。</li>
 </ul>
 <p>因果推断的方法和模型的目标是解决反事实难题。</p>
-<h2 id="How：实验-从观察数据中学习因果效应">How：实验 &amp; 从观察数据中学习因果效应</h2>
-<h3 id="AB实验">AB实验</h3>
+<h2 id="how实验-从观察数据中学习因果效应"><a class="markdownIt-Anchor" href="#how实验-从观察数据中学习因果效应"></a> How：实验 &amp; 从观察数据中学习因果效应</h2>
+<h3 id="ab实验"><a class="markdownIt-Anchor" href="#ab实验"></a> AB实验</h3>
 <p>为什么随机分流的A/B实验可以跨越数据缺失的障碍呢？一句话回答：因为随机可以保证两组用户的潜在结果一致。</p>
 <ul>
 <li>随机试验的实质在于分配机制（即用户分流）与潜在结果无关。现实中，影响每个人潜在结果的因素数不胜数，其中很多还观测不到。但我们不需要再为此担心了，因为随机分组本身保证了用户分组和潜在结果无关。换言之，实验组/对照组是可交换的，这样每组的潜在结果可以认为是整体的潜在因果，因此可以直接对比得出因果效应（假设样本量接近无限，忽略抽样方差）。</li>
@@ -380,7 +380,7 @@
 <li>实验没办法直接回答因果机制的问题：观测到的指标diff只能说明策略改动的效果是什么样的，不能直接说明这个效果是怎么来的，中间过程是什么样的，如果想了解中介变量或者说机制，可能需要单独设计实验来做，在中介变量不能直接操纵的情况下会比较困难。</li>
 <li>Effect of cause and cause of effect ：和上面类似，这不是实验特有的问题，实际上我们介绍的各种估计方法都是在估计effect of cause，而不会涉及cause of effect 即对一个现象、结果做归因的问题。</li>
 </ol>
-<h3 id="从观察数据中学习因果效应">从观察数据中学习因果效应</h3>
+<h3 id="从观察数据中学习因果效应"><a class="markdownIt-Anchor" href="#从观察数据中学习因果效应"></a> 从观察数据中学习因果效应</h3>
 <p>但有很多场景下我们没有办法进行实验，如何从观察数据中进行因果推断？</p>
 <p>核心：从观察到的数据中通过估计(estimation)来回答因果问题</p>
 <ul>

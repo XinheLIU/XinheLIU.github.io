@@ -232,12 +232,12 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>上下文管理</h1>
+                <h1 id="上下文管理"><a class="markdownIt-Anchor" href="#上下文管理"></a> 上下文管理</h1>
 <p>Last updated: 2026-07-27</p>
 <blockquote>
 <p><em>本章开头的<a href="how-agents-work.md">编程智能体工作原理</a>向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 → 重复。这个循环的质量几乎完全取决于&quot;读取上下文&quot;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。</em></p>
 </blockquote>
-<h3 id="长上下文为何会失效">长上下文为何会失效</h3>
+<h3 id="长上下文为何会失效"><a class="markdownIt-Anchor" href="#长上下文为何会失效"></a> 长上下文为何会失效</h3>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html">How Long Contexts Fail</a></p>
 </blockquote>
@@ -248,32 +248,29 @@
 <li>真正的挑战是有效的上下文管理，而非单纯增大窗口大小。</li>
 </ul>
 <p><strong>失效模式：</strong></p>
-<p><strong>1. 上下文污染：错误变成&quot;真相&quot;</strong><br>
+<p><strong>1. 上下文污染：错误变成&quot;真相&quot;</strong><br />
 一个幻觉或错误事实进入上下文，在摘要和计划中被反复引用，智能体就此陷入不可能或无关的目标——无法在没有干预的情况下自我恢复。</p>
-<p><strong>2. 上下文干扰：过度拟合历史记录</strong><br>
+<p><strong>2. 上下文干扰：过度拟合历史记录</strong><br />
 随着上下文增长，模型开始过度关注过去的 token，而忽视其预训练知识。Gemini 2.5 在超过约 10 万 token 后开始重复动作而非创新。Databricks 发现准确率在达到最大窗口之前就已下降，尤其是对小模型。长上下文最适合摘要和检索——而非无边界的智能体推理。</p>
-<p><strong>3. 上下文混乱：工具过多或信息无关带来的过载</strong><br>
+<p><strong>3. 上下文混乱：工具过多或信息无关带来的过载</strong><br />
 暴露所有可能的工具（MCP 风格）可能适得其反。所有模型在上下文中有大量工具时性能都会下降，甚至可能在不需要工具时也调用工具。例如：Llama 3.1 8B 在有 46 个工具时失败，但在 19 个工具时成功——即使两者都在上下文范围内。凡是在提示词中的内容，模型都必须处理——嘈杂的工具定义和无用的上下文会主动降低性能。</p>
-<p><strong>4. 上下文冲突：多轮次与多来源之间的矛盾</strong><br>
+<p><strong>4. 上下文冲突：多轮次与多来源之间的矛盾</strong><br />
 多轮次的&quot;碎片化&quot;提示词比单个精心组织的提示词表现差得多（平均性能下降约 39%；即使是 o3 也从 98.1% 降至 64.1%）。一旦模型&quot;确定&quot;了一条错误路径，它往往会过度依赖过去的输出，无法自我纠正。智能体尤其脆弱，因为它们聚合了多个工具、文档和子模型——每个都可能引入潜在冲突。</p>
 <p><strong>对智能体设计的启示：</strong></p>
 <p>最脆弱的配置恰恰是我们最关心的那种：在漫长历史记录上运行的多步骤、多工具、多来源智能体。缓解措施包括动态或选择性工具加载、“上下文隔离区&quot;以隔离不可靠的内容，以及更严格的上下文管理，而非&quot;把所有东西都倒进去”。</p>
-<h2 id="研究-→-规划-→-实现工作流">研究 → 规划 → 实现工作流</h2>
+<h2 id="研究-规划-实现工作流"><a class="markdownIt-Anchor" href="#研究-规划-实现工作流"></a> 研究 → 规划 → 实现工作流</h2>
 <p>如果说有一个概念能将有效的 AI 辅助开发与令人沮丧的提示词乱按区分开来，那就是上下文工程——这是一种刻意构建模型所见内容以获得更好结果的实践。</p>
 <p>Thoughtworks 的 Birgitta Böckeler 对此的简洁定义是：<em>策划模型所见内容，以获得更好的结果。</em> 对于编程智能体而言，这涵盖了从项目级配置文件（<code>CLAUDE.md</code>、<code>.cursorrules</code>）到单个提示词结构的一切。</p>
 <p>新兴的最佳实践遵循三个阶段：</p>
 <p><strong>研究</strong> — 让智能体先探索代码库。理解架构、识别相关文件，并构建一份包含文件路径、函数签名和系统关系的精简研究文档。</p>
 <p><strong>规划</strong> — 在写任何代码之前，创建一份智能体（和你）可以审阅的分步实现计划。这是早期发现误解的关键。</p>
 <p><strong>实现</strong> — 按计划逐步执行，随着任务完成压缩并更新上下文。保持上下文窗口精简——实践者建议将利用率保持在 40% 以下以获得最佳效果。</p>
-<div class="mermaid">
-  flowchart LR
-    Research[研究] --> Plan[规划] --> Implement[实现] --> Compact[压缩与更新] --> Research
-</div>
-
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid">flowchart LR
+    Research[研究] --&gt; Plan[规划] --&gt; Implement[实现] --&gt; Compact[压缩与更新] --&gt; Research<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>这个工作流正是上下文策略的落地——完整的智能体循环见<a href="/agentic-engineering/how-agents-work/">编程智能体的工作原理</a>。</p>
 <p>核心洞见：你编写的提示词、规格说明和计划<em>本身就是</em>产品。代码只是输出。正如一位实践者所说：“<a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> &gt; 提示词 &gt; 研究 &gt; 计划 &gt; 实现”。将人的精力集中在流水线中杠杆效应最高的部分。</p>
-<hr>
-<h2 id="上下文管理原则">上下文管理原则</h2>
+<hr />
+<h2 id="上下文管理原则"><a class="markdownIt-Anchor" href="#上下文管理原则"></a> 上下文管理原则</h2>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://blog.stockapp.com/good-context-good-code/">Good Context Leads to Good Code: How We Built an AI-Native Eng Culture</a></p>
 </blockquote>
