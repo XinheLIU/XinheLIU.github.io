@@ -17,7 +17,7 @@
         })();
     </script>
     <meta name="keywords" content="上下文管理, Xinhe Liu (Charles)">
-    <meta name="description" content="*本章开头的[编程智能体工作原理](how-agents-work.md)向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 → 重复。这个循环的质量几乎完全取决于&#34;读取上下文&#34;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。* [How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html) 超长上下文窗口并不能自动使智能体变得更聪明——如果不加以管理，额外的上下文会成为负担而非资产。">
+    <meta name="description" content="*本章开头的[编程智能体工作原理](how-agents-work.md)向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 → 重复。这个循环的质量几乎完全取决于&#34;读取上下文&#34;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。*">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -34,13 +34,13 @@
     <!-- Open Graph / Twitter -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="上下文管理 | Xinhe Liu (Charles)">
-    <meta property="og:description" content="*本章开头的[编程智能体工作原理](how-agents-work.md)向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 → 重复。这个循环的质量几乎完全取决于&#34;读取上下文&#34;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。* [How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html) 超长上下文窗口并不能自动使智能体变得更聪明——如果不加以管理，额外的上下文会成为负担而非资产。">
+    <meta property="og:description" content="*本章开头的[编程智能体工作原理](how-agents-work.md)向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 → 重复。这个循环的质量几乎完全取决于&#34;读取上下文&#34;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。*">
     <meta property="og:url" content="https://xinheliu.github.io/agentic-engineering/context-management/index.html">
     <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
     <meta property="og:site_name" content="Xinhe Liu (Charles)">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="上下文管理 | Xinhe Liu (Charles)">
-    <meta name="twitter:description" content="*本章开头的[编程智能体工作原理](how-agents-work.md)向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 → 重复。这个循环的质量几乎完全取决于&#34;读取上下文&#34;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。* [How Long Contexts Fail](https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html) 超长上下文窗口并不能自动使智能体变得更聪明——如果不加以管理，额外的上下文会成为负担而非资产。">
+    <meta name="twitter:description" content="*本章开头的[编程智能体工作原理](how-agents-work.md)向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 → 重复。这个循环的质量几乎完全取决于&#34;读取上下文&#34;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。*">
     <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
 
     <!-- Display webfonts -->
@@ -189,14 +189,14 @@
 <header class="post-hero content">
     <div class="container">
         
-            <p class="eyebrow">智能体工程</p>
+            <p class="eyebrow">agentic-engineering</p>
         
         <h1 class="page-title">上下文管理</h1>
         <div class="post-meta">
             <time datetime="2026-08-24">2026-08-24</time>
             
                 <span class="dot">·</span>
-                <span>8 分钟</span>
+                <span>7 分钟</span>
             
             
                 <span class="post-hero-tags">
@@ -239,29 +239,24 @@ date: ‘2026-08-24 12:00:00’<br />
 permalink: /agentic-engineering/context-management/<br />
 categories:</p>
 <ul>
-<li>智能体工程<br />
+<li>agentic-engineering<br />
 tags:</li>
 <li>context</li>
 <li>agents<br />
 site_locale: zh-CN<br />
 lang_switch: /en/agentic-engineering/context-management/<br />
-summary_en: &gt;-<br />
-<em>本章开头的<a href="how-agents-work.md">编程智能体工作原理</a>向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 →<br />
-重复。这个循环的质量几乎完全取决于&quot;读取上下文&quot;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。</em> <a target="_blank" rel="noopener" href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html">How Long Contexts<br />
-Fail</a><br />
-超长上下文窗口并不能自动使智能体变得更聪明——如果不加以管理，额外的上下文会成为负担而非资产。<br />
+summary_en: ‘’<br />
 summary_zh: &gt;-<br />
 <em>本章开头的<a href="how-agents-work.md">编程智能体工作原理</a>向你展示了智能体循环：读取上下文 → 规划 → 行动 → 观察 →<br />
-重复。这个循环的质量几乎完全取决于&quot;读取上下文&quot;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。</em> <a target="_blank" rel="noopener" href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html">How Long Contexts<br />
-Fail</a><br />
-超长上下文窗口并不能自动使智能体变得更聪明——如果不加以管理，额外的上下文会成为负担而非资产。<br />
+重复。这个循环的质量几乎完全取决于&quot;读取上下文&quot;这一步。上下文做对了，智能体能产出出色的工作；做错了，再多的提示词调整也无济于事。</em><br />
 topic_cluster: agentic-engineering<br />
 confidentiality_safe: true<br />
 series_id: agentic-engineering<br />
 content_id: context-management<br />
 series_mode: full<br />
 book_url: <a href="https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/context-management.html">https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/context-management.html</a><br />
-canonical_url: <a href="https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/context-management.html">https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/context-management.html</a></li>
+canonical_url: <a href="https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/context-management.html">https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/context-management.html</a><br />
+owner: coding-with-agents</li>
 </ul>
 <hr />
 <h1 id="上下文管理"><a class="markdownIt-Anchor" href="#上下文管理"></a> 上下文管理</h1>
@@ -297,8 +292,11 @@ canonical_url: <a href="https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-a
 <p><strong>研究</strong> — 让智能体先探索代码库。理解架构、识别相关文件，并构建一份包含文件路径、函数签名和系统关系的精简研究文档。</p>
 <p><strong>规划</strong> — 在写任何代码之前，创建一份智能体（和你）可以审阅的分步实现计划。这是早期发现误解的关键。</p>
 <p><strong>实现</strong> — 按计划逐步执行，随着任务完成压缩并更新上下文。保持上下文窗口精简——实践者建议将利用率保持在 40% 以下以获得最佳效果。</p>
-<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid">flowchart LR
-    Research[研究] --&gt; Plan[规划] --&gt; Implement[实现] --&gt; Compact[压缩与更新] --&gt; Research<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<div class="mermaid">
+  flowchart LR
+    Research[研究] --> Plan[规划] --> Implement[实现] --> Compact[压缩与更新] --> Research
+</div>
+
 <p>这个工作流正是上下文策略的落地——完整的智能体循环见<a href="/agentic-engineering/how-agents-work/">编程智能体的工作原理</a>。</p>
 <p>核心洞见：你编写的提示词、规格说明和计划<em>本身就是</em>产品。代码只是输出。正如一位实践者所说：“<a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> &gt; 提示词 &gt; 研究 &gt; 计划 &gt; 实现”。将人的精力集中在流水线中杠杆效应最高的部分。</p>
 <hr />

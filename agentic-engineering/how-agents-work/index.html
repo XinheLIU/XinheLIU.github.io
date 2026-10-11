@@ -17,7 +17,7 @@
         })();
     </script>
     <meta name="keywords" content="编程智能体的工作原理, Xinhe Liu (Charles)">
-    <meta name="description" content="*在 [第一章](../01-prompt/README.md) 中，你学习了如何与编程智能体沟通——向它们提供上下文、编写清晰的提示词，以及构建持久化的记忆系统。现在，让我们掀开引擎盖看看底层：当你按下回车键时，究竟发生了什么？* *从简单的代码补全到自主运转的数字工程师——深入剖析当今顶尖 AI 编程工具背后的系统架构、上下文策略与核心设计模式。*">
+    <meta name="description" content="*在 [第一章](../01-prompt/README.md) 中，你学习了如何与编程智能体沟通——向它们提供上下文、编写清晰的提示词，以及构建持久化的记忆系统。现在，让我们掀开引擎盖看看底层：当你按下回车键时，究竟发生了什么？*">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -28,17 +28,19 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     
+    <link rel="canonical" href="https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/how-agents-work.html">
+    
 
     <!-- Open Graph / Twitter -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="编程智能体的工作原理 | Xinhe Liu (Charles)">
-    <meta property="og:description" content="*在 [第一章](../01-prompt/README.md) 中，你学习了如何与编程智能体沟通——向它们提供上下文、编写清晰的提示词，以及构建持久化的记忆系统。现在，让我们掀开引擎盖看看底层：当你按下回车键时，究竟发生了什么？* *从简单的代码补全到自主运转的数字工程师——深入剖析当今顶尖 AI 编程工具背后的系统架构、上下文策略与核心设计模式。*">
+    <meta property="og:description" content="*在 [第一章](../01-prompt/README.md) 中，你学习了如何与编程智能体沟通——向它们提供上下文、编写清晰的提示词，以及构建持久化的记忆系统。现在，让我们掀开引擎盖看看底层：当你按下回车键时，究竟发生了什么？*">
     <meta property="og:url" content="https://xinheliu.github.io/agentic-engineering/how-agents-work/index.html">
     <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
     <meta property="og:site_name" content="Xinhe Liu (Charles)">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="编程智能体的工作原理 | Xinhe Liu (Charles)">
-    <meta name="twitter:description" content="*在 [第一章](../01-prompt/README.md) 中，你学习了如何与编程智能体沟通——向它们提供上下文、编写清晰的提示词，以及构建持久化的记忆系统。现在，让我们掀开引擎盖看看底层：当你按下回车键时，究竟发生了什么？* *从简单的代码补全到自主运转的数字工程师——深入剖析当今顶尖 AI 编程工具背后的系统架构、上下文策略与核心设计模式。*">
+    <meta name="twitter:description" content="*在 [第一章](../01-prompt/README.md) 中，你学习了如何与编程智能体沟通——向它们提供上下文、编写清晰的提示词，以及构建持久化的记忆系统。现在，让我们掀开引擎盖看看底层：当你按下回车键时，究竟发生了什么？*">
     <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
 
     <!-- Display webfonts -->
@@ -187,7 +189,7 @@
 <header class="post-hero content">
     <div class="container">
         
-            <p class="eyebrow">智能体工程</p>
+            <p class="eyebrow">agentic-engineering</p>
         
         <h1 class="page-title">编程智能体的工作原理</h1>
         <div class="post-meta">
@@ -237,31 +239,27 @@ date: ‘2026-08-24 12:00:00’<br />
 permalink: /agentic-engineering/how-agents-work/<br />
 categories:</p>
 <ul>
-<li>智能体工程<br />
+<li>agentic-engineering<br />
 tags:</li>
 <li>agents</li>
 <li>context<br />
 site_locale: zh-CN<br />
 lang_switch: /en/agentic-engineering/how-agents-work/<br />
-summary_en: &gt;-<br />
-<em>在 <a href="../01-prompt/README.md">第一章</a> 中，你学习了如何与编程智能体沟通——向它们提供上下文、编写清晰的提示词，以及构建持久化的记忆系统。现在，让我们掀开引擎盖看看底层：当你按下回车键时，究竟发生了什么？</em><br />
-<em>从简单的代码补全到自主运转的数字工程师——深入剖析当今顶尖 AI 编程工具背后的系统架构、上下文策略与核心设计模式。</em><br />
-summary_zh: &gt;-<br />
-<em>在 <a href="../01-prompt/README.md">第一章</a> 中，你学习了如何与编程智能体沟通——向它们提供上下文、编写清晰的提示词，以及构建持久化的记忆系统。现在，让我们掀开引擎盖看看底层：当你按下回车键时，究竟发生了什么？</em><br />
-<em>从简单的代码补全到自主运转的数字工程师——深入剖析当今顶尖 AI 编程工具背后的系统架构、上下文策略与核心设计模式。</em><br />
+summary_en: ‘’<br />
+summary_zh: ‘<em>在 <a href="../01-prompt/README.md">第一章</a> 中，你学习了如何与编程智能体沟通——向它们提供上下文、编写清晰的提示词，以及构建持久化的记忆系统。现在，让我们掀开引擎盖看看底层：当你按下回车键时，究竟发生了什么？</em>’<br />
 topic_cluster: agentic-engineering<br />
 confidentiality_safe: true<br />
 series_id: agentic-engineering<br />
 content_id: how-agents-work<br />
 series_mode: excerpt<br />
 book_url: <a href="https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/how-agents-work.html">https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/how-agents-work.html</a><br />
-canonical_url: ‘’</li>
+canonical_url: <a href="https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/how-agents-work.html">https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/how-agents-work.html</a><br />
+owner: coding-with-agents</li>
 </ul>
 <hr />
 <p><em>在 <a href="../01-prompt/README.md">第一章</a> 中，你学习了如何与编程智能体沟通——向它们提供上下文、编写清晰的提示词，以及构建持久化的记忆系统。现在，让我们掀开引擎盖看看底层：当你按下回车键时，究竟发生了什么？</em></p>
-<p><em>从简单的代码补全到自主运转的数字工程师——深入剖析当今顶尖 AI 编程工具背后的系统架构、上下文策略与核心设计模式。</em></p>
 <blockquote>
-<p>本文是书籍《Coding with Agents》章节的节选。<a href="https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/how-agents-work.html">在书中继续阅读全文 →</a></p>
+<p><a href="https://xinheliu.github.io/Coding-with-Agents/zh-cn/02-anatomy/how-agents-work.html">在原站继续阅读 →</a></p>
 </blockquote>
 
             </div>

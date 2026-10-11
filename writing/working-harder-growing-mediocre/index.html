@@ -1,0 +1,744 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <meta name="keywords" content="The Truth About Working Harder and Growing More Mediocre, Xinhe Liu (Charles)">
+    <meta name="description" content="A reflection on why working harder can keep you mediocre — familiar knowledge vs. true knowledge, double-loop learning, and the niche that shapes cognition.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The Truth About Working Harder and Growing More Mediocre | Xinhe Liu (Charles)">
+    <meta property="og:description" content="A reflection on why working harder can keep you mediocre — familiar knowledge vs. true knowledge, double-loop learning, and the niche that shapes cognition.">
+    <meta property="og:url" content="https://xinheliu.github.io/writing/working-harder-growing-mediocre/">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Truth About Working Harder and Growing More Mediocre | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="A reflection on why working harder can keep you mediocre — familiar knowledge vs. true knowledge, double-loop learning, and the niche that shapes cognition.">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>The Truth About Working Harder and Growing More Mediocre | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/library/" class="">Library</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a class="lang-switch" href="/writing/working-harder-growing-mediocre-zh/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/library/">Library</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        <a class="lang-switch" href="/writing/working-harder-growing-mediocre-zh/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+<header class="post-hero content">
+    <div class="container">
+        
+            <p class="eyebrow">Writing</p>
+        
+        <h1 class="page-title">The Truth About Working Harder and Growing More Mediocre</h1>
+        <div class="post-meta">
+            <time datetime="2026-10-11">2026-10-11</time>
+            
+                <span class="dot">·</span>
+                <span>18 min read</span>
+            
+            
+                <span class="post-hero-tags">
+                    
+                        <a class="chip" href="/tags/Career/">Career</a>
+                    
+                        <a class="chip" href="/tags/Personal-Growth/">Personal Growth</a>
+                    
+                </span>
+            
+        </div>
+        <hr class="post-hero-rule">
+    </div>
+</header>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="the-truth-about-working-harder-and-growing-more-mediocre"><a class="markdownIt-Anchor" href="#the-truth-about-working-harder-and-growing-more-mediocre"></a> The Truth About Working Harder and Growing More Mediocre</h1>
+<p>Over the National Day holiday I listened again to Wu Bofan’s <em>Cognition Class</em> (《认知课》). I had bought it five years ago and heard it once before, and back then it sounded like platitudes. Hearing it again in my early thirties, I realized I hadn’t really listened the first time. The old saying fits: I heard the words but not their meaning.</p>
+<p>I’m writing this down so I stop coasting like this.</p>
+<h2 id="middlemarch"><a class="markdownIt-Anchor" href="#middlemarch"></a> Middlemarch</h2>
+<p>Everyone is ambitious when young. Yet for some reason most people get stuck partway, and slide into a comfortable, mediocre life they can’t climb out of. They never get past the midpoint. That is the point of Eliot’s <em>Middlemarch</em>. The middle class is less an economic stratum than a state of mind. The 20-year-old me will inevitably see the 30-something me as mediocre and lacking drive. The novel is about people in their twenties who don’t yet understand the world. But turn it around, and staying put in your thirties is also a very real gravitational pull.</p>
+<p>Where does this gravity come from? From escapism, and from how we were socialized and educated.</p>
+<p>Most of our life experience, and the training systems behind it, come from the fact that humans are the most cooperative species on the planet, so we train people to cooperate socially. And cooperation, at its core, means letting others help solve your problems. As long as you meet some standard, schools, big companies and titles will solve many of your problems: survival, respect, and the questions of “what should I do” and “why should I do it.” Big tech, the civil service, the fine division of labor among white-collar workers all cultivate a refined comfort, an environment you can depend on. In a sense, that lets you avoid the real problems.</p>
+<p>You think you’re chasing an ideal, but mostly you’re chasing a story others told you: social approval, being around smart people, joining an exciting industry. Going to the US, doing quant, coming back to work in internet companies: those were my choices, of course. But behind them, is there avoidance of choice and a lack of confidence? Telling yourself that “who you travel with matters more than where you go” is, underneath, fear of making the wrong decision and of not being capable enough. Believing that entering an environment full of smart people, outperforming them step by step, and then moving to a new environment is “progressive development” means refusing to face the fact that most people want environmental approval and comfort, not real knowledge. If you always seek answers together with the majority, you may in some sense be avoiding the harder questions.</p>
+<p>I thought I was already fairly proactive, but it’s really just the worker mindset in better packaging.</p>
+<h2 id="familiar-knowledge-and-true-knowledge"><a class="markdownIt-Anchor" href="#familiar-knowledge-and-true-knowledge"></a> Familiar Knowledge and True Knowledge</h2>
+<p>Hegel wrote of “the difference between familiar knowledge and true knowledge.” Familiar knowledge is what you’re acquainted with. True knowledge is what you’ve truly grasped and can use to solve real problems. Moving from the first to the second means constantly questioning, challenging, and stripping away false knowledge.</p>
+<p>Why is familiar knowledge usually abundant and true knowledge scarce? Because people rarely face real questions. Only in a real environment with selection pressure, where you’re forced to answer and get eliminated if you can’t offer a solution, does a person have at least a 50% chance of iterating and evolving their cognition.</p>
+<p>But this runs against human instinct, especially for people who lack security and are driven by anxiety. Take my own experience: I’ve worked for many years, but how many real problems have I actually solved? The strategy work at Goldman Sachs had real depth, and some of it could have produced papers. But its essence came from an investment bank’s enormous balance sheet monopolizing products only it could trade, plus strong sales capability. The work at ByteDance looked fancy on the surface, but mostly others had already built the stage, and I was polishing the decorations. What’s closer to solving problems is building from zero to one: carving out a plot of land, growing a team, leading a group of people. That gives you real understanding of things and of people. But above that, especially the promotion game, is genuinely nauseating and boring. It’s about how to sort things out, how to write OKRs, how to look clear-headed, how to prove you’re smarter than others. For the huge machine, that is a visible entropy reduction. For the individual, it’s a skill with no value outside the system. So mid-level managers at big tech are essentially a heavily domesticated, alienated group. In industries with high shielding or monopoly, the problems you and your company face are quite singular. The world may be fiercely competitive, but certain individual “skills” (you can call them skills or not) let a large number of mid-level people get by through disguise and fudging, using non-work effort to make up for cognitive gaps.</p>
+<p>The biggest problem with living long in this track and environment is that what you think you understand or can do is mostly familiar knowledge, not true knowledge. Set aside how much of most people’s work only serves a few managers and bureaucratic value. Even the things you studied deeply, like “I studied quantitative finance,” “I understand how tech drives business,” “I understand internet business and management models,” or even explaining these to people at other companies, may all be “bird-flight” understanding. A bird’s wings are not oars but sails. First-principles thinking must come either from direct market practice or from deeply focused thought. I’ve avoided both.</p>
+<h2 id="single-loop-and-double-loop-learning"><a class="markdownIt-Anchor" href="#single-loop-and-double-loop-learning"></a> Single-Loop and Double-Loop Learning</h2>
+<p>So how do we solve this?</p>
+<p>Einstein said: “Problems cannot be solved by the same level of thinking that created them.” You cannot lift yourself off the ground by your own hair, because there is no fulcrum. If your thinking has no fulcrum, no point of leverage distinct from your current thinking, much of your effort will have limited effect.</p>
+<p>Subjective avoidance and stagnation, together with objective environmental domestication, mean my main effort has likely been “single-loop learning”: constantly reinforcing within an existing cognitive model. On one hand it guides you; on the other, it confines your thinking. The end result is “when all you have is a hammer, everything looks like a nail.” As your cognition becomes more complete, you quietly castrate your own cognitive ability. On the surface, “understanding tech, data and business” looks like steadily reinforced “experience.” In reality it may be a fixed set of discussions, SOPs, and half-right operations.</p>
+<p><strong>Truly effective learning is “double-loop learning”:</strong> on one hand, keep reinforcing your cognitive model within the existing framework; on the other, weaken or even eliminate that model.</p>
+<p>How do you eliminate it?</p>
+<p>“Cognition” means asking questions; “non-cognition” means not becoming a question.</p>
+<p>Socrates said: “I am no wiser than others. I know nothing, but I have one thing: the only thing I know is that I don’t know, while everyone else thinks they know.” Getting the right answer depends on working out what question the examiner is really asking. Before the right question is formed, the answer doesn’t exist.</p>
+<p><strong>The questions I’ve been asking these years may be the wrong ones.</strong> It’s not just “how do I do better,” but “what should I give up” and “what am I doing, and why?”</p>
+<p><strong>Choose the right track. The saddest thing is doing the wrong thing with great efficiency.</strong></p>
+<p>Quant, and those years at ByteDance, were highly efficient. But the real leverage in big tech lies in handling relationships. This year at Dongshi was also busy and fulfilling. But if I’m still thinking only about “doing things well,” I’m still optimizing inside a framework someone else defined.</p>
+<p><strong>What should I give up?</strong> Give up “what should I pay attention to” and focus instead on “expanding the scope of influence.” Society is a web of mutual entanglement. You can’t fully escape your family of origin or your surroundings. Relying only on doing better than others, being excellent, and climbing relentlessly still uses the habits of school: the belief that effort solves problems. Problems don’t solve themselves. The key may not be improving existing ability, but finding the right relationships, and the right people and things through which to build them.</p>
+<p><strong>What am I doing, and why?</strong> Big-company titles and startup experience look like markers of success, yet in the end they leave you neither here nor there. Hoping to get closer to stronger environments and more impressive people, expecting to find and solve problems together with them, is essentially asking the wrong question. The right question is how to “seek advantage in the momentum of the situation” (求之于势), and that “strategy determines everything.” First figure out what you actually do and what the right thing is. Only then talk about persistence.</p>
+<h2 id="hamlet-syndrome-and-pragmatic-romanticism"><a class="markdownIt-Anchor" href="#hamlet-syndrome-and-pragmatic-romanticism"></a> Hamlet Syndrome and “Pragmatic Romanticism”</h2>
+<p>So how do you know what the right thing is? If the answer is thinking alone, you fall into another trap.</p>
+<p>The course describes “Hamlet syndrome”: you know what to do but keep thinking and weighing and never act, until some chance scene or event forces you to move. Habitually stuck in the agony of “how should I,” your cognition dissolves. Most people think they can’t go far because they “know too little.” But writers and philosophers suggest the answer is not only deepening cognition. You also need an opportunity, a scene.</p>
+<p>Philosophers call this scene “thrownness” (抛入/被抛): what really moves people to act is often an invisible force that throws them into a situation. Wang Yangming’s story illustrates this well. He endured flogging, imprisonment and assassination attempts. After witnessing life and death in a wild frontier, he found that the status and honor he had feared losing did not matter so much. That is the transformation thrownness brings.</p>
+<p>What environment have I been in? What have I been driven by? In the US I worried about office politics and was dragged along by visa problems. At ByteDance it was basically “learn more, accumulate more,” which amounted to very little. Daily worries (the boss being unhappy, being worse than colleagues, being eliminated) need no further mention. The “hungry” and “optimizing” mindset is anti-cognitive. It makes you overlook a more fundamental question, “Is the thing itself right?”, and it keeps you from focusing on where the right things are and how they happen.</p>
+<p>So cognition is fundamentally counter-human. What makes great people great is being able to leap out of the present environment, the anxiety, and the mess of daily life, and then leap back in to solve problems pragmatically. Most people are either “talkers” whose cognition sounds sharp but floats in the sky, or highly capable people with their heads down, absorbed in the pressure of the moment.</p>
+<p>Being both farsighted, able to see from above, and grounded, pragmatic, realistic, and flexible requires something close to a split-minded ability. In the revolutionary era people spoke of grasping the principal contradiction. In the startup era, Zhang Yiming said “pragmatic and romantic” (务实又浪漫). It may take the kind of cultivation Wang Yangming described: “conquer the thief in your heart.”</p>
+<p>The so-called “cutting edge of cognition”: the true source of knowledge may be the ability to dare to believe and dare to act, honed over time.</p>
+<h2 id="niche-thinking"><a class="markdownIt-Anchor" href="#niche-thinking"></a> Niche Thinking</h2>
+<p>The most interesting theory here asks: what is the essence of cognition? A niche.</p>
+<p>The particular characteristics of an energy supply create a niche, and because the niche exists, a species may emerge.</p>
+<p>A “niche” is the specific survival factors, the energy supply, and the ways of getting those resources and energy. That combination is “cognition.” The sum of these resource supplies and the ways of acquiring them forms a species. A specific niche determines a specific species, and also a specific cognition.</p>
+<p>Navigators carry lunar phase tables, because the moon is closely tied to their survival. Information about the waxing and waning moon means nothing to someone living in a modern city, but for a sailor it is a matter of life and death. The reason for this cognition is simple: they are in a specific niche. Blind people’s hearing and touch are extraordinarily sensitive, to a degree that seems incredible to sighted people. That’s because sighted people don’t need hearing and touch to perceive their surroundings; they rely mainly on vision. So touch and hearing face no selection pressure. Without selection pressure there is no evolution, and without evolution there is no such uncanny perceptual and survival ability.</p>
+<p><strong>A person’s cognitive level is the reverse expression of their niche.</strong></p>
+<p>The more outstanding a person is, the more likely they have a distinctive niche. Mediocre people tend to be those whose niche is unclear, or who face no selection pressure. In the niche of the environment a mediocre person lives in, whether they have a given ability has little to do with their survival. Since they survive anyway, they just survive.</p>
+<p>This perspective is illuminating. Maybe I’m not learning too slowly. Maybe I’ve spent too long in environments without real selection pressure. Now, at a startup, have I changed that? I can only say I have to figure out everything before getting in the water, and then I may never learn to swim. Now I’m getting in the water first. But is there still avoidance inside and outside the company? Am I being realistic and pragmatic toward the market? Am I truly bearing the consequences? I still haven’t done these well.</p>
+<h2 id="next-steps-in-thinking-and-action"><a class="markdownIt-Anchor" href="#next-steps-in-thinking-and-action"></a> Next Steps in Thinking and Action</h2>
+<p>The first step from all of this is to face the problem: see yourself clearly and strip away the packaging.</p>
+<p>Who am I, really? Who are my friends? What challenges must I face? That is the first essay in <em>Selected Works of Mao Zedong</em>, and it’s also the first question I need to face.</p>
+<p>People of my generation grew up during China’s economic upswing and now find ourselves in a transition and a plateau. We haven’t seen a real economic depression, but we also missed the dividends that the post-70s and post-80s caught. Now that we’re in midlife, the AI wave has arrived. It is both an opportunity and a critical moment. Most of us studied abroad, have big-tech experience, have seen the world, and have strong educational backgrounds. But many of us have also adapted to this system: used to big-tech processes, politics, the promotion game, and optimizing within a given framework.</p>
+<p>To avoid spending my life stuck halfway, I need to work out where the real problems and real needs are; what I have now, what I still need to acquire and leverage; whom I need to join forces with; and how to move toward solving real problems.</p>
+<ul>
+<li><strong>Face the operating problems of the company and of myself, without the packaging.</strong> I understand some business and management, and I understand technology. I know how to close deals, tell stories, and win recognition in commercial settings. But I don’t know how to apply bigger leverage, or how to scale up and move more people and things. I know how to build something from scratch. I have truly faced “nobody knows how to do this,” and pushed things to a milestone with insufficient resources, incomplete information, and a team that wasn’t ready. I also know how big tech polishes details into returns. But the middle link is missing: how to creatively recombine something, use story, ideals and culture to attract others, and build an organization that empowers people. I haven’t faced that hardest problem.</li>
+<li><strong>Find more real markets and leverage, and find the competition.</strong> My strength is systematic, logical thinking: breaking things down, defining goals, clearing bottlenecks, designing at the system level. But the truth of engineering isn’t on architecture diagrams. It’s in the implementation. Having really built a system, you know where it will break, where the trade-offs are, when to compromise and when to hold firm. This year I’ve gained some understanding, but it’s still a scrappy operation. And in the AI era things move fast, so I need to invest more in systematization and engineering, and learn and influence for real.</li>
+<li><strong>Keep more time to step outside myself, and keep strategic composure.</strong> Work on the second floor, but occasionally go up to the twentieth, or even spend every day on the twentieth, thinking and acting from there. I need to objectify my cognition. Writing, projects, building things I find useful: that’s how.
+<ul>
+<li><strong>Info-AIKB-Learning-Writing suite:</strong> This starts from my habit of reading papers. I can read papers; most people don’t. I need to set my own pace, think deeply, and turn that thinking into executable systems. The suite tries to answer: how do we rebuild the whole process of learning, knowledge management and writing with AI? It’s not a pile of tools, but a complete cognitive loop.</li>
+<li><strong>Personal-CRM:</strong> Where are the high-value real problems? Where is my niche? What problems can I solve better than others? What is true knowledge? Are these projects truly meaningful, or am I again “participating” in a framework someone else defined? Unity of knowing and doing (知行合一) is better held to account by a system than by willpower alone.</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/writing/working-harder-growing-mediocre/">https://xinheliu.github.io/writing/working-harder-growing-mediocre/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Career/">
+                                    <span class="chip bg-color">Career</span>
+                                </a>
+                            
+                                <a href="/tags/Personal-Growth/">
+                                    <span class="chip bg-color">Personal Growth</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<nav class="post-nav" aria-label="Post navigation">
+    
+    <a class="post-nav-card" href="/writing/palantir-ontology/" rel="prev">
+        <span class="post-nav-label">&larr;&nbsp;Previous</span>
+        <span class="post-nav-title">Deconstructing Palantir Ontology: When an Ontology Moves From Describing the World to Driving It</span>
+    </a>
+    
+    <span></span>
+</nav>
+
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>
