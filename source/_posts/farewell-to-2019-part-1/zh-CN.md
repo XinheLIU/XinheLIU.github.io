@@ -4,9 +4,9 @@ id: farewell-to-2019-part-1
 locale: zh-CN
 title: 告别2019(上)
 status: published
-created: '2025-10-23'
-updated: '2025-10-23'
-last_updated: '2025-10-23'
+created: '2025-10-15'
+updated: '2025-10-15'
+last_updated: '2025-10-15'
 tags:
   - 个人成长
 summary_zh: >-
@@ -19,7 +19,7 @@ original_sources:
     url: https://zhuanlan.zhihu.com/p/99705129
     published_at: '2019-12-27T03:23:55.000Z'
 imported_at: '2026-10-11'
-date: '2025-10-23 12:00:00'
+date: '2025-10-15 12:00:00'
 layout: post
 permalink: /writing/farewell-to-2019-part-1-zh/
 categories:

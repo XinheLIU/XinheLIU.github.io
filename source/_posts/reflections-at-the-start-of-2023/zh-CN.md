@@ -4,9 +4,9 @@ id: reflections-at-the-start-of-2023
 locale: zh-CN
 title: 2023年初的小作文
 status: published
-created: '2026-07-07'
-updated: '2026-07-07'
-last_updated: '2026-07-07'
+created: '2025-11-21'
+updated: '2025-11-21'
+last_updated: '2025-11-21'
 tags:
   - 个人成长
 summary_zh: 公众号本已撂荒近一年，之间也有陆陆续续写一些文字，但都因不成型或有些内容的原因并未发出。没想到春节聊天之际，有几个朋友竟问起“你今年的小作文呢”，便写一点文字给问起的几个朋友和家人罢。（也希望今年能勤快一点）
@@ -18,7 +18,7 @@ original_sources:
     url: https://zhuanlan.zhihu.com/p/601785378
     published_at: '2023-01-30T00:52:52.000Z'
 imported_at: '2026-10-11'
-date: '2026-07-07 12:00:00'
+date: '2025-11-21 12:00:00'
 layout: post
 permalink: /writing/reflections-at-the-start-of-2023-zh/
 categories:

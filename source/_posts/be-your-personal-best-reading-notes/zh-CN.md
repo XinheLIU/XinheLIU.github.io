@@ -4,9 +4,9 @@ id: be-your-personal-best-reading-notes
 locale: zh-CN
 title: 读书笔记《做最好的自己》李开复
 status: published
-created: '2026-08-13'
-updated: '2026-08-13'
-last_updated: '2026-08-13'
+created: '2025-11-25'
+updated: '2025-11-25'
+last_updated: '2025-11-25'
 tags:
   - 读书笔记
 summary_zh: >-
@@ -16,7 +16,7 @@ original_sources:
     url: https://zhuanlan.zhihu.com/p/626412153
     published_at: '2023-05-03T03:44:09.000Z'
 imported_at: '2026-10-11'
-date: '2026-08-13 12:00:00'
+date: '2025-11-25 12:00:00'
 layout: post
 permalink: /writing/be-your-personal-best-reading-notes-zh/
 categories:

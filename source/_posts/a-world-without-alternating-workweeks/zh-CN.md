@@ -4,9 +4,9 @@ id: a-world-without-alternating-workweeks
 locale: zh-CN
 title: 在没有“大小周”的世界里
 status: published
-created: '2026-04-14'
-updated: '2026-04-14'
-last_updated: '2026-04-14'
+created: '2025-11-12'
+updated: '2025-11-12'
+last_updated: '2025-11-12'
 tags:
   - 个人成长
 summary_zh: >-
@@ -19,7 +19,7 @@ original_sources:
     url: https://zhuanlan.zhihu.com/p/388498788
     published_at: '2021-07-10T12:01:21.000Z'
 imported_at: '2026-10-11'
-date: '2026-04-14 12:00:00'
+date: '2025-11-12 12:00:00'
 layout: post
 permalink: /writing/a-world-without-alternating-workweeks-zh/
 categories:

@@ -4,9 +4,9 @@ id: returning-to-china-and-job-search
 locale: zh-CN
 title: 回国与求职复盘
 status: published
-created: '2026-02-10'
-updated: '2026-02-10'
-last_updated: '2026-02-10'
+created: '2025-11-03'
+updated: '2025-11-03'
+last_updated: '2025-11-03'
 tags:
   - 个人成长
 summary_zh: >-
@@ -19,7 +19,7 @@ original_sources:
     url: https://zhuanlan.zhihu.com/p/362501628
     published_at: '2021-04-05T17:00:01.000Z'
 imported_at: '2026-10-11'
-date: '2026-02-10 12:00:00'
+date: '2025-11-03 12:00:00'
 layout: post
 permalink: /writing/returning-to-china-and-job-search-zh/
 categories:

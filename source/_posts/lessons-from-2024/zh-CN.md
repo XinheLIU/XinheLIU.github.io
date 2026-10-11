@@ -4,9 +4,9 @@ id: lessons-from-2024
 locale: zh-CN
 title: 2024年的一些收获
 status: published
-created: '2026-09-29'
-updated: '2026-09-29'
-last_updated: '2026-09-29'
+created: '2025-11-30'
+updated: '2025-11-30'
+last_updated: '2025-11-30'
 tags:
   - 个人成长
 summary_zh: 龙年已过，蛇年开始。趁春节假期，记下了24年的一些感悟。
@@ -18,7 +18,7 @@ original_sources:
     url: https://zhuanlan.zhihu.com/p/20822551832
     published_at: '2025-01-31T04:37:57.000Z'
 imported_at: '2026-10-11'
-date: '2026-09-29 12:00:00'
+date: '2025-11-30 12:00:00'
 layout: post
 permalink: /writing/lessons-from-2024-zh/
 categories:

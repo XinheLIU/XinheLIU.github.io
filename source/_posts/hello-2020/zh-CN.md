@@ -4,9 +4,9 @@ id: hello-2020
 locale: zh-CN
 title: 你好2020
 status: published
-created: '2025-12-09'
-updated: '2025-12-09'
-last_updated: '2025-12-09'
+created: '2025-10-23'
+updated: '2025-10-23'
+last_updated: '2025-10-23'
 tags:
   - 个人成长
 summary_zh: 今天是新年的第一天，分享一下我对自己新一年的规划和设立的目标。希望通过这些规划，让在自己前两篇总结中所说做的不好的方面有所提高进步，同时能有所提高，离自己所想成为的人再进一步。
@@ -18,7 +18,7 @@ original_sources:
     url: https://zhuanlan.zhihu.com/p/100512402
     published_at: '2020-01-01T00:40:53.000Z'
 imported_at: '2026-10-11'
-date: '2025-12-09 12:00:00'
+date: '2025-10-23 12:00:00'
 layout: post
 permalink: /writing/hello-2020-zh/
 categories:

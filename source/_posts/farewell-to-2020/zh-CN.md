@@ -4,9 +4,9 @@ id: farewell-to-2020
 locale: zh-CN
 title: 再见，黑天鹅飞过的2020
 status: published
-created: '2026-01-15'
-updated: '2026-01-15'
-last_updated: '2026-01-15'
+created: '2025-10-29'
+updated: '2025-10-29'
+last_updated: '2025-10-29'
 tags:
   - 个人成长
 summary_zh: 2020，从新闻媒体，专栏著作到每个人的朋友圈，都是与过去很多年如此不同的一年；也许过去很多年回头看，也许它会渐渐变得和其他年份一样平平无奇，又或者更加惊心动魄，但我想对于我个人而言，多半仍然是难忘的一年。
@@ -18,7 +18,7 @@ original_sources:
     url: https://zhuanlan.zhihu.com/p/341166090
     published_at: '2020-12-31T16:24:23.000Z'
 imported_at: '2026-10-11'
-date: '2026-01-15 12:00:00'
+date: '2025-10-29 12:00:00'
 layout: post
 permalink: /writing/farewell-to-2020-zh/
 categories:

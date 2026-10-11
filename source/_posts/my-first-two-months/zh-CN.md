@@ -4,9 +4,9 @@ id: my-first-two-months
 locale: zh-CN
 title: 第一个“双月”
 status: published
-created: '2026-03-12'
-updated: '2026-03-12'
-last_updated: '2026-03-12'
+created: '2025-11-07'
+updated: '2025-11-07'
+last_updated: '2025-11-07'
 tags:
   - 个人成长
 summary_zh: 在这个国度中，必须不停地奔跑，才能使你保持在原地。---《爱丽丝镜中奇遇记》
@@ -18,7 +18,7 @@ original_sources:
     url: https://zhuanlan.zhihu.com/p/388495941
     published_at: '2021-07-10T11:55:17.000Z'
 imported_at: '2026-10-11'
-date: '2026-03-12 12:00:00'
+date: '2025-11-07 12:00:00'
 layout: post
 permalink: /writing/my-first-two-months-zh/
 categories:

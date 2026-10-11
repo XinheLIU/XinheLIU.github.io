@@ -4,9 +4,9 @@ id: farewell-to-2019-part-2
 locale: zh-CN
 title: 告别2019(下）
 status: published
-created: '2025-11-18'
-updated: '2025-11-18'
-last_updated: '2025-11-18'
+created: '2025-10-19'
+updated: '2025-10-19'
+last_updated: '2025-10-19'
 tags:
   - 个人成长
 summary_zh: 承接上半篇，今天谈谈自己没有做好和没有必要做的事情。回顾过去，遗憾的往往是没做好的事情比做成的事情多出不少，而更多的时间花费在了没有必要做的事情上。因此很多时候，反思往往比精进更容易带来进步，少犯错误比多做事情更加重要。
@@ -18,7 +18,7 @@ original_sources:
     url: https://zhuanlan.zhihu.com/p/100508009
     published_at: '2019-12-31T20:27:52.000Z'
 imported_at: '2026-10-11'
-date: '2025-11-18 12:00:00'
+date: '2025-10-19 12:00:00'
 layout: post
 permalink: /writing/farewell-to-2019-part-2-zh/
 categories:

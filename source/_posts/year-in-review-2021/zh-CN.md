@@ -4,9 +4,9 @@ id: year-in-review-2021
 locale: zh-CN
 title: 2021年度总结
 status: published
-created: '2026-05-19'
-updated: '2026-05-19'
-last_updated: '2026-05-19'
+created: '2025-11-16'
+updated: '2025-11-16'
+last_updated: '2025-11-16'
 tags:
   - 个人成长
 summary_zh: >-
@@ -16,7 +16,7 @@ original_sources:
     url: https://mp.weixin.qq.com/s/el9s1wlCjbWw-Y30Xy0u5A
     published_at: Feb 2, 2022, 12:08 AM
 imported_at: '2026-10-11'
-date: '2026-05-19 12:00:00'
+date: '2025-11-16 12:00:00'
 layout: post
 permalink: /writing/year-in-review-2021-zh/
 categories:
