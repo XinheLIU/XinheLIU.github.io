@@ -1,6 +1,12 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
+id: working-harder-growing-mediocre
+locale: en
+status: published
+created: '2026-10-11'
+updated: '2026-10-11'
 title: "The Efficient Road to No Where: Why Working Harder Can Keep You Mediocre"
-date: 2026-10-11 10:00:00
+date: '2026-10-11 10:00:00'
 layout: post
 permalink: /writing/working-harder-growing-mediocre/
 categories:
@@ -14,7 +20,11 @@ public_focus: Personal career reflection, based on a reading of Wu Bofan's Cogni
 confidentiality_safe: true
 site_locale: en
 lang_switch: /writing/working-harder-growing-mediocre-zh/
-last_updated: 2026-10-11
+last_updated: '2026-10-11'
+original_date: "2026-10-11 10:00:00"
+original_created: "2026-10-11"
+original_updated: "2026-10-11"
+original_last_updated: "2026-10-11"
 ---
 
 # The Efficient Road to No Where: Why Working Harder Can Keep You Mediocre

@@ -1,13 +1,14 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: Computational Advertising (2) Computational Ad System
-date: 2024-07-30 19:33:48
+date: '2025-09-12 19:33:48'
 permalink: /en/ads/intro-2/
 categories:
   - Technology
 tags:
   - Ads
   - AI & Machine Learning
-updated: 2024-12-12 14:30:00
+updated: '2025-09-12'
 summary_en: A technical walkthrough of ad-system architecture, candidate generation, ranking, modeling, and engineering constraints.
 summary_zh: 从召回、建模、排序到工程约束，拆解计算广告系统的技术结构。
 topic_cluster: ads-systems
@@ -17,7 +18,11 @@ featured_asset: /ads/intro-2/Ads-Model-HNSW.png
 confidentiality_safe: true
 site_locale: en
 lang_switch: /ads/intro-2/
-last_updated: 2026-05-31
+last_updated: '2025-09-12'
+created: '2025-09-12'
+original_date: "2024-07-30 19:33:48"
+original_updated: "2024-12-12 14:30:00"
+original_last_updated: "2026-05-31"
 ---
 
 - [Ad System Overview](#ad-system-overview)

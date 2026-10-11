@@ -1,13 +1,14 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: 推荐系统101(2)推荐策略
-date: 2023-12-14 12:00:00
+date: '2025-05-06 12:00:00'
 permalink: /recsys/101-intro-2/
 categories:
   - 技术
 tags:
   - 搜广推
   - 人工智能和机器学习
-updated: 2024-12-14 13:30:00
+updated: '2025-05-06'
 summary_en: A practical overview of recommendation strategies, from matching objectives to ranking and user experience tradeoffs.
 summary_zh: 从目标设定到排序与体验平衡，整理推荐策略的核心思路。
 topic_cluster: recommendation
@@ -15,7 +16,11 @@ public_focus: Public-safe discussion of recommendation strategy, user value, and
 confidentiality_safe: true
 site_locale: zh-CN
 lang_switch: /en/recsys/101-intro-2/
-last_updated: 2026-05-31
+last_updated: '2025-05-06'
+created: '2025-05-06'
+original_date: "2023-12-14 12:00:00"
+original_updated: "2024-12-14 13:30:00"
+original_last_updated: "2026-05-31"
 ---
 
 - [推荐系统三要素：用户、信息、平台的协同演进](#推荐系统三要素用户信息平台的协同演进)

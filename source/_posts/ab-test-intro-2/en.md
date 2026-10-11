@@ -1,12 +1,13 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: A/B Testing (2) Challenges in A/B Testing
-date: 2024-06-20 18:33:48
+date: '2025-07-31 18:33:48'
 permalink: /en/AB-Test/intro-2/
 categories:
   - Data Science
 tags:
   - A/B Testing
-updated: 2024-12-14 13:30:00
+updated: '2025-07-31'
 summary_en: A deeper look at difficult A/B testing cases such as interference, long-term effects, triggering, surrogate metrics, and cluster design.
 summary_zh: 讨论 A/B 实验中的复杂问题，如干扰、长期效应、触发分析、替代指标与分群设计。
 topic_cluster: experimentation
@@ -16,7 +17,11 @@ featured_asset: /AB-Test/intro-2/AB-Test-CCD.png
 confidentiality_safe: true
 site_locale: en
 lang_switch: /AB-Test/intro-2/
-last_updated: 2026-05-31
+last_updated: '2025-07-31'
+created: '2025-07-31'
+original_date: "2024-06-20 18:33:48"
+original_updated: "2024-12-14 13:30:00"
+original_last_updated: "2026-05-31"
 ---
 
 # Challenges in A/B Testing

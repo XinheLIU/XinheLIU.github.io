@@ -1,13 +1,14 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: Recommender Systems 101 (3) Algorithmic Frontiers
-date: 2023-12-15 12:00:00
+date: '2025-05-28 12:00:00'
 permalink: /en/recsys/101-intro-3/
 categories:
   - Technology
 tags:
   - Recommendation
   - AI & Machine Learning
-updated: 2024-12-16 13:30:00
+updated: '2025-05-28'
 summary_en: A survey of advanced recommendation models, multi-objective optimization, representation learning, and real-time system evolution.
 summary_zh: 梳理推荐系统中的前沿算法，包括多目标优化、兴趣表征和实时性提升。
 topic_cluster: recommendation
@@ -16,7 +17,11 @@ featured_asset: /recsys/101-intro-3/多目标-1.png
 confidentiality_safe: true
 site_locale: en
 lang_switch: /recsys/101-intro-3/
-last_updated: 2026-05-31
+last_updated: '2025-05-28'
+created: '2025-05-28'
+original_date: "2023-12-15 12:00:00"
+original_updated: "2024-12-16 13:30:00"
+original_last_updated: "2026-05-31"
 ---
 
 - [Ranking Model Iterations](#ranking-model-iterations)

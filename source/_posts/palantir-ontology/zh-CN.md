@@ -1,6 +1,7 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: "Palantir Ontology 深度解构：当本体从「描述世界」走向「驱动世界」"
-date: 2026-07-18 10:00:00
+date: '2026-09-17 10:00:00'
 layout: post
 permalink: /writing/palantir-ontology-zh/
 categories:
@@ -17,8 +18,12 @@ confidentiality_safe: true
 site_locale: zh-CN
 lang_switch: /writing/palantir-ontology/
 featured_asset: /images/palantir-ontology/ontology-system.png
-last_updated: 2026-07-18
+last_updated: '2026-09-17'
 work_key: palantir-article
+created: '2026-09-17'
+updated: '2026-09-17'
+original_date: "2026-07-18 10:00:00"
+original_last_updated: "2026-07-18"
 ---
 
 # Palantir Ontology 深度解构：当本体从"描述世界"走向"驱动世界"
