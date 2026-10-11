@@ -230,7 +230,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ad-strategy"><a class="markdownIt-Anchor" href="#ad-strategy"></a> Ad Strategy</h1>
+                <h1>Ad Strategy</h1>
 <ul>
 <li><a href="#ad-strategy">Ad Strategy</a>
 <ul>
@@ -273,14 +273,14 @@
 </ul>
 </li>
 </ul>
-<h2 id="traffic-strategy"><a class="markdownIt-Anchor" href="#traffic-strategy"></a> Traffic Strategy</h2>
+<h2 id="Traffic-Strategy">Traffic Strategy</h2>
 <p><strong>Core Goal</strong></p>
 <ul>
 <li>Maximize User Lifetime Value (LTV), balancing user retention with monetization efficiency.</li>
 <li>Traffic strategy operates on recommendation principles:
 <ul>
 <li><em>Ad-load control</em>: Multi-objective conversions, value exchanges, and feed blending (incorporating multiple formats and soft/hard ads).</li>
-<li><em>Blending</em>: Controlling ad intervals (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>d</mi><mi>g</mi><mi>a</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">adgap</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">a</span><span class="mord mathnormal">p</span></span></span></span>) and density (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>d</mi><mi>l</mi><mi>o</mi><mi>a</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">adload</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span></span></span></span>) to protect user experience.</li>
+<li><em>Blending</em>: Controlling ad intervals ($adgap$) and density ($adload$) to protect user experience.</li>
 <li><em>Long-term topics</em>:
 <ul>
 <li>Sourcing: Creative and content quality.</li>
@@ -301,7 +301,7 @@
 <li><strong>Frequency Capping</strong>
 <ul>
 <li><em>Purpose</em>: Preventing repetitive ads from degrading user experience.</li>
-<li><em>Attempts</em>: Multi-placement joint capping <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> single placement capping; similarity-based capping; long-term capping; down-ranking similar creatives via <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>i</mi><mi>d</mi><mi>d</mi><mi>e</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>c</mi><mi>o</mi><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">hidden\_cost</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">h</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span></span></span></span> penalties.</li>
+<li><em>Attempts</em>: Multi-placement joint capping $\to$ single placement capping; similarity-based capping; long-term capping; down-ranking similar creatives via $hidden_cost$ penalties.</li>
 <li><em>Debates</em>: Rigid rules vs. dynamic rules; creative diversity impacts; using client IDs for capping raises fairness issues.</li>
 </ul>
 </li>
@@ -322,14 +322,14 @@
 </ul>
 </li>
 </ul>
-<h3 id="user-experience-strategy"><a class="markdownIt-Anchor" href="#user-experience-strategy"></a> User Experience Strategy</h3>
+<h3 id="User-Experience-Strategy">User Experience Strategy</h3>
 <p>How do we balance ad revenue and user experience?</p>
 <ul>
 <li>Validate the direct impact of the strategy in experiments, rather than trying to resolve intermediate mediation questions (e.g. measure actual revenue drops when expanding ad-load, rather than comparing content qualities).</li>
 <li><em>Common Pitfalls</em>:
 <ul>
-<li>Extrapolating marginal returns from static historical logs (current content experience <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo mathvariant="normal">≠</mo></mrow><annotation encoding="application/x-tex">\neq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> additional content experience).</li>
-<li>Drawing un-actionable conclusions (e.g. organic content has better experience <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo mathvariant="normal">≠</mo></mrow><annotation encoding="application/x-tex">\neq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="inner"><span class="mrel"></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> expanding organic feeds will improve retention).</li>
+<li>Extrapolating marginal returns from static historical logs (current content experience $\neq$ additional content experience).</li>
+<li>Drawing un-actionable conclusions (e.g. organic content has better experience $\neq$ expanding organic feeds will improve retention).</li>
 </ul>
 </li>
 </ul>
@@ -399,7 +399,7 @@
     D --> D2[E-commerce marketplace factors]
 </div>
 
-<h3 id="visual-layout-strategy"><a class="markdownIt-Anchor" href="#visual-layout-strategy"></a> Visual &amp; Layout Strategy</h3>
+<h3 id="Visual-Layout-Strategy">Visual &amp; Layout Strategy</h3>
 <p>Integrating ad formats and visual elements into native product layouts to boost performance:</p>
 <ul>
 <li>Enhancing ad click-through rates and conversion rates.</li>
@@ -441,7 +441,7 @@
 <li><strong>Interactive Formats</strong>: AR, 3D overlays, and screen gestures.</li>
 <li><strong>UX Components</strong>: Redesigning app redirection funnels and deep-linking buttons.</li>
 </ul>
-<h2 id="delivery-strategy"><a class="markdownIt-Anchor" href="#delivery-strategy"></a> Delivery Strategy</h2>
+<h2 id="Delivery-Strategy">Delivery Strategy</h2>
 <div class="mermaid">
   graph LR
     I[Core Delivery Strategies] --> J[Stability]
@@ -452,7 +452,7 @@
     I --> O[Ad Quality controls]
 </div>
 
-<h3 id="cold-start"><a class="markdownIt-Anchor" href="#cold-start"></a> Cold Start</h3>
+<h3 id="Cold-Start">Cold Start</h3>
 <p>What problem are we solving?</p>
 <table>
 <thead>
@@ -506,7 +506,7 @@
 </li>
 <li><strong>Boost (Priority Auction) Mechanisms</strong>
 <ul>
-<li><em>Methods</em>: Adding positive constants or coefficients to the ad’s <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">eCPM</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>i</mi><mi>d</mi><mi>d</mi><mi>e</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>c</mi><mi>o</mi><mi>s</mi><mi>t</mi><mo>=</mo><mi>c</mi><mi>o</mi><mi>n</mi><mi>s</mi><mi>t</mi><mo>×</mo><mi>b</mi><mi>o</mi><mi>o</mi><mi>s</mi><mi>t</mi><mi mathvariant="normal">_</mi><mi>c</mi><mi>o</mi><mi>e</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">hidden\_cost = const \times boost\_coef</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">h</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69841em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">b</span><span class="mord mathnormal">o</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span></span></span></span>).</li>
+<li><em>Methods</em>: Adding positive constants or coefficients to the ad’s $eCPM$ ($hidden_cost = const \times boost_coef$).</li>
 <li><em>Impact</em>: Artificially elevates new ads in auctions, speeding up exploration.</li>
 </ul>
 </li>
@@ -567,19 +567,19 @@
 </tr>
 </tbody>
 </table>
-<h3 id="stability"><a class="markdownIt-Anchor" href="#stability"></a> Stability</h3>
+<h3 id="Stability">Stability</h3>
 <p>From the advertiser’s perspective, a mature delivery system must be predictable in both cost and pacing. Predictability involves: <strong>delivery</strong> (achieving cost targets) and <strong>stability</strong> (maintaining consistent costs across periods).</p>
 <p>In cost stability, our goal is to keep the daily CPA within target bounds. In delivery stability, we target reducing abrupt drops in delivery volume, protecting campaign lifespans.</p>
-<h4 id="cost-stability"><a class="markdownIt-Anchor" href="#cost-stability"></a> Cost Stability</h4>
-<p><strong>Core Problem</strong>: Ensuring CPA meets the advertiser’s targets; reducing bid-CPA fluctuations.<br />
+<h4 id="Cost-Stability">Cost Stability</h4>
+<p><strong>Core Problem</strong>: Ensuring CPA meets the advertiser’s targets; reducing bid-CPA fluctuations.<br>
 <strong>Solutions</strong>:</p>
 <ol>
 <li><strong>Model Bias Correction</strong>: Improving real-time log joining to reduce hour-level data delays; using multi-dimensional Isotonic Regression calibration.</li>
-<li><strong>Pacing Control</strong>: Upgrading PID and MPC control loops to adjust <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>a</mi><mi>n</mi><mi>k</mi><mi mathvariant="normal">_</mi><mi>b</mi><mi>i</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">rank\_bid</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">b</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span></span></span></span> dynamically based on real-time CPA ratios.</li>
+<li><strong>Pacing Control</strong>: Upgrading PID and MPC control loops to adjust $rank_bid$ dynamically based on real-time CPA ratios.</li>
 <li><strong>Vertical Focus</strong>: Deploying dedicated models and tighter control loops for high-sensitivity verticals (e.g. financial leads, gaming pay events).</li>
 </ol>
-<h4 id="delivery-stability"><a class="markdownIt-Anchor" href="#delivery-stability"></a> Delivery Stability</h4>
-<p><strong>Core Problem</strong>: Extending campaign lifespans, reducing abrupt drops in delivery.<br />
+<h4 id="Delivery-Stability">Delivery Stability</h4>
+<p><strong>Core Problem</strong>: Extending campaign lifespans, reducing abrupt drops in delivery.<br>
 <strong>Solutions</strong>:</p>
 <ol>
 <li><strong>Drop Diagnosis &amp; Prediction</strong>:
@@ -587,7 +587,7 @@
 <li>Hour-level drop prediction models (Precision=0.87, Recall=0.82).</li>
 <li><em>Diagnostics</em>:
 <ul>
-<li><strong>System factors</strong> (50%): Drop in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">eCPM</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> competitiveness, pCTR drop, or pCVR drop.</li>
+<li><strong>System factors</strong> (50%): Drop in $eCPM$ competitiveness, pCTR drop, or pCVR drop.</li>
 <li><strong>Uncertain factors</strong> (45%): Model variance, competitive spikes, or sudden brand budget spikes.</li>
 <li><strong>Advertiser actions</strong> (5%): Manual bid cuts, budget reductions, or targeting edits.</li>
 <li><strong>Environmental factors</strong>: Target audience saturation, material fatigue, or market-level competition.</li>
@@ -619,7 +619,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="model-optimizations"><a class="markdownIt-Anchor" href="#model-optimizations"></a> Model Optimizations</h4>
+<h4 id="Model-Optimizations">Model Optimizations</h4>
 <ul>
 <li><strong>Catastrophic Forgetting Mitigation</strong>
 <ul>
@@ -641,7 +641,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="bidding-strategy"><a class="markdownIt-Anchor" href="#bidding-strategy"></a> Bidding Strategy</h3>
+<h3 id="Bidding-Strategy">Bidding Strategy</h3>
 <p>Bidding strategies include advertiser-facing products (TargetCost, NoBid) and platform-facing optimization strategies:</p>
 <ul>
 <li><strong>Cold Start Bidding</strong>: Elevating bids during the learning phase to accelerate exploration (more direct than ranking boosts, and shifts some testing cost to the advertiser).</li>
@@ -649,7 +649,7 @@
 <ul>
 <li>Dynamically adjusting bids based on proprietary models to capture deep conversions.</li>
 <li>Applied in joint modeling, multi-touch attribution, and campaign inheritance.</li>
-<li>Resolves vertical industry limitations in universal models; allows deep conversions (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>r</mi><mi>i</mi><mi>v</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi mathvariant="normal">_</mi><mi>d</mi><mi>e</mi><mi>e</mi><mi>p</mi><mi mathvariant="normal">_</mi><mi>c</mi><mi>v</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">private\_deep\_cvr</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">e</span><span class="mord mathnormal">p</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span>) to guide bid competitiveness.</li>
+<li>Resolves vertical industry limitations in universal models; allows deep conversions ($private_deep_cvr$) to guide bid competitiveness.</li>
 </ul>
 </li>
 <li><strong>Auxiliary Event Bidding</strong>:
@@ -666,8 +666,8 @@
 </li>
 </ul>
 <p>In summary, bidding strategies act as system-level compensators to optimize campaign delivery, implemented by multiplying raw bids by dynamic correction factors.</p>
-<h2 id="conversions-and-attribution"><a class="markdownIt-Anchor" href="#conversions-and-attribution"></a> Conversions and Attribution</h2>
-<h3 id="conversions"><a class="markdownIt-Anchor" href="#conversions"></a> Conversions</h3>
+<h2 id="Conversions-and-Attribution">Conversions and Attribution</h2>
+<h3 id="Conversions">Conversions</h3>
 <ul>
 <li>Defining the event the advertiser is willing to pay for.</li>
 <li>Platforms continue to deepen conversion targets to align with advertiser ROI.</li>
@@ -707,7 +707,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="attribution"><a class="markdownIt-Anchor" href="#attribution"></a> Attribution</h3>
+<h3 id="Attribution">Attribution</h3>
 <p>Attribution determines how conversion credit is distributed across touchpoints, shaping advertiser ROI assessments, channel budgets, platform billing, and model training.</p>
 <p>Key Aspects:</p>
 <ol>
@@ -731,7 +731,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="creative-and-intelligent-delivery"><a class="markdownIt-Anchor" href="#creative-and-intelligent-delivery"></a> Creative and Intelligent Delivery</h2>
+<h2 id="Creative-and-Intelligent-Delivery">Creative and Intelligent Delivery</h2>
 <p>Helping advertisers create high-performing ads:</p>
 <ul>
 <li><strong>Creative Sourcing &amp; Management</strong>:
@@ -754,7 +754,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="creative-sourcing-management"><a class="markdownIt-Anchor" href="#creative-sourcing-management"></a> Creative Sourcing &amp; Management</h3>
+<h3 id="Creative-Sourcing-Management">Creative Sourcing &amp; Management</h3>
 <ul>
 <li><strong>Asset Management</strong>: Sourcing lists, uploads/deletes, tagging, and cross-account asset sharing.</li>
 <li><strong>Asset Taxonomy</strong>: First-run, high-quality, AIGC, low-quality, low-efficiency, and duplicates.</li>
@@ -762,20 +762,20 @@
 <li><strong>Distribution</strong>: Creative pre-auditing, player diagnostic logs.</li>
 </ul>
 <p><em>Goal</em>: An all-in-one smart creation portal blending AIGC generation with performance analytics.</p>
-<h2 id="asset-data-retrieval-capabilities"><a class="markdownIt-Anchor" href="#asset-data-retrieval-capabilities"></a> Asset Data Retrieval Capabilities</h2>
+<h2 id="Asset-Data-Retrieval-Capabilities">Asset Data Retrieval Capabilities</h2>
 <ul>
 <li>Retrieval by metadata and category tags.</li>
 <li>Retrieval by asset owners.</li>
 <li>Linking assets with active campaigns and creative instances.</li>
 </ul>
-<hr />
-<h3 id="diagnostics"><a class="markdownIt-Anchor" href="#diagnostics"></a> Diagnostics</h3>
+<hr>
+<h3 id="Diagnostics">Diagnostics</h3>
 <p>Platform diagnostic tools help advertisers troubleshoot delivery bottlenecks:</p>
 <ul>
 <li><strong>Systemic issues</strong>:
 <ul>
 <li>Tracing the funnel (identifying where candidates are filtered out).</li>
-<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>C</mi><mi>P</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">eCPM</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> competitiveness, bid multipliers, and model estimation bias.</li>
+<li>$eCPM$ competitiveness, bid multipliers, and model estimation bias.</li>
 <li>Campaign pacing and cold start stages.</li>
 </ul>
 </li>
@@ -786,7 +786,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="intelligent-automated-delivery"><a class="markdownIt-Anchor" href="#intelligent-automated-delivery"></a> Intelligent / Automated Delivery</h3>
+<h3 id="Intelligent-Automated-Delivery">Intelligent / Automated Delivery</h3>
 <table>
 <thead>
 <tr>

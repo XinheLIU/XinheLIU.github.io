@@ -244,7 +244,7 @@
 </li>
 <li><a href="#reference">Reference</a></li>
 </ul>
-<h3 id="history-of-recommender-systems"><a class="markdownIt-Anchor" href="#history-of-recommender-systems"></a> History of Recommender Systems</h3>
+<h3 id="History-of-Recommender-Systems">History of Recommender Systems</h3>
 <p>A <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Recommender_system">recommender system</a> is an information filtering system that predicts user “ratings” or “preferences” for items.</p>
 <p>A common recommender system architecture:</p>
 <ul>
@@ -281,7 +281,7 @@
 <li><strong>Deep Learning Era (Mid-2010s to Present)</strong>: Utilizing deep learning to extract rich features, incorporating user behavior sequences and contextual information. Key systems: YouTube’s video recommendations, TikTok’s short video recommendations, Instagram’s content recommendations.</li>
 <li><strong>Cloud &amp; SaaS Era (2020s to Present)</strong>: Recommendation algorithms have become standardized cloud services available via APIs. Key services: AWS Personalize, Google Recommendations AI, Azure Personalizer. These package common algorithms (CF, content-based, hybrid) while protecting user privacy.</li>
 </ol>
-<h3 id="collaborative-filtering-algorithms"><a class="markdownIt-Anchor" href="#collaborative-filtering-algorithms"></a> Collaborative Filtering Algorithms</h3>
+<h3 id="Collaborative-Filtering-Algorithms">Collaborative Filtering Algorithms</h3>
 <p>Collaborative Filtering (CF) is a foundational algorithm in recommender systems. It operates on user behavior data to recommend items and has had a profound impact. CF established the core concept of utilizing user interaction histories, laying the theoretical foundation for matrix factorization, factorization machines (FM), and deep learning recommendation models. The User-Item interaction matrix became the standard way to organize recommendation data, and CF’s approaches to handling sparsity and cold start inspired hybrid and multimodal recommendation methods. Modern systems like YouTube’s deep neural networks and TikTok’s multi-objective recommendations still carry the legacy of CF.</p>
 <p>Most standardized recommendation services today (such as Volcano Engine) are heavily built upon collaborative filtering principles.</p>
 <p>There are three main types of Collaborative Filtering:</p>
@@ -290,7 +290,7 @@
 <li><strong>User-based Collaborative Filtering</strong>: Operates on the principle that “if a user has similar tastes to a group of people, they will likely enjoy items that those people like.” It finds similar users based on interaction history and recommends items they liked that the target user has not yet seen. For example: “Users who bought this also bought…”</li>
 <li><strong>Item-based Collaborative Filtering</strong>: Operates on the principle that “users are likely to enjoy items similar to what they have liked in the past.” It analyzes item similarities based on user interaction co-occurrences and recommends items similar to the user’s highly-rated items. For example, recommending accessory products that are often purchased together with a main product.</li>
 </ol>
-<h2 id="modern-recommender-systems"><a class="markdownIt-Anchor" href="#modern-recommender-systems"></a> Modern Recommender Systems</h2>
+<h2 id="Modern-Recommender-Systems">Modern Recommender Systems</h2>
 <p>Modern recommender systems follow a <strong>data-stream-first design principle</strong>, providing high flexibility.</p>
 <p>The core workflow is:</p>
 <ol>
@@ -324,8 +324,8 @@
 <img src="/en/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-1.png" class="" title="Image source: Data-Fun">
 <img src="/en/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84-2.png" class="" title="Tiered view of Recommendation Architecture">
 <img src="/en/recsys/101-intro-1/%E5%BE%AE%E5%8D%9A-%E6%8E%A8%E8%8D%90%E6%9E%B6%E6%9E%84.png" class="" title="Weibo" alt="s Recommendation Architecture">
-<h2 id="recommender-system-architecture"><a class="markdownIt-Anchor" href="#recommender-system-architecture"></a> Recommender System Architecture</h2>
-<h2 id="retrieval-module-recall"><a class="markdownIt-Anchor" href="#retrieval-module-recall"></a> Retrieval Module (Recall)</h2>
+<h2 id="Recommender-System-Architecture">Recommender System Architecture</h2>
+<h2 id="Retrieval-Module-Recall">Retrieval Module (Recall)</h2>
 <p>The goal of the retrieval module is to quickly filter out candidate subsets related to user interests from the massive candidate pool, achieving high recall at low computational costs. Main features:</p>
 <ol>
 <li><strong>Efficiency First</strong>: Processes millions or billions of candidates, requiring highly efficient algorithms.</li>
@@ -412,7 +412,7 @@
 </ul>
 </li>
 </ol>
-<h3 id="pre-ranking-module-coarse-ranking"><a class="markdownIt-Anchor" href="#pre-ranking-module-coarse-ranking"></a> Pre-ranking Module (Coarse Ranking)</h3>
+<h3 id="Pre-ranking-Module-Coarse-Ranking">Pre-ranking Module (Coarse Ranking)</h3>
 <p>The goal of the pre-ranking module is to perform a more refined scoring on the candidates filtered out during retrieval, bridging the gap between retrieval and ranking.</p>
 <p>Pre-ranking balances model complexity and computational efficiency, processing hundreds to thousands of candidates and outputting the top subset for the fine ranking stage. Main features:</p>
 <ol>
@@ -447,7 +447,7 @@
 </li>
 </ol>
 <img src="/en/recsys/101-intro-1/%E7%B2%97%E6%8E%92.png" class="" title="Pre-ranking Model Evolution and Fusion">
-<h3 id="fine-ranking"><a class="markdownIt-Anchor" href="#fine-ranking"></a> Fine Ranking</h3>
+<h3 id="Fine-Ranking">Fine Ranking</h3>
 <p>The fine ranking module is the core sorting layer. It scores the candidates output by the pre-ranking stage, directly determining the quality of the final recommendation list. Main features:</p>
 <ol>
 <li><strong>High Precision First</strong>: Prioritizes predictive accuracy; it is the core decision node.</li>
@@ -555,7 +555,7 @@
 <li><strong>Left Track</strong>: Attention-based sequence models, including Deep Interest Network (DIN), Deep Interest Evolution Network (DIEN), Multi-channel Interest Merge Network (MIMN), Deep Session Interest Network (DSIN), and Search Interest Model (SIM), focusing on long-sequence modeling.</li>
 </ul>
 <p>Fine ranking models are heading towards multi-module, multi-task, multi-objective, and multi-modal integration.</p>
-<h3 id="re-ranking-blending"><a class="markdownIt-Anchor" href="#re-ranking-blending"></a> Re-ranking / Blending</h3>
+<h3 id="Re-ranking-Blending">Re-ranking / Blending</h3>
 <p>Re-ranking is the final stage. It adjusts and optimizes the candidate list output by the fine ranking stage to maximize overall platform metrics. Unlike fine ranking, re-ranking handles:</p>
 <ol>
 <li><strong>Global Optimization</strong>: Considering the diversity, novelty, and coverage of the list as a whole.
@@ -633,7 +633,7 @@
 </li>
 </ol>
 <img src="/en/recsys/101-intro-1/%E9%87%8D%E6%8E%92.png" class="" title="Re-ranking Model Evolution">
-<h3 id="data-layer"><a class="markdownIt-Anchor" href="#data-layer"></a> Data Layer</h3>
+<h3 id="Data-Layer">Data Layer</h3>
 <p>The data layer is the foundation, collecting, processing, and storing data to support upstream algorithms. A mature data layer contains:</p>
 <ol>
 <li><strong>Data Collection System</strong>
@@ -681,7 +681,7 @@
 <li><strong>Scale</strong>: Storing petabytes of historical logs and supporting millions of QPS under millisecond read latencies.</li>
 <li><strong>Privacy</strong>: Data masking, access control, and compliance with GDPR, CCPA, etc.</li>
 </ol>
-<h3 id="evaluation-of-recommender-systems"><a class="markdownIt-Anchor" href="#evaluation-of-recommender-systems"></a> Evaluation of Recommender Systems</h3>
+<h3 id="Evaluation-of-Recommender-Systems">Evaluation of Recommender Systems</h3>
 <p>Evaluation ensures system efficacy and guides iterative optimization, split into online business metrics and离线 model metrics:</p>
 <p>Online / Business Metrics</p>
 <p>Directly measures real-world impact and platform value:</p>
@@ -755,7 +755,7 @@
 <li><strong>Continuous Monitoring</strong>: Detecting model drift and data anomalies in real-time.</li>
 </ol>
 <img src="/en/recsys/101-intro-1/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F-%E6%8C%87%E6%A0%87.png" class="" title="Recommender System Metrics">
-<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<h2 id="Reference">Reference</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.datafuntalk.com/p/t_pc/course_pc_detail/image_text/i_64365c0ae4b0cf39e6ba78bc">DataFunTalk: Recommender System Survey</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.datafuntalk.com/live_pc/l_643b8cbae4b09d72378d91d0">DataFunTalk: Weibo Real-time Large Model Evolution</a></li>
