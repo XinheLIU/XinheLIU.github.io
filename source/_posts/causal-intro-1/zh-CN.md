@@ -1,12 +1,13 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: 因果推断（1）什么是因果推断
-date: 2024-01-18 18:33:48
+date: '2025-06-18 18:33:48'
 permalink: /causal/intro-1/
 categories:
   - 数据科学
 tags:
   - 因果推断
-updated: 2024-12-14 13:30:00
+updated: '2025-06-18'
 summary_en: An introduction to causal inference, including confounding, selection bias, counterfactual thinking, and the role of randomized experiments.
 summary_zh: 介绍因果推断的基本问题，包括混杂偏差、选择偏差、反事实思维和随机实验。
 topic_cluster: causal-measurement
@@ -16,7 +17,11 @@ featured_asset: /causal/intro-1/confounding-bias.png
 confidentiality_safe: true
 site_locale: zh-CN
 lang_switch: /en/causal/intro-1/
-last_updated: 2026-05-31
+last_updated: '2025-06-18'
+created: '2025-06-18'
+original_date: "2024-01-18 18:33:48"
+original_updated: "2024-12-14 13:30:00"
+original_last_updated: "2026-05-31"
 ---
 
 - [因果推断的历史](#因果推断的历史)

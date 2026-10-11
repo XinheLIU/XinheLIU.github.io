@@ -73,9 +73,9 @@
       }
       columns.push('<div class="contribution-column"><span class="activity-month">' + label + '</span>' + cells.join('') + '</div>');
     }
-    var stats = isChinese ? summary.activeDays + ' 个写作日 · ' + summary.created + ' 篇创作 · ' + summary.updated + ' 次更新' :
+    var stats = isChinese ? summary.activeDays + ' 个写作日 · ' + summary.created + ' 篇发布 · ' + summary.updated + ' 次更新' :
       summary.activeDays + (summary.activeDays === 1 ? ' writing day · ' : ' writing days · ') + summary.created +
-      (summary.created === 1 ? ' piece created · ' : ' pieces created · ') + summary.updated + (summary.updated === 1 ? ' update' : ' updates');
+      (summary.created === 1 ? ' piece published · ' : ' pieces published · ') + summary.updated + (summary.updated === 1 ? ' update' : ' updates');
     var recent = [];
     var seen = new Set();
     summary.events.forEach(function (event) {
@@ -84,7 +84,7 @@
       recent.push(event);
     });
     var items = recent.map(function (event) {
-      var label = event.kind === 'created' ? (isChinese ? '创作' : 'Created') : (isChinese ? '更新' : 'Updated');
+      var label = event.kind === 'created' ? (isChinese ? '发布' : 'Published') : (isChinese ? '更新' : 'Updated');
       return '<li><time datetime="' + event.date + '">' + event.date + '</time><div><span class="activity-repo">' +
         label + '</span><a href="' + escapeHtml(event.url) + '">' + escapeHtml(event.title) + '</a></div></li>';
     });
@@ -94,7 +94,7 @@
       '<div class="contribution-legend"><span>' + (isChinese ? '少' : 'Less') + '</span>' +
       [0,1,2,3,4].map(function (level) { return '<span class="contribution-cell level-' + level + '" aria-hidden="true"></span>'; }).join('') +
       '<span>' + (isChinese ? '多' : 'More') + '</span></div>' +
-      '<p class="contribution-note">' + (isChinese ? '博客、笔记与书稿，按原始创作和更新日期记录。' : 'Essays, notes, and book chapters, dated by their original creation and revision.') + '</p>' +
+      '<p class="contribution-note">' + (isChinese ? '博客、笔记与书稿，按发布与更新日期记录，包含历史文章收录。' : 'Essays, notes, and book chapters, dated by publication and revision, including archived articles added to the site.') + '</p>' +
       '<h3 class="activity-recent-title">' + (isChinese ? '这段时间的写作' : 'Writing in this period') + '</h3>' +
       (items.length ? '<ul class="activity-recent">' + items.join('') + '</ul>' : '<p>' + (isChinese ? '这段时间暂无写作记录。' : 'No writing recorded in this period.') + '</p>');
   }

@@ -1,6 +1,7 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: "The AI-Native Organization: From Traditional Structure to Super Leverage"
-date: 2026-06-08 10:00:00
+date: '2026-06-25 10:00:00'
 layout: post
 permalink: /writing/ai-native-org/
 categories:
@@ -15,7 +16,11 @@ public_focus: Public-safe essay on AI-native organizational design and transform
 confidentiality_safe: true
 site_locale: en
 lang_switch: /writing/ai-native-org-zh/
-last_updated: 2026-06-08
+last_updated: '2026-06-25'
+created: '2026-06-25'
+updated: '2026-06-25'
+original_date: "2026-06-08 10:00:00"
+original_last_updated: "2026-06-08"
 ---
 
 # The AI-Native Organization: From Traditional Structure to Super Leverage

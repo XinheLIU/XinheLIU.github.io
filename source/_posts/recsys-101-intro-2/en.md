@@ -1,13 +1,14 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: Recommender Systems 101 (2) Recommendation Strategy
-date: 2023-12-14 12:00:00
+date: '2025-05-06 12:00:00'
 permalink: /en/recsys/101-intro-2/
 categories:
   - Technology
 tags:
   - Recommendation
   - AI & Machine Learning
-updated: 2024-12-14 13:30:00
+updated: '2025-05-06'
 summary_en: A practical overview of recommendation strategies, from matching objectives to ranking and user experience tradeoffs.
 summary_zh: 从目标设定到排序与体验平衡，整理推荐策略的核心思路。
 topic_cluster: recommendation
@@ -15,7 +16,11 @@ public_focus: Public-safe discussion of recommendation strategy, user value, and
 confidentiality_safe: true
 site_locale: en
 lang_switch: /recsys/101-intro-2/
-last_updated: 2026-05-31
+last_updated: '2025-05-06'
+created: '2025-05-06'
+original_date: "2023-12-14 12:00:00"
+original_updated: "2024-12-14 13:30:00"
+original_last_updated: "2026-05-31"
 ---
 
 - [Three Elements of Recommender Systems: Co-Evolution of Users, Information, and Platform](#three-elements-of-recommender-systems-co-evolution-of-users-information-and-platform)

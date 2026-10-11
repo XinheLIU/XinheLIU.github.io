@@ -76,6 +76,7 @@ hexo.extend.generator.register('series', async function () {
         const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/)
         if (!m) continue
         const data = jsYaml.load(m[1])
+        data.content = raw.slice(m[0].length)
         const tagsRaw = Array.isArray(data.tags) ? data.tags.slice() : []
         const catsRaw = Array.isArray(data.categories) ? data.categories.slice() : []
         const post = await hexo.post.render(filePath, data)

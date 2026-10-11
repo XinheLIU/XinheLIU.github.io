@@ -1,13 +1,14 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: 计算广告（3）广告策略
-date: 2025-08-08 13:58:27
+date: '2025-10-02 13:58:27'
 permalink: /ads/intro-3/
 categories:
   - 技术
 tags:
   - 搜广推
   - 人工智能和机器学习
-updated: 2024-12-15 13:30:00
+updated: '2025-10-02'
 summary_en: Strategy notes on budget pacing, traffic allocation, behavior decomposition, and optimization controls inside ads systems.
 summary_zh: 围绕预算节奏、流量分配、行为分解和优化控制整理广告策略问题。
 topic_cluster: ads-systems
@@ -16,7 +17,11 @@ featured_asset: /ads/intro-3/Ads-Strategy-Behavior-Decomp.png
 confidentiality_safe: true
 site_locale: zh-CN
 lang_switch: /en/ads/intro-3/
-last_updated: 2026-05-31
+last_updated: '2025-10-02'
+created: '2025-10-02'
+original_date: "2025-08-08 13:58:27"
+original_updated: "2024-12-15 13:30:00"
+original_last_updated: "2026-05-31"
 ---
 # 广告策略
 

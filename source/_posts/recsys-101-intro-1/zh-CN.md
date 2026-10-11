@@ -1,14 +1,15 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 layout: post
 title: 推荐系统101(1)推荐系统介绍
-date: 2023-12-13 12:00:00
+date: '2025-04-17 12:00:00'
 permalink: /recsys/101-intro-1/
 categories:
   - 技术
 tags:
   - 搜广推
   - 人工智能和机器学习
-updated: 2024-12-14 13:30:00
+updated: '2025-04-17'
 summary_en: A map of modern recommendation systems from retrieval and ranking to re-ranking, data layers, and evaluation.
 summary_zh: 从召回、排序、重排到数据层与评估，梳理现代推荐系统的基本结构。
 topic_cluster: recommendation
@@ -18,7 +19,11 @@ featured_asset: /recsys/101-intro-1/推荐架构-1.png
 confidentiality_safe: true
 site_locale: zh-CN
 lang_switch: /en/recsys/101-intro-1/
-last_updated: 2026-05-31
+last_updated: '2025-04-17'
+created: '2025-04-17'
+original_date: "2023-12-13 12:00:00"
+original_updated: "2024-12-14 13:30:00"
+original_last_updated: "2026-05-31"
 ---
 
 - [现代推荐系统](#现代推荐系统)

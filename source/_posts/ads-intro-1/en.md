@@ -1,13 +1,14 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: Computational Advertising (1) Introduction to Ad Business
-date: 2024-07-15 19:33:48
+date: '2025-08-21 19:33:48'
 permalink: /en/ads/intro-1/
 categories:
   - Technology
 tags:
   - Ads
   - AI & Machine Learning
-updated: 2024-12-11 13:30:00
+updated: '2025-08-21'
 summary_en: A business and systems introduction to internet advertising, including the marketplace, advertiser incentives, and platform constraints.
 summary_zh: 从生意逻辑、广告主诉求和平台约束出发，介绍互联网广告的整体框架。
 topic_cluster: ads-systems
@@ -17,7 +18,11 @@ featured_asset: /ads/intro-1/Ads-Biz.png
 confidentiality_safe: true
 site_locale: en
 lang_switch: /ads/intro-1/
-last_updated: 2026-05-31
+last_updated: '2025-08-21'
+created: '2025-08-21'
+original_date: "2024-07-15 19:33:48"
+original_updated: "2024-12-11 13:30:00"
+original_last_updated: "2026-05-31"
 ---
 
 # Internet Advertising (1) Introduction to Ad Business

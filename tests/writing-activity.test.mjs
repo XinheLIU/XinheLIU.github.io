@@ -38,7 +38,7 @@ test('full history survives while the homepage renders only its six-month window
   const snapshot = { events: history.writingEvents([record(), record({ id: 'book:agents', created_at: '2026-07-27', updated_at: '2026-08-24', title: 'How Agents Work' })], 'en') }
   assert.equal(snapshot.events.length, 3)
   const current = activity.render(snapshot, false, now)
-  assert.ok(current.includes('2 writing days · 1 piece created · 1 update'))
+  assert.ok(current.includes('2 writing days · 1 piece published · 1 update'))
   assert.ok(!current.includes('An old essay'))
   assert.ok(!current.includes('commits'))
   const historical = activity.render(snapshot, false, new Date('2023-10-03T00:00:00+08:00'))

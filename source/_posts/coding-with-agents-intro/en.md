@@ -1,6 +1,7 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: "Coding with Agents: Intro"
-date: 2026-06-06 10:00:00
+date: '2026-06-06 10:00:00'
 permalink: /books/coding-with-agents-intro/
 categories:
   - Writing
@@ -16,8 +17,12 @@ book_url: /Coding-with-Agents/
 confidentiality_safe: true
 site_locale: en
 lang_switch: /books/coding-with-agents-intro-zh/
-last_updated: 2026-06-06
+last_updated: '2026-06-06'
 work_key: coding-with-agents
+created: '2026-06-06'
+updated: '2026-06-06'
+original_date: "2026-06-06 10:00:00"
+original_last_updated: "2026-06-06"
 ---
 
 # Coding with Agents: Intro

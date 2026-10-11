@@ -1,6 +1,7 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: AI 原生组织：从传统架构到超级杠杆
-date: 2026-06-08 10:00:00
+date: '2026-06-25 10:00:00'
 layout: post
 permalink: /writing/ai-native-org-zh/
 categories:
@@ -15,7 +16,11 @@ public_focus: Public-safe essay on AI-native organizational design and transform
 confidentiality_safe: true
 site_locale: zh-CN
 lang_switch: /writing/ai-native-org/
-last_updated: 2026-06-08
+last_updated: '2026-06-25'
+created: '2026-06-25'
+updated: '2026-06-25'
+original_date: "2026-06-08 10:00:00"
+original_last_updated: "2026-06-08"
 ---
 
 # AI 原生组织：从传统架构到超级杠杆

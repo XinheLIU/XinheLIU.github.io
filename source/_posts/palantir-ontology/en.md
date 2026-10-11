@@ -1,6 +1,7 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: "Deconstructing Palantir Ontology: When an Ontology Moves From Describing the World to Driving It"
-date: 2026-07-18 10:00:00
+date: '2026-09-17 10:00:00'
 layout: post
 permalink: /writing/palantir-ontology/
 categories:
@@ -17,8 +18,12 @@ confidentiality_safe: true
 site_locale: en
 lang_switch: /writing/palantir-ontology-zh/
 featured_asset: /images/palantir-ontology/ontology-system.png
-last_updated: 2026-07-18
+last_updated: '2026-09-17'
 work_key: palantir-article
+created: '2026-09-17'
+updated: '2026-09-17'
+original_date: "2026-07-18 10:00:00"
+original_last_updated: "2026-07-18"
 ---
 
 # Deconstructing Palantir Ontology: When an Ontology Moves From "Describing the World" to "Driving It"

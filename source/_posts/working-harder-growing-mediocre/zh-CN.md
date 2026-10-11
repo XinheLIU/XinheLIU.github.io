@@ -1,6 +1,12 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
+id: working-harder-growing-mediocre
+locale: zh-CN
+status: published
+created: '2026-10-11'
+updated: '2026-10-11'
 title: 越努力越平庸的真相
-date: 2026-10-11 10:00:00
+date: '2026-10-11 10:00:00'
 layout: post
 permalink: /writing/working-harder-growing-mediocre-zh/
 categories:
@@ -14,7 +20,11 @@ public_focus: Personal career reflection, based on a reading of Wu Bofan's Cogni
 confidentiality_safe: true
 site_locale: zh-CN
 lang_switch: /writing/working-harder-growing-mediocre/
-last_updated: 2026-10-11
+last_updated: '2026-10-11'
+original_date: "2026-10-11 10:00:00"
+original_created: "2026-10-11"
+original_updated: "2026-10-11"
+original_last_updated: "2026-10-11"
 ---
 
 # 越努力越平庸的真相

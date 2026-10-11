@@ -1,12 +1,13 @@
 ---
+# Last updated: 2026-10-11 (publication metadata)
 title: AB实验（2）AB实验中的难题
-date: 2024-06-20 18:33:48
+date: '2025-07-31 18:33:48'
 permalink: /AB-Test/intro-2/
 categories:
   - 数据科学
 tags:
   - AB实验
-updated: 2024-12-14 13:30:00
+updated: '2025-07-31'
 summary_en: A deeper look at difficult A/B testing cases such as interference, long-term effects, triggering, surrogate metrics, and cluster design.
 summary_zh: 讨论 A/B 实验中的复杂问题，如干扰、长期效应、触发分析、替代指标与分群设计。
 topic_cluster: experimentation
@@ -16,7 +17,11 @@ featured_asset: /AB-Test/intro-2/AB-Test-CCD.png
 confidentiality_safe: true
 site_locale: zh-CN
 lang_switch: /en/AB-Test/intro-2/
-last_updated: 2026-05-31
+last_updated: '2025-07-31'
+created: '2025-07-31'
+original_date: "2024-06-20 18:33:48"
+original_updated: "2024-12-14 13:30:00"
+original_last_updated: "2026-05-31"
 ---
 
 # AB实验中的难题
