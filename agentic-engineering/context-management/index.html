@@ -265,11 +265,8 @@
 <p><strong>研究</strong> — 让智能体先探索代码库。理解架构、识别相关文件，并构建一份包含文件路径、函数签名和系统关系的精简研究文档。</p>
 <p><strong>规划</strong> — 在写任何代码之前，创建一份智能体（和你）可以审阅的分步实现计划。这是早期发现误解的关键。</p>
 <p><strong>实现</strong> — 按计划逐步执行，随着任务完成压缩并更新上下文。保持上下文窗口精简——实践者建议将利用率保持在 40% 以下以获得最佳效果。</p>
-<div class="mermaid">
-  flowchart LR
-    Research[研究] --> Plan[规划] --> Implement[实现] --> Compact[压缩与更新] --> Research
-</div>
-
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid">flowchart LR
+    Research[研究] --&gt; Plan[规划] --&gt; Implement[实现] --&gt; Compact[压缩与更新] --&gt; Research<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>这个工作流正是上下文策略的落地——完整的智能体循环见<a href="/agentic-engineering/how-agents-work/">编程智能体的工作原理</a>。</p>
 <p>核心洞见：你编写的提示词、规格说明和计划<em>本身就是</em>产品。代码只是输出。正如一位实践者所说：“<a target="_blank" rel="noopener" href="http://CLAUDE.md">CLAUDE.md</a> &gt; 提示词 &gt; 研究 &gt; 计划 &gt; 实现”。将人的精力集中在流水线中杠杆效应最高的部分。</p>
 <hr />

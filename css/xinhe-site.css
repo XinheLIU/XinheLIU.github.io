@@ -1142,14 +1142,6 @@ body {
   background: var(--accent);
 }
 
-.contribution-legend {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: var(--text-xs);
-  color: var(--muted);
-}
-
 .contribution-note {
   color: var(--muted);
   font-size: var(--text-xs);
