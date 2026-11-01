@@ -1,0 +1,714 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <meta name="keywords" content="My First “Two-Month Cycle”, Xinhe Liu (Charles)">
+    <meta name="description" content="“Now, here, you see, it takes all the running you can do, to keep in the same place.” — Through the Looking-Glass">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="My First “Two-Month Cycle” | Xinhe Liu (Charles)">
+    <meta property="og:description" content="“Now, here, you see, it takes all the running you can do, to keep in the same place.” — Through the Looking-Glass">
+    <meta property="og:url" content="https://xinheliu.github.io/writing/my-first-two-months/">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="My First “Two-Month Cycle” | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="“Now, here, you see, it takes all the running you can do, to keep in the same place.” — Through the Looking-Glass">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>My First “Two-Month Cycle” | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/library/" class="">Library</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a class="lang-switch" href="/writing/my-first-two-months-zh/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/library/">Library</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        <a class="lang-switch" href="/writing/my-first-two-months-zh/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+<header class="post-hero content">
+    <div class="container">
+        
+            <p class="eyebrow">Writing</p>
+        
+        <h1 class="page-title">My First “Two-Month Cycle”</h1>
+        <div class="post-meta">
+            <time datetime="2025-11-07">2025-11-07</time>
+            
+                <span class="dot">·</span>
+                <span>13 min read</span>
+            
+            
+                <span class="post-hero-tags">
+                    
+                        <a class="chip" href="/tags/Personal-Growth/">Personal Growth</a>
+                    
+                </span>
+            
+        </div>
+        <hr class="post-hero-rule">
+    </div>
+</header>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><em>“Now, here, you see, it takes all the running you can do, to keep in the same place.” — Through the Looking-Glass</em></p>
+<p>Last month was my first “two-month cycle end” at a big company famous for its “two-month cycle” work system. Taking advantage of the May Day holiday, I am also looking back briefly on my first two months after returning to China.</p>
+<p>Frankly, plans really cannot keep up with change. In just two months, the structure of my group and of the company itself went through several adjustments from top to bottom, my reporting line has changed several times, and there has been no shortage of new information and things beyond expectation. But as I figured when I came back, perhaps change is the norm, and how to adapt and execute—OODA (observe, orient, decide and act)—is what matters more. This essay sorts my thoughts from these two months into good and bad, to provide a basis for deciding what to do next.</p>
+<h2 id="pros-the-good"><a class="markdownIt-Anchor" href="#pros-the-good"></a> Pros (The Good)</h2>
+<h3 id="capability-model-and-direction-of-development"><a class="markdownIt-Anchor" href="#capability-model-and-direction-of-development"></a> Capability Model and Direction of Development</h3>
+<p>Compared with my previous job, the technical content and the entry bar of the current role are much lower, but the basic capability model and the direction I have planned for my development still fit fairly well. I believe that building up some experience in this direction is still valuable for the long term.</p>
+<p>Setting aside the fancy technical jargon, the core of this job is still “answering questions, asking questions, communicating and deciding” (plus some ability to marshal resources, communicate externally and push things forward). On one hand, this nature makes it work that most people can do and in which differences between people are hard to show; on the other hand, it is also a craft that is easy to learn and hard to master. In the long run, I believe data thinking (more precisely, mathematical thinking) and knowing how to deal with data will become part of general cultural literacy—like English or Chinese, a skill that reflects one’s education but has no barrier to entry. Dealing with data and drawing conclusions with mathematical thinking will become a general skill, like a “facile pen.”</p>
+<p>At the very least, in my view, spending some time sharpening data analysis, writing, and communication cannot be called a waste of time. By comparison, time spent on a general familiarity with data analysis and data science tools, or even machine learning algorithms, may be worth much less. In the future AI algorithms will be like Word and Excel—convenient tools anyone can master—so apart from a small share of expert roles, most data-related work will exist as a skill rather than an occupation. For individuals who want to create greater value, the choice is either to become an expert who can produce innovation, or to become a generalist with highly transferable skills who can learn quickly, and my current job has some room to develop in both directions. The former is a crowded road; the latter is a road few take, slow and hard.</p>
+<h3 id="company-culture-and-management"><a class="markdownIt-Anchor" href="#company-culture-and-management"></a> Company Culture and Management</h3>
+<p>This counts as another good aspect: a work environment with relatively great freedom and flat hierarchy lets one spend more time on growing one’s abilities and getting familiar with the environment.</p>
+<p>Many companies talk about “flat management,” “talent mobility,” and “not worshipping authority,” but living up to it is often not that easy. In my own interviews I came across a company whose hierarchy was very flat, yet hiring a junior employee at an annual salary of 300,000 yuan still required the CEO’s personal interview and layers of approval. Objectively speaking, a company’s specific management style is shaped by many factors such as the competitive landscape, business model, company culture, and the broader environment. For example, although China’s businesses are arguably the most developed in the world, its management quality (per the World Management Survey) has consistently been ahead of only countries like India and Brazil; involution, 996, workplace PUA and the like exist in every industry, and these are problems of society as a whole rather than of one or two companies or leaders. Whether a relatively mobile and fairly equal work environment exists may depend more on industry competition and the importance of contracts in how enterprises operate. Comparatively, my current company and type of work may depend somewhat less on paths and on individuals, which is quite consistent with my expectations before joining. From my own experience, although there are some adaptations to the business ecosystem (such as the two-month cycle plus OKRs, which also draw some questions once a company gets large), by and large ByteDance does quite a good job of putting Silicon Valley management practice into effect.</p>
+<h3 id="technical-resources-and-accumulated-expertise"><a class="markdownIt-Anchor" href="#technical-resources-and-accumulated-expertise"></a> Technical Resources and Accumulated Expertise</h3>
+<p>ByteDance, whose headcount doubled from 50,000 to 100,000 in 2020, is also known for the rumored “redundant hiring,” “Hunger Games,” and “fighting Google and Facebook for talent.” Of course there are bad sides to this, but the rapid expansion and pile-up of resources that growth brings really does let you come into contact, within your team, with quite a few senior people, technologies and ways of working from top-tier companies. Add the fast pace of work and top-tier technical resources, and if one settles down to learn and makes good use of the resources, one can still grow and accumulate something over time.</p>
+<h2 id="cons-unfavorable-information"><a class="markdownIt-Anchor" href="#cons-unfavorable-information"></a> Cons (Unfavorable Information)</h2>
+<h3 id="dealing-with-otherssuccess-breeds-success-vs-the-lucky-mans-cookie"><a class="markdownIt-Anchor" href="#dealing-with-otherssuccess-breeds-success-vs-the-lucky-mans-cookie"></a> Dealing with Others—Success Breeds Success vs. the Lucky Man’s Cookie</h3>
+<p>The flip side of rapid expansion is uncertainty. Some media describe the current state of rapid talent expansion as a “survivor game” or a “stall crisis”—much of that is exaggeration, but it reflects the downside of rapid growth. In terms of business, when most people have not worked in the same business for very long (more than five years), the core value of an individual or a group is mainly reflected on the demand side, with more of the component of resources and labor than of capital and brains. Whether the talk is of promotion or long-term career development, differentiation shows more easily in output than in expertise. Also, because there are so many people, level assessments, personnel movement and the like inevitably take a while to catch up with the pace of growth.</p>
+<p>As for management, more than half the people at work may have only started this job in the last six or seven months, while the other half are mostly people who achieved some success, large or small, at a relatively young age. Those who came early naturally enjoy the rewards, and leading a team needs veterans; those who came late face pressure to prove themselves faster, produce results, and demand higher rewards (compared to themselves, aligning with the early arrivals). Some groups expanded four- to fivefold within a year, and the adjustment in between naturally tests the company’s culture, systems and management tools.</p>
+<p>And for the individual, there is indeed the question of how to keep a level head. Sometimes I think of the psychology experiment mentioned in Michael Lewis’s Princeton commencement speech: subjects were divided into groups of three. The experimenters had each group discuss some inconsequential moral question in a separate room. Before the discussion, the experimenters “randomly” designated one of the three in each group as the leader. After half an hour of discussion, the experimenters came back and brought each group a plate with four cookies. In almost every group, the one who had been designated leader ate the last cookie. The other two group members had no objection at all. In the eyes of late-joining employees, quite a few of those who came early are the people who eat the cookie. How should one see this?</p>
+<p>My own answer is, first, to keep the right mindset: among the purchasing agents of big state-owned factories in the 1980s, the foreign-trade salespeople and foreign-company white-collar workers of the 1990s, the bank business managers of the early 2000s, and the BATJ IT engineers after 2010, there were many cookie-eaters, and in recent years people who speculated in crypto or bought Moutai are everywhere. But this does not mean speculation pays; in fact, among those who earned excess returns, apart from a portion of lucky ones, more were people who had quietly dug deep for a long time, not purely for financial reward.</p>
+<p>Second, learn from successful people, especially young successful ones, in how they work and grow. The people I have met recently often remind me of the principle that “success breeds success.” Compare a young person in my company now, with an ordinary background but a fairly big success in the past two or three years, with some more senior colleagues from my previous employer, whose backgrounds were relatively glamorous and who had steadily built up over decades but whose development was steady: after a few years, the gap in their starting abilities has shrunk greatly or even reversed, which is worth pondering. Comparing different people’s traits and ways of collaborating is also part of improving oneself. In fairness, if I asked some colleagues to interview for my previous job, they would probably not pass; but if my previous job were handed to my current team, productivity might well go up.</p>
+<p>Of course one must also watch for the corresponding risks. Too little experience combined with a large success can be dangerous; this has shown in many young traders on Wall Street over the years, and may well hold in the IT industry too. So while following, stay alert and play to your own strengths as much as possible.</p>
+<h3 id="reflecting-on-myselfsuccess-rate-magnitude-and-speed"><a class="markdownIt-Anchor" href="#reflecting-on-myselfsuccess-rate-magnitude-and-speed"></a> Reflecting on Myself—Success Rate, Magnitude and Speed</h3>
+<p>Success = success rate × magnitude of what you do × speed of doing it. Looking at my situation from these three dimensions, it is not optimistic.</p>
+<p>Success rate: the favorable factors, as said above, are that the direction of development is basically consistent with my long-term development, there are some technical and learning resources to draw on in the business, and the business itself is mature and core (advertising), so the overall failure rate of producing no results is low. But there is also high overall personnel turnover and many changes, and flattening creates the situation of “peaking on the day you join”; together with the rapid-growth issue mentioned above and my own career switch, long-term uncertainty is not small.</p>
+<p>Magnitude: in magnitude, the present is small and growth is small. Precisely because the business is so mature, uncertainty is relatively small, but so are the room for growth and the marginal returns. As described above, the path upward may center on leading a team to produce more output rather than on long-term innovation or breakthroughs, which may leave people stuck in a niche or pulled along by short-term expectations. In the long run, this job is likely to make one an expert in transforming some niche technology, far from the high-value skills of the internet (full-stack technology, product design, building large teams, opportunity and strategy), and the nature of the work makes it probably hard to build meaningful relationships or acquire special experience over the long term.</p>
+<p>Speed: in the short term, 996 does reduce efficiency; from the standpoint of long-term development, as mentioned, data analysis work is a general skill that is easy to learn and hard to master, and spending time on it can raise my level and speed of doing things, but it takes time. In this process, if I always learn passively, I may fall into the trap of going ever deeper into one specific domain or tool skill and losing the overall perspective, or become quite path-dependent on one business (advertising or otherwise). (This sometimes shows in Chinese colleagues who jumped over from FAANG—at overseas tech companies it is relatively easy to grow into a technical expert, and very hard to become a boss.) Taken together, this may be the slow lane of an accelerating age. For now, the learning curve still has some slope, the scope of work is broad, with complexity and challenge and some freedom in responsibilities, with elements of design and decision-making; but in the long run it may face the risks of refinement and uncertainty, and the learning curve will become flatter and flatter.</p>
+<h2 id="assessment-and-next-steps"><a class="markdownIt-Anchor" href="#assessment-and-next-steps"></a> Assessment and Next Steps</h2>
+<p>Sorting it all out, if the goal is “a well-rounded person with professional-level skills in both technology and business,” my current job, though consistent in direction, carries too much long-term risk, too little value, and a drifting direction. As said earlier, truly becoming a generalist may be a slow and hard road, and whether this road can be walked, and how, I of course have no certainty. But taking a step back, with a path that abandons my existing stock and sees the end at a glance, and an entirely new field laid out before me, I would still regret not trying. Having tried, I should not look back and forth; even if I take detours, problems in development sometimes seem to be solvable only by development.</p>
+<p>“A real man prizes an unyielding spirit; why dwell on success or failure?” May tomorrow’s me still have the courage to try.</p>
+
+            </div>
+            
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/writing/my-first-two-months/">https://xinheliu.github.io/writing/my-first-two-months/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Personal-Growth/">
+                                    <span class="chip bg-color">Personal Growth</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<nav class="post-nav" aria-label="Post navigation">
+    
+    <a class="post-nav-card" href="/writing/returning-to-china-and-job-search/" rel="prev">
+        <span class="post-nav-label">&larr;&nbsp;Previous</span>
+        <span class="post-nav-title">Returning to China and the Job Search: A Retrospective</span>
+    </a>
+    
+    
+    <a class="post-nav-card post-nav-card-next" href="/writing/a-world-without-alternating-workweeks/" rel="next">
+        <span class="post-nav-label">Next&nbsp;&rarr;</span>
+        <span class="post-nav-title">In a World Without “Alternating Workweeks”</span>
+    </a>
+    
+</nav>
+
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

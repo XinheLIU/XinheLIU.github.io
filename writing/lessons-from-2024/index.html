@@ -1,0 +1,764 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <meta name="keywords" content="Lessons from 2024, Xinhe Liu (Charles)">
+    <meta name="description" content="The Year of the Dragon has passed and the Year of the Snake has begun. During the Spring Festival holiday, I wrote down some reflections from 2024.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Lessons from 2024 | Xinhe Liu (Charles)">
+    <meta property="og:description" content="The Year of the Dragon has passed and the Year of the Snake has begun. During the Spring Festival holiday, I wrote down some reflections from 2024.">
+    <meta property="og:url" content="https://xinheliu.github.io/writing/lessons-from-2024/">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lessons from 2024 | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="The Year of the Dragon has passed and the Year of the Snake has begun. During the Spring Festival holiday, I wrote down some reflections from 2024.">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Lessons from 2024 | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/library/" class="">Library</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a class="lang-switch" href="/writing/lessons-from-2024-zh/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/library/">Library</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        <a class="lang-switch" href="/writing/lessons-from-2024-zh/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+<header class="post-hero content">
+    <div class="container">
+        
+            <p class="eyebrow">Writing</p>
+        
+        <h1 class="page-title">Lessons from 2024</h1>
+        <div class="post-meta">
+            <time datetime="2025-11-30">2025-11-30</time>
+            
+                <span class="dot">·</span>
+                <span>24 min read</span>
+            
+            
+                <span class="post-hero-tags">
+                    
+                        <a class="chip" href="/tags/Personal-Growth/">Personal Growth</a>
+                    
+                </span>
+            
+        </div>
+        <hr class="post-hero-rule">
+    </div>
+</header>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><img src="/writing/lessons-from-2024/93d5c6fe69b27145.png" alt="Lessons from 2024 · illustration 1" /></p>
+<p>The Year of the Dragon has passed and the Year of the Snake has begun. During the Spring Festival holiday, I wrote down some reflections from 2024.</p>
+<h2 id="1-humans-are-narrative-machines"><a class="markdownIt-Anchor" href="#1-humans-are-narrative-machines"></a> 1. Humans Are Narrative Machines</h2>
+<p>My biggest improvement in 2024 was keeping a fairly complete daily record. It led me to an interesting discovery: at the start of 2024, I was most of the time unhappy, under stress and irritable, with unsteady moods, and by June I even hit bottom, showing signs of depression; yet by the end of 2024 my mental health and vitality were close to their best in nearly ten years. This change was <strong>not because I had solved the problems that troubled me—many of them had even gotten worse</strong>. All I did was some simple psychological adjustment, and yet I really did move from anxiety and anger to calm, joy and composure.</p>
+<p>So I gained a deep feel for “humans are narrative machines.” As in Plato’s black horse and white horse, or the more popular metaphor of the elephant and its rider, people are far less rational, correct or strong than they imagine. Our behavior is driven largely by pleasure and pain, and the source of these emotions is our need to keep telling ourselves “I’m fine,” “my experience matters,” “my judgment is right.” This animal sense of existence makes our brains constantly fabricate patterns and causal relations; even when events have no real connection, we tend to build a story and look for meaning in it, to support ourselves in living on. Even “who am I” is itself a story we tell ourselves.</p>
+<p>In the past I considered this a human weakness, like what Buddhism calls “attachment to self,” the root of greed, anger, delusion, pride and doubt. One should let go of attachment as much as possible and accept “no-self,” or, as the Stoics say, control only what one can control and go along with natural change in order to gain inner peace. But this year I gained a deeper understanding of the question: although the above principles are not wrong, humans are by nature animals shaped by emotion and narrative, living in a web of meaning of their own weaving, and this is a hard fact to change. Since that is so, why not accept and make use of it?</p>
+<p>Flipping it around, <strong>“humans are narrative machines” = “life is programmable.”</strong></p>
+<p>In the study of success we often see:</p>
+<ul>
+<li>Optimistic people always tell themselves: difficulties are temporary, failure is accidental and has nothing to do with their ability.</li>
+<li>In experiments, normal people tend to overestimate themselves, while people with depression can assess themselves accurately.</li>
+</ul>
+<p>Conversely, this also shows that:</p>
+<ul>
+<li>As long as you keep telling yourself “difficulties are temporary,” you can become more optimistic;</li>
+<li>As long as you make yourself a bit more pessimistic, you can assess yourself more objectively.</li>
+<li>Compared with the objective rationality of AI, humans come with biases and are good at deceiving themselves. But this self-deception is a product of evolution and one of humanity’s advantages. With a small amount of information (data) plus simple means (such as reading, exercise, meditation, writing), a person’s psychology and beliefs can be influenced, and behavior thereby changed.</li>
+</ul>
+<p>This is precisely because <strong>humans have consciousness, not just intelligence</strong>. Understanding and using this power is undoubtedly an important life skill, and, now that AI has surpassed most people’s intelligence, perhaps the most important one.</p>
+<p>When young, I always focused on “what is more correct, more rational”: who is right, optimism or pessimism; working hard or lying flat; fairness or efficiency. This may also be a sign of immature thinking; what adults should care about is “what is useful”: <strong>pay attention to, and adjust as needed, the story you tell yourself</strong>—be optimistic when you need optimism and pessimistic when you need caution; be able both to find meaning in the past and to let go of the past and be reborn at any time; be able both to hold opposing ideas and to commit firmly to action. Transcending the self, living in the present, being able to let go and to take up—this is the fuller state. I hope to achieve it someday.</p>
+<h2 id="2-the-root-cause-of-impatience"><a class="markdownIt-Anchor" href="#2-the-root-cause-of-impatience"></a> 2. The Root Cause of Impatience</h2>
+<p>Another important change I noticed this year is that I have become more patient than before. This may have to do with becoming a father and with spending more time at work mentoring newcomers and doing foundational work. I have begun to be willing to invest time in things that have no result, or may never have one, and to tolerate all kinds of “not as expected” and “imperfect,” which was hard for me to do in the past. This change in behavior comes from my gradually understanding why people lack patience.</p>
+<p>Although we all know that “patience is a necessary condition for getting things done” and that “those who are afraid of trouble will have trouble all their lives,” when faced with the choice between results tomorrow and results next month, most people choose the former without hesitation. As for why it is easy to know and hard to do, I have come to see three layers:</p>
+<p><strong>1. Unreasonable expectations</strong></p>
+<p>If you ask GPT how to cultivate patience in a child, it will say that first you should look at whether you have given the child an external environment of secure attachment; excessive strictness in reward and punishment, or untimely responses, will make the child used to fighting for immediate attention and instant affirmation. Whether child or adult, frequent environmental change and stress combine with internal anxiety, perfectionist tendencies and low frustration tolerance to form the subconscious belief “I must do xxx, or else I will fail.” Modern society amplifies other people’s success through information and encourages us to focus on others rather than ourselves, further reinforcing this high expectation.</p>
+<p>After becoming a father, I have recognized ever more clearly that <strong>“nothing is something you must do; there are only things others tell you that you should do.”</strong> As <em>The Gardener and the Carpenter</em> says, raising children should be the role of a gardener rather than a carpenter—helping them grow rather than shaping them into a success. <strong>Things that depend on others, or even on your own effort, cannot control the outcome.</strong> We must live with “when things happen” and “the possibility of failure,” because they are always part of life.</p>
+<p><strong>2. Not accepting oneself and the present</strong></p>
+<p>Stress makes people short-sighted, craving “immediate results,” or else they easily give up. This mindset is an instinct that helps survival when the environment changes drastically, but modern society’s double PUA—being encouraged to meet expectations and one’s own demands—has made us <strong>used to jumping straight to a way of thinking that focuses on “the gap between the present and the result,”</strong> and so we fall into a dilemma: either settle for the status quo and lie flat, or be dissatisfied with the status quo and suffer.</p>
+<p>The key to breaking out of this cycle is accepting oneself as part of the process. “The ideal self” and “doing one’s best and being happy about it” do not conflict; neither do “a failed result” and “growing from it.” In fact, the process is often more important than the result. Just as the ultimate outcome of raising children is that they become independent and leave, but I think no parent wants to skip the middle process. Shouldn’t we hold the same attitude toward ourselves?</p>
+<p><strong>3. Attention and ways of thinking</strong></p>
+<p>The arrival of a child made many things I used to consider important less so, replaced by more family responsibility and social value. This also changed the way I approach problems.</p>
+<p>When attention shifts from “self-realization” and “emotional feelings” to “family” and “society,” thinking also more easily shifts from <strong>“solving problems”</strong> to <strong>“creating value.”</strong> This shift <strong>reduces the tension between “goal and gap” and increases the tension between “done and not done.”</strong> As <em>The Path of Least Resistance</em> says, the impulse to create a work forms a sustained tension that drives us to keep acting. When attention shifts from “solving,” oriented toward goals and endings, to “creating,” oriented toward process and growth, patience naturally follows. Just as, for a painter, the value of a work created over a month far exceeds one generated by AI in a minute.</p>
+<p>Becoming a parent let me feel this shift in thinking firsthand, but it applies not only to external goals. Even if the goal is “the self,” for example “self-realization,” we can see ourselves as a painting waiting to be created rather than a robot completing objectives. After all, in the end it is the process of doing, not the result, that determines what kind of person we become.</p>
+<p>This shift made me realize that <strong>patience is not an innate ability; it depends on what you care about and where you put your attention.</strong> And this is entirely something that can be gradually cultivated through acceptance and adjusting one’s values.</p>
+<h2 id="3-how-to-view-success"><a class="markdownIt-Anchor" href="#3-how-to-view-success"></a> 3. How to View “Success”</h2>
+<p>After becoming a parent, one thing I cannot avoid is thinking about the questions my child will surely ask one day, and <strong>“what is success, and how does one succeed”</strong> is certainly one of them.</p>
+<p>It has been nearly ten years since I graduated from university, and I have watched the gaps between people gradually widen. Though I cannot call myself successful, through observation and social experience I have given this question some thought.</p>
+<p>First, success is a question with a clear answer. The research on success fills libraries; scholars such as Albert, Barabási and Gladwell have used scientific quantification to argue for views like “success depends first on luck” and “success breeds success.” In addition, intrinsic drive, execution, learning ability, environmental factors and creativity have also been widely studied. Looking at people around me, the successful often perform excellently in these respects, but conversely, excellent performance does not necessarily mean success.</p>
+<p>So how would I answer my child? My answer might go like this:</p>
+<p><strong>1. Success in the social sense often means being different from most people and happening to be right</strong></p>
+<p>Success is <strong>a game for the few</strong>: if most people are right, then being right has no value in itself. Success at the social level is by definition for the few, because the biggest rewards in most matters go to only a few. <strong>And “being right” is mostly luck, and in a few cases judgment.</strong></p>
+<p>Success requires doing <strong>hard and right things</strong>: most successful people have done some hard and right things that most people would not do. For example, they are not swayed by emotion, they can see things through to the end, and they pay more attention to themselves than to others.</p>
+<p><strong>2. Success is hard</strong></p>
+<p>Doing what most people do yields only mediocrity; doing what most people do not will most likely fail, and only a few will succeed.</p>
+<p>Apart from luck, <strong>the hard part of the process of success is that it is often accompanied by self-negation.</strong></p>
+<p>Humans are animals good at self-deception, and the brain has a self-protection mechanism called “cognitive dissonance”—when our self-narrative is negated, we feel stress, anxiety and unease, and tend to revise our interpretation of reality to protect the self. For example, when we do something stupid, one option is to overturn our belief “I am not stupid,” and the other is to admit “that was stupid”; the former often takes great effort and emotional tug-of-war, so I am more inclined to revise the latter into “that was a one-off” or “that wasn’t my fault.” Frankly, this may happen every day, because it happens in my subconscious and is an automatic behavior.</p>
+<p>And for a person to grow, they inevitably go through the process of breaking existing cognition, facing failure squarely and giving up avoidance. This is hard in two places:</p>
+<ul>
+<li>First, <strong>correct attribution is itself hard</strong>. Zhang Yiming says “attribute correctly; do not treat external causes as internal ones,” but from what I see and hear in companies, not many people truly review objectively. Mostly what I see is not an objective record of the decision process but a story written from the result, “stringing the process together” for a report. How much objectivity is lost in that process, and how much gets normalized, is easy to imagine.</li>
+<li>Second, <strong>“negating oneself” really is against human nature.</strong> People always feel “unwilling to accept” and “it’s unfair,” always need to feel “I’m doing well,” and always fear failure, embarrassment and negative evaluation; this is very hard to change. But precisely because most people choose “comfort” over the pursuit of excellence, to succeed one has to break oneself and rebuild again and again. If one can do that, the factors other than luck can all be learned.</li>
+</ul>
+<p><strong>3. True success is becoming yourself</strong></p>
+<p>So, should one still pursue so-called success?</p>
+<p>First, are those “successful” people necessarily happier? I think not, but they can indeed better accept failure and negative evaluation. Some people are naturally insensitive to being unconventional and to others’ evaluations (such as Musk), while others, through mindset adjustment later in life, such as the “growth mindset,” put their attention on process, effort and progress, thereby reducing the impact of negative feedback.</p>
+<p><strong>But the growth mindset is not a perfect answer or a cure-all.</strong> The reality is that effort does not always bring results, and focusing too much on effort itself can fall into the trap of “unreasonably high expectations.” Perhaps a better way is to find your own interests and start from things you are interested in, which makes it easier.</p>
+<p>So the answer is that pursuing “comfort” and “being like most people” is not wrong. Even more so in the age of AI, pursuing excellence beyond AI is no longer possible in many fields. But at the same time, <strong>“being like most people” may also mean “boring,” while the road less traveled, though rough, may have more scenery. In the end, everything depends on thinking clearly about what you want, rather than blindly pursuing the “success” defined by society.</strong> Because <strong>there is only one definition of true success: becoming yourself.</strong></p>
+<h2 id="4-inspiring-over-empowering-the-will-to-aspire-over-ability"><a class="markdownIt-Anchor" href="#4-inspiring-over-empowering-the-will-to-aspire-over-ability"></a> 4. Inspiring Over Empowering, the Will to Aspire Over Ability</h2>
+<p>Another takeaway this year from my reading on education and my review of my own experience: <strong>inspiring matters more than empowering, and the will to aspire (愿力) matters more than ability.</strong></p>
+<p>In <em>The Road to University</em> (《大学之路》), Wu Jun raises an interesting view: the key to judging whether a university is good is whether it lets students “live happily and ignites a lifelong passion for learning.” He mentions that many Asian students excel in middle school but, once at elite universities, perform worse than American students who study out of interest. The reason is that the former often carry the expectations of family and society, while the latter are driven by interest, and their motivation to learn lasts longer.</p>
+<p>Compared with many of my peers, <strong>what I am most grateful to my parents for is that they never put high expectations on me.</strong> Watching many people who carry expectations, they either take a long time to free themselves from that pressure or withdrew from their own “arena” early. And though I cannot call myself successful, I have never felt particularly strained; most things went naturally, and the only challenge was constantly polishing myself. This sense of autonomy let me freely choose my career direction, such as moving from finance to an industry I was more interested in, without worrying about others’ opinions or the fear of “not doing as well after failing.”</p>
+<p>So besides pressure, what has driven me to always have goals and be willing to work for them? The answer may be <strong>those moments of being inspired.</strong> Whether through school, companions, books or the internet, <strong>there are always moments when one meets people or things that differ from one’s present situation and are yet attractive.</strong> This scattered information inspired me to make one important decision after another—from applying to American schools, to joining Goldman Sachs, to returning to China to develop. My life goals have kept changing, but the driving force of the change was not “what can I do” but “what do I want to become.” <strong>The process of life is a series of “becomings.” The knowledge in books may long since have been forgotten, but the wonder of “so people can live like this” stays in the heart forever.</strong></p>
+<p>However, this kind of inspiration was relatively lacking in my education, especially at home. <strong>My parents’ strength is that they did not put excessive expectations on me, but their weakness is that they themselves also lacked clear goals.</strong> We never seriously discussed what I wanted to do, or what they themselves were doing, why, and what they wanted to do. (The only talk about the future was the one line “Do you want to be a doctor someday?”) This left me strong on “autonomy” among the three dimensions of Self-Determination Theory, but weak on “competence” and “relatedness”: <strong>although I could set and complete goals for myself, I have always lacked the ability to draw interest from the process, which also led to my haste and impatience with process.</strong></p>
+<p>By contrast, the parents of people like Wu Jun and Fei-Fei Li, though they themselves did not achieve great things in the social sense, <strong>learned throughout their lives, had strong interests, and supported and encouraged their children to discover interests and choose for themselves; to a large extent this is the real lift they gave the next generation.</strong> As Wu Jun wrote: “The content of books can be learned earlier or later, but missing the stage of growth cannot be made up.” In China’s good schools, many children spend far more time on books than Wu Jun did back then, yet few of them truly accomplish more than he did.</p>
+<p>The same principle holds in the workplace. Controlling bosses often do not go far, while those who can see others, inspire others, and even grow together with their employees go further. Especially in Chinese workplaces, there are many capable people, but those who know what they want and have a strong will to achieve their goals are relatively scarce. To borrow Luo Zhenyu’s <strong>“will to aspire &gt; karma &gt; ability”—the will to aspire is the core that drives action, while ability is merely a tool for achieving goals.</strong></p>
+<p>Being a parent is a chance for “raising oneself while raising children.” Educating children is not only imparting knowledge and skills but, by inspiring their interests, helping them, and helping oneself, to find the will to aspire and grow together, seeing the child and seeing oneself.</p>
+<h2 id="5-growth-is-freedom"><a class="markdownIt-Anchor" href="#5-growth-is-freedom"></a> 5. Growth Is Freedom</h2>
+<p>The last reflection: growth equals freedom, which has two layers of meaning.</p>
+<ol>
+<li><strong>Growth brings more choices, and freedom provides space for exploration and trial and error in growth</strong></li>
+</ol>
+<p>In 2024 the world still changed rapidly. Rather than focusing on specific changes and trends, there are a few things I felt more deeply:</p>
+<p>First, 100% security does not exist, and in fact hides risk. When the larger environment is poor, most workers lower their risk appetite and cherish stable jobs all the more. But then, with more supply and fewer positions, the push to weed out older employees and those in poor health will only be stronger than before. “Stability” just swaps a black swan for a gray rhino, and the gray rhino may well be more dangerous.</p>
+<p>Second, finite games eventually end, while infinite games require constant creation. A finite game, whether won or lost, has an end, such as promotion; a pyramid-shaped promotion path has its limit. An infinite game requires constantly opening up new space, and playing an infinite game is growth; startups, switching tracks and the like all need imagination and a spirit of adventure. An absolutely “safe” infinite game does not exist, but as long as one can survive, an infinite game is in fact safer.</p>
+<p>So the only hedge against the sense of crisis and risk is growth. The moment one stops growing is the beginning of losing freedom.</p>
+<p><strong>2. Freedom means constantly liberating oneself, and this liberation comes through growth</strong></p>
+<p><strong>Humans are products of experience, and growth is constantly negating past beliefs. Negating beliefs also means seeing through and negating many established rules, negating those “I musts” and “I can onlys,” and thereby discovering new choices.</strong></p>
+<p>Take patience as an example, the “problem-solving” mindset mentioned above, because from childhood we are instilled by family and society with this pattern: “once you get into college, it’ll be fine,” “once you find a partner, it’ll be fine,” “once you’re married, it’ll be fine,” “once you have kids, it’ll be fine,” “once the kids grow up, it’ll be fine.” <strong>Everyone wants things to be over quickly, to see the result, and to enter the world they imagine.</strong> But when you see that a small number of people are playing an infinite game and treat the events of life as milestones, many things are no longer “I must win” or “the problem must be solved”; when facing choices, the question is no longer “after this choice, can my past abilities still be used,” but “after this choice, what new ability can I gain.” <strong>This adds more variables and more freedom.</strong></p>
+<p>Another example: <strong>“I have all these problems because I don’t like what I’m doing now,” “the people I work with/spend time with now are no good, and I’m miserable”—this was the norm of my past life.</strong> At first, the options seemed to be only to change or to endure, perhaps plus complaining. But once I saw a bit more, I found that “not liking” and “being annoyed” actually depend on whether we put our attention on others, and so there are the options of “ignoring” and “separation of tasks.” Going deeper, some things may be because of my insufficient ability, in which case I can choose “growth”; some things are because of insufficient endurance, and more than 90% of insufficient endurance comes from one’s own narrative—speaking is a process of rewiring the brain, and the more you think it is unbearable, the more unbearable it becomes. So sayings like “as long as your attitude doesn’t slide, there are more solutions than difficulties” turn from slogans into actionable options, and difficulties become opportunities for growth.</p>
+<p>I remember that five years ago in winter, soon after I started work, a friend and I were talking about “what to pursue in life,” and my answer was “freedom.” My friend asked what freedom is; I could not say well then, but felt that it was not having something but reaching a certain state, like Santiago in <em>The Old Man and the Sea</em>, who got nothing yet was free in spirit. Now my understanding of this freedom is clearer: <strong>Life is a journey, and I am a traveler too; accepting and brave toward the ups and downs outside, curious and calm toward the deep changes within, all I need is to keep moving forward.</strong></p>
+
+            </div>
+            
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/writing/lessons-from-2024/">https://xinheliu.github.io/writing/lessons-from-2024/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Personal-Growth/">
+                                    <span class="chip bg-color">Personal Growth</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<nav class="post-nav" aria-label="Post navigation">
+    
+    <a class="post-nav-card" href="/writing/be-your-personal-best-reading-notes/" rel="prev">
+        <span class="post-nav-label">&larr;&nbsp;Previous</span>
+        <span class="post-nav-title">Reading Notes: Be Your Personal Best by Kai-Fu Lee</span>
+    </a>
+    
+    
+    <a class="post-nav-card post-nav-card-next" href="/books/coding-with-agents-intro/" rel="next">
+        <span class="post-nav-label">Next&nbsp;&rarr;</span>
+        <span class="post-nav-title">Coding with Agents: Intro</span>
+    </a>
+    
+</nav>
+
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,708 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <meta name="keywords" content="In a World Without “Alternating Workweeks”, Xinhe Liu (Charles)">
+    <meta name="description" content="The other shoe dropped yesterday: the “alternating workweek” schedule is being abolished. While many employees are happy, quite a few worry that “all that is cut is the pay” and that “unpaid overtime is about to begin,” and the debate is loud and heated. Honestly, “do you guys really work 996?” is the question I have been asked most at friends’ gatherings since coming back to China, and it seems to be the only thing people care about with today’s internet companies (besides “is the pay enough?” and “is it cutthroat?”), which makes one sigh just thinking about it.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="In a World Without “Alternating Workweeks” | Xinhe Liu (Charles)">
+    <meta property="og:description" content="The other shoe dropped yesterday: the “alternating workweek” schedule is being abolished. While many employees are happy, quite a few worry that “all that is cut is the pay” and that “unpaid overtime is about to begin,” and the debate is loud and heated. Honestly, “do you guys really work 996?” is the question I have been asked most at friends’ gatherings since coming back to China, and it seems to be the only thing people care about with today’s internet companies (besides “is the pay enough?” and “is it cutthroat?”), which makes one sigh just thinking about it.">
+    <meta property="og:url" content="https://xinheliu.github.io/writing/a-world-without-alternating-workweeks/">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="In a World Without “Alternating Workweeks” | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="The other shoe dropped yesterday: the “alternating workweek” schedule is being abolished. While many employees are happy, quite a few worry that “all that is cut is the pay” and that “unpaid overtime is about to begin,” and the debate is loud and heated. Honestly, “do you guys really work 996?” is the question I have been asked most at friends’ gatherings since coming back to China, and it seems to be the only thing people care about with today’s internet companies (besides “is the pay enough?” and “is it cutthroat?”), which makes one sigh just thinking about it.">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>In a World Without “Alternating Workweeks” | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/library/" class="">Library</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a class="lang-switch" href="/writing/a-world-without-alternating-workweeks-zh/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/library/">Library</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        <a class="lang-switch" href="/writing/a-world-without-alternating-workweeks-zh/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+<header class="post-hero content">
+    <div class="container">
+        
+            <p class="eyebrow">Writing</p>
+        
+        <h1 class="page-title">In a World Without “Alternating Workweeks”</h1>
+        <div class="post-meta">
+            <time datetime="2025-11-12">2025-11-12</time>
+            
+                <span class="dot">·</span>
+                <span>10 min read</span>
+            
+            
+                <span class="post-hero-tags">
+                    
+                        <a class="chip" href="/tags/Personal-Growth/">Personal Growth</a>
+                    
+                </span>
+            
+        </div>
+        <hr class="post-hero-rule">
+    </div>
+</header>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><img src="/writing/a-world-without-alternating-workweeks/d0210a90183596f0.jpg" alt="In a World Without “Alternating Workweeks” · original Zhihu illustration" /></p>
+<p>The other shoe dropped yesterday: the “alternating workweek” schedule (alternating six-day and five-day weeks) is being abolished. While many employees are happy, quite a few worry that “all that is cut is the pay” and that “unpaid overtime is about to begin,” and the debate is loud and heated. Honestly, “<em>do you guys really work 996?</em>” is the question I have been asked most at friends’ gatherings since coming back to China, and it seems to be the only thing people care about with today’s internet companies (besides “is the pay enough?” and “is it cutthroat?”), which makes one sigh just thinking about it.</p>
+<p>I actually think that from the company’s point of view there is nothing to ponder here: public opinion and employee views are one side, cost and benefit the other; tally the two and the answer is naturally clear. So let me start with the tally.</p>
+<h2 id="on-the-clock-and-off-the-clock"><a class="markdownIt-Anchor" href="#on-the-clock-and-off-the-clock"></a> On the Clock and Off the Clock</h2>
+<p>As a company that has always billed itself as “decentralized” and “without a headquarters,” “an internet company on the internet,” ByteDance has long been known for its employees shuttling between offices and cities. So are those hours on the clock or off? Friends who work back in China often say that, unlike abroad, work communication here mostly goes through instant messaging (such as WeChat); are the hours spent replying to messages and never going offline on the clock or off? That programmer rumored online to have fixed a bug at a wedding—was he on the clock or off? With advances in remote work and instant communication (the spread of so-called “working from home”), this line is increasingly blurred. The real situation is that at a big company, being on the clock is closer to “time when others can freely book your time for meetings” and “time for collaboration,” while being off the clock is the time and the right to reasonably decline others. Beyond overtime pay, the more likely effect of abolishing weekend overtime is that from now on, even if one applies for overtime on a Sunday, it will be awkward to call all one’s colleagues into a meeting. As for “overtime” itself—even in the United States, a quarter to a third of adults still work after they get home, and Americans spend on average over 10 hours a day on work, to say nothing of the hardworking Chinese people.</p>
+<p>Of course, the reduction in workload is objective and inevitable: if some people do not rest, no one can rest. And this effect has of course also been carefully calculated. How is it calculated? Look at the delivery riders. Big data and intelligence count every road, every minute of traffic, the weather and the time into every countdown. Likewise, how much consumption each order of service, each new user, and each bit of traffic will bring in the future is also clearly worked out. The accounting of business growth opportunities and of people is naturally not that precise, but with advances in management tools and data collection it will inevitably become more and more precise. (For example, OKRs can serve as feedback data every two months.) <strong>Not only internet companies will do this; in the future all companies will</strong>—this year I interviewed with a venture capital firm that was trying to manage every PM and project portfolio with data. With traffic already at its peak, forcing employees to work one more day, the cost-benefit is surely not hard to work out.</p>
+<p>Going further, in the future it is not impossible that who is willing to work overtime and who is not, and who works how long, when and where, and how much revenue it brings the company, will be quantified step by step. Companies may be able to manage more precisely while giving employees a greater sense of freedom, and income gaps between employees may also widen.</p>
+<p>So, in a world without alternating workweeks, will there still be 996?</p>
+<h2 id="where-we-came-from"><a class="markdownIt-Anchor" href="#where-we-came-from"></a> Where We Came From</h2>
+<p>In Professor Zeng Ming’s <em>Dragon Moves the World</em> (龙行天下), he writes: “In a market like China, consumers care most about price, and product performance and quality are not the most important factors for winning the competition. This is a market that multinationals are completely unfamiliar with and cannot get used to surviving in, while Chinese companies are like fish in water … Brutal price wars forced Chinese companies to push their limited resource advantages to the extreme, bringing costs down to a level others could not imagine.” In the book he calls Chinese innovation “<strong>innovation of the poor</strong>,” citing examples such as starting from small commodities, beating full automation with semi-automation, and seizing market opportunities in upgrade gaps. That is an old book from 2008. So where is innovation now and in the future?</p>
+<p>From WeChat over the past decade, to TikTok going overseas, to the recent cross-border e-commerce, livestreaming and voice social, the advantage of many Chinese products lies in the countless A/B tests run by countless engineers thousands of times, and in the supply chain, markets and operations building and rolling out at a pace measured in days. It is hard for China to produce a company like Google or an entrepreneur like Jobs, but it is also hard for America to produce a company like Alibaba. Companies usually push what they are best at to the extreme; over the past decade and for the foreseeable future, Chinese innovation may still concentrate on two unique factor endowments: the “<strong>engineer dividend</strong>” and the “<strong>enormous market</strong>.”</p>
+<p>I believe that within twenty years, the biggest opportunities and markets in elder care, healthcare, urban digitization, carbon neutrality and air quality management will surely be in China. And do these products need the strong push of application innovation through “<strong>labor-intensive R&amp;D</strong>” and market guidance? As for foreign trade, will what China sells abroad in the future more likely be its own smart-manufactured industrial goods, business models and applications proven mature at home, or innovative products like chips, where it is hard to gain a competitive edge by sheer manpower?</p>
+<h2 id="where-we-are-going"><a class="markdownIt-Anchor" href="#where-we-are-going"></a> Where We Are Going</h2>
+<p>The two points above are both factors by which “some people may get busier and busier.” One is that in the age of intelligence, people’s time is further decoupled and valued ever more precisely; the other is that for many people, labor intensity is still a key element of the work they do. Now for the third point.</p>
+<p>At ByteDance, those who truly do recommendation algorithm research are only a small minority, and the situation is similar at other companies that build business models on artificial intelligence and the vast amounts of data they hold (Google, Facebook, and the currently “hot” Didi). Companies like OpenAI, which may put billions of people out of work, have only a few hundred employees. So what are the rest of the people doing? Take TikTok or GPT-3: the core algorithmic principles are not complicated, but the large amounts of data needed to train “intelligence” (for example, short videos get high-frequency feedback from more users than long videos, which is one source of TikTok’s “magic”) and the countless optimizations, pipeline connections and implementation work needed in the system, which are more concrete tasks, require more manpower. Seen this way, not only in life do algorithms and social networks know you better than you do; at work, people’s output may not be for themselves but for the algorithmic system. Unlike the traditional era, when work built up experience and improved skills, in domains where intelligent systems are competent, what many jobs accumulate may be only general skills like “driving” or “delivering takeout,” and the strength of the system and the weakness of the individual are clearly separated. <strong>What people do does not necessarily make themselves better, but certainly makes the system better.</strong> (“Deskilling”)</p>
+<p>One step further, the greater inequality is still between developed regions with many opportunities and much innovation and backward regions, between the poor and the rich, and between those with the internet (51.4%) and those without. While the divisions between people grow smaller, society is also pulled more quickly into a single power-law network. From this angle, for a period of time, the number of people who “want to work 996 but cannot” may not be smaller than the number who “do not want to work 996.” People may want even more to get close to the sources of innovation, wealth, information and knowledge, and <strong>the closer one gets, the busier one may be.</strong></p>
+<p>Of course, I have told only one side of the story; in fact there are also many factors that may let most people balance work and life better. Today’s young people are the most individualistic and diverse generation since the founding of the People’s Republic; they care about public issues more than the previous generation, and they often value a fair environment in the company, teamwork and humane treatment above money; these are all counter-forces. In 2017, the 19th Party Congress again revised the formulation of China’s principal contradiction. The report stated that the principal contradiction in Chinese society in the new era is <em>the contradiction between the people’s ever-growing needs for a better life and unbalanced and inadequate development</em>. Although I have discussed quite a few problems here, I also believe that <strong>there are always more answers than problems</strong>.</p>
+<p><strong>References</strong></p>
+<ul>
+<li><em>The Time of Society</em> (《社会的时间》), Zheng Zuoyu</li>
+<li><em>Dragon Moves the World</em> (《龙行天下》), Zeng Ming</li>
+<li>“ByteDance, Which Spent 5 Billion Yuan on Buildings, Actually Has No Headquarters” (《花了50亿买楼的字节跳动，其实没有总部大楼》), Liu Run</li>
+</ul>
+
+            </div>
+            
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/writing/a-world-without-alternating-workweeks/">https://xinheliu.github.io/writing/a-world-without-alternating-workweeks/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Personal-Growth/">
+                                    <span class="chip bg-color">Personal Growth</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<nav class="post-nav" aria-label="Post navigation">
+    
+    <a class="post-nav-card" href="/writing/my-first-two-months/" rel="prev">
+        <span class="post-nav-label">&larr;&nbsp;Previous</span>
+        <span class="post-nav-title">My First “Two-Month Cycle”</span>
+    </a>
+    
+    
+    <a class="post-nav-card post-nav-card-next" href="/writing/year-in-review-2021/" rel="next">
+        <span class="post-nav-label">Next&nbsp;&rarr;</span>
+        <span class="post-nav-title">2021 Year in Review</span>
+    </a>
+    
+</nav>
+
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

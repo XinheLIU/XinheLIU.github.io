@@ -1,0 +1,715 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <meta name="keywords" content="Farewell to 2019 (Part 2), Xinhe Liu (Charles)">
+    <meta name="description" content="Following the first half, today I talk about what I did not do well and what I did not need to do. Looking back, what I regret is often that the things I did not do well far outnumber the things I accomplished, and even more time went to things that did not need doing. So very often, reflection brings progress more easily than refinement does, and making fewer mistakes matters more than doing more.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Farewell to 2019 (Part 2) | Xinhe Liu (Charles)">
+    <meta property="og:description" content="Following the first half, today I talk about what I did not do well and what I did not need to do. Looking back, what I regret is often that the things I did not do well far outnumber the things I accomplished, and even more time went to things that did not need doing. So very often, reflection brings progress more easily than refinement does, and making fewer mistakes matters more than doing more.">
+    <meta property="og:url" content="https://xinheliu.github.io/writing/farewell-to-2019-part-2/">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Farewell to 2019 (Part 2) | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="Following the first half, today I talk about what I did not do well and what I did not need to do. Looking back, what I regret is often that the things I did not do well far outnumber the things I accomplished, and even more time went to things that did not need doing. So very often, reflection brings progress more easily than refinement does, and making fewer mistakes matters more than doing more.">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Farewell to 2019 (Part 2) | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/library/" class="">Library</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a class="lang-switch" href="/writing/farewell-to-2019-part-2-zh/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/library/">Library</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        <a class="lang-switch" href="/writing/farewell-to-2019-part-2-zh/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+<header class="post-hero content">
+    <div class="container">
+        
+            <p class="eyebrow">Writing</p>
+        
+        <h1 class="page-title">Farewell to 2019 (Part 2)</h1>
+        <div class="post-meta">
+            <time datetime="2025-10-19">2025-10-19</time>
+            
+                <span class="dot">·</span>
+                <span>11 min read</span>
+            
+            
+                <span class="post-hero-tags">
+                    
+                        <a class="chip" href="/tags/Personal-Growth/">Personal Growth</a>
+                    
+                </span>
+            
+        </div>
+        <hr class="post-hero-rule">
+    </div>
+</header>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>Following the first half, today I will talk about what I did not do well and what I did not need to do. Looking back, what I regret is often that the things I did not do well far outnumber the things I accomplished, and even more time went to things that did not need doing. So very often, reflection brings progress more easily than refinement does, and making fewer mistakes matters more than doing more.</p>
+<p>There are many imperfect aspects of life, but the causes are often the same. Here I will selectively discuss the two I feel most deeply.</p>
+<h2 id="1-things-that-failed"><a class="markdownIt-Anchor" href="#1-things-that-failed"></a> (1) Things That Failed</h2>
+<p>The best example is the setback at the end of my second year at work. At the end of this year, all the colleagues who started work with me received routine promotions, while I was left off the list. In an investment bank this is not only a failure of ordinary career progress but often implies great employment risk. Objectively speaking, I made great progress in two years of work and got quite a few things done, but “the market is always right”: an unexpectedly bad result reflects big problems in important aspects of career development and work. Although for lower-level employees such a situation is often the result of personal and environmental factors together, in my view, absent a sudden change in the environment, running into unexpected failure is largely down to my own vision and level in doing things. Whether it was not reaching the level I should have when facing problems at the time, or finding in hindsight that many things could have been handled better, when an unexpected bad result arrives one should review and summarize one’s own shortcomings.</p>
+<p>I will not go into the specific attributions of this result here; I will just write down some understandings I want to remember.</p>
+<p><strong>1. Look at problems with a longer view and think as comprehensively as possible.</strong></p>
+<p>It is often only in looking back that we realize that time to make a choice is a luxury. And many decisions that I thought were carefully considered at the time look, in hindsight, too hurried. This is understandable—the pressure and anxiety of modern society actually come from uncertainty in life, and making choices often requires facing this uncertainty within limited time, so haste is hard to avoid. But making choices is precisely the important moment that shows the gap between people. Whether you can carry out the big principles you usually study and talk about rather than yield to immediate interest or pressure, whether you can think comprehensively about changing factors as well as unchanging or slowly changing ones, whether you can see deeper and farther than others, whether you can decide by principle rather than intuition—all are worth constant reflection and improvement. This requires not only progress in thinking and methodology but also being more composed and more mature in how one conducts oneself and handles things.</p>
+<p>On the specific matter of work, choosing my current job was by no means a mistake, and I did consider various factors when choosing. For example, I think systematic investing is the long-run trend, and the current team is a market leader that pioneered early in this field, and the company is a first-rate firm in the industry, where I can indeed learn many ways of doing things (to be discussed specifically later). But on the other hand, I did see at the time some potential problems and risks for me, such as being in a fast-changing, startup-like team, far from the center of power, with many variables in management and personnel. But I have to say that where I fell short was in not taking the choice seriously enough. “Not serious” showed in several ways. First, I did not do in-depth research and analysis to consider all the factors comprehensively. Second, my level was not enough: I blindly overestimated the factors favorable to me and underestimated the unfavorable ones. Third, I did not keep up feedback—I did not measure the speed of change in the environment and in myself in order to reassess. Having done these three things, the outcome in many cases might still have been the same, but the preparation for change and the handling of unfavorable factors could have been greatly improved. On the basis of serious decision-making, being able to regularly assess surrounding conditions and potential gains and risks usually makes one more thorough and careful. So taking things seriously is the most important lesson I need to learn.</p>
+<p><strong>2. Do things with a high chance of success.</strong></p>
+<p>Success depends on the probability of success, the magnitude of what you do, and the speed at which you do it. (A saying Mr. Wu Jun often repeats.) Following the previous point, in “choice and effort,” the first two lean toward choice, so making good choices is important. More importantly, one must objectively assess these three factors in what one is currently doing: on one hand, choose the aspects where one can improve most and invest time and energy there, and on the other, hold reasonable expectations and not unreasonable hopes about the success rate.</p>
+<p>The mistake I made in many things was holding a lucky-chance mentality, trusting personal factors too much and underestimating environmental ones. In fact, most things in the world work by <strong>“engaging with the orthodox, winning with the unorthodox.”</strong> Harboring illusions about low-probability events such as “overtaking on the curve,” “gaining the upper hand by striking later,” and “winning with few against many,” or blindly following trends and speculating regardless of one’s interests, strengths, accumulated experience and fit with the surroundings, only hinders getting things done. Although, like many people, I love heroic stories that rise from hardship, in reality “you can tell the adult from the three-year-old” has some truth. In today’s information age, inferring a person’s development over the next three to five years from their social, cultural, family and educational background, the circle around them, the company they work for and big data is often far more accurate than one’s own predictions. So no change in the short term is the norm and change over the long term is the norm; rather than expecting “brute force to work miracles,” it is better to plan thoroughly beforehand and choose the right road.</p>
+<p><strong>3. Do the things you have chosen as well as you can.</strong></p>
+<p>Think a few more steps ahead when doing things and look for better solutions; this also shows in carrying out reasonable decisions resolutely and boldly. Do not drag your feet on worthless things, and absolutely do not do what should not be done.</p>
+<p><strong>4. Master concrete methods of doing things, keep raising your level, and accumulate methods.</strong></p>
+<p>Efficiency and success rate come from tools. This includes both thinking tools for analyzing problems and concrete tools. Mastering tools and using them is not easy. For example, breaking one’s own fixed cognition, taking in new information, doing things systematically, and “consider defeat before planning for victory” are all principles basic enough to be used in every task at work. I hope to summarize, accumulate and improve in this regard going forward.</p>
+<h2 id="2-things-i-did-not-need-to-do"><a class="markdownIt-Anchor" href="#2-things-i-did-not-need-to-do"></a> (2) Things I Did Not Need to Do</h2>
+<p>There were many things this year that I started and did not finish. In general, the reasons are these: first, I overestimated my ability and underestimated the time required. Second, I was driven by greed, anxiety or perfectionism. Third, I lacked criteria for choosing what to do, and did not choose well.</p>
+<p>In learning, many things that require repeated practice over time, and that I would forget right away if I did not use them at work—C++, numerical methods, some advanced neural network and natural language processing models, complex machine learning models—mostly got started and not finished. Even those I finished, lacking practice and application, I quickly forgot many details of. As for the many books I bought and did not read, thinking that having them at hand meant I would get to them eventually, I never actually opened them. In fact, in reading, spending more time digesting what I like or what is valuable is also fine.</p>
+<p>At work, besides the shortcomings written in point one, much time was wasted on unnecessary hesitation. When work went badly I would think of changing jobs and go for an interview, but then hesitate over my short tenure and visa issues; when doing thankless work, I would on one hand question the value of the time spent and on the other fear offending people and giving others a bad impression. I think thinking about problems should be deep and many-sided, rather than constantly hesitating and wavering.</p>
+<p>In life, doing unnecessary things is sometimes a matter of overthinking. Compared with work and study, life should have less purposiveness: do what you like in the moment, treat the people around you with the most sincere attitude and the best intentions, and have fewer unnecessary considerations and worries about the future—be a fool. For me personally, many aspects of the future have turned out better than I expected.</p>
+<p>The following four points are what I hope to do better in the future:</p>
+<ol>
+<li><strong>Be selective in doing things, and have standards for the selection.</strong> Be selective in learning and information: there are actually many high-quality information sources that non-professionals seldom follow (to be discussed later), and finding and using such sources requires mastering methods of systematic learning and systematic information gathering. Be selective in doing things: in work and life, spend more time on things that are important to long-term development and whose progress can compound, and less time doing things under the drive of pressure and busyness; master the rhythm of doing things.</li>
+<li><strong>Master methods of learning and doing, and further refine the principles one should follow in doing things.</strong> Doing things needs method, systematicness, and repeatable improvement. Plan comprehensively, but without perfectionism.</li>
+<li><strong>Regularly assess your own abilities objectively. Things that overstretch you often do not get done.</strong> Getting things done requires courage and persistence, but never set the goal of a specific task too far off or too outlandish.</li>
+<li><strong>Leave yourself free time.</strong> As Russell wrote in <em>In Praise of Idleness</em>, humanity went from hunting and gathering, sitting around campfires under the stars, to treating hard work and striving as virtues after the Industrial Revolution within only a short span of time. Think before doing things, and do not get caught in a whirlpool of busyness. Shoulder the responsibility for what you have to do; for what should not be done or is not worth doing, do not rush through it—looking back, it may be more worthwhile.</li>
+</ol>
+<p>In summary, for the next year, first, I hope to avoid repeating mistakes, accumulate experience in my successes and in the areas that need improvement, and summarize more of the principles I follow in how I conduct myself and do things; second, I want to learn subtraction: to do less of what is unnecessary and likely to fail. I hope that I and everyone, in the new year, can do more successful and valuable things and spend our time where it is worthwhile.</p>
+<p>December 31, 2019</p>
+<p>In New Jersey</p>
+
+            </div>
+            
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/writing/farewell-to-2019-part-2/">https://xinheliu.github.io/writing/farewell-to-2019-part-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Personal-Growth/">
+                                    <span class="chip bg-color">Personal Growth</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<nav class="post-nav" aria-label="Post navigation">
+    
+    <a class="post-nav-card" href="/writing/farewell-to-2019-part-1/" rel="prev">
+        <span class="post-nav-label">&larr;&nbsp;Previous</span>
+        <span class="post-nav-title">Farewell to 2019 (Part 1)</span>
+    </a>
+    
+    
+    <a class="post-nav-card post-nav-card-next" href="/writing/hello-2020/" rel="next">
+        <span class="post-nav-label">Next&nbsp;&rarr;</span>
+        <span class="post-nav-title">Hello 2020</span>
+    </a>
+    
+</nav>
+
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>
