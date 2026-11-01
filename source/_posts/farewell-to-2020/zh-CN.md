@@ -1,5 +1,5 @@
 ---
-# Last updated: 2026-10-11 (publication metadata)
+# Last updated: 2026-11-01 (linked English version)
 id: farewell-to-2020
 locale: zh-CN
 title: 再见，黑天鹅飞过的2020
@@ -24,7 +24,7 @@ permalink: /writing/farewell-to-2020-zh/
 categories:
   - 写作
 site_locale: zh-CN
-lang_switch: ''
+lang_switch: /writing/farewell-to-2020/
 original_date: "2021-01-01 12:00:00"
 original_created: "2021-01-01"
 original_updated: "2026-10-11"

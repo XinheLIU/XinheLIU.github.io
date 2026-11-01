@@ -1,5 +1,5 @@
 ---
-# Last updated: 2026-10-11 (publication metadata)
+# Last updated: 2026-11-01 (linked English version)
 id: farewell-to-2019-part-1
 locale: zh-CN
 title: 告别2019(上)
@@ -25,7 +25,7 @@ permalink: /writing/farewell-to-2019-part-1-zh/
 categories:
   - 写作
 site_locale: zh-CN
-lang_switch: ''
+lang_switch: /writing/farewell-to-2019-part-1/
 original_date: "2019-12-27 12:00:00"
 original_created: "2019-12-27"
 original_updated: "2026-10-11"

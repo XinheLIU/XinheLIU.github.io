@@ -1,5 +1,5 @@
 ---
-# Last updated: 2026-10-11 (publication metadata)
+# Last updated: 2026-11-01 (linked English version)
 id: year-in-review-2021
 locale: zh-CN
 title: 2021年度总结
@@ -22,7 +22,7 @@ permalink: /writing/year-in-review-2021-zh/
 categories:
   - 写作
 site_locale: zh-CN
-lang_switch: ''
+lang_switch: /writing/year-in-review-2021/
 original_date: "2022-02-02 12:00:00"
 original_created: "2022-02-02"
 original_updated: "2026-10-11"

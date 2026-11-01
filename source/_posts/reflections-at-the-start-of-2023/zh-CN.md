@@ -1,5 +1,5 @@
 ---
-# Last updated: 2026-10-11 (publication metadata)
+# Last updated: 2026-11-01 (linked English version)
 id: reflections-at-the-start-of-2023
 locale: zh-CN
 title: 2023年初的小作文
@@ -24,7 +24,7 @@ permalink: /writing/reflections-at-the-start-of-2023-zh/
 categories:
   - 写作
 site_locale: zh-CN
-lang_switch: ''
+lang_switch: /writing/reflections-at-the-start-of-2023/
 original_date: "2023-01-30 12:00:00"
 original_created: "2023-01-30"
 original_updated: "2026-10-11"

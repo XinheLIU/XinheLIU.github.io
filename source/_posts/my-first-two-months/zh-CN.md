@@ -1,5 +1,5 @@
 ---
-# Last updated: 2026-10-11 (publication metadata)
+# Last updated: 2026-11-01 (linked English version)
 id: my-first-two-months
 locale: zh-CN
 title: 第一个“双月”
@@ -24,7 +24,7 @@ permalink: /writing/my-first-two-months-zh/
 categories:
   - 写作
 site_locale: zh-CN
-lang_switch: ''
+lang_switch: /writing/my-first-two-months/
 original_date: "2021-05-08 12:00:00"
 original_created: "2021-05-08"
 original_updated: "2026-10-11"

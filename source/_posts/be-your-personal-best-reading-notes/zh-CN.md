@@ -1,5 +1,5 @@
 ---
-# Last updated: 2026-10-11 (publication metadata)
+# Last updated: 2026-11-01 (linked English version)
 id: be-your-personal-best-reading-notes
 locale: zh-CN
 title: 读书笔记《做最好的自己》李开复
@@ -22,7 +22,7 @@ permalink: /writing/be-your-personal-best-reading-notes-zh/
 categories:
   - 写作
 site_locale: zh-CN
-lang_switch: ''
+lang_switch: /writing/be-your-personal-best-reading-notes/
 original_date: "2023-05-03 12:00:00"
 original_created: "2023-05-03"
 original_updated: "2026-10-11"

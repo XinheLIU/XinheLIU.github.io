@@ -1,5 +1,5 @@
 ---
-# Last updated: 2026-10-11 (publication metadata)
+# Last updated: 2026-11-01 (linked English version)
 id: a-world-without-alternating-workweeks
 locale: zh-CN
 title: 在没有“大小周”的世界里
@@ -25,7 +25,7 @@ permalink: /writing/a-world-without-alternating-workweeks-zh/
 categories:
   - 写作
 site_locale: zh-CN
-lang_switch: ''
+lang_switch: /writing/a-world-without-alternating-workweeks/
 original_date: "2021-07-10 12:00:00"
 original_created: "2021-07-10"
 original_updated: "2026-10-11"

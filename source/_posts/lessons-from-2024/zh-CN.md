@@ -1,5 +1,5 @@
 ---
-# Last updated: 2026-10-11 (publication metadata)
+# Last updated: 2026-11-01 (linked English version)
 id: lessons-from-2024
 locale: zh-CN
 title: 2024年的一些收获
@@ -24,7 +24,7 @@ permalink: /writing/lessons-from-2024-zh/
 categories:
   - 写作
 site_locale: zh-CN
-lang_switch: ''
+lang_switch: /writing/lessons-from-2024/
 original_date: "2025-01-31 12:00:00"
 original_created: "2025-01-31"
 original_updated: "2026-10-11"
