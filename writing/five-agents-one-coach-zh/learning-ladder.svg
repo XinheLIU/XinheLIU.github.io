@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600" role="img" aria-labelledby="t d" font-family="-apple-system, 'PingFang SC', 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif">
+<title id="t">每往上一层，反馈更昂贵，也更真实</title>
+<desc id="d">学习的五层差在哪里？沿阶梯往上，人暴露在“被证明是错的”风险里越来越深，有权说你错的人也越来越多。</desc>
+<defs><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="#1a1f26"/></pattern></defs>
+<rect width="900" height="600" rx="12" fill="#0b0d10"/>
+<rect width="900" height="600" rx="12" fill="url(#dots)"/>
+<rect x="0.5" y="0.5" width="899" height="599" rx="12" fill="none" stroke="#2a2f36"/>
+<rect x="32" y="31" width="9" height="9" fill="none" stroke="#4fd1c5"/>
+<text x="50" y="40" font-size="12" fill="#4fd1c5" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="2">FIG 2 · 五级学习阶梯</text>
+<text x="32" y="72" font-size="21" font-weight="600" fill="#e8eaec">每往上一层，反馈更昂贵，也更真实</text>
+<line x1="32" y1="90" x2="868" y2="90" stroke="#2a2f36"/>
+<rect x="32" y="328" width="160" height="44" rx="4" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+<text x="44" y="356" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#4fd1c5" font-weight="400" font-size="13">01</tspan><tspan dx="8">听与碎片</tspan></text>
+<rect x="200" y="284" width="160" height="88" rx="4" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+<text x="212" y="312" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#4fd1c5" font-weight="400" font-size="13">02</tspan><tspan dx="8">阅读</tspan></text>
+<rect x="368" y="240" width="160" height="132" rx="4" fill="#4fd1c5" stroke="#3d444d" stroke-width="1.25" fill-opacity="0.05"/>
+<text x="380" y="268" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#4fd1c5" font-weight="400" font-size="13">03</tspan><tspan dx="8">给自己上课</tspan></text>
+<rect x="536" y="196" width="160" height="176" rx="4" fill="#4fd1c5" stroke="#3d444d" stroke-width="1.25" fill-opacity="0.09"/>
+<text x="548" y="224" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#4fd1c5" font-weight="400" font-size="13">04</tspan><tspan dx="8">刻意练习</tspan></text>
+<rect x="704" y="152" width="160" height="220" rx="4" fill="#4fd1c5" stroke="#4fd1c5" stroke-width="1.25" fill-opacity="0.14"/>
+<text x="716" y="180" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#4fd1c5" font-weight="400" font-size="13">05</tspan><tspan dx="8">写作</tspan></text>
+<text x="40" y="130" font-size="15" fill="#e3c99a" font-weight="600">越往上，越暴露</text>
+<text x="40" y="152" font-size="13" fill="#9aa3ad">柱高 = 暴露在“被证明是错的”风险里的深度</text>
+<path d="M364 176 V584" fill="none" stroke="#e07a6b" stroke-width="1.3" stroke-dasharray="5 5"/>
+<text x="374" y="198" font-size="13.5" fill="#e07a6b" font-weight="600">自我保护的墙</text>
+<text x="374" y="216" font-size="12.5" fill="#5c6570">多数人长期停在左边</text>
+<path d="M32 384 H868" fill="none" stroke="#3d444d" stroke-width="1"/>
+<text x="32" y="404" font-size="11" fill="#5c6570" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="1.5">反馈类型</text>
+<text x="40" y="426" font-size="13.5" fill="#9aa3ad">只有输入</text>
+<text x="40" y="444" font-size="12.5" fill="#5c6570">没有反馈</text>
+<text x="208" y="426" font-size="13.5" fill="#9aa3ad">有结构</text>
+<text x="208" y="444" font-size="12.5" fill="#5c6570">无外部反馈</text>
+<text x="376" y="426" font-size="13.5" fill="#9aa3ad">自我审计</text>
+<text x="376" y="444" font-size="12.5" fill="#5c6570">第一个误差信号</text>
+<text x="544" y="426" font-size="13.5" fill="#9aa3ad">高频、可量化</text>
+<text x="544" y="444" font-size="12.5" fill="#5c6570">但只覆盖一项技能</text>
+<text x="712" y="426" font-size="13.5" fill="#e8eaec">外部对抗</text>
+<text x="712" y="444" font-size="12.5" fill="#5c6570">主动邀请批评</text>
+<text x="32" y="474" font-size="11" fill="#5c6570" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="1.5">谁有权说你错</text>
+<text x="40" y="496" font-size="13.5" fill="#9aa3ad">没有人</text>
+<text x="208" y="496" font-size="13.5" fill="#9aa3ad">没有人</text>
+<text x="376" y="496" font-size="13.5" fill="#9aa3ad">你自己</text>
+<text x="544" y="496" font-size="13.5" fill="#9aa3ad">题目、测试、程序</text>
+<text x="712" y="496" font-size="13.5" fill="#e8eaec">不欠你人情的读者</text>
+<text x="32" y="524" font-size="11" fill="#5c6570" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="1.5">会暴露什么</text>
+<text x="40" y="546" font-size="13.5" fill="#9aa3ad">什么都不暴露</text>
+<text x="40" y="564" font-size="12.5" fill="#5c6570">收藏夹是它的墓碑</text>
+<text x="208" y="546" font-size="13.5" fill="#9aa3ad">看不懂可以跳过</text>
+<text x="208" y="564" font-size="12.5" fill="#5c6570">在别人的框架里漫步</text>
+<text x="376" y="546" font-size="13.5" fill="#9aa3ad">理解中的空洞</text>
+<text x="376" y="564" font-size="12.5" fill="#5c6570">能否无提示地推导</text>
+<text x="544" y="546" font-size="13.5" fill="#9aa3ad">答不出的题</text>
+<text x="544" y="564" font-size="12.5" fill="#5c6570">跑不通的程序</text>
+<text x="712" y="546" font-size="13.5" fill="#e8eaec">逻辑、证据和假设</text>
+<text x="712" y="564" font-size="12.5" fill="#5c6570">框架里的裂缝</text>
+<path d="M32 458 H868" fill="none" stroke="#2a2f36" stroke-width="1"/>
+<path d="M32 508 H868" fill="none" stroke="#2a2f36" stroke-width="1"/>
+</svg>

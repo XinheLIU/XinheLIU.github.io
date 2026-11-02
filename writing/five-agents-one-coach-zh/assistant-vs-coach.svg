@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 670" width="900" height="670" role="img" aria-labelledby="t d" font-family="-apple-system, 'PingFang SC', 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif">
+<title id="t">同样的技术，相反的目标函数</title>
+<desc id="d">同一个请求，服务员和教练会做出什么不同的选择？两种目标函数把同样的技术带向相反的长期曲线。</desc>
+<defs><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="#1a1f26"/></pattern><marker id="ar-5c6570" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker><marker id="ar-a78bfa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="#a78bfa"/></marker></defs>
+<rect width="900" height="670" rx="12" fill="#0b0d10"/>
+<rect width="900" height="670" rx="12" fill="url(#dots)"/>
+<rect x="0.5" y="0.5" width="899" height="669" rx="12" fill="none" stroke="#2a2f36"/>
+<rect x="32" y="31" width="9" height="9" fill="none" stroke="#a78bfa"/>
+<text x="50" y="40" font-size="12" fill="#a78bfa" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="2">FIG 6 · 服务员与教练</text>
+<text x="32" y="72" font-size="21" font-weight="600" fill="#e8eaec">同样的技术，相反的目标函数</text>
+<line x1="32" y1="90" x2="868" y2="90" stroke="#2a2f36"/>
+<text x="32" y="120" font-size="15" fill="#e8eaec" font-weight="600">服务员 · 满足已经表达的需求</text>
+<text x="32" y="140" font-size="12.5" fill="#5c6570">优化：任务完成率 · 更少步骤 · 黏性</text>
+<text x="450" y="120" font-size="15" fill="#e8eaec" font-weight="600" text-anchor="middle">同一个请求</text>
+<text x="868" y="120" font-size="15" fill="#a78bfa" font-weight="600" text-anchor="end">教练 · 质疑需求是否有益于目标</text>
+<text x="868" y="140" font-size="12.5" fill="#5c6570" text-anchor="end">优化：独立能力 · 判断质量 · 现实杠杆</text>
+<rect x="32" y="156" width="290" height="42" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="48" y="182" font-size="14" fill="#9aa3ad">立刻给出令人满意的答案</text>
+<rect x="352" y="156" width="196" height="42" rx="21" fill="#0b0d10" stroke="#3d444d" stroke-width="1"/>
+<text x="450" y="182" font-size="14" fill="#e8eaec" text-anchor="middle">我要一个答案</text>
+<rect x="578" y="156" width="290" height="42" rx="4" fill="#a78bfa" stroke="#a78bfa" stroke-width="1.2" fill-opacity="0.08"/>
+<text x="594" y="182" font-size="14" fill="#e8eaec">先不给答案，请你自己推导</text>
+<path d="M352 177 H326" fill="none" stroke="#5c6570" stroke-width="1.3" marker-end="url(#ar-5c6570)"/>
+<path d="M548 177 H574" fill="none" stroke="#a78bfa" stroke-width="1.3" marker-end="url(#ar-a78bfa)"/>
+<rect x="32" y="206" width="290" height="42" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="48" y="232" font-size="14" fill="#9aa3ad">推荐更多符合偏好的内容</text>
+<rect x="352" y="206" width="196" height="42" rx="21" fill="#0b0d10" stroke="#3d444d" stroke-width="1"/>
+<text x="450" y="232" font-size="14" fill="#e8eaec" text-anchor="middle">我很看好这个方向</text>
+<rect x="578" y="206" width="290" height="42" rx="4" fill="#a78bfa" stroke="#a78bfa" stroke-width="1.2" fill-opacity="0.08"/>
+<text x="594" y="232" font-size="14" fill="#e8eaec">主动展示反证</text>
+<path d="M352 227 H326" fill="none" stroke="#5c6570" stroke-width="1.3" marker-end="url(#ar-5c6570)"/>
+<path d="M548 227 H574" fill="none" stroke="#a78bfa" stroke-width="1.3" marker-end="url(#ar-a78bfa)"/>
+<rect x="32" y="256" width="290" height="42" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="48" y="282" font-size="14" fill="#9aa3ad">为十个领域各排一份计划</text>
+<rect x="352" y="256" width="196" height="42" rx="21" fill="#0b0d10" stroke="#3d444d" stroke-width="1"/>
+<text x="450" y="282" font-size="14" fill="#e8eaec" text-anchor="middle">我想学十个新领域</text>
+<rect x="578" y="256" width="290" height="42" rx="4" fill="#a78bfa" stroke="#a78bfa" stroke-width="1.2" fill-opacity="0.08"/>
+<text x="594" y="282" font-size="14" fill="#e8eaec">要求先把一个问题学透</text>
+<path d="M352 277 H326" fill="none" stroke="#5c6570" stroke-width="1.3" marker-end="url(#ar-5c6570)"/>
+<path d="M548 277 H574" fill="none" stroke="#a78bfa" stroke-width="1.3" marker-end="url(#ar-a78bfa)"/>
+<rect x="32" y="306" width="290" height="42" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="48" y="332" font-size="14" fill="#9aa3ad">帮你同时推进十个</text>
+<rect x="352" y="306" width="196" height="42" rx="21" fill="#0b0d10" stroke="#3d444d" stroke-width="1"/>
+<text x="450" y="332" font-size="14" fill="#e8eaec" text-anchor="middle">我想追十个新机会</text>
+<rect x="578" y="306" width="290" height="42" rx="4" fill="#a78bfa" stroke="#a78bfa" stroke-width="1.2" fill-opacity="0.08"/>
+<text x="594" y="332" font-size="14" fill="#e8eaec">建议放弃其中八个</text>
+<path d="M352 327 H326" fill="none" stroke="#5c6570" stroke-width="1.3" marker-end="url(#ar-5c6570)"/>
+<path d="M548 327 H574" fill="none" stroke="#a78bfa" stroke-width="1.3" marker-end="url(#ar-a78bfa)"/>
+<rect x="32" y="356" width="290" height="42" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="48" y="382" font-size="14" fill="#9aa3ad">给你想要的鼓励</text>
+<rect x="352" y="356" width="196" height="42" rx="21" fill="#0b0d10" stroke="#3d444d" stroke-width="1"/>
+<text x="450" y="382" font-size="14" fill="#e8eaec" text-anchor="middle">我想要一点鼓励</text>
+<rect x="578" y="356" width="290" height="42" rx="4" fill="#a78bfa" stroke="#a78bfa" stroke-width="1.2" fill-opacity="0.08"/>
+<text x="594" y="382" font-size="14" fill="#e8eaec">告诉你：过去三个月没有实质进步</text>
+<path d="M352 377 H326" fill="none" stroke="#5c6570" stroke-width="1.3" marker-end="url(#ar-5c6570)"/>
+<path d="M548 377 H574" fill="none" stroke="#a78bfa" stroke-width="1.3" marker-end="url(#ar-a78bfa)"/>
+<text x="450" y="426" font-size="13" fill="#5c6570" text-anchor="middle">摩擦按需施加：查资料时高效服务，进入训练模式才要求独立回忆。教练强度的旋钮，由人来拧。</text>
+<text x="32" y="462" font-size="11.5" fill="#5c6570" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="1">服务员的长期曲线（示意）</text>
+<path d="M32 600 H388" fill="none" stroke="#5c6570" stroke-width="1.1" marker-end="url(#ar-5c6570)"/>
+<path d="M32 600 V474" fill="none" stroke="#5c6570" stroke-width="1.1"/>
+<text x="388" y="620" font-size="12" fill="#5c6570" text-anchor="end">时间</text>
+<path d="M40 590 C 150 586, 260 560, 380 496" fill="none" stroke="#aecbdd" stroke-width="2"/>
+<text x="382" y="486" font-size="13" fill="#aecbdd" font-weight="600" text-anchor="end">完成的工作 ↑</text>
+<path d="M40 566 C 150 564, 260 566, 380 563" fill="none" stroke="#5c6570" stroke-width="2" stroke-dasharray="5 5"/>
+<text x="382" y="552" font-size="13" fill="#5c6570" font-weight="600" text-anchor="end">独立能力 →</text>
+<text x="512" y="462" font-size="11.5" fill="#5c6570" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="1">教练的长期曲线（示意）</text>
+<path d="M512 600 H868" fill="none" stroke="#5c6570" stroke-width="1.1" marker-end="url(#ar-5c6570)"/>
+<path d="M512 600 V474" fill="none" stroke="#5c6570" stroke-width="1.1"/>
+<text x="868" y="620" font-size="12" fill="#5c6570" text-anchor="end">时间</text>
+<path d="M520 500 C 630 506, 740 548, 860 568" fill="none" stroke="#5c6570" stroke-width="2" stroke-dasharray="5 5"/>
+<text x="862" y="588" font-size="13" fill="#5c6570" font-weight="600" text-anchor="end">使用时长 ↓</text>
+<path d="M520 590 C 630 584, 740 540, 860 492" fill="none" stroke="#a78bfa" stroke-width="2"/>
+<text x="862" y="482" font-size="13" fill="#a78bfa" font-weight="600" text-anchor="end">独立能力 ↑</text>
+<text x="450" y="652" font-size="14" fill="#e8eaec" text-anchor="middle">教练的使命，不是让用户永远需要教练，而是不断提高用户不依赖教练的能力。</text>
+</svg>

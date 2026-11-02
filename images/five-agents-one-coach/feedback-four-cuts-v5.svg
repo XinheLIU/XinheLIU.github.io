@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 610" width="900" height="610" role="img" aria-labelledby="t d" font-family="-apple-system, 'PingFang SC', 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif">
+<title id="t">离开学校后，反馈断在四处</title>
+<desc id="d">离开学校后，反馈断在哪里？四处断裂分别落在观察、检验、目标和保存上。</desc>
+<defs><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="#1a1f26"/></pattern><marker id="ar-aecbdd" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker></defs>
+<rect width="900" height="610" rx="12" fill="#0b0d10"/>
+<rect width="900" height="610" rx="12" fill="url(#dots)"/>
+<rect x="0.5" y="0.5" width="899" height="609" rx="12" fill="none" stroke="#2a2f36"/>
+<rect x="32" y="31" width="9" height="9" fill="none" stroke="#aecbdd"/>
+<text x="50" y="40" font-size="12" fill="#aecbdd" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="2">FIG · 四处断裂</text>
+<text x="32" y="72" font-size="21" font-weight="600" fill="#e8eaec">离开学校后，反馈断在四处</text>
+<line x1="32" y1="90" x2="868" y2="90" stroke="#2a2f36"/>
+<rect x="230" y="128" width="170" height="64" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+<text x="315" y="156" font-size="17" fill="#e8eaec" font-weight="600" text-anchor="middle">输入</text>
+<text x="315" y="178" font-size="13" fill="#9aa3ad" text-anchor="middle">接触信息与经历</text>
+<rect x="500" y="128" width="170" height="64" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+<text x="585" y="156" font-size="17" fill="#e8eaec" font-weight="600" text-anchor="middle">模型</text>
+<text x="585" y="178" font-size="13" fill="#9aa3ad" text-anchor="middle">形成判断与框架</text>
+<rect x="500" y="328" width="170" height="64" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+<text x="585" y="356" font-size="17" fill="#e8eaec" font-weight="600" text-anchor="middle">检验</text>
+<text x="585" y="378" font-size="13" fill="#9aa3ad" text-anchor="middle">与现实对照，看见误差</text>
+<rect x="230" y="328" width="170" height="64" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+<text x="315" y="356" font-size="17" fill="#e8eaec" font-weight="600" text-anchor="middle">修正</text>
+<text x="315" y="378" font-size="13" fill="#9aa3ad" text-anchor="middle">改方法，也改目标</text>
+<text x="450" y="254" font-size="11.5" fill="#5c6570" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="1">学校里的反馈</text>
+<text x="450" y="274" font-size="12.5" fill="#5c6570" text-anchor="middle">考试让它持续运转</text>
+<path d="M400 160 H496" fill="none" stroke="#aecbdd" stroke-width="1.5" marker-end="url(#ar-aecbdd)"/>
+<path d="M585 192 V244" fill="none" stroke="#aecbdd" stroke-width="1.5"/>
+<path d="M585 272 V324" fill="none" stroke="#aecbdd" stroke-width="1.5" marker-end="url(#ar-aecbdd)"/>
+<path d="M500 360 H464" fill="none" stroke="#aecbdd" stroke-width="1.5"/>
+<path d="M436 360 H404" fill="none" stroke="#aecbdd" stroke-width="1.5" marker-end="url(#ar-aecbdd)"/>
+<path d="M315 328 V276" fill="none" stroke="#aecbdd" stroke-width="1.5"/>
+<path d="M315 248 V196" fill="none" stroke="#aecbdd" stroke-width="1.5" marker-end="url(#ar-aecbdd)"/>
+<path d="M315 392 V410" fill="none" stroke="#aecbdd" stroke-width="1.5"/>
+<path d="M315 438 V452" fill="none" stroke="#aecbdd" stroke-width="1.5" marker-end="url(#ar-aecbdd)"/>
+<path d="M269 466 V500 A46 11 0 0 0 361 500 V466" fill="#101318" stroke="#e3c99a" stroke-width="1.4"/>
+<ellipse cx="315" cy="466" rx="46" ry="11" fill="#e3c99a" fill-opacity="0.16" stroke="#e3c99a" stroke-width="1.4"/>
+<text x="372" y="482" font-size="14" fill="#e3c99a" font-weight="600">知识库</text>
+<text x="372" y="501" font-size="12.5" fill="#5c6570">反馈本该存放的地方</text>
+<circle cx="585" cy="258" r="12" fill="#0b0d10" stroke="#e07a6b" stroke-width="1.5"/>
+<text x="585" y="262.5" font-size="13" fill="#e07a6b" font-weight="700" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">1</text>
+<circle cx="315" cy="262" r="12" fill="#0b0d10" stroke="#e07a6b" stroke-width="1.5"/>
+<text x="315" y="266.5" font-size="13" fill="#e07a6b" font-weight="700" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">2</text>
+<circle cx="450" cy="360" r="12" fill="#0b0d10" stroke="#e07a6b" stroke-width="1.5"/>
+<text x="450" y="364.5" font-size="13" fill="#e07a6b" font-weight="700" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">3</text>
+<circle cx="315" cy="424" r="12" fill="#0b0d10" stroke="#e07a6b" stroke-width="1.5"/>
+<text x="315" y="428.5" font-size="13" fill="#e07a6b" font-weight="700" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">4</text>
+<path d="M598 256 L680 238" fill="none" stroke="#e07a6b" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M302 260 L228 238" fill="none" stroke="#e07a6b" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M458 371 L552 446" fill="none" stroke="#e07a6b" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M302 428 L256 450" fill="none" stroke="#e07a6b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="690" y="214" font-size="15" fill="#e07a6b" font-weight="600">1  截断</text>
+<text x="690" y="236" font-size="13" fill="#9aa3ad">测试在毕业那天被撤走，</text>
+<text x="690" y="255" font-size="13" fill="#9aa3ad">再没人告诉你对不对</text>
+<text x="690" y="280" font-size="13.5" fill="#aecbdd" font-weight="600">断在 · 检验</text>
+<text x="690" y="300" font-size="12.5" fill="#5c6570">完成感代替了掌握</text>
+<text x="220" y="214" font-size="15" fill="#e07a6b" font-weight="600" text-anchor="end">2  污染</text>
+<text x="220" y="236" font-size="13" fill="#9aa3ad" text-anchor="end">平台的参与度目标</text>
+<text x="220" y="255" font-size="13" fill="#9aa3ad" text-anchor="end">× 自己的动机性推理</text>
+<text x="220" y="280" font-size="13.5" fill="#aecbdd" font-weight="600" text-anchor="end">断在 · 观察</text>
+<text x="220" y="300" font-size="12.5" fill="#5c6570" text-anchor="end">越来越确定，也越来越窄</text>
+<text x="560" y="456" font-size="15" fill="#e07a6b" font-weight="600">3  对象错误</text>
+<text x="560" y="478" font-size="13" fill="#9aa3ad">只复盘做得好不好，</text>
+<text x="560" y="497" font-size="13" fill="#9aa3ad">不复盘该不该做（单环）</text>
+<text x="560" y="522" font-size="13.5" fill="#aecbdd" font-weight="600">断在 · 目标</text>
+<text x="560" y="542" font-size="12.5" fill="#5c6570">单环在转，双环没有打开</text>
+<text x="246" y="456" font-size="15" fill="#e07a6b" font-weight="600" text-anchor="end">4  无痕迹</text>
+<text x="246" y="478" font-size="13" fill="#9aa3ad" text-anchor="end">反馈发生了，</text>
+<text x="246" y="497" font-size="13" fill="#9aa3ad" text-anchor="end">却没有地方存放</text>
+<text x="246" y="522" font-size="13.5" fill="#aecbdd" font-weight="600" text-anchor="end">断在 · 保存</text>
+<text x="246" y="542" font-size="12.5" fill="#5c6570" text-anchor="end">下一次又从零开始</text>
+<text x="450" y="590" font-size="13" fill="#9aa3ad" text-anchor="middle">四处断裂叠加：只收到确认，在未经审视的目标上越来越熟练，经历也没有沉淀下来。</text>
+</svg>

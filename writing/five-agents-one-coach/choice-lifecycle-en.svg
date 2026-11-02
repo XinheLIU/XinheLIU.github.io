@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 650" width="900" height="650" role="img" aria-labelledby="t d" font-family="-apple-system, 'PingFang SC', 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif">
+<title id="t">The lifecycle of one important choice</title>
+<desc id="d">Which stages does an important choice pass through, from writing down the expectation to revising the model, and which product handles each? Six stages form a closed loop, and the record is append-only, never overwritten.</desc>
+<defs><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="#1a1f26"/></pattern></defs>
+<rect width="900" height="650" rx="12" fill="#0b0d10"/>
+<rect width="900" height="650" rx="12" fill="url(#dots)"/>
+<rect x="0.5" y="0.5" width="899" height="649" rx="12" fill="none" stroke="#2a2f36"/>
+<rect x="32" y="31" width="9" height="9" fill="none" stroke="#e3c99a"/>
+<text x="50" y="40" font-size="12" fill="#e3c99a" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="2">FIG · IMPORTANT CHOICES</text>
+<text x="32" y="72" font-size="21" font-weight="600" fill="#e8eaec">The lifecycle of one important choice</text>
+<line x1="32" y1="90" x2="868" y2="90" stroke="#2a2f36"/>
+<path d="M450.0 184.0 A300 168 0 0 1 709.8 268.0" fill="none" stroke="#e3c99a" stroke-width="1.5" opacity="0.85"/>
+<polygon points="600.0,206.5 587.2,209.7 591.5,196.4" fill="#e3c99a"/>
+<path d="M709.8 268.0 A300 168 0 0 1 709.8 436.0" fill="none" stroke="#e3c99a" stroke-width="1.5" opacity="0.85"/>
+<polygon points="750.0,352.0 743.0,340.8 757.0,340.8" fill="#e3c99a"/>
+<path d="M709.8 436.0 A300 168 0 0 1 450.0 520.0" fill="none" stroke="#e3c99a" stroke-width="1.5" opacity="0.85"/>
+<polygon points="600.0,497.5 608.5,487.4 612.8,500.7" fill="#e3c99a"/>
+<path d="M450.0 520.0 A300 168 0 0 1 190.2 436.0" fill="none" stroke="#e3c99a" stroke-width="1.5" opacity="0.85"/>
+<polygon points="300.0,497.5 312.8,494.3 308.5,507.6" fill="#e3c99a"/>
+<path d="M190.2 436.0 A300 168 0 0 1 190.2 268.0" fill="none" stroke="#e3c99a" stroke-width="1.5" opacity="0.85"/>
+<polygon points="150.0,352.0 157.0,363.2 143.0,363.2" fill="#e3c99a"/>
+<path d="M190.2 268.0 A300 168 0 0 1 450.0 184.0" fill="none" stroke="#e3c99a" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.85"/>
+<polygon points="300.0,206.5 291.5,216.6 287.2,203.3" fill="#e3c99a"/>
+<rect x="342" y="146" width="216" height="76" rx="6" fill="#101318" stroke="#e3c99a" stroke-width="1.3"/>
+<text x="358.0" y="172.0" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#e3c99a" font-weight="400" font-size="13">01</tspan><tspan dx="8">State expectation</tspan></text>
+<text x="358" y="193" font-size="13" fill="#9aa3ad">what do I expect?</text>
+<text x="358" y="212" font-size="11" fill="#aecbdd" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">WA claim · Compass hypothesis</text>
+<rect x="601.808" y="230" width="216" height="76" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.3"/>
+<text x="617.8" y="256.0" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#e3c99a" font-weight="400" font-size="13">02</tspan><tspan dx="8">Record the basis</tspan></text>
+<text x="617.808" y="277" font-size="13" fill="#9aa3ad">why do I believe it?</text>
+<text x="617.808" y="296" font-size="11" fill="#aecbdd" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">AKB sources · IA evidence</text>
+<rect x="601.808" y="398" width="216" height="76" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.3"/>
+<text x="617.8" y="424.0" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#e3c99a" font-weight="400" font-size="13">03</tspan><tspan dx="8">Counter-evidence</tspan></text>
+<text x="617.808" y="445" font-size="13" fill="#9aa3ad">where could it be wrong?</text>
+<text x="617.808" y="464" font-size="11" fill="#aecbdd" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">IA counterevidence · WA review</text>
+<rect x="342" y="482" width="216" height="76" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.3"/>
+<text x="358.0" y="508.0" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#e3c99a" font-weight="400" font-size="13">04</tspan><tspan dx="8">Take action</tspan></text>
+<text x="358" y="529" font-size="13" fill="#9aa3ad">what will I do?</text>
+<text x="358" y="548" font-size="11" fill="#aecbdd" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">Compass action</text>
+<rect x="82.1924" y="398" width="216" height="76" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.3"/>
+<text x="98.2" y="424.0" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#e3c99a" font-weight="400" font-size="13">05</tspan><tspan dx="8">Get feedback</tspan></text>
+<text x="98.1924" y="445" font-size="13" fill="#9aa3ad">what actually happened?</text>
+<text x="98.1924" y="464" font-size="11" fill="#aecbdd" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">LOS tests · Compass market</text>
+<rect x="82.1924" y="230" width="216" height="76" rx="6" fill="#101318" stroke="#e3c99a" stroke-width="1.3"/>
+<text x="98.2" y="256.0" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#e3c99a" font-weight="400" font-size="13">06</tspan><tspan dx="8">Revise the model</tspan></text>
+<text x="98.1924" y="277" font-size="13" fill="#9aa3ad">what did I learn?</text>
+<text x="98.1924" y="296" font-size="11" fill="#aecbdd" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">AKB view history</text>
+<path d="M380 284 V328 A70 15 0 0 0 520 328 V284" fill="#101318" stroke="#e3c99a" stroke-width="1.4"/>
+<ellipse cx="450" cy="284" rx="70" ry="15" fill="#e3c99a" fill-opacity="0.16" stroke="#e3c99a" stroke-width="1.4"/>
+<text x="450" y="372" font-size="17" fill="#e3c99a" font-weight="700" text-anchor="middle">Important choices</text>
+<text x="450" y="394" font-size="13" fill="#9aa3ad" text-anchor="middle">append-only, never overwritten</text>
+<text x="450" y="418" font-size="12.5" fill="#5c6570" text-anchor="middle">few · traced to a model</text>
+<text x="450" y="436" font-size="12.5" fill="#5c6570" text-anchor="middle">reviewed to correct the model</text>
+<text x="450" y="604" font-size="11.5" fill="#5c6570" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace">IA = Information Assistant · AKB = Agentic Knowledge Bank · LOS = Learning OS · WA = Writing Assistant</text>
+<text x="450" y="630" font-size="13.5" fill="#e8eaec" text-anchor="middle">Five products, different stages, one knowledge base: that matters far more than a shared user profile.</text>
+</svg>

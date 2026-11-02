@@ -1,0 +1,1314 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <meta name="keywords" content="五个 Agent，一位教练：AI 时代，我为什么还要为自己造一套成长系统, Xinhe Liu (Charles)">
+    <meta name="description" content="Why I am designing a personal growth system as the opposite of a personal agent. One line runs through the essay, continually forming, testing and reframing an understanding of the world and of myself, and letting that understanding and action shape each other. General personal agents, which I call service agents, will win a huge market by serving convenience, but they serve human laziness rather than amplify human ability, and they will never keep that line running in one person. So I am trying the other way, a coach built on a shared knowledge base with five products, one agent each, borrowing general capabilities from existing agents and building only what they cannot or will not do. It is tested in a twelve-week practice with evidence others can check and failure conditions written in advance.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="五个 Agent，一位教练：AI 时代，我为什么还要为自己造一套成长系统 | Xinhe Liu (Charles)">
+    <meta property="og:description" content="Why I am designing a personal growth system as the opposite of a personal agent. One line runs through the essay, continually forming, testing and reframing an understanding of the world and of myself, and letting that understanding and action shape each other. General personal agents, which I call service agents, will win a huge market by serving convenience, but they serve human laziness rather than amplify human ability, and they will never keep that line running in one person. So I am trying the other way, a coach built on a shared knowledge base with five products, one agent each, borrowing general capabilities from existing agents and building only what they cannot or will not do. It is tested in a twelve-week practice with evidence others can check and failure conditions written in advance.">
+    <meta property="og:url" content="https://xinheliu.github.io/writing/five-agents-one-coach-zh/">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="五个 Agent，一位教练：AI 时代，我为什么还要为自己造一套成长系统 | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="Why I am designing a personal growth system as the opposite of a personal agent. One line runs through the essay, continually forming, testing and reframing an understanding of the world and of myself, and letting that understanding and action shape each other. General personal agents, which I call service agents, will win a huge market by serving convenience, but they serve human laziness rather than amplify human ability, and they will never keep that line running in one person. So I am trying the other way, a coach built on a shared knowledge base with five products, one agent each, borrowing general capabilities from existing agents and building only what they cannot or will not do. It is tested in a twelve-week practice with evidence others can check and failure conditions written in advance.">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;family=Noto+Serif+SC:wght@500;600;700&display=swap">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>五个 Agent，一位教练：AI 时代，我为什么还要为自己造一套成长系统 | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/home-zh/" aria-label="昕和首页">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>昕和</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="主导航">
+    
+        <a href="/home-zh/" class="">首页</a>
+    
+        <a href="/library-zh/" class="">图书馆</a>
+    
+        <a href="/projects-zh/" class="">项目</a>
+    
+        <a href="/about-zh/" class="">个人信息和联系方式</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="搜索" aria-label="搜索">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a class="lang-switch" href="/writing/five-agents-one-coach/" title="English" aria-label="English">EN</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="主题切换" aria-label="主题切换">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="打开菜单">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/home-zh/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>昕和</strong>
+            </span>
+        </a>
+        <p>昕和的个人主页、写作与技术笔记。</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/home-zh/">首页</a></li>
+        
+            <li><a href="/library-zh/">图书馆</a></li>
+        
+            <li><a href="/projects-zh/">项目</a></li>
+        
+            <li><a href="/about-zh/">个人信息和联系方式</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="搜索">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        <a class="lang-switch" href="/writing/five-agents-one-coach/">EN</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">标签</a>
+        <a href="/categories/">分类</a>
+        <a href="/archives-zh/">归档</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+<header class="post-hero content">
+    <div class="container">
+        
+            <p class="eyebrow">写作</p>
+        
+        <h1 class="page-title">五个 Agent，一位教练：AI 时代，我为什么还要为自己造一套成长系统</h1>
+        <div class="post-meta">
+            <time datetime="2026-10-21">2026-10-21</time>
+            
+                <span class="dot">·</span>
+                <span>66 分钟</span>
+            
+            
+                <span class="post-hero-tags">
+                    
+                        <a class="chip" href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/">个人成长</a>
+                    
+                        <a class="chip" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">人工智能和机器学习</a>
+                    
+                        <a class="chip" href="/tags/Agent/">Agent</a>
+                    
+                </span>
+            
+        </div>
+        <hr class="post-hero-rule">
+    </div>
+</header>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="personal-ai时代我为什么还要为自己造一套成长系统"><a class="markdownIt-Anchor" href="#personal-ai时代我为什么还要为自己造一套成长系统"></a> Personal AI时代，我为什么还要为自己造一套成长系统</h1>
+<p>我想为自己设计一套成长系统。起因是三个很具体的困扰：信息太散，学习没有反馈，想法难以落地。往下追问，发现它们指向同一个问题：我怎样才能从每天的工作和生活里，持续形成更好的理解，并用这些理解决定下一步？</p>
+<p>AI 让这个问题更迫切了。它大幅降低了检索、分析、推导和生成的成本，让我能做更多事。但能做的事情越多，越需要知道哪些值得做，自己为什么这样选，以及什么证据会让我改变选择。</p>
+<p>我对这套系统的期待，可以归结为两件事：</p>
+<ul>
+<li>打磨反馈闭环</li>
+<li>培养元认知</li>
+</ul>
+<p>前者让行动产生的信息真正影响下一次行动；后者让我有机会跳出来，审视自己正在追求什么、依据什么判断，以及这些想法如何被环境塑造。两件事落在同一条主线上：<strong>在不断变化的世界中，持续形成、检验和重构对世界与自身的理解，并让理解与行动相互塑造。</strong></p>
+<p>这里的“理解”也包括问题本身。很多时候，我一开始并不知道自己真正在问什么，问题是在阅读、实践和交流中一点点变清楚的。</p>
+<figure class="slides-embed">
+  <div class="slides-embed-frame">
+    <iframe src="/slides/five-agents-one-coach/zh/" title="五个 Agent，一位教练 · 32 页" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <figcaption class="slides-embed-bar">
+    <span class="slides-embed-title">五个 Agent，一位教练 · 32 页</span>
+    <span class="slides-embed-hint">点击后用方向键翻页 · O 键总览</span>
+    <a class="slides-embed-open" href="/slides/five-agents-one-coach/zh/" target="_blank" rel="noopener">全屏打开 ↗</a>
+  </figcaption>
+</figure>
+<h2 id="一-问题越努力越像在原地优化"><a class="markdownIt-Anchor" href="#一-问题越努力越像在原地优化"></a> 一、问题：越努力，越像在原地优化</h2>
+<p>过去十几年，我沿着一条清晰的路径成长：读更多的书，学更多的东西，解决更难的问题。这套方法帮我一次次进入新的领域。二十多岁时它非常有效：学习的边际收益很高，结果也直接。不会编程，学会编程就是巨大的进步；不懂商业，理解了基本的商业逻辑就打开了一个新世界。</p>
+<p>三十多岁以后，有AI以后，我开始怀疑它是否还够用。借助AI，我获取知识的能力远远超过过去：几个小时就能完成以前几周的调研，能迅速进入一个陌生领域，能写出可以运行的代码。但信息处理的速度上去了，成长的速度却没有同步。</p>
+<ul>
+<li>花了很多时间研究一个技术方向，却从没认真判断过它值不值得投入三年；</li>
+<li>认识不少优秀的人，却很少把这些关系变成长期的互相成就；</li>
+<li>每隔一段时间会冒出一些不错的想法，三个月后它们已经淹没在聊天记录、笔记和待办事项里；</li>
+<li>每一天都认真完成了任务，却说不清过去半年有哪个认识真正改变了我。</li>
+</ul>
+<p>十一假期我写过一篇<a href="/writing/working-harder-growing-mediocre-zh/">《越努力越平庸的真相》</a>，讲熟知与真知、单环与双环学习、生态位，结论是“不能再把认知当成行动的替代品”。一个人完全可能非常勤奋，却多年都在熟悉的框架里做局部优化。所以我真正想问的是：<strong>我究竟是在持续成长，还是只是在越来越高效地重复过去的自己？</strong></p>
+<h3 id="离开学校之后被打断的反馈闭环"><a class="markdownIt-Anchor" href="#离开学校之后被打断的反馈闭环"></a> 离开学校之后，被打断的反馈闭环</h3>
+<p>在学校，考试是一套高度制度化的反馈机制。它未必能准确评价所有能力，但至少不断告诉我们哪里对、哪里错、哪里没掌握。离开学校后，这套机制被一点点拆掉了：</p>
+<p><img src="/writing/five-agents-one-coach-zh/feedback-four-cuts-v5.svg" alt="离开学校后，反馈断在哪里？四处断裂: 观察、检验、目标和保存上" /></p>
+<ul>
+<li><strong>截断。</strong> 考试在毕业那天被撤走，大多数人再也没有装回去。阅读、听课、收藏、总结都很容易带来完成感，却证明不了真实的掌握。</li>
+<li><strong>污染。</strong> 没有测试，人们转向信息消费。可消费到的信息经过了两层过滤：平台按参与度排序，我们自己又倾向于选择想看的。两层朝同一个方向用力：人变得更确定，也更狭窄。</li>
+<li><strong>对象错误。</strong> 很多人确实在复盘，但只复盘“事情做得好不好”，很少复盘“这件事该不该做”。只优化执行，就会越来越擅长做原本不值得做的事。</li>
+<li><strong>没有痕迹。</strong> 即使反馈发生了，也没有地方存放。读完一本书改变了一个看法，一个月后已经不记得原来的看法是什么；项目结束了，复盘靠回忆。看不见模型是怎样变过来的，也就发现不了反复出现的偏差。</li>
+</ul>
+<p>这只是诊断，说明反馈断在哪里，不对应某一个修补工具。四处叠加，结果是：一个人可以不断学习、不断行动、不断复盘，却越来越擅长在自己的既有立场内部证明自己正确。AI 最有价值的地方，也未必是替我们阅读和总结，而是<strong>第一次有可能为一个成年人重新装回一套反馈系统</strong>。</p>
+<h3 id="从比竞技能力到比经营能力"><a class="markdownIt-Anchor" href="#从比竞技能力到比经营能力"></a> 从比竞技能力，到比经营能力</h3>
+<p>年轻时，进步主要发生在专业技能上，更多更快学到新的专业能力，就能拿到更大的结果。能力积累到一定阶段后，问题变得更复杂：懂得更多，未必更清楚该投入哪里；一个人做得更快，也未必能创造更大的价值。</p>
+<p>职业发展到一定阶段，类似运动员，年轻的时候更多是单兵突破能力，职业生涯后期则需要调动团队、甚至影响俱乐部。四种杠杆比个人能力更重要，且需要一起发挥作用：</p>
+<ul>
+<li><strong>信息杠杆</strong>：及时接触重要变化，也能发现自己的信息来源遗漏了什么；</li>
+<li><strong>认知杠杆</strong>：形成能解释问题、指导行动的理解；</li>
+<li><strong>人脉杠杆</strong>：与合适的人建立持续互惠的关系，让不同能力能够合作；</li>
+<li><strong>行动杠杆</strong>：把理解、能力和关系投入实践，形成产品、作品和新的机会。</li>
+</ul>
+<p>这几种杠杆会互相影响。理解决定你愿意尝试什么，合作带来新的信息，行动又可能推翻原来的理解。经营能力就体现在这种往复之中：判断什么值得做，组织条件让它发生，再根据结果重新配置资源。值得学的是如何围绕核心认知优势，持续连接人才、市场和组织，突破个人产出的上限。个人能力的价值，与它被部署到哪里、和什么资源结合密切相关。</p>
+<p>AI时代，我们手里有日历、待办、笔记、通讯录和各种AI助手。它们都很有用，但主要帮我们完成已经决定要做的事情：能列出今天的任务，却不判断这些任务值不值得做；能记下一个联系人，却不会把对方最近在做的事，和我正在探索的机会联系起来。企业有战略、人才和知识管理这些职能来判断和配置资源，个人几乎没有。<strong>大部分个人生产力工具优化的是执行效率，而不是认知和决策质量</strong>。</p>
+<h3 id="ai摊平许多智力工作之后主动性变成更重要的竞争力"><a class="markdownIt-Anchor" href="#ai摊平许多智力工作之后主动性变成更重要的竞争力"></a> AI摊平许多智力工作之后，主动性变成更重要的竞争力</h3>
+<p>现在，检索资料、比较选项、推导方案、生成代码和内容，很大一部分专业智力工作正在被AI摊平。不同任务的变化速度并不相同，专业知识仍然重要，但仅靠信息处理能力建立优势，会越来越困难。</p>
+<p>所以越来越多人谈agency，主动性，变得更加重要。主动性是一个人能够主动形成目标、作出选择、组织资源采取行动，并根据反馈调整、承担结果的能力。它既体现在启动一件事，也体现在持续投入、改变方法，或者停止一个已经不值得做的项目。</p>
+<p>有一种说法把未来的人分成“提供数据的人”和“提供算法的人”。</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>提供什么</th>
+<th>得到什么</th>
+<th>在 AI 时代的走向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>提供数据</td>
+<td>注意力、偏好、行为</td>
+<td>便利与娱乐</td>
+<td>被服务得最好，也最容易被塑造</td>
+</tr>
+<tr>
+<td>提供方法</td>
+<td>分析、经验、流程</td>
+<td>专业溢价</td>
+<td>逐渐被 AI 追上，方法被蒸馏成数据</td>
+</tr>
+<tr>
+<td>提供定义</td>
+<td>目标、判断、连接、承担</td>
+<td>杠杆</td>
+<td>越来越少，也越来越值钱</td>
+</tr>
+</tbody>
+</table>
+<p>Pesonal Agent会从娱乐逐渐接管到消费，社交。但一个只学习偏好的系统，也只会把过去的选择喂回给用户，让下一个选择更像过去。服务型AI不会自动决定我想建立什么、愿意承受什么代价，也不会自动让我走进现实，把一个想法变成实践。未来更稀缺的，是敢于去定义而不是被定义的人。</p>
+<p>但以人为主体，AI为工具的话，AI对个人的主体性是有显著的放大和增强的：</p>
+<table>
+<thead>
+<tr>
+<th>主动性的成分</th>
+<th>AI 能帮什么</th>
+<th>需要人完成的</th>
+<th>依赖哪种理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义</td>
+<td>聚类信号，列出候选问题和目标</td>
+<td>选定问题，设定自己的标准</td>
+<td>对自己和环境的模型：什么重要</td>
+</tr>
+<tr>
+<td>判断</td>
+<td>收集证据，提出初判，寻找反例</td>
+<td>最终的取舍与置信程度</td>
+<td>对领域的模型：关键约束在哪里</td>
+</tr>
+<tr>
+<td>连接</td>
+<td>识别互补的人和时机，准备背景</td>
+<td>用自己的信誉去介绍、去合作</td>
+<td>对人的模型：谁缺什么、谁能给什么</td>
+</tr>
+<tr>
+<td>承担</td>
+<td>执行、跟进、提醒</td>
+<td>为结果负责，并回看依据</td>
+<td>对自己的模型：能承受多大的不确定性</td>
+</tr>
+</tbody>
+</table>
+<p>这种主动性与认知相互依赖。一方面，需要足够的理解才能辨认机会、约束与代价；另一方面，许多理解又要在行动之后才能获得。等待自己完全想清楚再出发，可能永远等不到；没有反思地持续行动，也可能只是在重复。</p>
+<h3 id="元认知的重要性"><a class="markdownIt-Anchor" href="#元认知的重要性"></a> 元认知的重要性</h3>
+<p>主动性很重要的一个来源是<strong>元认知：觉察自己如何认识和判断，并有意识地调整这个过程。</strong></p>
+<p>本质上这需要“双环学习”：把自己的目标、规则和底层假设也当作需要审视的对象。只有能够看见这套框架，才有机会主动调整它。</p>
+<ul>
+<li>单环学习关注在既定目标下怎样做得更好：模型效果能否提高，工作能否更快，沟通能否更清楚。它有一个前提：目标、规则和衡量标准已经被接受了。</li>
+<li>双环学习把这些前提也放进审视范围：为什么追求这个目标？为什么用这套标准判断好坏？原先相信的假设还成立吗？有时候一个人不断努力，却始终无法突破，原因就在于他已经非常擅长优化一件自己未必真正想做的事。</li>
+</ul>
+<p>认知是在环境中逐渐形成的。工作奖励什么，身边的人讨论什么，日常接触哪些信息，都会影响我认为哪些问题重要、哪些能力有价值。长期身处技术环境，就容易把技术难度当成价值的主要来源；习惯了组织给定的考核标准，也容易把完成考核当成自己的目标。</p>
+<p>所以，跳出来审视自己，需要把周围的环境也当成认识对象。笔记、项目记录、交流历史和记忆在这里有具体用途：它们帮助我回看，当时看到了什么、受到什么激励、有哪些选择，以及为什么总是走向类似的选择。记录让这种审视有依据；是否愿意重新判断，仍要靠自己。</p>
+<p><strong>真正的认知积累，会让我越来越清楚什么值得自己持续投入，以及在什么条件下应该改变投入。</strong></p>
+<p>元认知并不凭空创造资源，也不能消除现实约束。但它至少能帮助我看清自己还有哪些选择，减少在没有意识到的情况下被环境推着走。</p>
+<p>这种审视可以发生在不同层面：一个具体判断是怎样形成的，或者我习惯站在什么位置看待整个局面。</p>
+<p>从双环学习出发、元认知能力的培养可以有很多具体的练习，例如</p>
+<ul>
+<li>区分事实、情绪、解释与预测。
+<ul>
+<li>很多时候，我们以为自己在描述现实，实际是在描述感受，或者把一种解释当成了事实。假设一位客户在收到报价后三天没有回复。“三天没有回复”是观察，“我很失落”是情绪，“客户认为价格太高”是解释，“这次合作大概不会发生”是预测。四句话可以同时出现，但需要不同的依据。失落是真实的感受，却不能单独证明客户拒绝的原因；一次沉默也不足以推断长期的市场需求。</li>
+</ul>
+</li>
+<li>散户和庄家视角切换。
+<ul>
+<li>散户视角习惯站在既有规则里，从自身利益出发寻找局部最优：怎样拿到更好的报价、获得更高的评价、抓住眼前的机会。庄家则需要理解整个局面：谁在制定规则，各方为什么参与，资源如何组织，怎样让合作持续，哪些规则值得改变。有庄家的洞察才有可能主动放弃眼前的一部分利益，为合作保留空间，换取长期信任和共同创造价值的可能。这种取舍需要对关系和时间有更长的理解，也需要知道自己能够承担多大的不确定性。</li>
+</ul>
+</li>
+<li>逐渐修正自己行动的能力
+<ul>
+<li>可以先带着一个不完整的问题行动，再通过新证据把它问得更准确。成长系统需要帮助人完成这种往复，而不能要求用户一开始就提交一个定义完美的长期目标。问题怎样从模糊变清晰，第二部分最后一节会专门讨论。</li>
+</ul>
+</li>
+</ul>
+<h2 id="二-认知怎样增长知行合一"><a class="markdownIt-Anchor" href="#二-认知怎样增长知行合一"></a> 二、认知怎样增长：知行合一</h2>
+<p>人和智能体的训练在很多地方是相通的：都要**在不确定的环境中，以反馈为基础持续决策和配置资源。**一个成熟的Agent需要定义目标，能够获得事实，在约束下选择动作，记录结果并持续调整；企业经营要理解市场、配置资源、采取行动，再依据反馈修正策略；个人成长同样涉及目标、时间、能力、关系和反馈。差别在目标、信息质量、可采取的动作和试错代价。</p>
+<p>同时，人的成长和智能体的训练更根本的差别：智能体的目标通常是给定的，人的很多目标和问题却是在探索中逐渐形成的。我想要什么，到底在问什么，往往要走一段路才知道。所以对人来说，这条线不能只是优化一个固定的目标，还要包括对目标和问题本身的形成与重构。</p>
+<p>把这件事拆开，是四步：<strong>观察</strong>环境，<strong>建模</strong>，<strong>检验</strong>模型，作出<strong>选择</strong>并投入。选择带来反馈，反馈回到模型，这就是第一部分说的单环；必要时把目标、问题和假设也放进审视范围，就是双环。四步背后是三种相互促进的能力：</p>
+<ul>
+<li><strong>意义和目标建构</strong>：从模糊的经历、信息和冲突中逐渐形成理解，主要发生在观察和建模；</li>
+<li><strong>学习与修正</strong>：通过逻辑、证据和实践检验理解，发现错误与边界，主要发生在检验；</li>
+<li><strong>主动性和元认知</strong>：基于不完整的理解作出选择，在实践中继续认识世界，主要发生在选择与投入。</li>
+</ul>
+<p>三者没有先后。没有意义建构，学习不知道该检验什么；没有学习，理解只是自洽的故事；没有主动性，理解永远停在纸面上。</p>
+<p>我对“知行合一”的理解，就是让这条线真正运转，这和训练智能体某种程度也很相似：已有的认识指导行动，行动使原先看不见的条件显露出来，经过反馈、反思和抽象，这些经历又成为下一次行动的依据。知与行在这个过程中相互改变。阅读、学习和思考都参与其中；它们的作用，要在这条往复的关系中理解。</p>
+<h3 id="行塑造反馈环境"><a class="markdownIt-Anchor" href="#行塑造反馈环境"></a> 行：塑造反馈环境</h3>
+<h4 id="把行动翻译为经验和知识"><a class="markdownIt-Anchor" href="#把行动翻译为经验和知识"></a> 把行动翻译为经验和知识</h4>
+<p>很多真正的知识只能通过行动获得。写文章，才会发现一些自以为清楚的想法无法被准确表达；开发产品，才会知道自己对用户的理解有多少来自想象；真正向客户收费，才会遇到需求、预算、采购流程和信任的共同约束。这些信息很难靠多读几篇材料完整获得，因为它们与具体的人、情境和自己采取的动作有关。</p>
+<p>行动让一部分原先看不见的世界变得可见。但经历不会自动转化为经验，经验也不会自动转化为认知。经历只是接触过某件事；经验意味着原来的理解被检验过、被修正过。一个人工作了十年，如果一直把失败归因于环境和运气，从不调整自己的框架，可能只是把第一年重复了十次。</p>
+<p>我所说的认知增长，是能够从这些经历中提炼出更有解释力的关系，知道它们在什么条件下成立，并把它们用于新的问题。例如，一次客户不买单，可以推动我去区分“产品能解决问题”和“客户有条件采购”之间的差别。这个认识能否迁移，还要看其他客户是否面对相似的约束。</p>
+<p>笔记和复盘有用，是因为它们帮助我完成这一步。把事情重新叙述一遍，只是保存了经历；找出原先没看见的条件，并据此改变下一次行动，才开始形成自己的经验。</p>
+<h4 id="知识有效的反馈闭环"><a class="markdownIt-Anchor" href="#知识有效的反馈闭环"></a> 知识=有效的反馈闭环</h4>
+<p>反馈是模型与现实发生接触后得到的信息。它可以来自一次练习，也可以来自产品使用、客户交流、合作过程和最终结果。一个结果符合预期，能增加某个解释的可信度；与预期不符，则可能暴露假设、执行或观察上的问题。</p>
+<p>真正困难的地方在于解释差距。产品没人使用，可能是需求判断有误，也可能是触达不足、使用成本太高，或者产品还没有可靠地解决问题。若把每次失败都归因于方向错误，会过早放弃；若一概归因于执行不够好，又会一直在错误的方向上加码。</p>
+<p>所以，一个有效的反馈闭环至少要回答几件相连的事：我原本以为什么会发生，实际观察到了什么，有哪些可能解释，还需要什么证据，以及下一步应该怎样调整。结果本身很少给出全部答案。反思的任务，是缩小解释的范围，设计下一次更有辨别力的尝试。</p>
+<p>这里也包括不确定的结论。有时证据只能说明“目前还分不清”，这时应当保留不同解释；有时新材料支持原来的判断，继续投入就是合理的选择。模型变化的次数，不能直接代表认知增长的多少。</p>
+<h4 id="快反馈与慢反馈"><a class="markdownIt-Anchor" href="#快反馈与慢反馈"></a> 快反馈与慢反馈</h4>
+<p>反馈的速度和质量也不是一回事。程序运行失败可能立即暴露问题，却未必指出根因；客户一句肯定来得很快，却未必意味着愿意付费；长期合作的价值需要更久才能看清。</p>
+<p>按速度粗分，反馈有快慢两种。它们不是“学习”和“行动”两条路，而是同一段实践里同时存在的两种节奏：一次客户访谈、一次代码实验、一段练习、一稿文章，都能当天看到结果；方向是否值得投入三年、合作是否持续互惠，则要等更久。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>快反馈</th>
+<th>慢反馈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>来源</td>
+<td>材料、练习、草稿、一次交流、一次小实验</td>
+<td>方向、合作、投入带来的现实结果</td>
+</tr>
+<tr>
+<td>周期</td>
+<td>当天到两周</td>
+<td>一个季度到几年</td>
+</tr>
+<tr>
+<td>样本量</td>
+<td>每天都有</td>
+<td>一年几次</td>
+</tr>
+<tr>
+<td>归因</td>
+<td>相对清楚：这一块理解是空的，这个假设被反例动摇了</td>
+<td>混杂：运气、环境、他人和模型交织</td>
+</tr>
+<tr>
+<td>适合检验</td>
+<td>理解是否成立，能力是否独立可用</td>
+<td>模型是否真正改善了选择</td>
+</tr>
+</tbody>
+</table>
+<div class="mermaid">
+  flowchart LR
+    subgraph S1 ["快反馈：以天计"]
+        A1["接触材料<br/>或做一次小行动"] --> A2["写下理解与空白"] --> A3["无提示练习<br/>或证据对照"] --> A4["修正模型"] --> A1
+    end
+    subgraph S2 ["慢反馈：以季计"]
+        B1["基于模型作出选择"] --> B2["投入与行动"] --> B3["现实结果"] --> B4["归因回模型"] --> B1
+    end
+    A4 -.->|少数重要时刻| B1
+    B4 -.->|写回| A2
+</div>
+
+<p>两种缺一不可。只有快反馈，系统会变成一台精致的练习机，模型越来越自洽，却不知道是否改善了选择；只有慢反馈，信息太少、太慢，大部分时间无事可做，归因也很难。合理的分工是：快反馈承担大部分训练和修正，慢反馈检验这些训练是否真的影响了生活。</p>
+<p>我的任务是为不同问题寻找合适的证据，在等待长期结果时，用较小的行动检验其中的关键假设，同时承认这些局部证据还证明不了什么。</p>
+<h3 id="知打破自我保护追求可验证"><a class="markdownIt-Anchor" href="#知打破自我保护追求可验证"></a> 知：打破自我保护，追求可验证</h3>
+<p>快反馈从哪里来？以学习为例，不同的学习方式，差别在于理解被检验的程度。我把它分成五层：</p>
+<ol>
+<li><strong>听与碎片</strong>：只有输入，没有反馈。收藏夹、没听完的播客、没读的订阅，制造“我在学习”的感觉，却没有机制检验它。</li>
+<li><strong>阅读</strong>：更有结构，但仍在别人的框架里，看不懂的地方可以跳过。</li>
+<li><strong>给自己上课</strong>：第一次自发的检验。没有提示，我能不能把它讲出来、推导出来？</li>
+<li><strong>刻意练习</strong>：高频、可判定对错的反馈，但只覆盖正在练的那项技能。</li>
+<li><strong>写作</strong>：把理解变成一个可以被别人审视的对象，交给不欠我人情的人检验。</li>
+</ol>
+<p><img src="/writing/five-agents-one-coach-zh/learning-ladder.svg" alt="学习的五层差在哪里？沿阶梯往上，理解暴露在检验之下的程度越来越深，能指出错误的人也越来越多" /></p>
+<p>沿着阶梯往上，共同的变量是：<strong>理解有多大程度暴露在检验之下，有多少人能够指出它的错误。</strong> 阶梯之外还有更完整的检验：交付、收费、合作，让理解去承受现实的后果。</p>
+<p>长期停在前两层，并不只是因为懒惰，而是后面几层要求人不断面对“我原来并没有想清楚”。</p>
+<p>一次反馈可以纠正眼前的做法，但面对和反思是反人性的。要让这次经历对以后的问题也有帮助，还需要从具体结果中找出关系、条件和边界，并在不同场景间比较。这些是AI可以帮助放大的</p>
+<h4 id="从现象中提炼结构是ai擅长的能力"><a class="markdownIt-Anchor" href="#从现象中提炼结构是ai擅长的能力"></a> 从现象中提炼结构是AI擅长的能力</h4>
+<p>我很喜欢一种笛卡尔式的区分：日常接触的是复杂多变的表象，理性试图穿透表象，找到背后相对稳定的结构和关系。由此得出一个对我很重要的定义：<strong>认知增长不是知道更多现象，而是从现象中提炼出能够解释其他现象、指导下一步行动的结构。</strong></p>
+<p>以读新闻为例，每天的AI新闻变化很快：某个模型发布了新版本，某家公司拿到了融资，某项基准被刷新。这些是现象。背后值得追问的是：哪些成本在下降，哪些约束依然存在，客户为什么付费，价值会流向哪些环节。参加一次面试或推进一次合作，拿到的具体反馈也是现象；如果能发现“技术深度得到了认可，但商业表达没有形成同等的价值”，它就成了可以指导学习重点和定位的结构。<strong>前者是信息，后者才开始成为认知。</strong></p>
+<p>这种抽象有价值，是因为它帮助我理解尚未遇到的情形。一个模型如果只能解释已经发生的事情，却不能帮助我决定还要观察什么、下一步如何行动，它的作用就很有限。一个有一万篇笔记的知识库，也不代表它的主人理解了世界；没有抽象、跨场景的验证和持续修正，它只是一个组织得很漂亮的收藏夹。</p>
+<p>不过，抽象很容易把具体条件一起抹掉。在某个项目里有效的办法，可能依赖于团队规模、客户类型或当时的技术条件。把这些条件删掉，就会得到一个听起来普遍正确、实际无法使用的原则。这就需要人和AI一起进行反思。单纯的信息加工并不能真正提炼出认知。</p>
+<p>我愿意把认知看作一组带有适用条件、能够被检验的模型。它们可以包含因果解释、经验规律和对未来的预期，但必须知道各自依据是什么、局限在哪里。随着环境变化，有的模型需要细化，有的需要替换，有的则会获得更充分的支持。</p>
+<h4 id="广度与深度"><a class="markdownIt-Anchor" href="#广度与深度"></a> 广度与深度</h4>
+<p>怎样形成这样的认知模型？设想的系统里具备广度和深度两个维度，它们分别撑起信息杠杆和认知杠杆。</p>
+<ul>
+<li><strong>广度来自与世界的持续连接。</strong>
+<ul>
+<li>阅读、交流、观察新技术、接触不同产业和学科的方法论，为认知提供比较和迁移的空间。芒格强调的多元思维模型，对我的启发在于：面对一个问题，可以调用不同领域的解释，再看哪一种真正抓住了约束。</li>
+<li>横向连接的价值，是让一个领域的经验帮助我们发现另一个领域中被忽略的东西。有算法背景的人，习惯把商业问题理解为优化问题；只有商业背景的人，又容易低估技术带来的成本变化。</li>
+<li>广度的危险是退化成信息消费：接触得多，就以为理解得深。这是设计上需要刻意避免的。例如，理解企业和Agent都需要反馈，不意味着已经掌握组织激励或运行时设计。一个领域中的变量，在另一个领域可能无法测量；技术任务可以重复试验，人的合作却有记忆、信任和不可逆的代价。所以横向连接之后，还要回到具体领域，检查类比在哪些地方成立、在哪些地方失效。</li>
+</ul>
+</li>
+<li><strong>深度来自对少数问题的纵向穿透。</strong>
+<ul>
+<li>沿着一个问题不断向下追问，直到理解它的基础假设、内在结构、适用边界。比如学习 Agent，可以停留在最新的框架和论文，也可以继续追问：为什么有些任务模型能直接完成，另一些必须依赖外部状态、工具和反馈？可靠性来自模型能力，还是来自系统设计？这种理解需要独立推导、反复练习、解决陌生问题，很难靠多读几篇文章获得。</li>
+<li><strong>没有广度的深度容易变成局部最优；没有深度的广度只是高级的信息消费。</strong> AI 让这个矛盾更尖锐：它极大降低了广度的成本，也让人更容易跳过困难的纵向思考。**能理解 AI 给出的答案，不代表能在没有 AI 的时候独立重建这套推理。**真正的通才，应当能把不同领域连接起来，也知道什么时候必须依靠更专业的人。知道自己不懂什么、知道应该向谁求助，本身就是一种重要的元认知。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/writing/five-agents-one-coach-zh/breadth-depth.svg" alt="广度和深度怎样共同产生认知？只沿一条轴走会落入信息消费或局部最优，交替前进才通向结构性理解" /></p>
+<h3 id="知行合一把新的认识用到下一次行动里"><a class="markdownIt-Anchor" href="#知行合一把新的认识用到下一次行动里"></a> 知行合一：把新的认识用到下一次行动里</h3>
+<p>提炼出一个模型之后，还需要把它用于新的任务：它让我注意到了什么，改变了哪一步做法，又遇到了哪些没有预料到的情况？这些结果继续返回模型。只有这样，抽象才会逐渐成为能够使用的认识。</p>
+<p>反馈闭环可以让我越来越擅长解决一个问题。元认知还要继续追问：这个问题为什么值得解决？我用什么标准判断进步？这些标准是否仍然符合我希望建立的东西？</p>
+<p>例如，原先的学习目标可能是掌握某个 Agent 框架。实践之后，我发现真正需要解决的是一类任务的可靠性；再与用户接触，问题可能变成：这类任务即使能够自动化，是否值得客户改变工作流程？每一次变化，都在重新界定值得投入的对象。</p>
+<p>这也把知行合一与前面的双环学习接了起来。实践中的反馈既可以帮助我在当前目标下改善行动，也可以推动我审视目标、规则和底层假设。新的认识有时改变做法，有时改变问题本身，随后都要进入下一次实践。</p>
+<h4 id="问题也是慢慢问清楚的"><a class="markdownIt-Anchor" href="#问题也是慢慢问清楚的"></a> 问题也是慢慢问清楚的</h4>
+<p>前面说的知行合一，好像默认我已经有一个清楚的问题。但真实的认知成长，很少从一个清晰的目标和假设开始。连“我到底在问什么”“我究竟想要什么”，也是在探索中逐渐形成的。</p>
+<p>很多问题最初只是模糊的不满：觉得哪里不对，说不清是什么；羡慕某些人，说不清羡慕的是什么；同一种挫败反复出现，却从来没有把它写下来。这些信号值得认真对待，它们常常是一个还没有被命名的问题。</p>
+<p>探索的过程往往是一个重构和修正的过程：</p>
+<table>
+<thead>
+<tr>
+<th>变化</th>
+<th>发生了什么</th>
+<th>上面的例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>澄清</td>
+<td>把模糊的感受变成明确的问题</td>
+<td>从“没有进步”到“没有检验掌握程度”</td>
+</tr>
+<tr>
+<td>修正</td>
+<td>发现原先的解释并不充分</td>
+<td>掌握了技术，也未必转化为价值</td>
+</tr>
+<tr>
+<td>重构</td>
+<td>改变问题的框架，发现新的变量</td>
+<td>从知识问题变成经营问题</td>
+</tr>
+<tr>
+<td>反思</td>
+<td>审视自己为什么会以这种方式提问</td>
+<td>追问“必须掌握更多技术”这个目标从何而来</td>
+</tr>
+</tbody>
+</table>
+<p>重构的影响往往比修正更深，也更难被识别：两种提问方式并非简单的对错，要分辨的是，我是真的发现了更重要的问题，还是暂时被新的信息吸引。AI时代更有价值的反思，审视的不是答案，而是提问的方式。</p>
+<p>不需要等问题完全清楚才出发。从手头的工作开始：回看一个最近反复发生的困难，分清事实与解释，选择一个能增加理解的小行动，再看问题有没有变得更具体。这也不只发生在开始。每完成一个阶段、准备换一个值得追的问题时，下一个问题也常常以模糊的形态出现，需要重新经历一次。</p>
+<p>AI 可以帮我没问聚类信号、照出反复出现的模式，甚至提醒我“这个月你已经第三次抱怨同一件事了”；但它不能替我选定问题。<strong>选择问题，就是选择目的；外包目的，是最深的一种认知外包。</strong> 一位好的人类教练最擅长的，也正是把你自己说过的话摆在你面前。</p>
+<h2 id="三-我想做的事一个反personal-agent的设计"><a class="markdownIt-Anchor" href="#三-我想做的事一个反personal-agent的设计"></a> 三、我想做的事：一个反Personal Agent的设计</h2>
+<p>我想设计一个Agent系统，系统要做的就是让那条主线在一个人身上持续运转。它真正要维护的，不是一套固定的目标和假设，而是一个人不断发展的认识过程。</p>
+<p>它不要求用户先创建一个目标，也不要求先写下假设。用户可以仅仅从一句话开始：“我最近觉得自己一直在学习，但不知道为什么没有成长。”系统陪这个问题展开，随着新认识出现，逐渐形成可检验的判断、真实的行动和更清楚的方向。</p>
+<p>我设想的系统结构可以概括为<strong>一套底座、五个Agent、一位教练</strong>：五个产品各由一个Agent承担，每个都能单独使用；其中Agentic Knowledge Bank维护的知识库同时是所有产品共同读写的底座；教练把它们沿主线串起来，本身也是一个产品。</p>
+<h3 id="ai教练的两项使命"><a class="markdownIt-Anchor" href="#ai教练的两项使命"></a> AI教练的两项使命</h3>
+<p><strong>打磨反馈闭环，是让单环真正闭合；培养元认知，是让双环在需要时能够打开。</strong> 承担这两项使命的界面，我称为教练，因为它关心的是我如何形成能力和作出选择。它的工作需要贯穿学习与行动，也需要知道什么时候帮助我向前推进，什么时候提醒我停下来重新判断。</p>
+<h4 id="打磨反馈闭环别让反馈停在聊天记录里"><a class="markdownIt-Anchor" href="#打磨反馈闭环别让反馈停在聊天记录里"></a> 打磨反馈闭环：别让反馈停在聊天记录里</h4>
+<p>很多工作已经产生了反馈，只是没有被利用。客户的迟疑停在聊天记录里，产品的失败停在项目复盘里，写作中暴露的漏洞停在修改意见里。下一次遇到相似问题时，我又凭印象作判断。</p>
+<ul>
+<li>教练首先要帮助我把这些信息接起来。行动之前，把关键的期待与假设说清楚；行动过程中，辨认哪些现象值得观察；结果出现后，比较预期与实际，区分执行问题、模型问题和环境变化，再确定下一步需要尝试什么。</li>
+<li>更深一层，它还应该帮助我改善获得反馈的方式。有的项目长时间没有进展，是因为一直在做无法区分不同解释的事情。继续搜集行业报道，可能无法回答客户是否愿意采用；继续优化一个原型，也可能无法回答它是否解决了足够重要的问题。此时，教练应当帮助我找到能带来关键证据的行动。</li>
+<li>反馈闭环的质量，最终体现在后续行为上：有没有少犯一次相同的错误，有没有更早发现一个关键约束，有没有因为新证据而调整投入。复盘写得完整，只能说明信息被整理过。</li>
+</ul>
+<h4 id="培养元认知看见自己怎样做判断"><a class="markdownIt-Anchor" href="#培养元认知看见自己怎样做判断"></a> 培养元认知：看见自己怎样做判断</h4>
+<p>一个人即使很会复盘，也可能始终使用同一套未经审视的标准。例如，每次都把项目失败归因于技术还不够成熟，于是反馈最终只带来更多技术投入。</p>
+<ul>
+<li>元认知的培养，要让这种模式变得可见。系统可以把不同项目中的理由、选择和结果放在一起，帮助我发现：我反复注意到哪些变量，忽略哪些约束，遇到什么情况会过度自信，又在什么情境下习惯把选择交给别人。</li>
+<li>这些都只能先作为待核对的解释。系统看到的记录有局限，一个人当时没有写下某个理由，并不意味着他没有考虑；在某种环境中反复作出类似选择，也不能直接推断为固定的性格缺陷。好的教练应当把依据和疑问一起呈现，让我有机会补充情境。</li>
+<li>这项使命还包括审视目标。假如我声称想建立自己的产品，时间却长期流向与用户需求无关的技术探索，系统应帮助我理解这种差距：是当前有必要补能力，是目标发生了变化，还是我在回避一件不熟悉的事？不同解释会带来完全不同的下一步。</li>
+</ul>
+<h4 id="改变想法让想法显性和可验证"><a class="markdownIt-Anchor" href="#改变想法让想法显性和可验证"></a> 改变想法：让想法显性和可验证</h4>
+<p>允许问题和目标变化，带来一个更难的问题：怎样区分认知进化和自我合理化？</p>
+<p>假设我为自己安排了三个月的 Agent 技术学习。一个月后，我告诉教练：“我发现商业理解比技术学习更重要，我决定改变方向。”这可能是一次很有价值的双环学习，也可能只是因为技术学习进入了困难阶段，我想换一件更容易产生新鲜感的事。两种情况在语言上可能完全一样。</p>
+<p>一个迎合我的AI会马上赞同：“这是一次认知升级。”一个僵化的目标管理系统会反过来批评：“你没有按照原计划执行。”两者都没有帮助。教练应该帮助我辨认：</p>
+<ul>
+<li>是什么新的证据促使我改变判断？</li>
+<li>这是目标改变、解释改变，还是执行时遇到了阻力？</li>
+<li>原先的目标还有哪些部分依然成立？</li>
+<li>新判断有没有必要立即改变投入，还是可以先做一个小实验？</li>
+<li>哪些地方应该保持开放，哪些已经作出的承诺需要认真履行？</li>
+</ul>
+<p>它不必裁定我是在成长还是在逃避，而是让两种可能都可以被检验。这里有一条我很看重的原则：<strong>允许人改变想法，但不允许系统悄悄改写过去。</strong> 我可以随时改变目标，但应该能回看当时为什么定下那个目标、后来什么发生了变化。不是为了追责，而是为了逐渐认识自己作出判断的方式。</p>
+<h4 id="对抗性设计这不是一个personal-agent"><a class="markdownIt-Anchor" href="#对抗性设计这不是一个personal-agent"></a> 对抗性设计：这不是一个“Personal Agent”</h4>
+<p>一个只学习我的偏好和历史观点的系统，会越来越懂我，也会越来越善于迎合我。人很难从自己的立场内部看清自己的立场，所以教练需要能站到我的框架之外，寻找反例、替代解释和被忽略的证据。</p>
+<p>让AI说一句“你确定吗”已经几乎没有成本，也几乎不改变行为。真正能改变模型的反驳，需要某种资格，它有四个来源：</p>
+<ul>
+<li><strong>材料</strong>：一个无法轻易解释掉的案例、数据或推导，当场暴露模型的缺口；</li>
+<li><strong>承诺</strong>：把一个判断写成有依据、有观察条件的选择，让事后回看有据可查；</li>
+<li><strong>第三方</strong>：把理解交给不欠我人情、懂这个领域的人；</li>
+<li><strong>后果</strong>：把理解拿到真实世界里，接受客户、读者、合作者和市场的检验。</li>
+</ul>
+<p>第一种每天都可以发生，软件能够独立提供；后三种频率较低，需要人和真实世界。因此，教练日常的主要工作是让<strong>材料层面的对照</strong>持续发生，把更高代价的对抗留给重要的选择。对抗是一种获取证据的方法，不是一种人格。</p>
+<div class="mermaid">
+  flowchart LR
+    A["一条可能动摇<br/>当前模型的材料"] --> B["写下模型的变化<br/>或维持的理由"]
+    B --> C{"它影响一个<br/>重要选择吗？"}
+    C -->|否| F["写回知识库"]
+    C -->|是| D["设计一次行动：<br/>访谈、实验、发表、交付"]
+    D --> E["回看结果，区分<br/>执行、模型与环境"]
+    E --> F
+    F -.->|下一次挑战| A
+</div>
+
+<p>对抗性提问在这里有用途，但教练还需要观察、澄清、解释、帮助设计实践，以及辨认什么时候已有足够依据继续行动。持续追问却不帮助人作出选择，同样会消耗主动性。</p>
+<h4 id="三种工作方式探索-建模-实践"><a class="markdownIt-Anchor" href="#三种工作方式探索-建模-实践"></a> 三种工作方式：探索、建模、实践</h4>
+<p>问题处在不同的清晰程度，教练的工作方式也应不同：</p>
+<ul>
+<li><strong>探索</strong>：我甚至不知道自己真正的问题是什么。教练帮助打开不同的解释、暴露矛盾、找到更准确的提问方式，不急于收敛成目标。第二部分最后一节讲的“问题也是慢慢问清楚的”，就发生在这里。</li>
+<li><strong>建模</strong>：我开始形成一些判断。教练帮助区分事实、假设和推论，找到适用边界和可能的反例，不急于制造确定性。</li>
+<li><strong>实践</strong>：某些问题只有现实能回答。教练帮助选择低成本的检验方式，形成阶段性的承诺，在结果出现后重新审视原来的认识。</li>
+</ul>
+<p>三种方式不是线性流程，可以随时切换。有时要先做一件事，才知道该问什么；有时读一篇文章，就发现原先的问题问错了；有时一个不确定的判断需要保留几个月，直到新的实践条件出现。好的系统应当允许人一边探索、一边行动，而不是要求先想清楚全部问题。</p>
+<h4 id="把反思能力交还给人"><a class="markdownIt-Anchor" href="#把反思能力交还给人"></a> 把反思能力交还给人</h4>
+<p>培养元认知还意味着把这套审视方式逐渐交还给我。起初，系统可以依据历史材料指出一个被忽略的假设；之后，我应当越来越能在行动前自己发现类似问题，并知道怎样寻找证据。否则，即使系统每次都能指出我的盲点，得到训练的也可能只是我向它求助的习惯。</p>
+<p>系统中的模型越来越丰富，并不等于我本人已经成长。判断教练是否有效，我给自己三条标准：</p>
+<ol>
+<li><strong>人的能力增长，而不是Agent的任务完成量。</strong> 离开 AI，我能否独立解决这个领域的新问题？三个月后还能吗？</li>
+<li><strong>理解与选择质量的改善，而不是产生了多少“洞察”。</strong> 哪些模型被证据修正了、边界变清楚了，哪些选择因此改变？</li>
+<li><strong>四种杠杆是否真的被撬动，而不是系统内的活跃度。</strong> 有没有更好的作品、合作、机会选择，或者更早停止了无效投入？</li>
+</ol>
+<p>这样的系统，成功有时表现为依赖在减少：某些题目不再需要提示，我开始自己发现论证的问题，不必每次都问它该不该追一个机会。<strong>教练的使命，不是让用户永远需要教练，而是不断提高用户不依赖教练的能力。</strong></p>
+<p>到这里，我想做的事已经说完：一个不替人想、而是把反思交还给人的系统。它和市面上正在爆发的 Personal Agent 几乎是反着来的，下面说为什么。</p>
+<h3 id="服务型-agent-会赢下市场却到不了这条主线"><a class="markdownIt-Anchor" href="#服务型-agent-会赢下市场却到不了这条主线"></a> 服务型 Agent 会赢下市场，却到不了这条主线</h3>
+<p>我把Personal Agent称为服务型 Agent。今年秋天它们接连发布：8 月 11 日，xAI 发布 <a target="_blank" rel="noopener" href="https://m.thepaper.cn/newsDetail_forward_33778907">Grok Bot</a>，一支常驻的 Agent 团队，有记忆、有独立的工作环境、能跨 Bot 协作，还能跟岗观察用户的操作来学会流程；9 月 8 日，Meta 发布 <a target="_blank" rel="noopener" href="https://pakistanpost.pk/metas-muse-ai-app-passes-10-million-users/">Muse</a>，长期目标、主动建议、跨应用执行、持续记忆，据报道上线六周达到一千万用户（Meta 自报数字），购物是主要场景之一，计划从交易中抽成；9 月 29 日，OpenAI 发布 <a target="_blank" rel="noopener" href="https://qazinform.com/news/openai-unveils-dots-as-metas-muse-reshapes-ai-assistant-race-9838bf">Dots</a>，每个 Dot 都有自己的云电脑、浏览器和大量应用连接，可以全天候推进一个目标。长期记忆、主动性、多 Agent 协作、安全与隐私，正在变成通用能力。</p>
+<p>服务型 Agent永远完成不了“让那条主线在一个人身上持续运转”。原因不在技术，在目标。它们优化的是任务完成率、更少的操作步骤和更高的使用频率，也就是让人省力。省力本身没有错，但这条主线要求的，恰恰是省不掉的力：重新检验自己，面对“我原来并没有想清楚”，接受“这件事别做”。所以它们放大的不是人的能力，而是人的懒惰。</p>
+<p>这和收入来源有关。Muse 计划从交易中抽成，最自然的方向是更多、更顺滑的购买，好教练却经常要说“这个别买”；Dots 靠个人和组织订阅，优化的是任务完成率和组织效率，由雇主付费时，它服务的是组织的目标，不一定是个人的成长；Grok Bot 靠高阶订阅，追求自动化程度和 Agent 团队的产出，它学会我的流程，是为了替我做，不是为了让我更会做。Grok Bot 的“跟岗观察”是个很好的对照：同样是观察，助手观察我，是为了接替我；教练观察我，是为了让我下次不再需要它。<strong>技术上是同一个动作，目的正好相反。</strong></p>
+<p>这条路会赢得巨大的市场。大多数时候，人只想把事情做完，把事情交给服务型 Agent 是合理的选择。但也有些可惜：AI 的超级智能被用来把人伺候得更舒服，而不是帮人变得更强，其中很大一部分被浪费了。所以我想自己做这个尝试。</p>
+<p>激励当然不是护城河。一段系统提示就能让任何平台打开“学习模式”“苏格拉底模式”，先提问再给答案、反思提示、复盘模板，很快会成为标配。不太会被吸收的，是需要长期积累和现实后果的东西：针对个人的封存任务与延迟复测，带着空白和演变历史的个人模型，以及有资格的第三方和真实的市场。<strong>平台可以复制提示词，不能复制你的历史、你的题和你的人。</strong> 当然，这仍然只是假设。</p>
+<h3 id="人与ai的分工能力优先的设计"><a class="markdownIt-Anchor" href="#人与ai的分工能力优先的设计"></a> 人与AI的分工：能力优先的设计</h3>
+<p>第一件事是想清楚人和 AI 怎么分工。建设这套系统有一个内在矛盾：我希望 AI 承担越来越多的信息处理、知识管理、学习辅助和策略分析，但如果它把这些都做得很好，我会不会恰恰失去原本想培养的能力？这就像在健身房里让机器替你把重量举起来，再把机器完成的训练量记在自己身上。</p>
+<p>所以有两件事, 是持续需要人介入的。</p>
+<p><strong>第一，理解本身。</strong> 从材料里提炼模型，判断什么有用、什么值得投入，AI 可以辅助，但不能替我承担。随着模型进步，它可能在越来越多的领域比我分析得更准；但如果每次我都直接接受它的结论，<strong>成长的是 AI 的模型，不是我的。</strong> 我得到了答案，却没有得到能力。</p>
+<p><strong>第二，审视我的那个视角。</strong> 企业里做决策的人和审计决策的人不是同一个；个人却是所有角色的合体：自己提出理解，自己执行，自己复盘，自己打分。一个只优化我偏好的系统，会让这种结构性的利益冲突更深。我需要它能站在我的框架之外，基于材料、历史和外部结果提出可检验的质疑，同时把是否修正的决定留给我。</p>
+<p>同样的技术，目标不同，做出的决策就不同：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>服务员</th>
+<th>教练</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>衡量成功</td>
+<td>任务完成率、停留与互动</td>
+<td>离开 AI 之后的独立表现与选择质量</td>
+</tr>
+<tr>
+<td>用户提问时</td>
+<td>立刻给出答案</td>
+<td>视情况先请他自己试着回答</td>
+</tr>
+<tr>
+<td>用户坚持一个观点时</td>
+<td>推荐更多同类资料</td>
+<td>找能检验它的证据</td>
+</tr>
+<tr>
+<td>理想的长期结果</td>
+<td>用户越来越离不开</td>
+<td>用户越来越不需要它</td>
+</tr>
+</tbody>
+</table>
+<p>举个例子：我想掌握 Agent运行时的设计原理。通用Agent可以帮我研究架构、整理资料、生成代码、跑实验，甚至提出改进建议。但它做完这一切之后，我能不能从零解释关键的设计取舍？面对一个陌生的故障，能不能独立定位？三个月后，这些能力还在不在？<strong>任务成功，不能证明人的学习成功。</strong></p>
+<p><img src="/writing/five-agents-one-coach-zh/assistant-vs-coach.svg" alt="同一个请求，服务员和教练会做出什么不同的选择？两种目标把同样的技术带向不同的长期曲线" /></p>
+<p><strong>服务员努力满足已经表达出来的需求；好的教练还要帮助人审视这个需求是否有益于他的目标。</strong> 但教练不能以“为你好”为理由剥夺自主权，它只能用材料、证据和反馈去说服。摩擦也应按需施加：快速查资料时，它就应高效服务；进入训练时，才要求独立回忆、逐级提示、延迟揭晓答案；面对重要取舍，才提高对反证的要求。<strong>教练强度的旋钮，由人来拧。</strong> 系统不应把每次求助都变成考试。</p>
+<p>把这条边界落到每个功能上，可以压成一个检验问题：</p>
+<blockquote>
+<p><strong>任何一个功能，都先问：用一百次之后，用户会失去什么能力？那是不是他想保留的能力？</strong></p>
+</blockquote>
+<p>用了一百次计算器，心算能力下降，大多数人并不在乎；用了一百次 AI 起草，独立组织论证的能力下降，对一个靠理解吃饭的人来说就是真实的损失。外包本身不是问题，<strong>不知情的外包，以及外包掉本该自己拥有的能力</strong>，才是。所以查接口、整理来源、准备会议背景，可以放心追求效率；希望亲自掌握的能力，就要安排独立尝试和延迟检验：读摘要之前，先写一句我自己的理解；让AI起草之前，先写下核心命题和论证骨架；面对重要取舍，先写下自己的估计，再看AI的分析，两者分开记录。目标也不能仅从历史行为中推断：过去投入很多时间的事，可能只是环境要求，未必是我想要的生活。AI 可以指出矛盾、提出选项，但要允许我重新选择。</p>
+<h2 id="四-需要做哪些事"><a class="markdownIt-Anchor" href="#四-需要做哪些事"></a> 四、需要做哪些事</h2>
+<p>有了前面的理念，设计就简单了：服务型 Agent 已经做得很好的，直接借；只有它们做不到、也不愿做的地方，才值得自己造。</p>
+<h3 id="外采与自建区分度放在哪里"><a class="markdownIt-Anchor" href="#外采与自建区分度放在哪里"></a> 外采与自建：区分度放在哪里</h3>
+<table>
+<thead>
+<tr>
+<th>借现成的 Agent（外采）</th>
+<th>自己做（区分度所在）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>检索、浏览与资料整理</td>
+<td>带着空白和演变历史的模型，包括问题被改写的历史</td>
+</tr>
+<tr>
+<td>长期记忆与主动提醒</td>
+<td>封存任务与延迟复测，帮助程度与正确性分开记</td>
+</tr>
+<tr>
+<td>代码与工具执行、跨应用操作</td>
+<td>支持与反对证据并排，“什么会改变我的想法”触发提醒</td>
+</tr>
+<tr>
+<td>日程安排、润色、翻译、排版</td>
+<td>先有人的命题，再审查论证，最后才是 AI 的表达</td>
+</tr>
+<tr>
+<td>多 Agent 协作、安全与隐私</td>
+<td>时间账、重要选择，以及与人和机会的对照</td>
+</tr>
+<tr>
+<td></td>
+<td>统一的、可以带走的对象格式</td>
+</tr>
+</tbody>
+</table>
+<p>判断标准还是前面那一问：用一百次之后，不会丢掉我在乎的能力的，放心外采；会丢的，要么自己做，要么加上反替代设计。这条边界不是固定的，平台哪天把某一项做得足够好，我就换成外采。</p>
+<h3 id="底座个人知识库"><a class="markdownIt-Anchor" href="#底座个人知识库"></a> 底座：个人知识库</h3>
+<p>两项使命都需要长期的上下文。一次聊天可以提出好问题，却很难知道我为什么会走到今天、哪些解释已经试过、哪些反馈还没有被消化。知识库承担这项工作。它接纳阅读与研究，也接纳项目记录、讨论、作品、行动结果，以及我当时的理解；它是所有产品共同读写的底座，也是用户能单独使用、直接查看、可以带走的产品：里面放的是用户自己的材料和模型。</p>
+<p>知识库的本质数据我抽象为两个维度</p>
+<ul>
+<li><strong>信息环境</strong>：我处在怎样的局面里，又是通过什么看见它的。这既包括市场、组织、规则和资源约束，也包括我的信息来自哪里、哪些声音长期缺席。</li>
+<li><strong>决策模型</strong>：我如何在这个环境里作出选择，包括目标、认为重要的约束、对结果的预期，以及在哪些条件下应该改变行动。两者不能混在一起：环境变了，原先合理的选择可能需要调整；环境没有明显变化，也可能是我原先对它的理解有误。目标还涉及个人价值取舍，不能仅凭市场奖励高低判断对错。</li>
+</ul>
+<p>这个底座需要的harness：缺少材料支撑的地方，要保留空白，不让 AI 生成一个看起来完整的解释去掩盖缺口。当前认识可以随时更新，但过去的认识不会被悄悄覆盖，当时的依据留着，才分得清是环境变了还是我原先理解错了。问题和模型保持开放，可以不断澄清、修正和重构；承诺在约定的周期内相对稳定，只在有依据时调整。否则会落入两个极端：一端是固定目标，只会执行，不会反思；另一端是永远探索、永远修改认识，却永远无法行动。它也不是一本需要每天填写的账：重要选择只记少数，整理工作尽量从已经发生的事情里长出来。</p>
+<h3 id="一套底座-五个agent"><a class="markdownIt-Anchor" href="#一套底座-五个agent"></a> 一套底座、五个Agent</h3>
+<!-- ； -->
+<p>有了底座和边界，架构可以直接从主线读出来。主线上的每一步都由一个产品承担，单环和双环的差别，只在反馈回到哪里：</p>
+<div class="mermaid">
+  flowchart LR
+    G["问题、目标与假设"] --> M["对环境的理解<br/>与决策模型"]
+    O["观察环境<br/>Information Assistant"] --> M
+    M --> T["检验能力与论证<br/>Learning OS · Writing Assistant"]
+    T --> A["选择与投入<br/>Compass"]
+    A --> F["结果与反馈"]
+    F -->|单环：修正模型| M
+    F -->|双环：审视问题、目标与假设| G
+    F -.->|下一步观察什么| O
+    K[("知识库<br/>Agentic Knowledge Bank 维护")] -.- M
+</div>
+
+<p>为什么是这五个？</p>
+<ul>
+<li>主线的观察、建模、检验、选择四步里，检验又分能力和论证两种，正好对应暴露阶梯的第三、四层和第五层；</li>
+<li>所有步骤都要读写同一份模型，所以 Agentic Knowledge Bank 不只与其他四个并列，还居于其下。</li>
+<li><strong>单独可用，连起来才复利。</strong> 每个产品单独使用时有自己的小闭环，值得为它本身而用；连起来之后，空白在产品之间流动，结果回到模型。为此只有一条约定：不论单独使用还是接入，每个产品都按同一套对象格式写进知识库，产品之间不直接调用。单独用的产品，日后接入时不丢历史。</li>
+<li><strong>教练</strong>则是把它们串起来的一层，本身也是产品：与人对话，安排练习和行动，在产品之间转交空白，提出质疑，在重要时刻请人停下来。</li>
+</ul>
+<p>下面按主线的顺序，说说每个产品的理念，以及其中哪些借现成的、哪些必须自己做。</p>
+<h4 id="information-assistant带着问题看信息"><a class="markdownIt-Anchor" href="#information-assistant带着问题看信息"></a> Information Assistant：带着问题看信息</h4>
+<p>它负责主线上的观察。我面对的困难，是信息很多，却很难判断哪些值得继续追。平台按热度和兴趣组织内容，我自己也倾向于选择熟悉、认同的观点。两者叠加，很容易让我在原来的框架里越来越确定。</p>
+<p>它围绕我正在追的问题和已有的理解来组织信息：区分新事实、重复报道、观点与推测，按证据质量判断来源，说明一份材料与当前问题有什么关系。热度可以帮助发现材料，但不能代替可信度。</p>
+<p>这里有一点“格物致知”的意思。王阳明年轻时照着朱熹的说法去格亭前的竹子，格了七天，什么也没格出来，反倒病了一场。对着一堆现象发呆，不会自动长出知识：格物需要一个问题，致知需要愿意被证据改变。所以它的工作过程不是“收集、筛选、总结、推送”，而是：从长期问题出发，找到新材料，与已有理解比较，识别值得核实的变化，再决定继续研究还是进入实践。它承担三种功能：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>应对什么</th>
+<th>AI 负责</th>
+<th>人保留</th>
+<th>退化成什么就失败了</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>筛选</td>
+<td>平台排序带来的偏差</td>
+<td>按长期问题和已有理解收集、整理，提出初步判断</td>
+<td>品味和最终取舍</td>
+<td>一个更精致的兴趣推荐</td>
+</tr>
+<tr>
+<td>对照</td>
+<td>只看想看的内容</td>
+<td>用同样的力气寻找支持与反对的证据，并排呈现</td>
+<td>是否修正、修正多少</td>
+<td>语气上的唱反调</td>
+</tr>
+<tr>
+<td>更新</td>
+<td>经验越多越难被纠正</td>
+<td>追踪旧理解与新证据之间的冲突，在条件触发时提醒</td>
+<td>承认“我原来错了”</td>
+<td>静默覆盖，不留痕迹</td>
+</tr>
+</tbody>
+</table>
+<p>例如，当我看好某个 Agent 方向时，它需要帮助我同时接触技术进展、失败案例、替代方案和使用者的约束。如果我的来源主要是开发者讨论，它就应该指出客户与采购者的视角还缺在哪里。支持与反对的证据都要认真审视，但最终仍按证据质量判断，不能为了凑齐两边而制造争议。</p>
+<p>为了让我能审视推荐本身，每条重要材料都应说明来源与可信度、关联的问题、它支持还是挑战了哪个理解、是否查找过其他解释，以及推荐背后是否存在商业关系；“找过但没有找到”与“还没有找”要分开写。每条重要理解还可以事先写下“什么会改变我的想法”，它平时不推日报，只在这样的条件被触发时来找我。</p>
+<p>当证据支持原来的判断，系统可以帮助我明确继续投入的理由；当条件改变，它应提醒我重新判断；当公开材料已经无法回答问题，它应把缺口交给后续访谈、实验或实际使用。增加输入、停止阅读、开始行动，都可能是合理的下一步。</p>
+<h4 id="agentic-knowledge-bank记下依据也记下空白"><a class="markdownIt-Anchor" href="#agentic-knowledge-bank记下依据也记下空白"></a> Agentic Knowledge Bank：记下依据，也记下空白</h4>
+<p>Agentic Knowledge Bank维护知识库，是其余四个产品共同读写的底座，也可以单独使用。底座一节讲了它存什么，这里只讲它怎样工作。</p>
+<ul>
+<li>最需要保持要求：<strong>缺少材料支撑的地方，要保留空白。</strong> 重要结论应能追溯到具体来源；每个概念的每一层都要说明覆盖状态：完整、部分、草稿，还是空白。AI 可以提出假设，但必须让假设与已有事实保持可辨认的区别，不能生成一个看起来完整、逻辑自洽的解释来掩盖缺口。<strong>一个诚实的空白，比一个漂亮的故事更有用：</strong> 空白告诉我接下来做什么，故事只告诉我“你已经懂了”。</li>
+<li>空白的用途，是帮助选择下一步。有的需要 Information Assistant 补充材料，有的需要 Learning OS 检验理解，有的只有客户交流或实际交付才能回答。知识库缺少材料，也不等于我缺少能力；这两件事要分别确认。</li>
+<li>它还需要保存模型的演变。假如我对某类 AI 产品的理解从按席位收费转向按结果收费，知识库应能说明：是什么材料和实践推动了变化，这个判断适用于什么客户，仍有哪些反例。新结论可以取代旧结论成为当前认识，但当时的依据需要留下，方便区分环境变了和原先理解错了。横向连接也在这里发生：系统帮助我找出可以迁移的关系，同时保留各个领域中不能类比的条件。</li>
+</ul>
+<p>这会带来维护成本，知识管理工具也常常栽在这件事上。我的处理方式有三条：</p>
+<ol>
+<li>只围绕当前重要的少数问题深入整理，其余材料保持粗放；</li>
+<li>来源与关联由 AI 建立，我只核对关键解释；</li>
+<li>空白按与当前问题的相关性排序，长时间无人处理的，要么放下，要么升级成一个明确的研究或实践任务，不让它变成新的待办堆积。来源与关联的建立可以借现成的 Agent。但现成的记忆功能记的是偏好，不记空白，也不记问题怎样被改写，所以这一层几乎都要自己做。</li>
+</ol>
+<h4 id="learning-os测出我真正会什么"><a class="markdownIt-Anchor" href="#learning-os测出我真正会什么"></a> Learning OS：测出我真正会什么</h4>
+<p>Learning OS 负责检验能力，对应暴露阶梯的第三、四层。它要回答的是：面对一个真实问题，我究竟能够做到哪一步？看懂解释、复述概念、独立推导、应用到陌生任务，是不同程度的掌握。能看懂代码不代表能从零实现，能复述概念不代表能在新问题里正确使用。</p>
+<p>训练从实践中的能力缺口出发。一个Agent任务暴露了状态管理的问题，可以据此安排学习和练习；如果真正缺的是需求理解，就不能因为技术题更容易评分，而继续用技术训练代替它。</p>
+<p>它的核心机制是为成年人重新装回测试：</p>
+<ul>
+<li><strong>冷回忆与独立尝试</strong>：先在没有提示的情况下调用知识，暴露熟悉感掩盖的问题；</li>
+<li><strong>间隔复习与延迟复测</strong>：能力会衰减，隔一段时间再检验，观察理解和能力是否保持；</li>
+<li><strong>帮助程度与正确性分开记录</strong>：答对一道题，还要知道依赖了多少提示；</li>
+<li><strong>封存题与陌生任务</strong>：用训练之前就封存好、训练时没有接触过的问题检验迁移，避免只练熟了题目；</li>
+<li><strong>依据实际表现确认掌握程度</strong>：区分能解释、能推导、能构建和能迁移，让评价附着于证据，不给虚假的数字分数。</li>
+</ul>
+<p>不同领域需要不同的任务和标准：</p>
+<ul>
+<li>技术能力可以通过推导、实现和故障排查检验；</li>
+<li>商业理解还需要案例、客户情境与真实项目。</li>
+<li>题目质量也有成本：好题目比好答案贵，封存只能延迟泄漏，一道题练过之后，要换成结构相同的新变体。训练的强度由目标决定：希望亲自掌握的能力看无提示表现；允许工具辅助的工作，看我能否理解依据、发现错误并承担最终判断。</li>
+</ul>
+<p>练习暴露的困难需要返回知识库，分清是概念理解有误、缺少练习，还是原来的模型不适用。练习中得到的能力证据，也应交给 Compass，让之后的机会判断建立在实际掌握程度上。</p>
+<h4 id="writing-assistant写下来交给别人检验"><a class="markdownIt-Anchor" href="#writing-assistant写下来交给别人检验"></a> Writing Assistant：写下来，交给别人检验</h4>
+<p>Writing Assistant负责检验论证，对应暴露阶梯的第五层。写作迫使我把脑中的关系展开：一个想法在脑子里显得完整，写下来之后，才会发现概念不清、证据缺失，或者几个观点之间没有真正的联系。</p>
+<p>它应当先帮助我形成核心命题和论证骨架，检查证据如何支持结论，寻找替代解释与适用边界，再协助表达。顺序很重要：<strong>先有人的命题，再审查论证，最后才是 AI 的表达。</strong> 这个过程也可以反过来改变问题本身：写到一半，发现最初想证明的事情并不成立，就需要回到材料和实践。</p>
+<p>它要帮助区分我自己的判断、引用的观点与 AI 提出的补充。系统可以替我润色、翻译和排版，但重要论点是否成立、愿意对什么结论负责，需要由我理解和决定。</p>
+<p>发表之后，读者可能指出漏洞，也可能提供新的案例和情境。文章、项目提案、客户方案都可以产生这样的反馈，写作因此让反馈不再完全由我自己控制。系统需要从中提取值得核实的问题，回到知识库补证据、调整模型，必要时安排新的实践；赞同和反对的数量本身不能决定观点是否可靠。</p>
+<p>它与 Learning OS 的侧重点不同：Learning OS 关注一项预先定义的能力能否被调用，Writing Assistant 关注我自己提出的解释能否说清楚、站得住。两者都会暴露缺口，也都需要让缺口影响下一轮工作。</p>
+<h4 id="compass决定把时间-能力和关系投向哪里"><a class="markdownIt-Anchor" href="#compass决定把时间-能力和关系投向哪里"></a> Compass：决定把时间、能力和关系投向哪里</h4>
+<p>Compass 负责主线上的选择与投入，也是双环最常被触发的地方。它来自两个想法：Human Leverage 关注向内经营自己，Personal CRM 关注向外经营关系与机会。个人方向和外部世界必须不断相互校正，所以两者放在同一个产品里；关系又需要自己的对象和节奏，所以分成两层：</p>
+<ul>
+<li><strong>上层Compass 是决策层</strong>：目标、时间账、重要选择、不做清单。</li>
+<li><strong>下层Personal CRM是关系层</strong>：人、互动记录、双向承诺、互惠、引荐与机会。它可以单独使用，Compass 读取它，决定哪些人和机会对当前目标重要。</li>
+</ul>
+<p>它以目标而不是联系人为中心：为什么投入一个方向，准备建立什么能力，需要怎样的合作，哪些条件会改变选择。这里的目标是一段时间内的承诺，不是永远不变的终点：它可以随问题的改写而调整，但调整要有依据，原来的理由与结果要留下。联系人、会议和任务都是材料，由Personal CRM 保存，必须放回具体目标，才能看出意义。它遵守三条原则：</p>
+<ul>
+<li><strong>时间是最直接的资源约束。</strong> 用“半天”估算投入，比较机会成本，让抽象优先级落到真实时间上。</li>
+<li><strong>过去不可改写，未来可以调整。</strong> 当时的选择理由与结果需要保留，不能事后美化；计划则可以根据新证据调整。这正是知识库那条原则在投入上的体现。</li>
+<li><strong>我就是产品。</strong> 我向世界提供的能力，需要通过文章、代码、演讲、产品和实际交付被理解和检验；方向决定追什么，作品让方向与外部对接，反馈再回来调整方向。</li>
+</ul>
+<p><strong>向内，它帮助我审视定位与投入。</strong> 我希望建立什么，真正擅长什么，时间实际花在哪里？Learning OS 提供能力证据，知识库提供模型与经历，日历和项目记录呈现实际投入。把它们放在一起，才有可能判断：当前是在为长期方向补基础，还是已经被熟悉的工作带偏了。</p>
+<p><strong>向外，它通过 Personal CRM 连接人、市场与机会。</strong> 假如一位合作者正在探索的业务问题，与我近期研究的技术存在联系，Personal CRM 应帮助我看见这层联系、可以共同验证什么、彼此能提供什么；Compass 再判断它值不值得占用当前目标的时间。关系需要信任、情感与长期互惠，商业机会则需要进一步检查需求、付费能力、销售成本和交付约束。技术背景的人容易对技术机会兴奋，所以它要能追问：钱从哪里来？谁真正愿意付费？为什么是现在？但商业分析只用于审查商业机会，不把所有关系都换算成回报。</p>
+<p>关系层还有几件具体的事：互动记录只追加，每次有意义的交流只确认一行“我学到了什么”；双方的承诺都要看得见，尤其是我答应别人的事；见面前准备好上次谈了什么、对方在做什么、我能提供什么；互惠按实际内容记录，不打分；引荐用我自己的信誉，由我亲手写。别人说的话如果影响了某个模型，也作为材料写进知识库：当信息环境缺少某种视角时，补上它的往往是人，而不是更多的阅读。这里可以借用现成的Gbrain等能力/思路。</p>
+<p>它还要读懂外部反馈里的模式，而不只是规划下一步。比如：“三家公司都在技术面之后停下了，你对自己技术深度的评估可能系统性偏高。”这不是在反馈执行得好不好，而是在检验我对自身能力的模型。</p>
+<p><img src="/writing/five-agents-one-coach-zh/two-loops-v5.svg" alt="能力在实践中检验，实践反馈回到学习：能力证据从学习流向实践，实践反馈流回来，知识库是两者共享的底座" /></p>
+<p>学习与实践在这里接上。如果 Compass 看不到 Learning OS和写作中形成的能力，作选择时就不知道我的能力已经变了；反过来，实践发现某种能力比预想的更关键，这个反馈也应该改变下一阶段的学习安排。同时要警惕另一面：<strong>短期的外部奖励不能完全支配长期的认知建设</strong>，否则又会陷入追逐热点的局部最优。</p>
+<p>Compass 最终要持续回答三个问题：</p>
+<ul>
+<li><strong>Where to play</strong>：凭我真正的能力和长期愿望，哪些问题、市场与方向值得投入？</li>
+<li><strong>How to win</strong>：需要补足什么能力，与谁合作，组织哪些资源，才能创造价值？</li>
+<li><strong>How to compound</strong>：怎样把这次实践形成的能力、信任和认识带到下一次选择中？</li>
+</ul>
+<p>它尤其需要帮助我决定不做什么。这个方向令人兴奋，但商业逻辑不足；这个人很优秀，但我们暂时没有互相创造价值的契机；这个项目做得完，但不值得再投入三个月。一个方向没有出现预期进展，应该补能力、改变方法，还是停止投入，要结合当时的判断依据和新的证据分析。<strong>人生最昂贵的成本，往往不是做错一件事，而是在一个不值得的方向上持续投入好几年。</strong></p>
+<p><strong>借与造：</strong> 日程、联系人的搬运和提醒借现成工具。自己做的是把它们放回具体目标，让时间账、重要选择和关系互相对照，并帮我决定不做什么。</p>
+<h3 id="潜在用户可能是谁"><a class="markdownIt-Anchor" href="#潜在用户可能是谁"></a> 潜在用户可能是谁</h3>
+<p>只想把事情做完的人，服务型 Agent 已经服务得很好，以后还会更好。需要教练的人处境不同：理解直接影响收入或作品，问题和目标正在变化，愿意让自己的理解被证据修正，身边也有人或现实结果能指出错误。其中最关键的是问题和目标正在变化。转型、进入新领域、换一个阶段的人，最常遇到的困难不是事情做不完，而是说不清自己到底该追什么。一个刚开始带团队、每周都要在陌生领域里学东西、做取舍的工程经理，可能比一位只想听好话的资深高管更符合这种处境。我能想到的首批用户，是转型中的资深技术人、要在方向和定价上取舍的创始人、独立顾问与专家，以及需要连接不同领域的研究者。</p>
+<p>这些人原本就在为认知付费，付给书、课程、顾问和同侪小组。但这只能说明他们适合作为首批验证对象，推不出他们一定会为这套系统付费。付费的理由要落在工作里：更快找回一个复杂问题的背景，更早发现关键假设出了问题，把上个项目的经验用到这次选择上，想改方向时分清是认知进化还是逃避。“它不迎合我”可以是一种价值观，但不是付费理由。</p>
+<p>交付上，软件负责日常的连续性，人负责情境和有资格的裁决。同侪小组、写作工作坊、技术读书会早就有了，它们缺的恰恰是软件擅长的：没有人记得每个成员三个月前在问什么、模型怎样变过来、哪里还是空的。收费方式也会改变激励：订阅奖励留存，交易抽成奖励成交，没有哪种方式天然中立。我能做的，是让来源、推荐逻辑和反对意见透明，让用户能带走自己的材料和模型。</p>
+<h3 id="接下来怎么验证"><a class="markdownIt-Anchor" href="#接下来怎么验证"></a> 接下来怎么验证</h3>
+<p>下半年的验证很朴素：我自己在真实问题上连续用十二周。问题不预设，从手头正在做的事里长出来，可能是一项 Agent 系统的可靠性，一个算法方向值不值得再投，一项技术该不该继续学。它一开始不必清楚，但要同时有学习面和商业面：我究竟会什么，哪一层是空的；这件事对谁有价值，谁愿意为它付出什么。外部的交流从头几周就开始，不留到最后。</p>
+<p>结束时，我要留下四样别人也能核对的东西：一次封存任务的前后复测，一个问题怎样被改写的记录，一篇收到外部反馈的文章，以及一两条有依据、有结果的重要选择。</p>
+<p>如果它被反复用于新问题，反馈能推动下一次行动，维护成本也承受得起，我再邀请少数处境相似的人一起验证。接下来半年到一年，我会用真实生活检验它：看它是否帮我形成更有依据的理解，而不是拥有更多资讯；把模糊的不满问成更好的问题；建立持续互惠的关系，而不是维护更长的联系人名单；做出更好的资源配置决策，而不是完成更多任务；最重要的，是及时放弃错误的方向。</p>
+<h2 id="结语我想建立的是一种持续成长的方式"><a class="markdownIt-Anchor" href="#结语我想建立的是一种持续成长的方式"></a> 结语：我想建立的是一种持续成长的方式</h2>
+<p>回到最初的问题：为什么还要为自己造这五个 Agent？</p>
+<p>AI 已经让我更容易获得答案、完成任务。接下来，我希望更清楚地知道自己在做什么、为什么做，以及这些实践究竟教会了我什么。</p>
+<p>过去积累的经历分散在不同领域，看起来是一次次转向。现在我想试着找到其中可以持续生长的部分：对环境与约束的理解，在不确定条件下作出选择的能力，从反馈中提炼方法的能力，以及与合适的人共同创造价值的能力。它们合起来，就是贯穿全文的那条主线。</p>
+<p>为此，这个系统需要连接我接触过的材料、经历过的事情和形成过的理解，让信息环境与决策模型逐渐清晰。教练则帮助我把它们用于行动，也帮助我在必要时重新审视它们。它要维护的不是一套固定的目标和假设，而是一个人不断发展的认识过程：问题可以从模糊开始，在实践中被澄清、修正和重构，过去的判断也不会被悄悄改写。</p>
+<p>过去，我们把这种成长寄托于自律、悟性、运气，以及偶尔遇到的贵人。现在，我想试着把其中一部分变成系统。不是让 AI 替我成长，而是让 AI 帮我建立一套能持续纠错、持续寻找更大可能性的个人系统。贵人不会被系统取代；系统能做的，是让我遇到他们时，手里有更清楚的上下文。</p>
+<p>我希望这样的积累，最终会让我更有主动性：能够选择值得投入的问题，采取行动获取自己缺少的信息，接受有依据的修正，也能在充分理解代价后坚持自己的选择。</p>
+<p>如果说二十多岁的核心任务是建立能力，那么三十多岁以后，我更想学会的是：看清这些能力可以在哪个世界里发挥作用，怎样与他人一起把它放大，以及哪些事情值得长期投入。</p>
+
+            </div>
+            
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/writing/five-agents-one-coach-zh/">https://xinheliu.github.io/writing/five-agents-one-coach-zh/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/">
+                                    <span class="chip bg-color">个人成长</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">人工智能和机器学习</span>
+                                </a>
+                            
+                                <a href="/tags/Agent/">
+                                    <span class="chip bg-color">Agent</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<nav class="post-nav" aria-label="文章导航">
+    
+    <a class="post-nav-card" href="/writing/working-harder-growing-mediocre-zh/" rel="prev">
+        <span class="post-nav-label">&larr;&nbsp;上一篇</span>
+        <span class="post-nav-title">越努力越平庸的真相</span>
+    </a>
+    
+    <span></span>
+</nav>
+
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>昕和 · 个人网站、写作与技术笔记</span>
+        <div class="footer-links">
+            <a href="/writing-zh/">写作</a>
+            <a href="/projects-zh/">项目</a>
+            <a href="/about-zh/">个人信息和联系方式</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">标签</a>
+            <a href="/categories/">分类</a>
+            <a href="/archives-zh/">归档</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

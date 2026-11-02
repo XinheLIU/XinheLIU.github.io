@@ -1886,3 +1886,23 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Configured reading collections share the archive and card components. */
+.reading-card { display: flex; flex-direction: column; min-width: 0; }
+.reading-card h3 a { color: var(--fg); }
+.reading-card-link { margin-top: auto; padding-top: var(--space-4); }
+.reading-breadcrumbs {
+  background: transparent; box-shadow: none; height: auto; line-height: 1.6;
+  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: var(--space-5);
+  color: var(--muted); font-size: var(--text-sm);
+}
+.reading-breadcrumbs a { color: var(--muted); }
+.reading-work-list .summary-stack { min-width: 0; }
+.work-summary { overflow-wrap: anywhere; }
+.reading-work-list .post-preview { aspect-ratio: 5 / 3; align-self: start; }
+.reading-work-list .post-preview-image img { object-fit: contain; }
+.reading-work-list .tag { white-space: nowrap; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}

@@ -1,0 +1,1837 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Five Agents, One Coach</title>
+<style>
+/* ============ tokens ============ */
+:root{
+  --bg:#0b0d10; --bg2:#101318; --bg3:#0d1014;
+  --line:#2a2f36; --line2:#3d444d;
+  --ink:#e8eaec; --ink2:#9aa3ad; --ink3:#5c6570;
+  --acc:#aecbdd; --teal:#4fd1c5; --violet:#a78bfa; --sand:#e3c99a; --red:#e07a6b;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --sans:-apple-system,'Helvetica Neue','PingFang SC','Noto Sans SC',sans-serif;
+}
+html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:var(--sans)}
+/* ============ stage ============ */
+#viewport{position:fixed;inset:0;background:#000}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;background:var(--bg)}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;visibility:hidden;opacity:0;pointer-events:none;
+  background:var(--bg);color:var(--ink);box-sizing:border-box;padding:56px 72px 48px;
+  display:flex;flex-direction:column;
+  background-image:radial-gradient(circle,#1a1f26 1px,transparent 1px);background-size:56px 56px;background-position:28px 28px}
+.slide.active{visibility:visible;opacity:1;pointer-events:auto;z-index:1}
+.slide{--a:var(--acc)}
+.slide[data-accent="teal"]{--a:var(--teal)} .slide[data-accent="violet"]{--a:var(--violet)}
+.slide[data-accent="sand"]{--a:var(--sand)} .slide[data-accent="red"]{--a:var(--red)}
+/* ============ chrome (injected) ============ */
+.chrome{position:absolute;font-size:12px;letter-spacing:.16em;color:var(--ink3);text-transform:uppercase;font-family:var(--mono)}
+.chrome.eyebrow{top:26px;left:72px;color:var(--a)}
+.chrome.eyebrow::before{content:"";display:inline-block;width:8px;height:8px;border:1px solid var(--a);margin-right:10px;vertical-align:0}
+.chrome.meta{top:26px;right:72px;letter-spacing:.1em}
+.chrome.page{bottom:22px;right:72px;letter-spacing:.2em}
+.chrome.rule{top:52px;left:72px;right:72px;height:1px;background:var(--line)}
+/* ============ head / text ============ */
+.s-head{margin:14px 0 8px;flex:none}
+.s-head h2{margin:0;font-size:42px;font-weight:600;letter-spacing:.01em}
+.s-head h2 em{font-style:normal;color:var(--a)}
+.s-head .lead{margin:10px 0 0;font-size:21px;color:var(--ink2);max-width:1400px;line-height:1.5}
+.s-foot{position:absolute;bottom:22px;left:72px;font-size:12px;color:var(--ink3)}
+p,li{font-size:18px;line-height:1.55}
+/* s-body fills the rest of the canvas — use .grow/.push-b/vcenter to distribute */
+.s-body{margin-top:24px;flex:1;min-height:0;display:flex;flex-direction:column}
+.s-body.vcenter{justify-content:center}
+.s-body.vspread{justify-content:space-between}
+.grow{flex:1 1 auto;min-height:0}
+.push-b{margin-top:auto!important}
+.s-body h3{font-size:16.5px;margin:18px 0 8px;color:var(--a);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+small,.dim{color:var(--ink2)} .dim3{color:var(--ink3)}
+code{font-family:var(--mono);font-size:.92em;background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+/* ============ grids ============ */
+.cols-2{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.cols-2>.w7{grid-column:auto} .cols-2.r75{grid-template-columns:7fr 5fr}.cols-2.r57{grid-template-columns:5fr 7fr}
+.cols-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px}
+.grid-2x2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.grid-2x3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px}
+.card{border:1px solid var(--line);background:var(--bg2);padding:20px 22px;border-radius:6px}
+.card h4{margin:0 0 8px;font-size:18px;color:var(--ink)} .card h4 b{color:var(--a)}
+.card p{margin:0;font-size:16px;color:var(--ink2)}
+.card small{display:block;margin-top:10px;font-size:13px;color:var(--ink3)}
+/* ============ table ============ */
+table.cmp{border-collapse:collapse;width:100%;font-size:15px}
+table.cmp th{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);font-weight:500;text-align:left;
+  padding:10px 14px;border-bottom:1px solid var(--line2)}
+table.cmp td{padding:11px 14px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top;line-height:1.5}
+table.cmp td strong,table.cmp td b{color:var(--ink)}
+table.cmp td.k{color:var(--ink3);white-space:nowrap;font-family:var(--mono);font-size:13.5px}
+table.cmp .hl{background:color-mix(in srgb,var(--a) 7%,transparent)}
+table.cmp td.hl{color:var(--ink)}
+table.cmp td.good{color:var(--teal)} table.cmp td.bad{color:var(--red)}
+/* ============ callout ============ */
+.callout{border-left:2px solid var(--a);background:var(--bg2);padding:16px 20px;margin-top:18px;display:flex;gap:14px;align-items:baseline}
+.callout .c-tag{font-size:11px;letter-spacing:.18em;color:var(--a);text-transform:uppercase;font-family:var(--mono);white-space:nowrap}
+.callout p{margin:0;font-size:17px;color:var(--ink)}
+.callout.warn{border-color:var(--sand)} .callout.warn .c-tag{color:var(--sand)}
+.callout.risk{border-color:var(--red)} .callout.risk .c-tag{color:var(--red)}
+/* ============ evidence tags ============ */
+.ev{display:inline-block;font-size:11.5px;font-family:var(--mono);letter-spacing:.06em;color:var(--acc);
+  border:1px solid color-mix(in srgb,var(--acc) 45%,transparent);border-radius:3px;padding:0 5px;margin:0 2px;vertical-align:.08em}
+.ev.ind{color:var(--teal);border-color:color-mix(in srgb,var(--teal) 45%,transparent)}
+.ev.doubt{color:var(--red);border-color:color-mix(in srgb,var(--red) 45%,transparent)}
+.ev.comp{color:var(--violet);border-color:color-mix(in srgb,var(--violet) 45%,transparent)}
+.ev.sap{color:var(--sand);border-color:color-mix(in srgb,var(--sand) 45%,transparent)}
+/* ============ spec list ============ */
+ul.spec{list-style:none;margin:0;padding:0}
+ul.spec li{display:grid;grid-template-columns:160px 1fr;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+ul.spec .s-k{font-family:var(--mono);font-size:13.5px;color:var(--a);letter-spacing:.04em}
+ul.spec .s-v{color:var(--ink2)} ul.spec .s-v b,ul.spec .s-v strong{color:var(--ink)}
+/* ============ steps ============ */
+ol.steps{list-style:none;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:18px;margin:8px 0 0;padding:0;position:relative}
+ol.steps::before{content:"";position:absolute;top:15px;left:4%;right:4%;height:1px;background:var(--line2)}
+ol.steps li{position:relative;padding-top:48px;font-size:15.5px}
+ol.steps .n{position:absolute;top:0;left:0;width:32px;height:32px;border:1px solid var(--a);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--a);font-family:var(--mono);font-size:14px}
+ol.steps b{display:block;color:var(--ink);margin-bottom:5px;font-size:17px}
+ol.steps small{color:var(--ink2);font-size:14px;line-height:1.5;display:block}
+/* ============ bullets ============ */
+ul.tick{list-style:none;margin:0;padding:0}
+ul.tick li{padding:8px 0 8px 20px;position:relative;color:var(--ink2);font-size:17px}
+ul.tick li::before{content:"—";position:absolute;left:0;color:var(--a)}
+ul.tick b,ul.tick strong{color:var(--ink)}
+/* ============ SVG figures ============ */
+svg.fig{width:100%;height:auto;display:block}
+svg.fig.fill{height:100%;flex:1 1 auto;min-height:0}
+/* figbox: the safe way to size a figure. Container gets its height from the layout
+   (flex/grid); the SVG is absolutely positioned inside and letterboxes via
+   preserveAspectRatio — it can NEVER drive the slide taller. Use this for any
+   figure inside a grid column; bare width:100% SVGs set their own height from
+   the viewBox aspect ratio and overflow when the column is wide. */
+.figbox{position:relative;flex:1;min-height:0}
+.figbox>svg.fig{position:absolute;inset:0;width:100%;height:100%}
+.cols-2,.cols-3,.grid-2x2,.grid-2x3{min-height:0}
+.cols-2>*,.cols-3>*{min-width:0;min-height:0}
+svg.fig .node rect{fill:var(--bg2);stroke:var(--line2);stroke-width:1.25;rx:6}
+svg.fig .node.hi rect{stroke:var(--a);fill:color-mix(in srgb,var(--a) 8%,var(--bg2))}
+svg.fig .node .t{fill:var(--ink);font-size:14px;text-anchor:middle;font-weight:600}
+svg.fig .node .s{fill:var(--ink2);font-size:12px;text-anchor:middle}
+svg.fig .node .m{fill:var(--a);font-family:var(--mono);font-size:12px;text-anchor:middle}
+svg.fig .edge{fill:none;stroke:var(--ink3);stroke-width:1.25}
+svg.fig .edge.flow{stroke-dasharray:4 4}
+svg.fig .edge.hi{stroke:var(--a);stroke-width:1.5}
+svg.fig .elabel{fill:var(--ink3);font-size:11.5px;text-anchor:middle;font-family:var(--mono)}
+svg.fig .grp rect{fill:none;stroke:var(--line);stroke-dasharray:5 5;rx:8}
+svg.fig .glabel{fill:var(--ink3);font-size:11px;letter-spacing:.16em;font-family:var(--mono)}
+svg.fig text{font-family:var(--sans)}
+/* iso */
+svg.fig .iso-face-t{fill:#141920;stroke:var(--line2);stroke-width:1.1}
+svg.fig .iso-face-t.acc{fill:color-mix(in srgb,var(--a) 14%,#141920);stroke:var(--a)}
+svg.fig .iso-face-l{fill:#0c0f13;stroke:var(--line2);stroke-width:1.1}
+svg.fig .iso-face-r{fill:#101419;stroke:var(--line2);stroke-width:1.1}
+svg.fig .iso-label{fill:var(--ink);font-size:13px;letter-spacing:.12em;font-family:var(--mono);text-transform:uppercase}
+svg.fig .iso-sub{fill:var(--ink2);font-size:12px}
+svg.fig .rail{stroke:var(--line2);stroke-width:1;fill:none}
+/* ============ covers ============ */
+.cover-main{display:flex;flex-direction:column;justify-content:center}
+.cover-main .kicker{font-family:var(--mono);font-size:14px;letter-spacing:.3em;color:var(--a);text-transform:uppercase}
+.cover-main h1{font-size:72px;font-weight:650;margin:18px 0 10px;max-width:1500px;line-height:1.15}
+.cover-main .sub{font-size:24px;color:var(--ink2);max-width:1200px;line-height:1.5}
+.cover-main .badges{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap}
+.cover-main .badges span{font-size:13px;font-family:var(--mono);color:var(--ink2);border:1px solid var(--line);padding:5px 12px;border-radius:4px}
+.cover-section{display:flex;flex-direction:column;justify-content:center}
+.cover-section .ghost{font-size:160px;font-weight:200;color:transparent;-webkit-text-stroke:1px var(--line2);line-height:1;font-family:var(--mono)}
+.cover-section h2{font-size:52px;margin:8px 0 12px}
+.cover-section .thesis{font-size:23px;color:var(--ink2);max-width:1100px}
+.cover-section .mini-agenda{list-style:none;padding:0;margin:28px 0 0;display:flex;gap:28px}
+.cover-section .mini-agenda li{font-size:14px;color:var(--ink3);font-family:var(--mono)}
+.cover-section .mini-agenda li::before{content:"→ ";color:var(--a)}
+/* ============ overview / help ============ */
+#overview{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:50;display:none;overflow:auto;padding:30px}
+#overview.on{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+#overview .thumb{border:1px solid var(--line);cursor:pointer;position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--bg)}
+#overview .thumb:hover{border-color:var(--acc)}
+#overview .thumb .mini{width:1920px;height:1080px;transform:scale(.18);transform-origin:0 0;position:absolute;pointer-events:none}
+#overview .thumb .idx{position:absolute;right:6px;bottom:4px;font-family:var(--mono);font-size:11px;color:var(--acc);z-index:2}
+#hud{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:#565f6a;z-index:40;letter-spacing:.1em}
+/* ============ print ============ */
+@media print{
+  html,body{overflow:visible;height:auto;background:#0b0d10}
+  #viewport{position:static}
+  #stage{position:static;transform:none!important;width:1920px;height:auto}
+  .slide{position:relative;visibility:visible;opacity:1;page-break-after:always;break-after:page}
+  #hud,#overview{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- SLIDES-START -->
+<script>window.DECK={title:"Five Agents, One Coach",meta:"FIVE AGENTS · ONE COACH",footer:"five-agents-one-coach/en.md"}</script>
+<style>
+/* deck-local extras */
+.col{display:flex;flex-direction:column;min-height:0}
+.col.sb{justify-content:space-between}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:14px;font-family:var(--mono);color:var(--ink2);border:1px solid var(--line);padding:4px 10px;border-radius:4px}
+.chips.no span{color:var(--red);border-color:color-mix(in srgb,var(--red) 40%,transparent)}
+.card.hi{border-color:var(--a)}
+.card .lab{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--a);text-transform:uppercase;margin-bottom:6px}
+table.cmp.t14 td{font-size:14.5px;padding:9px 12px} table.cmp.t14 th{padding:8px 12px}
+table.cmp td.p{font-family:var(--mono);color:var(--a);white-space:nowrap}
+.bar{display:inline-block;height:7px;background:var(--a);border-radius:1px;vertical-align:middle;margin-right:8px;opacity:.85}
+ol.vsteps{list-style:none;margin:0;padding:0;counter-reset:v}
+ol.vsteps li{position:relative;padding:9px 0 9px 46px;border-bottom:1px solid var(--line);font-size:15.5px;color:var(--ink2);line-height:1.5}
+ol.vsteps li::before{counter-increment:v;content:counter(v);position:absolute;left:0;top:9px;width:28px;height:28px;border:1px solid var(--a);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;color:var(--a);font-family:var(--mono);font-size:13px}
+ol.vsteps b{color:var(--ink)}
+.note{font-size:14px;color:var(--ink3);line-height:1.5}
+.q{font-size:22px;color:var(--ink);line-height:1.5}
+.callout.v{flex-direction:column;gap:6px}
+svg.fig .tx{fill:var(--ink2);font-size:14px}
+svg.fig .tx.dk{fill:var(--ink)}
+svg.fig .tx.a{fill:var(--a)}
+svg.fig .tx.r{fill:var(--red)}
+svg.fig .tx.m{font-family:var(--mono)}
+svg.fig .cut{stroke:var(--red);stroke-width:3}
+svg.fig .edge.red{stroke:var(--red)}
+svg.fig .node.red rect{stroke:var(--red);stroke-dasharray:5 4}
+svg.fig .node.dash rect{stroke-dasharray:5 4}
+/* deck-wide density: larger type so columns fill the canvas */
+p,li{font-size:18px}
+.col.sb{justify-content:flex-start;gap:18px}
+.col.sb>h3{margin:0}
+.col.sb>.callout,.col.sb>.card,.col.sb>table,.col.sb>ul,.col.sb>ol,.col.sb>.note,.col.sb>.chips{margin-top:0}
+ul.spec li{grid-template-columns:180px 1fr;padding:13px 0;font-size:17.5px}
+ul.spec .s-k{font-size:14.5px}
+ul.tick li{font-size:18px}
+table.cmp td{font-size:17px;padding:14px 16px}
+table.cmp th{font-size:12.5px;padding:10px 16px}
+table.cmp.t14 td{font-size:16px;padding:13px 14px}
+.card p{font-size:17px}
+.card h4{font-size:20px}
+.callout p{font-size:18.5px;line-height:1.55}
+ol.vsteps li{font-size:17px;padding:12px 0 12px 46px}
+ol.vsteps li::before{top:12px}
+ol.steps b{font-size:19px} ol.steps small{font-size:16px}
+.note{font-size:15.5px}
+.col.even{justify-content:space-between}
+.col.even>.push-b{margin-top:0!important}
+svg.fig.big .node .t{font-size:17px} svg.fig.big .node .s{font-size:14.5px}
+.levers .card{display:flex;flex-direction:column}
+.levers .card h4{font-size:22px;line-height:1.4}
+.levers .card p{font-size:18px}
+.levers .card small{margin-top:auto;font-size:15.5px;color:var(--ink2);border-top:1px solid var(--line);padding-top:10px}
+.chips span{font-size:15px;padding:5px 12px}
+</style>
+
+<!-- 01 cover -->
+<section class="slide cover-main" data-accent="acc">
+  <div class="kicker">Personal Intelligence Coach · 2026-10</div>
+  <h1>Five Agents, One Coach<br><span style="font-size:48px;font-weight:500">Why I'm still building a <span style="color:var(--acc)">growth system</span> for myself in the age of AI</span></h1>
+  <p class="sub">A general Personal Agent is an ever more capable assistant; what I'm building is a coach. It isn't measured by how much AI does for me, but by whether I get stronger. The two differ not in technology but in their objective function.</p>
+  <div class="badges"><span>01 Starting point · optimizing in place</span><span>02 Cognition · invariants / breadth &amp; depth / feedback</span><span>03 Products · a cognitive machine and a compass</span><span>04 Coach · not an assistant</span><span>05 Build · buy the general, keep the feedback</span></div>
+</section>
+
+<!-- 02 overview -->
+<section class="slide" data-eyebrow="00 · ON ONE PAGE" data-accent="acc">
+  <header class="s-head"><h2>Conclusions first: <em>four judgments</em>, five-part argument</h2>
+    <p class="lead">It starts with a very personal question (why does effort stop being enough after thirty?) and ends with a narrow decision.</p></header>
+  <div class="s-body cols-2 r57">
+    <div class="col sb even">
+      <ul class="spec" style="font-size:18px">
+        <li><span class="s-k">Products</span><span class="s-v"><b>Information Assistant, Agentic Knowledge Bank, Learning OS and Writing Assistant</b> form a "cognitive machine" for building real capability over time; <b>Compass</b> is a personal strategy system for deciding where in the real world that capability should go.</span></li>
+        <li><span class="s-k">Thread</span><span class="s-v">Cognition is extracting invariants from phenomena; it needs Connect (breadth) and Think (depth); what actually changes it is <b>feedback</b>. After school an adult's feedback system takes four cuts; each cognitive product repairs one.</span></li>
+        <li><span class="s-k">Position</span><span class="s-v">Human-centered from the start. Muse, Dots and Grok Bot made memory, proactivity and multi-agent work standard, which only sharpens the line: <b>they are service agents that amplify a person's convenience, not their ability; I'm building a coach, a design that is the opposite of a Personal Agent.</b></span></li>
+        <li><span class="s-k">Decision</span><span class="s-v">Buy every general capability; invest only in feedback and evaluation, cognitive challenge, judgment history and personal strategy. <b>Prove on myself that a person really grows before talking about a product.</b></span></li>
+      </ul>
+      <div class="card"><div class="lab">The test · prove it on myself first</div><p>The control group is a well-configured general Personal Agent. If in twelve weeks this system doesn't make me measurably better at independent learning, long-term judgment or real-world decisions, I accept that the general platform is good enough.</p></div>
+      <div class="callout"><span class="c-tag">Core question</span><p>Am I actually growing, or just repeating my past self more and more efficiently?</p></div>
+    </div>
+    <div class="figbox">
+      <svg class="fig" viewBox="0 0 1000 790">
+        <defs><marker id="m2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+        <g>
+          <rect x="10" y="10" width="980" height="128" rx="6" fill="#101318" stroke="#e07a6b" stroke-width="1.25"/>
+          <text x="40" y="62" font-family="ui-monospace,Menlo,monospace" font-size="34" fill="#e07a6b">01</text>
+          <text x="40" y="100" class="tx m" font-size="13">START</text>
+          <text x="140" y="52" class="tx dk" font-size="23" font-weight="600">Why does effort stop being enough?</text>
+          <text x="140" y="84" class="tx" font-size="18">Growth stalls on four levers: information, cognitive, relationship, action</text>
+          <text x="140" y="112" class="tx" font-size="18">Personal tools optimize execution efficiency, not judgment quality</text>
+        </g>
+        <path class="edge" d="M500 138V162" marker-end="url(#m2)"/>
+        <g>
+          <rect x="10" y="168" width="980" height="128" rx="6" fill="#101318" stroke="#4fd1c5" stroke-width="1.25"/>
+          <text x="40" y="220" font-family="ui-monospace,Menlo,monospace" font-size="34" fill="#4fd1c5">02</text>
+          <text x="40" y="258" class="tx m" font-size="13">COGNITION</text>
+          <text x="140" y="210" class="tx dk" font-size="23" font-weight="600">How does cognition grow?</text>
+          <text x="140" y="242" class="tx" font-size="18">Phenomena → invariants; Connect × Think; error signals drive change</text>
+          <text x="140" y="270" class="tx" font-size="18">Four cuts after school: cut-off · contamination · wrong target · no trace</text>
+        </g>
+        <path class="edge" d="M500 296V320" marker-end="url(#m2)"/>
+        <g>
+          <rect x="10" y="326" width="980" height="128" rx="6" fill="#101318" stroke="#aecbdd" stroke-width="1.25"/>
+          <text x="40" y="378" font-family="ui-monospace,Menlo,monospace" font-size="34" fill="#aecbdd">03</text>
+          <text x="40" y="416" class="tx m" font-size="13">PRODUCTS</text>
+          <text x="140" y="368" class="tx dk" font-size="23" font-weight="600">How do I repair it?</text>
+          <text x="140" y="400" class="tx" font-size="18">Four products repair one cut each and form a loop; Compass links it to the market</text>
+          <text x="140" y="428" class="tx" font-size="18">The two loops are joined by one thing: judgment history</text>
+        </g>
+        <path class="edge" d="M500 454V478" marker-end="url(#m2)"/>
+        <g>
+          <rect x="10" y="484" width="980" height="128" rx="6" fill="#101318" stroke="#a78bfa" stroke-width="1.25"/>
+          <text x="40" y="536" font-family="ui-monospace,Menlo,monospace" font-size="34" fill="#a78bfa">04</text>
+          <text x="40" y="574" class="tx m" font-size="13">COACH</text>
+          <text x="140" y="526" class="tx dk" font-size="23" font-weight="600">How is it different from a general Personal Agent?</text>
+          <text x="140" y="558" class="tx" font-size="18">Judgment and the opponent stay with me; task success ≠ learning success</text>
+          <text x="140" y="586" class="tx" font-size="18">A waiter meets stated needs; a coach asks whether they serve your goals</text>
+        </g>
+        <path class="edge" d="M500 612V636" marker-end="url(#m2)"/>
+        <g>
+          <rect x="10" y="642" width="980" height="128" rx="6" fill="#101318" stroke="#e3c99a" stroke-width="1.25"/>
+          <text x="40" y="694" font-family="ui-monospace,Menlo,monospace" font-size="34" fill="#e3c99a">05</text>
+          <text x="40" y="732" class="tx m" font-size="13">BUILD</text>
+          <text x="140" y="684" class="tx dk" font-size="23" font-weight="600">Where do time and effort go?</text>
+          <text x="140" y="716" class="tx" font-size="18">Buy the intelligence, build the training methods; the Judgment Record is the core asset</text>
+          <text x="140" y="744" class="tx" font-size="18">Control: a well-configured general Agent; no proof in twelve weeks, I accept that</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">This deck has five parts: starting point → how cognition grows → five products → a coach, not an assistant → how to build it</footer>
+</section>
+
+<!-- 03 section cover 01 -->
+<section class="slide cover-section" data-accent="red">
+  <div class="ghost">01</div>
+  <h2>Starting point · The harder I work, the more I optimize in place</h2>
+  <p class="thesis">My information processing sped up; my growth didn't keep pace. If the problem is structural, the answer should be a structure too, not another resolution.</p>
+  <ul class="mini-agenda"><li>Four uncomfortable signs</li><li>Four kinds of leverage</li><li>Running myself like a company</li></ul>
+</section>
+
+<!-- 04 signs + leverage -->
+<section class="slide" data-eyebrow="01 · STARTING POINT" data-accent="red">
+  <header class="s-head"><h2>Diligent but stalled: four uncomfortable signs, and <em>four kinds of leverage</em></h2>
+    <p class="lead">In my twenties, learning paid off fast and directly. After thirty I began to doubt that "read more, learn more, solve harder problems" was still enough.</p></header>
+  <div class="s-body cols-2 r57">
+    <div class="col sb">
+      <h3>Four signs that bother me</h3>
+      <ul class="tick">
+        <li>Months researching a technical direction, yet I never seriously asked whether it was <b>worth three years</b></li>
+        <li>I know many excellent people, but rarely turn those ties into <b>lasting mutual success</b></li>
+        <li>Good ideas are <b>buried</b> in chats, notes and to-dos three months later</li>
+        <li>I finish my tasks every day, yet can't name <b>one judgment from the past six months that changed me</b></li>
+      </ul>
+      <div class="figbox">
+        <svg class="fig" viewBox="0 0 720 300">
+          <defs><marker id="m4" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+          <path class="edge" d="M40 260H700" marker-end="url(#m4)"/><path class="edge" d="M40 260V20" marker-end="url(#m4)"/>
+          <line x1="370" y1="30" x2="370" y2="260" stroke="#2a2f36" stroke-dasharray="4 4"/>
+          <text x="200" y="284" class="tx m" font-size="13" text-anchor="middle" style="fill:#5c6570">twenties</text>
+          <text x="535" y="284" class="tx m" font-size="13" text-anchor="middle" style="fill:#5c6570">thirties · with AI</text>
+          <path d="M50 240C200 200 330 150 450 110C560 74 620 50 690 34" fill="none" stroke="#9aa3ad" stroke-width="2" stroke-dasharray="6 5"/>
+          <path d="M50 245C160 200 260 130 370 108C480 92 600 92 690 90" fill="none" stroke="#e07a6b" stroke-width="2.5"/>
+          <text x="540" y="28" class="tx" font-size="14">information speed</text>
+          <text x="560" y="118" class="tx r" font-size="14">growth speed</text>
+          <text x="400" y="190" class="tx" font-size="13.5">Weeks of research now take hours,</text>
+          <text x="400" y="212" class="tx" font-size="13.5">but no longer turn into new judgment</text>
+          <text x="60" y="120" class="tx" font-size="13.5">Learning to code, or the basics</text>
+          <text x="60" y="142" class="tx" font-size="13.5">of business, was a huge leap</text>
+          <text x="700" y="252" class="tx m" font-size="12" text-anchor="end" style="fill:#5c6570">illustrative</text>
+        </svg>
+      </div>
+      <div class="callout risk"><span class="c-tag">The real question</span><p>Am I actually growing, or just repeating my past self more and more efficiently?</p></div>
+    </div>
+    <div class="col sb">
+      <div class="grid-2x2 levers" style="flex:1;grid-auto-rows:1fr">
+        <div class="card"><div class="lab">01 · Information leverage</div><h4>Spot the changes that matter before others do</h4><p>Not knowing more.</p><small>Stuck when: however much you know, without access to important problems it creates no value.</small></div>
+        <div class="card"><div class="lab">02 · Cognitive leverage</div><h4>Turn scattered information and experience into structural judgment</h4><p>Judgment that transfers to new problems and keeps being revised, not more knowledge.</p><small>Stuck when: great execution in the wrong direction just gets you there more skillfully.</small></div>
+        <div class="card"><div class="lab">03 · Relationship leverage</div><h4>Build lasting, reciprocal ties with the right people</h4><p>Enter new circles and reach resources you didn't have, not knowing more people.</p><small>Stuck when: strong skills without the right people can't be amplified.</small></div>
+        <div class="card"><div class="lab">04 · Action leverage</div><h4>Turn capability, judgment and ties into products, work, partnerships</h4><p>Including career and startup opportunities, not finishing more tasks.</p><small>Stuck when: with no business setting, capability stays just capability.</small></div>
+      </div>
+      <div class="callout"><span class="c-tag">In common</span><p>Capability stops depending only on hours put in each day and starts compounding through <b>accumulation and connection</b>.</p></div>
+      <div class="callout warn"><span class="c-tag">Zhang Yiming</span><p>What's worth learning from the ByteDance founder isn't any one product call, but how he kept connecting his core edge (algorithms and distribution) to stronger talent, bigger markets and better organizations and business models. Capability's value depends on <b>where it's deployed, what it connects to, and how far it's amplified.</b></p></div>
+    </div>
+  </div>
+  <footer class="s-foot">1 · Starting point: a sequel to "Why Working Harder Can Keep You Mediocre"</footer>
+</section>
+
+<!-- 05 company -->
+<section class="slide" data-eyebrow="01 · STARTING POINT" data-accent="red">
+  <header class="s-head"><h2>Run yourself like a company: are you optimizing <em>execution efficiency</em> or judgment quality?</h2>
+    <p class="lead">We have calendars, to-dos, notes, contacts and all kinds of AI assistants. They're useful, but mostly they help us finish <b style="color:var(--ink)">what we've already decided to do</b>.</p></header>
+  <div class="s-body">
+    <table class="cmp">
+      <thead><tr><th style="width:13%">Company function</th><th style="width:25%">What it does in a company</th><th style="width:25%">What an individual has</th><th class="hl">The question personal tools can't answer</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Strategy</td><td>Watches the market, decides what to chase and what to drop</td><td>To-dos: today's tasks</td><td class="hl">Are these tasks worth doing? Does the direction I chose still hold?</td></tr>
+        <tr><td class="k">CRM</td><td>Tracks customers and partners, grows relationships</td><td>Contacts: one entry per person</td><td class="hl">How does what this person is doing now relate to the opportunity I'm exploring?</td></tr>
+        <tr><td class="k">Talent</td><td>Keeps the organization gaining new capabilities</td><td>Courses, bookmarks, AI summaries</td><td class="hl">Which of my capabilities are becoming real assets?</td></tr>
+        <tr><td class="k">Knowledge mgmt</td><td>Turns individual experience into company assets</td><td>An AI summary of one article</td><td class="hl">Did I reach the opposite judgment on this same question three months ago?</td></tr>
+        <tr><td class="k">Business review</td><td>Checks whether past judgments and allocation were right</td><td>Calendar and weekly review</td><td class="hl">What did I get right last quarter, and what should I stop? Who can amplify me, and for whom can I create value?</td></tr>
+      </tbody>
+    </table>
+    <div class="figbox" style="margin:16px 0 6px">
+      <svg class="fig" viewBox="0 0 1776 200">
+        <defs><marker id="m5" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+          <marker id="m5r" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e07a6b"/></marker></defs>
+        <text class="glabel" x="0" y="18">TOOLS AN INDIVIDUAL HAS</text>
+        <g class="node"><rect x="0" y="34" width="140" height="48"/><text class="t" x="70" y="63">Calendar</text></g>
+        <g class="node"><rect x="160" y="34" width="140" height="48"/><text class="t" x="230" y="63">To-dos</text></g>
+        <g class="node"><rect x="320" y="34" width="140" height="48"/><text class="t" x="390" y="63">Notes</text></g>
+        <g class="node"><rect x="480" y="34" width="140" height="48"/><text class="t" x="550" y="63">Contacts</text></g>
+        <g class="node"><rect x="640" y="34" width="160" height="48"/><text class="t" x="720" y="63">AI assistants</text></g>
+        <path class="edge" d="M800 58H930" marker-end="url(#m5)"/>
+        <g class="node"><rect x="934" y="22" width="380" height="72"/><text class="t" x="1124" y="52">Execution efficiency</text><text class="s" x="1124" y="76">finish what's already decided · all useful</text></g>
+        <path class="edge red flow" d="M400 82V150H930" marker-end="url(#m5r)"/>
+        <line class="cut" x1="660" y1="138" x2="676" y2="162"/><line class="cut" x1="672" y1="138" x2="688" y2="162"/>
+        <g class="node red"><rect x="934" y="116" width="380" height="72"/><text class="t" x="1124" y="146">Judgment quality</text><text class="s" x="1124" y="170">should I · does the direction hold · what to stop</text></g>
+        <text x="1350" y="52" class="tx" font-size="15">Most personal productivity tools optimize this row</text>
+        <text x="1350" y="146" class="tx r" font-size="15">Companies have strategy, finance and talent for this row;</text>
+        <text x="1350" y="170" class="tx r" font-size="15">individuals have almost nothing</text>
+      </svg>
+    </div>
+    <div class="cols-2" style="margin-top:6px">
+      <div class="callout risk" style="margin:0"><span class="c-tag">Diagnosis</span><p>The tools aren't too weak. <b>Most personal productivity tools optimize execution efficiency, not judgment quality.</b> Companies need strategy, finance and talent precisely because allocating resources well matters more than raw efficiency.</p></div>
+      <div class="callout" style="margin:0"><span class="c-tag">Scarce capital</span><p>Attention, time and energy are a "personal company's" scarcest capital, and we allocate them far less rigorously than a real company would.</p></div>
+    </div>
+    <div class="callout warn push-b"><span class="c-tag">Next question</span><p>Before deciding how to run it, there's a more basic question: what is the "cognitive growth" I keep chasing, and how does it actually happen?</p></div>
+  </div>
+  <footer class="s-foot">1 · Starting point: running yourself like a company</footer>
+</section>
+
+<!-- 06 section cover 02 -->
+<section class="slide cover-section" data-accent="teal">
+  <div class="ghost">02</div>
+  <h2>How cognition grows · invariants, breadth and depth, feedback</h2>
+  <p class="thesis">Cognition aims at invariants; reaching them takes two dimensions, Connect and Think; and what actually changes cognition is the error signal. This part is the foundation of the whole system.</p>
+  <ul class="mini-agenda"><li>Phenomena → invariants</li><li>Connect × Think · T-shaped</li><li>The cave</li><li>The five-level ladder</li><li>Four cuts to feedback</li></ul>
+</section>
+
+<!-- 07 invariants -->
+<section class="slide" data-eyebrow="02 · COGNITION" data-accent="teal">
+  <header class="s-head"><h2>Cognition is extracting <em>invariants</em> from phenomena</h2>
+    <p class="lead">Cognitive growth isn't knowing more phenomena; it's extracting structural patterns that explain and predict other phenomena. An invariant isn't forever true: it keeps explaining across settings, and new evidence must be able to revise it.</p></header>
+  <div class="s-body cols-2 r57">
+    <div class="col sb">
+      <div class="card"><div class="lab">Example 1 · the AI industry</div>
+        <p><b style="color:var(--ink)">Phenomena:</b> a model ships a new version, a company raises a round, an agent adds a feature, a benchmark falls.</p>
+        <p style="margin-top:8px"><b style="color:var(--ink)">The real cognitive questions:</b> which part of the cost structure is technology changing? What is going from scarce to commodity? Where in the value chain is value moving? Which business models become possible, and which advantages erode?</p></div>
+      <div class="card"><div class="lab">Example 2 · interviews and partnerships</div>
+        <p><b style="color:var(--ink)">Phenomena:</b> concrete feedback from one interview or one partnership.</p>
+        <p style="margin-top:8px"><b style="color:var(--ink)">Structural judgment:</b> "The market recognizes my technical depth, but my business articulation hasn't earned the same value." That can change my learning focus, career choices, even how I position myself.</p></div>
+      <div class="callout"><span class="c-tag">The line</span><p>The first is information. Only the second starts to be cognition.</p></div>
+      <p class="note">Traditional notes are good at storing phenomena, rarely help me find invariants, and rarely tell me when today's evidence conflicts with an old judgment. Ten thousand notes don't mean you understand the world.</p>
+    </div>
+    <div class="figbox">
+      <svg class="fig" viewBox="0 0 1000 760">
+        <defs><marker id="m7" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+          <marker id="m7h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#4fd1c5"/></marker>
+          <marker id="m7r" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e07a6b"/></marker></defs>
+        <text class="glabel" x="30" y="30">PHENOMENA</text>
+        <text class="glabel" x="340" y="30">ABSTRACTION · STRUCTURAL QUESTIONS</text>
+        <text class="glabel" x="700" y="30">INVARIANT</text>
+        <g class="grp"><rect x="20" y="44" width="250" height="300"/></g>
+        <g class="grp"><rect x="20" y="370" width="250" height="150"/></g>
+        <text class="glabel" x="34" y="66">AI INDUSTRY</text><text class="glabel" x="34" y="392">CAREER</text>
+        <g class="node"><rect x="40" y="80" width="210" height="50"/><text class="t" x="145" y="110">A model ships an update</text></g>
+        <g class="node"><rect x="40" y="144" width="210" height="50"/><text class="t" x="145" y="174">A company raises a round</text></g>
+        <g class="node"><rect x="40" y="208" width="210" height="50"/><text class="t" x="145" y="238">An agent adds a feature</text></g>
+        <g class="node"><rect x="40" y="272" width="210" height="50"/><text class="t" x="145" y="302">A benchmark falls</text></g>
+        <g class="node"><rect x="40" y="404" width="210" height="44"/><text class="t" x="145" y="431">Interview feedback</text></g>
+        <g class="node"><rect x="40" y="460" width="210" height="44"/><text class="t" x="145" y="487">A partnership advances</text></g>
+        <path class="edge" d="M250 105H295M250 169H295M250 233H295M250 297H295M295 105V297"/>
+        <path class="edge" d="M295 105H340" marker-end="url(#m7)"/><path class="edge" d="M295 169H340" marker-end="url(#m7)"/>
+        <path class="edge" d="M295 233H340" marker-end="url(#m7)"/><path class="edge" d="M295 297H340" marker-end="url(#m7)"/>
+        <g class="node"><rect x="340" y="80" width="290" height="50"/><text class="t" x="485" y="110">Which cost structure shifts?</text></g>
+        <g class="node"><rect x="340" y="144" width="290" height="50"/><text class="t" x="485" y="174">What turns from scarce to commodity?</text></g>
+        <g class="node"><rect x="340" y="208" width="290" height="50"/><text class="t" x="485" y="238">Where does value move in the chain?</text></g>
+        <g class="node"><rect x="340" y="272" width="290" height="50"/><text class="t" x="485" y="302">What becomes possible, what erodes?</text></g>
+        <path class="edge" d="M250 426H295M250 482H295M295 426V482M295 454H340" marker-end="url(#m7)"/>
+        <g class="node"><rect x="340" y="429" width="290" height="50"/><text class="t" x="485" y="459">What pattern keeps recurring?</text></g>
+        <path class="edge hi" d="M630 105C665 105 665 200 700 200" marker-end="url(#m7h)"/>
+        <path class="edge hi" d="M630 169C665 169 665 205 700 205" marker-end="url(#m7h)"/>
+        <path class="edge hi" d="M630 233C665 233 665 210 700 210" marker-end="url(#m7h)"/>
+        <path class="edge hi" d="M630 297C665 297 665 215 700 215" marker-end="url(#m7h)"/>
+        <g class="node hi"><rect x="700" y="130" width="270" height="160"/><text class="t" x="835" y="172">Industry judgment</text>
+          <text class="s" x="835" y="202">where value in the chain is moving</text>
+          <text class="s" x="835" y="228">explains · predicts · transfers</text>
+          <text class="m" x="835" y="262">open to revision by new evidence</text></g>
+        <path class="edge hi" d="M630 454H700" marker-end="url(#m7h)"/>
+        <g class="node hi"><rect x="700" y="404" width="270" height="100"/><text class="t" x="835" y="436">Self-positioning judgment</text>
+          <text class="s" x="835" y="464">market values my technical depth;</text><text class="s" x="835" y="486">business articulation lags behind</text></g>
+        <path class="edge hi" d="M835 504V546" marker-end="url(#m7h)"/>
+        <g class="node"><rect x="700" y="550" width="270" height="56"/><text class="t" x="835" y="576">Changes my next move</text><text class="s" x="835" y="596">learning focus · career · positioning</text></g>
+        <g class="node dash"><rect x="340" y="560" width="290" height="50"/><text class="t" x="485" y="590">New evidence · new phenomena</text></g>
+        <path class="edge hi flow" d="M630 585H668V320Q668 300 688 300H700" marker-end="url(#m7h)"/>
+        <text class="elabel" x="560" y="640" style="fill:#4fd1c5">new evidence → revise the invariant</text>
+        <path class="edge red flow" d="M145 520V556" marker-end="url(#m7r)"/>
+        <g class="node red"><rect x="30" y="560" width="230" height="56"/><text class="t" x="145" y="584">A pretty bookmark folder</text><text class="s" x="145" y="604">stores phenomena, never abstracts</text></g>
+        <path class="edge" d="M190 700H825" marker-end="url(#m7)"/>
+        <text x="100" y="707" font-size="22" fill="#9aa3ad" text-anchor="middle">Information</text>
+        <text x="905" y="707" font-size="22" fill="#4fd1c5" text-anchor="middle">Cognition</text>
+        <text class="elabel" x="505" y="690">abstraction · cross-context testing · continual revision</text>
+        <text class="elabel" x="500" y="735">without these three, ten thousand notes are just a beautifully organized bookmark folder</text>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">2 · How cognition grows: from phenomena to invariants (appearances vs. stable structures and laws)</footer>
+</section>
+
+<!-- 08 Connect x Think -->
+<section class="slide" data-eyebrow="02 · COGNITION" data-accent="teal">
+  <header class="s-head"><h2>Horizontal <em>Connect</em>, vertical <em>Think</em>, and a cave to protect depth</h2>
+    <p class="lead">Breadth of knowledge can grow fast through exposure. Depth of cognition only builds slowly, through intense independent thinking and feedback.</p></header>
+  <div class="s-body cols-2">
+    <div class="figbox">
+      <svg class="fig" viewBox="0 0 860 800">
+        <defs><marker id="m8" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+          <marker id="m8h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#4fd1c5"/></marker>
+          <marker id="m8r" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e07a6b"/></marker>
+          <marker id="m8s" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e3c99a"/></marker></defs>
+        <rect x="90" y="40" width="355" height="330" rx="6" fill="#101318" stroke="#3d444d" stroke-dasharray="5 5"/>
+        <rect x="455" y="40" width="375" height="330" rx="6" fill="color-mix(in srgb,#4fd1c5 8%,#101318)" stroke="#4fd1c5"/>
+        <rect x="90" y="380" width="355" height="330" rx="6" fill="#101318" stroke="#2a2f36"/>
+        <rect x="455" y="380" width="375" height="330" rx="6" fill="#101318" stroke="#e07a6b" stroke-dasharray="5 5"/>
+        <text x="110" y="78" class="tx dk" font-size="19" font-weight="600">Local optimum</text>
+        <text x="110" y="106" class="tx">Think, never connect: to a hammer,</text>
+        <text x="110" y="130" class="tx">everything looks like a nail;</text>
+        <text x="110" y="154" class="tx">self-consistent, drifting from reality</text>
+        <text x="475" y="78" class="tx a" font-size="19" font-weight="600">T-shaped cognition</text>
+        <text x="475" y="106" class="tx">Horizontal: breadth across fields</text>
+        <text x="475" y="130" class="tx">Vertical: judgment few can replace</text>
+        <text x="250" y="418" class="tx dk" font-size="19" font-weight="600">Start</text>
+        <text x="250" y="446" class="tx">little material,</text>
+        <text x="250" y="468" class="tx">shallow questions</text>
+        <text x="815" y="560" class="tx r" font-size="19" font-weight="600" text-anchor="end">Information consumption</text>
+        <text x="815" y="588" class="tx" text-anchor="end">Connect, never think:</text>
+        <text x="815" y="612" class="tx" text-anchor="end">exposure ≠ understanding;</text>
+        <text x="815" y="636" class="tx" text-anchor="end">skim the news, feel you know the field;</text>
+        <text x="815" y="660" class="tx" text-anchor="end">read ten summaries, feel you know ten authors</text>
+        <path class="edge hi" d="M130 690H230V600H340V500H450V400H560V300H670V200H770V146" marker-end="url(#m8h)" style="stroke-width:2.5"/>
+        <text x="180" y="682" class="tx a m" font-size="13" text-anchor="middle">connect</text>
+        <text x="238" y="652" class="tx a m" font-size="13">think</text>
+        <text x="720" y="192" class="tx a m" font-size="13" text-anchor="middle">connect</text>
+        <text x="678" y="258" class="tx a m" font-size="13">think</text>
+        <text x="476" y="170" class="tx a" font-size="14">Out to the world, back to the cave:</text>
+        <text x="476" y="192" class="tx a" font-size="14">cognition grows by alternating</text>
+        <path class="edge red flow" d="M150 700C400 706 600 700 800 676" marker-end="url(#m8r)"/>
+        <text x="630" y="729" class="tx r" font-size="13.5" text-anchor="middle">Connect without thinking · AI makes this path cheaper</text>
+        <path class="edge flow" d="M140 676C160 520 190 330 250 180" marker-end="url(#m8s)" style="stroke:#e3c99a"/>
+        <text x="262" y="190" class="tx" font-size="13.5" style="fill:#e3c99a">Think without connecting</text>
+        <path class="edge" d="M90 740H830" marker-end="url(#m8)"/>
+        <path class="edge" d="M60 710V30" marker-end="url(#m8)"/>
+        <text x="460" y="775" class="tx m" font-size="13" text-anchor="middle" fill="#5c6570">Connect 联 · breadth: reading, conversation, new tech, other industries and fields →</text>
+        <text x="40" y="380" class="tx m" font-size="13" text-anchor="middle" transform="rotate(-90 40 380)">Think 思 · depth: base assumptions, inner structure, limits →</text>
+      </svg>
+    </div>
+    <div class="col sb">
+      <ul class="spec">
+        <li><span class="s-k">Connect · breadth</span><span class="s-v">Room to compare and transfer, so frameworks collide: an algorithms-only background treats business problems as optimization; a business-only one underrates how technology shifts marginal cost. The risk: <b>it slides easily into information consumption</b>.</span></li>
+        <li><span class="s-k">Think · depth</span><span class="s-v">Keep drilling into one question. With agents you can stop at frameworks and papers, or ask: how do they really differ from traditional software? Does reliability come from the model or the system design? Which classic computing ideas does it echo?</span></li>
+        <li><span class="s-k">T-shaped</span><span class="s-v">They complement each other and can't substitute. <b>Depth without breadth becomes a local optimum; breadth without depth is just upscale information consumption.</b></span></li>
+      </ul>
+      <div class="card"><div class="lab">The cave · protecting depth in an over-connected world</div>
+        <p>Not physical isolation but a cognitively independent space: outside information is <b style="color:var(--ink)">filtered, not cut off</b>; you think about organized material, not an endless feed; what matters isn't what comes next but whether you've truly thought this one problem through.</p>
+        <p style="margin-top:10px">Most knowledge tools optimize only Connect. I want to engineer the other dimension: <b style="color:var(--ink)">build myself a cave</b> that cuts noise and takes in the questions worth thinking about, then carry the judgment back out to face new evidence.</p></div>
+      <div class="callout warn"><span class="c-tag">AI sharpens it</span><p>AI makes breadth nearly free and skipping the vertical work easier: once a problem gets hard, we ask AI. An answer is far from mastery. <b>Understanding the answer ≠ rebuilding the reasoning on your own.</b></p></div>
+      <div class="callout push-b"><span class="c-tag">Alternate</span><p>Connecting goes out into the world; thinking returns to the cave. Connect without thinking and you lose your judgment; think without connecting and you drift from reality.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">2 · How cognition grows: horizontal Connect, vertical Think, and the cave</footer>
+</section>
+
+<!-- 09 five-level ladder -->
+<section class="slide" data-eyebrow="02 · COGNITION" data-accent="teal">
+  <header class="s-head"><h2>The five-level learning ladder: five ever more <em>expensive</em> kinds of feedback</h2>
+    <p class="lead">Cognition is set by error signals, not inputs. Only experience corrected by an error signal becomes real experience. Otherwise ten years at work may be the first year repeated ten times.</p></header>
+  <div class="s-body">
+    <div class="figbox">
+      <svg class="fig" viewBox="0 0 1776 720">
+        <defs><marker id="m9" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#4fd1c5"/></marker></defs>
+        <path d="M20 640 H366 V530 H712 V420 H1058 V310 H1404 V200 H1750 V650 H20 Z" fill="color-mix(in srgb,#4fd1c5 5%,#0d1014)" stroke="#3d444d" stroke-width="1.25"/>
+        <path d="M20 640 H366 V530 H712 V420 H1058 V310 H1404 V200 H1750" fill="none" stroke="#4fd1c5" stroke-width="2"/>
+        <rect x="28" y="482" width="330" height="148" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+        <text x="46" y="516" class="tx a m" font-size="14">L1</text><text x="80" y="516" class="tx dk" font-size="21" font-weight="600">Listening &amp; fragments</text>
+        <text x="46" y="550" class="tx" font-size="15.5">No feedback, input only</text>
+        <text x="46" y="578" class="tx" font-size="15.5">Judge: nobody</text>
+        <text x="46" y="608" font-size="15" style="fill:#5c6570">the bookmark folder is its tombstone</text>
+        <text x="193" y="462" font-size="14.5" text-anchor="middle" style="fill:#5c6570">input only: the illusion of "I'm learning"</text>
+        <rect x="374" y="372" width="330" height="148" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+        <text x="392" y="406" class="tx a m" font-size="14">L2</text><text x="426" y="406" class="tx dk" font-size="21" font-weight="600">Reading</text>
+        <text x="392" y="440" class="tx" font-size="15.5">Structure, no external feedback</text>
+        <text x="392" y="468" class="tx" font-size="15.5">Judge: nobody</text>
+        <text x="392" y="498" font-size="15" style="fill:#5c6570">strolling in someone else's frame</text>
+        <text x="539" y="570" font-size="14.5" text-anchor="middle" style="fill:#5c6570">you can skip what you don't get</text>
+        <rect x="720" y="262" width="330" height="148" rx="6" fill="#101318" stroke="#4fd1c5" stroke-width="1.25"/>
+        <text x="738" y="296" class="tx a m" font-size="14">L3</text><text x="772" y="296" class="tx dk" font-size="21" font-weight="600">Teaching yourself</text>
+        <text x="738" y="330" class="tx" font-size="15.5">Self-audit: the first error signal</text>
+        <text x="738" y="358" class="tx" font-size="15.5">Judge: you</text>
+        <text x="738" y="388" font-size="15" style="fill:#5c6570">gaps in understanding start to show</text>
+        <text x="885" y="460" font-size="14.5" text-anchor="middle" style="fill:#5c6570">Most people stop here:</text>
+        <text x="885" y="482" font-size="14.5" text-anchor="middle" style="fill:#5c6570">the audit means admitting you don't get it</text>
+        <rect x="1066" y="152" width="330" height="148" rx="6" fill="#101318" stroke="#4fd1c5" stroke-width="1.25"/>
+        <text x="1084" y="186" class="tx a m" font-size="14">L4</text><text x="1118" y="186" class="tx dk" font-size="21" font-weight="600">Deliberate practice</text>
+        <text x="1084" y="220" class="tx" font-size="15.5">Frequent, measurable right/wrong</text>
+        <text x="1084" y="248" class="tx" font-size="15.5">Judge: the problem and the run</text>
+        <text x="1084" y="278" font-size="15" style="fill:#5c6570">narrow; engineer it, not willpower</text>
+        <text x="1231" y="350" font-size="14.5" text-anchor="middle" style="fill:#5c6570">a problem you can't answer,</text>
+        <text x="1231" y="372" font-size="14.5" text-anchor="middle" style="fill:#5c6570">a program that won't run</text>
+        <rect x="1412" y="42" width="330" height="148" rx="6" fill="color-mix(in srgb,#4fd1c5 8%,#101318)" stroke="#4fd1c5" stroke-width="1.25"/>
+        <text x="1430" y="76" class="tx a m" font-size="14">L5</text><text x="1464" y="76" class="tx a" font-size="21" font-weight="600">Writing</text>
+        <text x="1430" y="110" class="tx" font-size="15.5">Invites outside challenge</text>
+        <text x="1430" y="138" class="tx" font-size="15.5">Judge: readers who owe you nothing</text>
+        <text x="1430" y="168" font-size="15" style="fill:#5c6570">private model → public object</text>
+        <text x="1577" y="240" font-size="14.5" text-anchor="middle" style="fill:#5c6570">readers press on logic, evidence, assumptions,</text>
+        <text x="1577" y="262" font-size="14.5" text-anchor="middle" style="fill:#5c6570">even whether the question is worth asking</text>
+        <path d="M712 296V650" stroke="#e07a6b" stroke-width="1.5" stroke-dasharray="6 5"/>
+        <text x="700" y="318" class="tx r" font-size="15" text-anchor="end">the self-protection wall</text>
+        <text x="700" y="340" class="tx r" font-size="14" text-anchor="end">many people stay on the first two levels</text>
+        <path d="M30 700H1740" stroke="#4fd1c5" stroke-width="1.25" marker-end="url(#m9)"/>
+        <text x="40" y="690" class="tx m a" font-size="14">deeper exposure to the risk of being proven wrong · more people entitled to say you're wrong →</text>
+      </svg>
+    </div>
+    <div class="cols-3" style="margin-top:18px">
+      <div class="callout" style="margin:0"><span class="c-tag">Lived ≠ learned</span><p>Ten years of blaming failure on the environment, colleagues and luck, never revising the framework, may be the first year repeated ten times.</p></div>
+      <div class="callout" style="margin:0"><span class="c-tag">Shared variable</span><p>How deeply you expose yourself to the risk of being proven wrong, and <b>how many people are entitled to say so</b>.</p></div>
+      <div class="callout risk" style="margin:0"><span class="c-tag">Self-protection</span><p>The upper levels keep making you face "I hadn't actually thought this through." The barrier to learning isn't only intelligence; it's self-protection.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">2 · How cognition grows: from listening to writing</footer>
+</section>
+
+<!-- 10 four cuts -->
+<section class="slide" data-eyebrow="02 · COGNITION" data-accent="teal">
+  <header class="s-head"><h2>After school, the feedback system takes <em>four cuts</em></h2>
+    <p class="lead">Exams don't measure every ability, but they keep telling us what's right and wrong. After graduation, that machinery gets dismantled piece by piece.</p></header>
+  <div class="s-body cols-2 r75">
+    <div class="figbox">
+      <svg class="fig" viewBox="0 0 1120 820">
+        <defs><marker id="m10" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#4fd1c5"/></marker>
+          <marker id="m10g" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+          <marker id="m10r" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e07a6b"/></marker></defs>
+        <circle cx="420" cy="410" r="250" fill="none" stroke="#2a2f36" stroke-dasharray="3 6"/>
+        <path class="edge hi" d="M505.5 175.1A250 250 0 0 1 654.9 324.5" marker-end="url(#m10)"/>
+        <path class="edge hi" d="M654.9 495.5A250 250 0 0 1 505.5 644.9" marker-end="url(#m10)"/>
+        <path class="edge hi" d="M334.5 644.9A250 250 0 0 1 185.1 495.5" marker-end="url(#m10)"/>
+        <path class="edge hi" d="M185.1 324.5A250 250 0 0 1 334.5 175.1" marker-end="url(#m10)"/>
+        <g class="node"><rect x="310" y="128" width="220" height="64"/><text class="t" x="420" y="155">Test · error signal</text><text class="s" x="420" y="177">someone tells you right or wrong</text></g>
+        <g class="node"><rect x="560" y="378" width="220" height="64"/><text class="t" x="670" y="405">Review · what to fix</text><text class="s" x="670" y="427">the method? or goals and premises?</text></g>
+        <g class="node"><rect x="310" y="628" width="220" height="64"/><text class="t" x="420" y="655">Archive · judgment history</text><text class="s" x="420" y="677">next time, start from the record</text></g>
+        <g class="node"><rect x="60" y="378" width="220" height="64"/><text class="t" x="170" y="405">Input · new evidence</text><text class="s" x="170" y="427">contact with the real world</text></g>
+        <circle cx="420" cy="410" r="70" fill="#0d1014" stroke="#3d444d"/>
+        <text x="420" y="406" class="tx dk" font-size="16" font-weight="600" text-anchor="middle">World model</text>
+        <text x="420" y="430" class="tx" font-size="12" text-anchor="middle">build · test · revise</text>
+        <line class="cut" x1="231" y1="221" x2="256" y2="246"/><line class="cut" x1="237" y1="215" x2="262" y2="240"/>
+        <text x="30" y="210" class="tx r" font-size="16" font-weight="600">Cut 1 · Cut-off</text>
+        <text x="30" y="234" class="tx" font-size="13.5">tests end at graduation</text>
+        <line class="cut" x1="584" y1="246" x2="609" y2="221"/><line class="cut" x1="590" y1="252" x2="615" y2="227"/>
+        <text x="630" y="182" class="tx r" font-size="16" font-weight="600">Cut 3 · Wrong target</text>
+        <text x="630" y="206" class="tx" font-size="13.5">review "was it done well", never "should I"</text>
+        <line class="cut" x1="584" y1="574" x2="609" y2="599"/><line class="cut" x1="590" y1="568" x2="615" y2="593"/>
+        <text x="560" y="740" class="tx r" font-size="16" font-weight="600">Cut 4 · No trace</text>
+        <text x="560" y="764" class="tx" font-size="13.5">feedback happens, with nowhere to keep it</text>
+        <line class="cut" x1="256" y1="574" x2="231" y2="599"/><line class="cut" x1="262" y1="580" x2="237" y2="605"/>
+        <text x="30" y="610" class="tx r" font-size="16" font-weight="600">Cut 2 · Contamination</text>
+        <text x="30" y="634" class="tx" font-size="13.5">platform algorithms (engagement)</text>
+        <text x="30" y="656" class="tx" font-size="13.5">× motivated reasoning</text>
+        <text x="30" y="678" class="tx" font-size="13.5">(seeing only what you like)</text>
+        <g class="grp"><rect x="830" y="440" width="276" height="370"/></g>
+        <text class="glabel" x="846" y="466">SINGLE VS DOUBLE LOOP</text>
+        <g class="node"><rect x="870" y="490" width="180" height="50"/><text class="t" x="960" y="520">Goals &amp; premises</text></g>
+        <g class="node"><rect x="880" y="590" width="160" height="50"/><text class="t" x="960" y="620">Action</text></g>
+        <g class="node"><rect x="880" y="690" width="160" height="50"/><text class="t" x="960" y="720">Result</text></g>
+        <path class="edge" d="M960 540V586" marker-end="url(#m10g)"/><path class="edge" d="M960 640V686" marker-end="url(#m10g)"/>
+        <path class="edge hi" d="M1040 715C1090 715 1090 615 1044 615" marker-end="url(#m10)"/>
+        <path class="edge red flow" d="M880 715C820 715 830 515 866 515" marker-end="url(#m10r)"/>
+        <text x="846" y="764" class="tx a" font-size="13">solid: single loop · fix the method</text>
+        <text x="846" y="784" class="tx r" font-size="13">dashed: double loop · fix the goal</text>
+        <text x="846" y="802" class="tx r" font-size="13">(often avoided)</text>
+      </svg>
+    </div>
+    <div class="col sb even">
+      <ul class="spec">
+        <li><span class="s-k">01 Cut-off</span><span class="s-v">The tests are gone; no one tells you whether you're right. Reading, courses, bookmarks and summaries feel like progress but prove no real mastery.</span></li>
+        <li><span class="s-k">02 Contamination</span><span class="s-v">We turn to consuming information, and two filters push the same way: you grow more certain and narrower. The filter bubble is <b>built jointly by platforms and by us</b>.</span></li>
+        <li><span class="s-k">03 Wrong target</span><span class="s-v">Only single-loop review. Double-loop asks "could this goal itself be wrong?", which threatens identity, so we avoid it. <b>Optimizing only execution makes you ever better at things not worth doing.</b></span></li>
+        <li><span class="s-k">04 No trace</span><span class="s-v">Reviews rely on memory; notes sit in a dozen apps. Without judgment history you can't see recurring bias, and every time you start from zero.</span></li>
+      </ul>
+      <div class="callout risk"><span class="c-tag">Veteran mode</span><p>Cut off from outside correction, receiving only confirmation, ever more skilled at the wrong goal, leaving no trace. The ego becomes the last immune wall: any painful feedback can be explained away as "they don't get it."</p></div>
+      <div class="callout"><span class="c-tag">AI's opening</span><p>AI's greatest value may not be reading and summarizing for us, but that <b>for the first time it could reinstall a feedback system for an adult</b>.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">2 · How cognition grows: you can keep reviewing and only get better at proving yourself right</footer>
+</section>
+
+<section class="slide cover-section" data-accent="acc">
+  <div class="ghost">03</div>
+  <h2>Five products · a cognitive machine and a compass</h2>
+  <p class="thesis">The four cognitive products aren't four content tools. They are engineered repairs of four breaks in the same feedback loop, splitting the work of Connect and Think. The fifth, Compass, plugs cognition into the real world.</p>
+  <ul class="mini-agenda"><li>Four cuts ↔ four products</li><li>Radar · cognitive model · exams · challenge</li><li>A loop, not a pipeline</li><li>Compass</li><li>Two loops · judgment history</li></ul>
+</section>
+
+<!-- 12 mapping table -->
+<section class="slide" data-eyebrow="03 · PRODUCTS" data-accent="acc">
+  <header class="s-head"><h2>Four cuts ↔ four cognitive products: <em>one repair per cut</em>, plus a compass</h2>
+    <p class="lead">Each product targets one break in the feedback loop. Compass repairs no single cut; it answers where in the real world these capabilities should go.</p></header>
+  <div class="s-body">
+    <table class="cmp t14">
+      <thead><tr><th style="width:15%">Product</th><th style="width:15%">Which cut it repairs</th><th style="width:8%">Role</th><th style="width:33%">Core mechanisms</th><th class="hl">The principle in one line</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Information Assistant</strong><br><span class="dim3">cognitive radar</span></td><td>② Contamination<br><span class="dim3">platform objectives × motivated reasoning</span></td><td class="k">Connect</td><td>Scored against my own framework · sources graded by evidence · counter-evidence quota · a value-neutral opponent · alerts only when a key judgment is challenged</td><td class="hl">A good information system doesn't make me more sure I'm right; it gives me more chances to find out I'm wrong</td></tr>
+        <tr><td><strong>Agentic Knowledge Bank</strong><br><span class="dim3">cognitive model management</span></td><td>④ No trace</td><td class="k">Know</td><td>Per-paragraph sourcing · concepts layered with declared coverage · explicit gaps · views evolve, never overwritten · cross-source contradictions</td><td class="hl">An honest gap is more useful than a beautiful story</td></tr>
+        <tr><td><strong>Learning OS</strong><br><span class="dim3">capability training &amp; certification</span></td><td>① Cut-off</td><td class="k">Think</td><td>Cold recall · spaced ladder and forgetting reset · help level recorded apart from correctness · evidence-based levels · sealed question bank · transfer tests</td><td class="hl">What matters isn't smooth teaching, but whether the assessment rests on evidence</td></tr>
+        <tr><td><strong>Writing Assistant</strong><br><span class="dim3">cognitive challenge &amp; public writing</span></td><td>③ Wrong target</td><td class="k">Test</td><td>Thesis first → opposing review → separate mine / cited / AI-added → expression last · outside feedback written back</td><td class="hl">It takes cognitive feedback out of my sole control</td></tr>
+        <tr><td><strong>Compass</strong><br><span class="dim3">personal strategy &amp; opportunity</span></td><td>Cognition isn't the end<br><span class="dim3">connects capability to the market</span></td><td class="k">Act</td><td>Goal-centered · planned in half-days · append-only records · adversarial reading of market feedback · not-to-do list</td><td class="hl">Helping me decide what not to do matters as much as helping me do</td></tr>
+      </tbody>
+    </table>
+    <div class="figbox" style="margin:18px 0 8px">
+      <svg class="fig" viewBox="0 0 1776 180">
+        <defs><marker id="m12" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker></defs>
+        <text class="glabel" x="0" y="16">FIVE POSITIONS ON ONE LOOP · CONNECT → KNOW → THINK → TEST → ACT</text>
+        <g class="node hi"><rect x="0" y="32" width="320" height="76"/><text x="22" y="80" font-size="30" font-weight="300" style="fill:#aecbdd;font-family:ui-monospace,Menlo,monospace">01</text><text class="t" x="86" y="64" style="text-anchor:start;font-size:16px">Information Assistant</text><text class="s" x="86" y="90" style="text-anchor:start;font-size:14px">Connect · protect inputs</text></g>
+        <path class="edge hi" d="M320 70H358" marker-end="url(#m12)"/>
+        <g class="node hi"><rect x="362" y="32" width="320" height="76"/><text x="384" y="80" font-size="30" font-weight="300" style="fill:#aecbdd;font-family:ui-monospace,Menlo,monospace">02</text><text class="t" x="448" y="64" style="text-anchor:start;font-size:16px">Agentic Knowledge Bank</text><text class="s" x="448" y="90" style="text-anchor:start;font-size:14px">Know · externalize the model</text></g>
+        <path class="edge hi" d="M682 70H720" marker-end="url(#m12)"/>
+        <g class="node hi"><rect x="724" y="32" width="320" height="76"/><text x="746" y="80" font-size="30" font-weight="300" style="fill:#aecbdd;font-family:ui-monospace,Menlo,monospace">03</text><text class="t" x="810" y="64" style="text-anchor:start;font-size:16px">Learning OS</text><text class="s" x="810" y="90" style="text-anchor:start;font-size:14px">Think · tests and practice</text></g>
+        <path class="edge hi" d="M1044 70H1082" marker-end="url(#m12)"/>
+        <g class="node hi"><rect x="1086" y="32" width="320" height="76"/><text x="1108" y="80" font-size="30" font-weight="300" style="fill:#aecbdd;font-family:ui-monospace,Menlo,monospace">04</text><text class="t" x="1172" y="64" style="text-anchor:start;font-size:16px">Writing Assistant</text><text class="s" x="1172" y="90" style="text-anchor:start;font-size:14px">Test · public challenge</text></g>
+        <path class="edge hi" d="M1406 70H1444" marker-end="url(#m12)"/>
+        <g class="node"><rect x="1448" y="32" width="320" height="76"/><text x="1470" y="80" font-size="30" font-weight="300" style="fill:#e3c99a;font-family:ui-monospace,Menlo,monospace">05</text><text class="t" x="1534" y="64" style="text-anchor:start;font-size:16px">Compass</text><text class="s" x="1534" y="90" style="text-anchor:start;font-size:14px">Act · reality check</text></g>
+        <path class="edge hi flow" d="M1608 108V150H160V112" marker-end="url(#m12)"/>
+        <rect x="560" y="138" width="656" height="24" fill="#0b0d10"/><text x="888" y="155" class="tx a" font-size="14.5" text-anchor="middle">exposed problems and market feedback flow back to input: a loop, not a pipeline</text>
+      </svg>
+    </div>
+    <div class="cols-3">
+      <div class="callout" style="margin:0"><span class="c-tag">Not content tools</span><p>The four cognitive products are <b>engineered repairs of four breaks</b> in one feedback loop, splitting the work of Connect, Know, Think and Test.</p></div>
+      <div class="callout" style="margin:0"><span class="c-tag">Shared method</span><p>AI can prepare material, find evidence and point out errors; <b>thinking, judging and deciding whether to revise stay with the person</b>.</p></div>
+      <div class="callout warn" style="margin:0"><span class="c-tag">The fifth</span><p>Someone can have an excellent cognitive system and still never create value to match. Compass exists for that.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">3 · Five products: repairing four breaks in the feedback loop</footer>
+</section>
+
+<!-- 13 IA + AKB -->
+<section class="slide" data-eyebrow="03 · PRODUCTS" data-accent="acc">
+  <header class="s-head"><h2>Information Assistant and Knowledge Bank: a <em>radar</em>, and an <em>auditable cognitive model</em></h2></header>
+  <div class="s-body cols-2">
+    <div class="col sb even">
+      <h3 style="margin-top:0">Information Assistant · repairs "contamination"</h3>
+      <div class="figbox" style="flex:none;height:170px">
+        <svg class="fig" viewBox="0 0 860 150">
+          <defs><marker id="m13" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+            <marker id="m13h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker></defs>
+          <text class="glabel" x="0" y="14">BEFORE · INFORMATION ASSISTANT</text>
+          <g class="node"><rect x="0" y="24" width="150" height="38" style="opacity:.6"/><text class="s" x="75" y="48">collect</text></g>
+          <g class="node"><rect x="190" y="24" width="150" height="38" style="opacity:.6"/><text class="s" x="265" y="48">filter</text></g>
+          <g class="node"><rect x="380" y="24" width="150" height="38" style="opacity:.6"/><text class="s" x="455" y="48">summarize</text></g>
+          <g class="node"><rect x="570" y="24" width="150" height="38" style="opacity:.6"/><text class="s" x="645" y="48">daily digest</text></g>
+          <path class="edge" d="M150 43H186M340 43H376M530 43H566" marker-end="url(#m13)"/>
+          <text class="glabel" x="0" y="88" style="fill:#aecbdd">NOW · COGNITIVE RADAR</text>
+          <g class="node hi"><rect x="0" y="98" width="150" height="44"/><text class="t" x="75" y="125">Long-term question</text></g>
+          <g class="node hi"><rect x="172" y="98" width="150" height="44"/><text class="t" x="247" y="125">New evidence</text></g>
+          <g class="node hi"><rect x="344" y="98" width="160" height="44"/><text class="t" x="424" y="125">Compare to my views</text></g>
+          <g class="node hi"><rect x="526" y="98" width="160" height="44"/><text class="t" x="606" y="125">Spot change, conflict</text></g>
+          <g class="node hi"><rect x="708" y="98" width="150" height="44"/><text class="t" x="783" y="125">Suggest research</text></g>
+          <path class="edge hi" d="M150 120H168M322 120H340M504 120H522M686 120H704" marker-end="url(#m13h)"/>
+        </svg>
+      </div>
+      <ul class="spec">
+        <li><span class="s-k">Scoring</span><span class="s-v">Against <b>my own cognitive framework</b>, not a generic "quality content" bar; sources graded by evidence, with trust as its own axis, not a proxy for popularity</span></li>
+        <li><span class="s-k">Counter-evidence</span><span class="s-v">When I'm bullish on an AI direction, it actively looks for failed cases, rival paths and objections; value neutrality is a product requirement, not an attitude</span></li>
+        <li><span class="s-k">Signal</span><span class="s-v">Separates new facts, repeat coverage, opinion in packaging, and signals that could actually change a judgment</span></li>
+        <li><span class="s-k">Shape · rhythm</span><span class="s-v">Flags inputs that are too concentrated, blind spots and cross-field links; decides when to keep exploring and when to stop and go deep</span></li>
+        <li><span class="s-k">Alerts</span><span class="s-v">Only when an important judgment is challenged, never a daily digest</span></li>
+      </ul>
+      <div class="callout risk push-b"><span class="c-tag">The failure</span><p>A product that only feeds me what fits my framework ends up no different from a short-video platform. Its value is pointing out <b>why this article might change the judgment I made three months ago</b>.</p></div>
+    </div>
+    <div class="col sb even">
+      <h3 style="margin-top:0">Agentic Knowledge Bank · repairs "no trace"</h3>
+      <div class="figbox" style="flex:none;height:170px">
+        <svg class="fig" viewBox="0 0 860 150">
+          <defs><marker id="m13b" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker></defs>
+          <text class="glabel" x="0" y="14">ONE CONCEPT · LAYERED BY DEPTH, EACH LAYER DECLARES COVERAGE</text>
+          <rect x="0" y="26" width="96" height="26" rx="3" fill="color-mix(in srgb,#4fd1c5 14%,#101318)" stroke="#4fd1c5"/><text x="48" y="44" class="tx" font-size="13" text-anchor="middle" style="fill:#4fd1c5">complete</text>
+          <rect x="104" y="26" width="96" height="26" rx="3" fill="#101318" stroke="#aecbdd"/><text x="152" y="44" class="tx a" font-size="13" text-anchor="middle">partial</text>
+          <rect x="208" y="26" width="96" height="26" rx="3" fill="#101318" stroke="#e3c99a" stroke-dasharray="4 3"/><text x="256" y="44" class="tx" font-size="13" text-anchor="middle" style="fill:#e3c99a">draft</text>
+          <rect x="312" y="26" width="200" height="26" rx="3" fill="none" stroke="#e07a6b" stroke-dasharray="4 3"/><text x="412" y="44" class="tx r" font-size="13" text-anchor="middle">gap: "this is empty"</text>
+          <text x="530" y="44" class="tx" font-size="13">← AI may not invent a tidy filler</text>
+          <text class="glabel" x="0" y="88">VIEW EVOLUTION · KEEP HISTORY, NEVER OVERWRITE SILENTLY</text>
+          <g class="node"><rect x="0" y="98" width="230" height="44"/><text class="t" x="115" y="125">Enterprises pay per seat</text></g>
+          <path class="edge hi" d="M230 120H306" marker-end="url(#m13b)"/>
+          <text class="elabel" x="268" y="112">evidence</text>
+          <g class="node hi"><rect x="310" y="98" width="250" height="44"/><text class="t" x="435" y="125">May shift to paying for outcomes</text></g>
+          <text x="580" y="116" class="tx" font-size="13">Can answer: why it changed,</text>
+          <text x="580" y="136" class="tx" font-size="13">on what evidence, how uncertain</text>
+        </svg>
+      </div>
+      <ul class="spec">
+        <li><span class="s-k">Sourcing</span><span class="s-v">Every paragraph traces to a source; facts, claims and inferences kept apart, so every key conclusion can be traced</span></li>
+        <li><span class="s-k">Explicit gaps</span><span class="s-v">Where no material supports it, it must say "this is empty" and fill nothing in; the most counterintuitive requirement</span></li>
+        <li><span class="s-k">Structure</span><span class="s-v">Organizes scattered knowledge into concepts, causal links and conditions of use; buys document import, vector search and other basics</span></li>
+        <li><span class="s-k">Conflict · return</span><span class="s-v">Finds contradictions across sources and over time; sends gaps back to Information Assistant and Learning OS as new research questions</span></li>
+        <li><span class="s-k">Boundary</span><span class="s-v">The knowledge bank manages the <b>knowledge model</b>; cross-product memory manages <b>judgment and feedback history</b>. They overlap, but they're not the same thing</span></li>
+      </ul>
+      <div class="callout push-b"><span class="c-tag">Principle</span><p>An honest gap is more useful than a beautiful story. A gap tells you what to read next; a story only tells you that you already understand. It's the most concrete form of the cave.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">3 · Five products: not competing with general-agent memory, and not a more complicated Notion</footer>
+</section>
+
+<!-- 14 LOS + WA -->
+<section class="slide" data-eyebrow="03 · PRODUCTS" data-accent="acc">
+  <header class="s-head"><h2>Learning OS &amp; Writing Assistant: <em>reinstall exams</em>, <em>challenge thinking</em></h2></header>
+  <div class="s-body">
+    <div class="cols-2 grow">
+      <div class="col sb">
+        <h3 style="margin-top:0">Learning OS · repairs "cut-off"</h3>
+        <p style="margin:0;color:var(--ink2);font-size:18px">Finishing a book doesn't count, nor does finishing a course or getting AI to write beautiful notes. Mastery means calling on it independently, with no hints, on an unfamiliar problem.</p>
+        <ul class="spec">
+          <li><span class="s-k">Cold recall</span><span class="s-v">Retrieval attempts with no hints at all</span></li>
+          <li><span class="s-k">Spacing · reset</span><span class="s-v">Capability decays; reassess after a delayed retest</span></li>
+          <li><span class="s-k">Help level</span><span class="s-v">Recorded apart from correctness: getting it right and how many hints it took are two things</span></li>
+          <li><span class="s-k">Evidence levels</span><span class="s-v">Can recall, apply, explain, generate; no fake numeric scores</span></li>
+          <li><span class="s-k">Sealed bank</span><span class="s-v">Questions sealed before learning test the system itself; otherwise it only trains "the ability to pass this system"</span></li>
+          <li><span class="s-k">Map · transfer</span><span class="s-v">Mastery standards by domain, skill and difficulty; transfer tested with unpracticed problem types or real projects</span></li>
+        </ul>
+        <h3>Ladder → five kinds of capability evidence, judged per domain</h3>
+        <ol class="steps" style="margin-top:0">
+          <li><span class="n">1</span><b>Explain</b></li><li><span class="n">2</span><b>Derive alone</b></li><li><span class="n">3</span><b>Solve new problems</b></li><li><span class="n">4</span><b>Actually build</b></li><li><span class="n">5</span><b>Produce systematic work</b></li>
+        </ol>
+        <div class="callout push-b"><span class="c-tag">Bottom line</span><p>AI can prepare material, design exercises and find mistakes, but the thinking has to be mine. <b>Otherwise it's the AI getting smarter, not me.</b></p></div>
+      </div>
+      <div class="col sb">
+        <h3 style="margin-top:0">Writing Assistant · repairs "wrong target"</h3>
+        <p style="margin:0;color:var(--ink2);font-size:18px">An idea kept in your head feels complete. Step one isn't polish but interrogation:</p>
+        <div class="chips"><span>What's the core claim?</span><span>What's the evidence?</span><span>Any other explanation?</span><span>Why does it support the conclusion?</span><span>What's new here?</span></div>
+        <ol class="vsteps">
+          <li><b>Force a thesis</b>: press loose ideas into one arguable core claim</li>
+          <li><b>Opposing review</b>: from other theories, other stakeholders, and the facts</li>
+          <li><b>Separate sources</b>: my own judgment / citations / AI additions</li>
+          <li><b>Expression last</b>: drafting, polish, translation, layout and publishing can be bought</li>
+          <li><b>Write back</b>: pull evidence-based criticism from outside feedback into my views and knowledge model</li>
+        </ol>
+        <div class="figbox">
+          <svg class="fig" viewBox="0 0 860 250">
+            <defs><marker id="m14" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker></defs>
+            <text class="glabel" x="0" y="16">WRITING = MAKING COGNITION AN OBJECT</text>
+            <g class="node"><rect x="0" y="40" width="190" height="96"/><text class="t" x="95" y="74">Judgment in my head</text><text class="s" x="95" y="98">a subjective feeling</text><text class="s" x="95" y="118">that tends to feel complete</text></g>
+            <g class="node hi"><rect x="222" y="40" width="190" height="96"/><text class="t" x="317" y="74">Write it down</text><text class="s" x="317" y="98">cracks in the framework</text><text class="s" x="317" y="118">become visible</text></g>
+            <g class="node hi"><rect x="444" y="40" width="190" height="96"/><text class="t" x="539" y="74">Publish</text><text class="s" x="539" y="98">to people who owe you nothing</text><text class="s" x="539" y="118">out in the real world</text></g>
+            <g class="node hi"><rect x="666" y="40" width="190" height="96"/><text class="t" x="761" y="74">Evidence-based critique</text><text class="s" x="761" y="98">disagreement · holes found</text><text class="s" x="761" y="118">old certainty overturned</text></g>
+            <path class="edge hi" d="M190 88H218M412 88H440M634 88H662" marker-end="url(#m14)"/>
+            <path class="edge hi flow" d="M761 136V190H95V140" marker-end="url(#m14)"/>
+            <rect x="230" y="178" width="400" height="24" fill="#0b0d10"/><text x="430" y="195" class="tx a" font-size="14" text-anchor="middle">written back to my views and knowledge model</text>
+            <text x="0" y="238" class="tx" font-size="14">Feedback is no longer fully in my control: writing's greatest value</text>
+          </svg>
+        </div>
+        <div class="callout push-b"><span class="c-tag">Why writing</span><p>The only act that makes the framework itself an object: written, its cracks show; published, strangers test it. <b>It takes cognitive feedback out of my sole control.</b></p></div>
+      </div>
+    </div>
+    <div class="callout warn push-b"><span class="c-tag">Division of labor</span><p><b>Learning OS tests predefined knowledge and capability; Writing Assistant tests the frameworks and original judgments I propose.</b> A polished AI-generated view must never pass as my own cognitive work.</p></div>
+  </div>
+  <footer class="s-foot">3 · Five products: the human's thesis first, then the argument audit, AI's expression last</footer>
+</section>
+
+<!-- 15 loop -->
+<section class="slide" data-eyebrow="03 · PRODUCTS" data-accent="acc">
+  <header class="s-head"><h2>A <em>loop</em>, not a pipeline: four cognitive products make one machine</h2>
+    <p class="lead">If the four products each work alone, they're still just four tools. What matters is the loop between them.</p></header>
+  <div class="s-body cols-2 r75">
+    <div class="figbox">
+      <svg class="fig" viewBox="0 0 1000 800">
+        <defs><marker id="m15" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+          <marker id="m15h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker></defs>
+        <g class="node dash"><rect x="340" y="20" width="320" height="56"/><text class="t" x="500" y="44">Real world · evidence and readers</text><text class="s" x="500" y="64">information enters here; views get tested here</text></g>
+        <path class="edge flow" d="M340 48H70V352" marker-end="url(#m15)"/>
+        <text class="elabel" x="200" y="40">new information</text>
+        <path class="edge flow" d="M930 352V48H664" marker-end="url(#m15)"/>
+        <text class="elabel" x="800" y="40">publish</text>
+        <path class="edge hi" d="M880 356V200Q880 180 860 180H140Q120 180 120 200V352" marker-end="url(#m15h)" style="stroke-width:2"/>
+        <rect x="350" y="166" width="300" height="26" rx="3" fill="#0b0d10"/>
+        <text x="500" y="184" class="tx a" font-size="14" text-anchor="middle">new questions exposed by writing</text>
+        <g class="node hi"><rect x="20" y="356" width="200" height="96"/><text class="t" x="120" y="386">Information</text><text class="t" x="120" y="404">Assistant</text><text class="s" x="120" y="426">protects input · Connect</text><text class="m" x="120" y="444">repairs: contamination</text></g>
+        <g class="node hi"><rect x="273" y="356" width="200" height="96"/><text class="t" x="373" y="386">Agentic</text><text class="t" x="373" y="404">Knowledge Bank</text><text class="s" x="373" y="426">externalizes model · Know</text><text class="m" x="373" y="444">repairs: no trace</text></g>
+        <g class="node hi"><rect x="527" y="356" width="200" height="96"/><text class="t" x="627" y="395">Learning OS</text><text class="s" x="627" y="420">tests &amp; practice · Think</text><text class="m" x="627" y="440">repairs: cut-off</text></g>
+        <g class="node hi"><rect x="780" y="356" width="200" height="96"/><text class="t" x="880" y="386">Writing</text><text class="t" x="880" y="404">Assistant</text><text class="s" x="880" y="426">public challenge · Test</text><text class="m" x="880" y="444">repairs: wrong target</text></g>
+        <path class="edge hi" d="M220 404H269" marker-end="url(#m15h)"/>
+        <path class="edge hi" d="M473 404H523" marker-end="url(#m15h)"/>
+        <path class="edge hi" d="M727 404H776" marker-end="url(#m15h)"/>
+        <text class="elabel" x="246" y="396">issue</text><text class="elabel" x="500" y="396">frame</text><text class="elabel" x="753" y="396">mastery</text>
+        <path class="edge hi flow" d="M627 452V550Q627 570 607 570H413Q393 570 393 550V456" marker-end="url(#m15h)"/>
+        <rect x="320" y="582" width="380" height="24" rx="3" fill="#0b0d10"/>
+        <text x="510" y="599" class="tx a" font-size="14" text-anchor="middle">blind spots from practice, written back as gaps</text>
+        <path class="edge hi flow" d="M333 452V660Q333 680 313 680H140Q120 680 120 660V456" marker-end="url(#m15h)"/>
+        <rect x="98" y="692" width="260" height="24" rx="3" fill="#0b0d10"/>
+        <text x="228" y="709" class="tx a" font-size="14" text-anchor="middle">gaps decide what to read next</text>
+        <text class="glabel" x="20" y="770">SOLID: MAIN PATH AND WRITING RETURN · DASHED: TWO RETURN EDGES</text>
+        <text x="980" y="770" class="tx m" font-size="13" text-anchor="end" style="fill:#aecbdd">meet the world → build a model → take correction</text>
+      </svg>
+    </div>
+    <div class="col sb even">
+      <ul class="spec">
+        <li><span class="s-k">IA → AKB</span><span class="s-v">Outside information helps me <b>find the problem</b></span></li>
+        <li><span class="s-k">AKB → LOS</span><span class="s-v">The knowledge bank <b>places it in my existing framework</b></span></li>
+        <li><span class="s-k">LOS → WA</span><span class="s-v">The learning system checks whether I've <b>really mastered it</b></span></li>
+        <li><span class="s-k">WA → world</span><span class="s-v">Writing puts the view <b>up for outside testing</b></span></li>
+        <li><span class="s-k">WA ⇢ IA</span><span class="s-v">Logical flaws exposed in writing become new research questions</span></li>
+        <li><span class="s-k">LOS ⇢ AKB</span><span class="s-v">Capability gaps exposed in practice are written back as gaps in the knowledge bank</span></li>
+        <li><span class="s-k">AKB ⇢ IA</span><span class="s-v">Unexplained gaps decide what information to seek next round</span></li>
+      </ul>
+      <div class="callout"><span class="c-tag">The machine</span><p>A pipeline runs one way; a loop has return paths. This cognitive machine keeps doing three things: <b>meet the world, build a model, take correction.</b></p></div>
+      <div class="callout risk push-b"><span class="c-tag">Today</span><p>The return edges aren't connected yet: writing's questions don't flow back to information gathering, and practice blind spots aren't written back to the knowledge bank. That's the first next step (see 05).</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">3 · Five products: a loop, not a pipeline</footer>
+</section>
+
+<!-- 16 Compass -->
+<section class="slide" data-eyebrow="03 · PRODUCTS" data-accent="acc">
+  <header class="s-head"><h2>Compass: <em>generating strategy</em>, not managing relationships</h2>
+    <p class="lead">It began as two ideas, Human Leverage (inward: running myself) and Personal CRM (outward: relationships and opportunities), later merged into two faces of one compass.</p></header>
+  <div class="s-body cols-2 r57">
+    <div class="col sb">
+      <table class="cmp">
+        <thead><tr><th style="width:20%">Dimension</th><th style="width:34%">Most CRMs</th><th class="hl">Compass</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Works on</td><td>Phenomena: calls, emails, pipeline stages</td><td class="hl">What are the <b>invariants</b> in market feedback?</td></tr>
+          <tr><td class="k">Core object</td><td>Contacts</td><td class="hl"><b>Goals</b>: a company, a project, a community, a collaborator</td></tr>
+          <tr><td class="k">Currency</td><td>Money</td><td class="hl"><b>Time</b>: every plan counted in half-days</td></tr>
+          <tr><td class="k">Records</td><td>Editable status</td><td class="hl">Append-only: <b>the past is immutable, the future is not</b></td></tr>
+          <tr><td class="k">At its best</td><td>Never miss a follow-up</td><td class="hl">Spots underrated capability, positioning bias, the next lever</td></tr>
+        </tbody>
+      </table>
+      <div class="card"><div class="lab">Goals · tasks · engine</div><p>Tasks are the wake; goals are the ship's heading; I am the engine. Same thread as the cognitive part, with the object shifted from "the world" to "my relationship with the market."</p></div>
+      <div class="card"><div class="lab">Three principles</div><p><b style="color:var(--ink)">Time is the only currency</b>: CRMs track money, Compass tracks half-days. <b style="color:var(--ink)">The past is immutable, the future is not</b>: logs and review conclusions are append-only. <b style="color:var(--ink)">I am the product</b>: I keep iterating what I offer on market feedback.</p></div>
+      <div class="note push-b">The system is trustworthy only if it keeps what I really judged at the time, not a polished afterthought.</div>
+    </div>
+    <div class="col sb">
+      <div class="cols-2" style="gap:22px">
+        <div class="card"><div class="lab">Inward · keep testing my positioning</div><h4>Who am I? What am I truly good at? What core capability do I build in 3–5 years?</h4>
+          <p>I say building products matters most, yet three months went to local technical optimization: less an efficiency problem than drift from where I want to go.</p>
+          <small>Personal strategy needs double-loop review too: not just execution, but the original direction and premises.</small></div>
+        <div class="card"><div class="lab">Outward · connect people, markets and opportunities</div><h4>What's worth discussing between us now, and what value can we create for each other?</h4>
+          <p>A founder is exploring AI in an industry; my recent research happens to solve a key problem there. Kept in separate places, I might never see the link.</p>
+          <small>A person's value isn't a static label; it shifts with the problem, setting and timing.</small></div>
+      </div>
+      <div class="card hi"><div class="lab">A stricter business lens · immune to my excitement</div>
+        <div class="chips" style="margin-top:4px"><span>Where does the money come from?</span><span>Who will really pay?</span><span>Why now?</span><span>How big is the market?</span><span>Does it fit my capabilities?</span><span>Better than the alternatives?</span></div>
+        <p style="margin-top:12px">Technical people get excited by technical openings and underrate need, willingness to pay, sales cost and business model. Opportunities attach to people, markets and timing; analysis can't stand apart from relationships.</p></div>
+      <div class="figbox">
+        <svg class="fig" viewBox="0 0 1000 230">
+          <defs><marker id="m16" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker></defs>
+          <text class="glabel" x="0" y="16">I AM THE PRODUCT · ONE ORGANISM, NOT THREE MODULES</text>
+          <g class="node hi"><rect x="0" y="40" width="260" height="80"/><text class="t" x="130" y="72">Direction</text><text class="s" x="130" y="98">which goals to chase (running myself)</text></g>
+          <g class="node hi"><rect x="370" y="40" width="260" height="80"/><text class="t" x="500" y="72">Storefront</text><text class="s" x="500" y="98">résumé · articles · code · talks · work</text></g>
+          <g class="node hi"><rect x="740" y="40" width="260" height="80"/><text class="t" x="870" y="72">Market feedback</text><text class="s" x="870" y="98">real responses via relationships</text></g>
+          <path class="edge hi" d="M260 80H366M630 80H736" marker-end="url(#m16)"/>
+          <text class="elabel" x="315" y="70">meets market</text>
+          <path class="edge hi flow" d="M870 120V170H130V124" marker-end="url(#m16)"/>
+          <rect x="280" y="158" width="440" height="24" fill="#0b0d10"/><text x="500" y="175" class="tx a" font-size="14" text-anchor="middle">comes back to iterate the direction (asset management)</text>
+          <text x="0" y="218" class="tx" font-size="14">Tasks are just the wake; goals are the ship's heading, and I see myself as the engine.</text>
+        </svg>
+      </div>
+      <div class="callout warn push-b"><span class="c-tag">Boundary</span><p>Business analysis is only for vetting business and partnership opportunities; <b>not every relationship gets converted into ROI</b>. Relationships also hold trust, feeling, reciprocity and long-run uncertainty.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">3 · Five products: Compass, a strategy-generating system</footer>
+</section>
+
+<section class="slide" data-eyebrow="03 · PRODUCTS" data-accent="acc">
+  <header class="s-head"><h2>An adversarial reading of market feedback, and <em>deciding what not to do</em></h2>
+    <p class="lead">An ordinary review tool validates my plan. Compass uses what the market actually does to challenge my basic model of my own value.</p></header>
+  <div class="s-body">
+    <div class="cols-2 grow">
+      <div class="figbox">
+        <svg class="fig" viewBox="0 0 860 470">
+          <defs><marker id="m17" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+            <marker id="m17h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker></defs>
+          <g class="grp"><rect x="2" y="2" width="356" height="466"/></g>
+          <text class="glabel" x="18" y="30">ORDINARY REVIEW · FEEDBACK ON EXECUTION</text>
+          <g class="node"><rect x="24" y="60" width="140" height="56"/><text class="t" x="94" y="94" style="font-size:16px">Plan</text></g>
+          <g class="node"><rect x="196" y="60" width="140" height="56"/><text class="t" x="266" y="94" style="font-size:16px">Execute</text></g>
+          <g class="node"><rect x="196" y="200" width="140" height="56"/><text class="t" x="266" y="234" style="font-size:16px">Result</text></g>
+          <path class="edge" d="M164 88H192" marker-end="url(#m17)"/><path class="edge" d="M266 116V196" marker-end="url(#m17)"/>
+          <path class="edge" d="M196 228H94V120" marker-end="url(#m17)"/>
+          <text x="22" y="322" class="tx dk" font-size="16">What do I do next?</text>
+          <text x="22" y="348" class="tx dk" font-size="16">How do I prioritize?</text>
+          <text x="22" y="392" class="tx" font-size="14.5">It validates the plan itself</text>
+          <text x="22" y="440" class="tx" font-size="14.5" style="fill:#5c6570">→ a smarter action planner</text>
+          <g class="grp"><rect x="378" y="2" width="480" height="466" style="stroke:#aecbdd"/></g>
+          <text class="glabel" x="394" y="30" style="fill:#aecbdd">COMPASS · FEEDBACK ON THE SELF-MODEL</text>
+          <g class="node"><rect x="400" y="52" width="436" height="80"/><text class="t" x="618" y="84" style="font-size:16px">Market behavior</text><text class="s" x="618" y="110" style="font-size:14px">"Three companies all stopped me at the technical round"</text></g>
+          <path class="edge hi" d="M618 132V180" marker-end="url(#m17h)"/>
+          <text class="elabel" x="676" y="162" style="fill:#aecbdd">challenges</text>
+          <g class="node hi"><rect x="400" y="184" width="436" height="80"/><text class="t" x="618" y="216" style="font-size:16px">My basic model of my own value</text><text class="s" x="618" y="242" style="font-size:14px">"how I rate my own technical depth"</text></g>
+          <path class="edge hi" d="M618 264V312" marker-end="url(#m17h)"/>
+          <g class="node"><rect x="400" y="316" width="436" height="80"/><text class="t" x="618" y="348" style="font-size:16px">Possibly rated too high → revise positioning</text><text class="s" x="618" y="374" style="font-size:14px">tests whether my self-model is accurate, not my execution</text></g>
+          <text x="618" y="440" class="tx a" font-size="14.5" text-anchor="middle">→ a strategy partner that can fix blind spots</text>
+        </svg>
+      </div>
+      <div class="col">
+        <h3 style="margin-top:0">Its greatest value may be helping me decide what not to do</h3>
+        <div class="grid-2x2" style="gap:16px;flex:1;grid-auto-rows:1fr">
+          <div class="card" style="padding:22px 24px;display:flex;flex-direction:column;justify-content:center"><div class="lab">Direction · business logic</div><p style="font-size:21px;line-height:1.5">This direction is exciting, <b style="color:var(--ink)">but the business logic is thin</b></p></div>
+          <div class="card" style="padding:22px 24px;display:flex;flex-direction:column;justify-content:center"><div class="lab">Relationship · timing</div><p style="font-size:21px;line-height:1.5">This person is excellent, <b style="color:var(--ink)">but right now we have no way to create value for each other</b></p></div>
+          <div class="card" style="padding:22px 24px;display:flex;flex-direction:column;justify-content:center"><div class="lab">Project · opportunity cost</div><p style="font-size:21px;line-height:1.5">This project can be finished, <b style="color:var(--ink)">but it isn't worth another three months</b></p></div>
+          <div class="card" style="padding:22px 24px;display:flex;flex-direction:column;justify-content:center"><div class="lab">Capability · depth</div><p style="font-size:21px;line-height:1.5">For this skill, <b style="color:var(--ink)">staying informed is enough; no need to go deep</b></p></div>
+        </div>
+        <p class="note" style="margin-top:14px">Productivity tools all push for more: more to-dos, more information, more contacts, more goals. For someone whose time keeps getting scarcer, dropping low-value commitments often pays far more than finishing a few extra things.</p>
+      </div>
+    </div>
+    <h3>Three questions Compass must keep answering</h3>
+    <ol class="steps" style="margin-bottom:18px">
+      <li><span class="n">1</span><b>Where to play</b><small>Given my real core capabilities, which problems, markets and directions deserve long-term investment?</small></li>
+      <li><span class="n">2</span><b>How to win</b><small>Which capabilities, people, relationships, resources and business models can amplify it?</small></li>
+      <li><span class="n">3</span><b>How to compound</b><small>How does every bit of learning, partnership, misjudgment and success become an asset for the next decision?</small></li>
+    </ol>
+    <div class="callout push-b"><span class="c-tag">The cost</span><p><b>Helping me decide what not to do matters as much as helping me do.</b> Life's most expensive cost is usually not one wrong move, but years of steady investment in a direction that wasn't worth it.</p></div>
+  </div>
+  <footer class="s-foot">3 · Five products: without the adversarial reading, it's just a smarter action planner</footer>
+</section>
+
+<!-- 18 two loops -->
+<section class="slide" data-eyebrow="03 · PRODUCTS" data-accent="acc">
+  <header class="s-head"><h2>Two loops, joined by <em>judgment history</em></h2>
+    <p class="lead">The first four products form a loop of cognition and capability building; Compass forms a loop of running myself against market feedback. Kept apart, the two loops can't compound.</p></header>
+  <div class="s-body cols-2 r75">
+    <div class="figbox">
+      <svg class="fig" viewBox="0 0 1000 790">
+        <defs><marker id="m18" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+          <marker id="m18h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#aecbdd"/></marker>
+          <marker id="m18s" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e3c99a"/></marker></defs>
+        <g class="grp"><rect x="10" y="40" width="440" height="460"/></g>
+        <text class="glabel" x="26" y="66">COGNITIVE LOOP · FOUR COGNITIVE PRODUCTS</text>
+        <g class="grp"><rect x="550" y="40" width="430" height="460" style="stroke:#aecbdd"/></g>
+        <text class="glabel" x="566" y="66" style="fill:#aecbdd">REALITY LOOP · COMPASS</text>
+        <g class="node"><rect x="30" y="130" width="190" height="64"/><text class="t" x="125" y="157">Think · practice</text><text class="s" x="125" y="179">Learning OS</text></g>
+        <g class="node hi"><rect x="240" y="130" width="190" height="64"/><text class="t" x="335" y="157">Test · writing challenge</text><text class="s" x="335" y="179">Writing Assistant</text></g>
+        <g class="node"><rect x="240" y="370" width="190" height="64"/><text class="t" x="335" y="397">Connect · breadth</text><text class="s" x="335" y="419">Information Assistant</text></g>
+        <g class="node"><rect x="30" y="370" width="190" height="64"/><text class="t" x="125" y="397">Know · knowledge model</text><text class="s" x="125" y="419">Knowledge Bank</text></g>
+        <path class="edge" d="M220 162H236" marker-end="url(#m18)"/>
+        <path class="edge" d="M335 194V366" marker-end="url(#m18)"/>
+        <path class="edge" d="M240 402H224" marker-end="url(#m18)"/>
+        <path class="edge" d="M125 370V198" marker-end="url(#m18)"/>
+        <text x="230" y="276" class="tx" font-size="14" text-anchor="middle" style="fill:#5c6570">building capability</text>
+        <text x="230" y="298" class="tx" font-size="12" text-anchor="middle" style="fill:#5c6570">Connect → Know</text><text x="230" y="316" class="tx" font-size="12" text-anchor="middle" style="fill:#5c6570">→ Think → Test</text>
+        <g class="node hi"><rect x="570" y="130" width="190" height="64"/><text class="t" x="665" y="157">Positioning</text><text class="s" x="665" y="179">what I'm truly good at</text></g>
+        <g class="node"><rect x="780" y="130" width="190" height="64"/><text class="t" x="875" y="157">Markets &amp; opportunities</text><text class="s" x="875" y="179">Where to play</text></g>
+        <g class="node"><rect x="780" y="370" width="190" height="64"/><text class="t" x="875" y="397">Relationships &amp; action</text><text class="s" x="875" y="419">How to win</text></g>
+        <g class="node hi"><rect x="570" y="370" width="190" height="64"/><text class="t" x="665" y="397">Real-world results</text><text class="s" x="665" y="419">how the market responds</text></g>
+        <path class="edge" d="M760 162H776" marker-end="url(#m18)"/>
+        <path class="edge" d="M875 194V366" marker-end="url(#m18)"/>
+        <path class="edge" d="M780 402H764" marker-end="url(#m18)"/>
+        <path class="edge" d="M665 370V198" marker-end="url(#m18)"/>
+        <text x="770" y="276" class="tx" font-size="14" text-anchor="middle" style="fill:#5c6570">running myself</text>
+        <text x="770" y="298" class="tx" font-size="12" text-anchor="middle" style="fill:#5c6570">position → opportunity</text>
+        <text x="770" y="316" class="tx" font-size="12" text-anchor="middle" style="fill:#5c6570">→ action → result</text>
+        <path class="edge hi" d="M430 162H566" marker-end="url(#m18h)" style="stroke-width:2"/>
+        <rect x="424" y="138" width="152" height="22" rx="3" fill="#0b0d10"/><text x="500" y="154" class="tx a" font-size="14" text-anchor="middle">capability evidence</text>
+        <path class="edge hi" d="M570 402H434" marker-end="url(#m18h)" style="stroke-width:2"/>
+        <rect x="432" y="378" width="136" height="22" rx="3" fill="#0b0d10"/><text x="500" y="394" class="tx a" font-size="14" text-anchor="middle">market feedback</text>
+        <path class="edge flow" d="M125 434V640H436" marker-end="url(#m18s)" style="stroke:#e3c99a"/>
+        <path class="edge flow" d="M970 162H990V640H564" marker-end="url(#m18s)" style="stroke:#e3c99a"/>
+        <rect x="440" y="602" width="120" height="70" fill="#0c0f13" stroke="#e3c99a" stroke-width="1.25"/>
+        <ellipse cx="500" cy="672" rx="60" ry="16" fill="#0c0f13" stroke="#e3c99a" stroke-width="1.25"/>
+        <ellipse cx="500" cy="602" rx="60" ry="16" fill="#141920" stroke="#e3c99a" stroke-width="1.25"/>
+        <text x="500" y="634" class="tx dk" font-size="14" font-weight="600" text-anchor="middle">Judgment</text>
+        <text x="500" y="651" class="tx dk" font-size="14" font-weight="600" text-anchor="middle">history</text>
+        <text x="500" y="718" class="tx" font-size="13.5" text-anchor="middle">what I believed three months ago · why · on what evidence · what I ignored</text>
+        <text x="500" y="740" class="tx" font-size="13.5" text-anchor="middle">what happened next · how I now reread the past</text>
+        <text x="500" y="772" class="tx m" font-size="12.5" text-anchor="middle" style="fill:#e3c99a">append-only, never overwritten by a newer summary</text>
+      </svg>
+    </div>
+    <div class="col sb even">
+      <ul class="tick">
+        <li><b>Capability → reality:</b> if a skill built in Learning OS or a judgment formed in writing never reaches Compass, strategy can't see I've changed or spot new openings.</li>
+        <li><b>Reality → capability:</b> the market rates my technical skills highly but demands more of some business skill; that feedback should change what I learn next.</li>
+        <li><b>Further:</b> my strongest technical skill may not be what customers most want to pay for, while a skill I've underrated is what makes the opportunity work. That should change my learning focus and framework, even make me drop the original direction.</li>
+      </ul>
+      <div class="callout"><span class="c-tag">Both ways</span><p>Capability building must face the market, and market feedback must drive capability building; otherwise learning turns into self-satisfied hoarding and strategy into a busy opportunity-chasing machine.</p></div>
+      <div class="callout warn"><span class="c-tag">The other risk</span><p>Short-term rewards from the real world mustn't dominate cognitive building either, or I'm back to chasing hot topics, a local optimum. <b>Long-term hypotheses and short-term evidence both have to stay.</b></p></div>
+      <p class="note">Over time it should answer: which judgment biases recurred this year? Which capabilities did the market keep validating? Which long-held bets never produced value? Which lucky breaks actually came from years of accumulation?</p>
+      <div class="callout push-b"><span class="c-tag">Compounding</span><p>Only when history can be compared, judgments tracked and mistakes reviewed does "personal compounding" stop being a metaphor.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">3 · Five products: memory as judgment history across time, not chat logs or a profile</footer>
+</section>
+
+<!-- 19 section cover 04 -->
+<section class="slide cover-section" data-accent="violet">
+  <div class="ghost">04</div>
+  <h2>A coach, not an assistant</h2>
+  <p class="thesis">The five products share one starting point, which is also the real line between this system and other AI products: <b>it's measured by whether the person grows, not by how much AI does.</b></p>
+  <ul class="mini-agenda"><li>Two things AI can't take over</li><li>Where general Personal Agents stop</li><li>Two objective functions</li><li>Waiter vs. coach</li><li>Connect · Think · Test · Act</li></ul>
+</section>
+
+<!-- 20 judgment & opponent -->
+<section class="slide" data-eyebrow="04 · COACH" data-accent="violet">
+  <header class="s-head"><h2>Two things I won't hand to AI: <em>judgment</em> and <em>the opponent</em></h2>
+    <p class="lead">The built-in tension: if AI handles information, knowledge, learning support and strategy analysis well, do I lose exactly the abilities I meant to build? Like letting a machine lift the weights at the gym and logging the reps as your own.</p></header>
+  <div class="s-body">
+    <div class="cols-2 grow">
+      <div class="card col sb" style="padding:24px 26px">
+        <div>
+          <div class="lab">The first · judgment</div>
+          <h4 style="font-size:22px">What has taste, what's useful, what's worth investing in, what isn't worth doing</h4>
+          <ul class="tick" style="margin-top:10px">
+            <li>AI can assist but can't carry it for me. Not because AI must be worse; in more and more areas it may judge better than I do</li>
+            <li>If I just accept its conclusions every time, <b>it's the AI's model that grows, not mine; I get the answer but not the capability</b></li>
+            <li>Every important choice leaves my reasons, uncertainty and evidence; AI may question and correct, but whether to revise is my call</li>
+          </ul>
+        </div>
+        <div class="figbox" style="margin:14px 0 4px">
+          <svg class="fig" viewBox="0 0 800 270">
+            <defs><marker id="m20r" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e07a6b"/></marker>
+              <marker id="m20h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#a78bfa"/></marker></defs>
+            <text class="glabel" x="0" y="16" style="fill:#e07a6b">REPLACE · I GET AN ANSWER</text>
+            <g class="node red"><rect x="0" y="28" width="180" height="56"/><text class="t" x="90" y="61">AI gives a conclusion</text></g>
+            <g class="node red"><rect x="220" y="28" width="180" height="56"/><text class="t" x="310" y="61">I just accept it</text></g>
+            <path class="edge red flow" d="M180 56H216M400 56H436" marker-end="url(#m20r)"/>
+            <text x="446" y="52" class="tx r" font-size="15" font-weight="600">the AI's model grows</text>
+            <text x="446" y="74" class="tx" font-size="13.5">no capability gained</text>
+            <text class="glabel" x="0" y="132" style="fill:#a78bfa">AUGMENT · I GAIN CAPABILITY</text>
+            <g class="node hi"><rect x="0" y="144" width="160" height="70"/><text class="t" x="80" y="174">AI questions, flags</text><text class="s" x="80" y="196">from outside the frame</text></g>
+            <g class="node hi"><rect x="186" y="144" width="190" height="70"/><text class="t" x="281" y="174">I record my reasons</text><text class="s" x="281" y="196">uncertainty · evidence</text></g>
+            <g class="node hi"><rect x="402" y="144" width="170" height="70"/><text class="t" x="487" y="174">I decide</text><text class="s" x="487" y="196">whether to revise the model</text></g>
+            <path class="edge hi" d="M160 179H182M376 179H398M572 179H620" marker-end="url(#m20h)"/>
+            <rect x="630" y="146" width="120" height="58" fill="#0c0f13" stroke="#a78bfa" stroke-width="1.25"/>
+            <ellipse cx="690" cy="204" rx="60" ry="14" fill="#0c0f13" stroke="#a78bfa" stroke-width="1.25"/>
+            <ellipse cx="690" cy="146" rx="60" ry="14" fill="#141920" stroke="#a78bfa" stroke-width="1.25"/>
+            <text x="690" y="174" class="tx dk" font-size="13" font-weight="600" text-anchor="middle">Judgment</text>
+            <text x="690" y="189" class="tx dk" font-size="13" font-weight="600" text-anchor="middle">history</text>
+            <text x="690" y="244" class="tx" font-size="13.5" text-anchor="middle" style="fill:#a78bfa">= my framework</text>
+          </svg>
+        </div>
+        <div class="callout" style="margin-top:12px"><span class="c-tag">Data design</span><p>Keeping the human in the loop isn't an interaction-design decision but a data-design one: <b>my judgment history is my framework.</b> Without that history the framework can be neither injected nor iterated.</p></div>
+      </div>
+      <div class="card col sb" style="padding:24px 26px">
+        <div>
+          <div class="lab">The second · the opponent</div>
+          <h4 style="font-size:22px">You can't see your own position clearly from inside it</h4>
+          <ul class="tick" style="margin-top:10px">
+            <li>Experience breeds self-consistency, success makes flaws harder to accept, and with authority fewer people correct you</li>
+            <li>A system that only learns my preferences, views and habits will know me better and flatter me better: <b>the most dangerous failure</b></li>
+            <li>It must stand outside my framework and ask: your evidence? Another explanation? Made this misjudgment before? If the premise is wrong, what will it cost?</li>
+            <li>Real challenge also comes from the world: paying customers, actual use, peer critique, unrehearsed problems</li>
+          </ul>
+        </div>
+        <div class="figbox" style="margin:14px 0 4px">
+          <svg class="fig" viewBox="0 0 800 270">
+            <defs><marker id="m20b" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#a78bfa"/></marker>
+              <marker id="m20c" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e07a6b"/></marker></defs>
+            <circle cx="380" cy="135" r="78" fill="color-mix(in srgb,#a78bfa 6%,#101318)" stroke="#3d444d" stroke-width="1.25"/>
+            <text x="380" y="128" class="tx dk" font-size="17" font-weight="600" text-anchor="middle">My framework</text>
+            <text x="380" y="152" class="tx" font-size="13" text-anchor="middle">self-consistent,</text>
+            <text x="380" y="170" class="tx" font-size="13" text-anchor="middle">harder to correct</text>
+            <g class="node red"><rect x="0" y="100" width="190" height="70"/><text class="t" x="95" y="130">A preference-only system</text><text class="s" x="95" y="152">preferences · views · habits</text></g>
+            <path class="edge red flow" d="M190 122C230 110 270 112 300 120" marker-end="url(#m20c)"/>
+            <path class="edge red flow" d="M302 150C270 162 230 160 194 150" marker-end="url(#m20c)"/>
+            <text x="245" y="96" class="tx r" font-size="13.5" text-anchor="middle">knows me better</text>
+            <text x="245" y="188" class="tx r" font-size="13.5" text-anchor="middle">flatters me better</text>
+            <g class="node hi"><rect x="560" y="22" width="240" height="88"/><text class="t" x="680" y="50">AI opponent</text><text class="s" x="680" y="74">counterexamples · other explanations</text><text class="s" x="680" y="94">ignored evidence</text></g>
+            <g class="node hi"><rect x="560" y="160" width="240" height="88"/><text class="t" x="680" y="188">The real world</text><text class="s" x="680" y="212">paying · usage · peer critique</text><text class="s" x="680" y="232">unrehearsed problems</text></g>
+            <path class="edge hi" d="M560 70C520 70 490 90 452 108" marker-end="url(#m20b)"/>
+            <path class="edge hi" d="M560 204C520 204 490 184 452 164" marker-end="url(#m20b)"/>
+            <text x="506" y="140" class="tx" font-size="13" text-anchor="middle" style="fill:#a78bfa">from outside</text>
+            <text x="95" y="232" class="tx r" font-size="14" text-anchor="middle" font-weight="600">the most dangerous failure</text>
+          </svg>
+        </div>
+        <div class="callout" style="margin-top:12px"><span class="c-tag">Scarcity</span><p>When every free product makes money by pleasing its users, not pleasing them is itself scarce. If this ever charges money, what it should sell is this: <b>it doesn't need to please me.</b></p></div>
+      </div>
+    </div>
+    <div class="callout warn push-b"><span class="c-tag">The standard</span><p>A system that truly serves cognitive growth can't just make me feel understood; it has to keep me <b>exposed to evidence that might prove me wrong</b>.</p></div>
+  </div>
+  <footer class="s-foot">4 · A coach, not an assistant: two things AI can't take over</footer>
+</section>
+
+<section class="slide" data-eyebrow="04 · COACH" data-accent="violet">
+  <header class="s-head"><h2>General Personal Agents arrive: <em>the line gets clearer</em></h2>
+    <p class="lead">In early design docs I, too, listed long-term memory, proactivity and multi-agent collaboration as selling points. But this system never existed for those capabilities; it exists for the goal they serve.</p></header>
+  <div class="s-body vspread">
+    <ol class="steps">
+      <li><span class="n" style="width:auto;min-width:32px;padding:0 10px;border-radius:16px">8/11</span><b>xAI · Grok Bot</b><small>Not a single agent but a resident team of agents: memory, their own working environments, cross-bot collaboration, everyday chores handled automatically</small></li>
+      <li><span class="n" style="width:auto;min-width:32px;padding:0 10px;border-radius:16px">9/8</span><b>Meta · Muse</b><small>Long-term goals · proactive suggestions · cross-app execution · persistent memory · automated work; stresses security and privacy: a dedicated secure environment, with confidential VMs holding user-owned keys planned</small></li>
+      <li><span class="n" style="width:auto;min-width:32px;padding:0 10px;border-radius:16px">9/29</span><b>OpenAI · Dots</b><small>Persistent memory · understands goals · proactive research · cross-app collaboration; public examples already include "revising an analysis on new evidence" and "tracking a project over time"</small></li>
+      <li><span class="n" style="width:auto;min-width:32px;padding:0 10px;border-radius:16px">→</span><b>This system</b><small>Buy the first four capabilities: the better big companies build them, the less work for me. Build only the way success is measured</small></li>
+    </ol>
+    <table class="cmp" style="margin-top:0">
+      <thead><tr><th style="width:12%">Capability</th><th style="width:36%">What general Personal Agents do</th><th class="hl">Its place in this system</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Long-term memory</td><td>Now standard: remembers preferences, history and ongoing projects</td><td class="hl"><b>Buy.</b> I don't just want "remembering"; I want judgment history: what I believed then, and whether it proved right</td></tr>
+        <tr><td class="k">Proactivity</td><td>Proactive suggestions, research and execution</td><td class="hl"><b>Buy.</b> It acts on its own only when new evidence challenges an important judgment</td></tr>
+        <tr><td class="k">Multi-agent work</td><td>Resident agent teams, cross-app execution, long-running tasks</td><td class="hl"><b>Buy.</b> The five products present themselves to me as one coach; collaboration itself isn't the point</td></tr>
+        <tr><td class="k">Security &amp; privacy</td><td>Dedicated secure environments, confidential VMs with user-owned keys</td><td class="hl"><b>Buy.</b> Judgment history is a deeply personal asset; I decide where it lives</td></tr>
+        <tr><td class="k" style="color:var(--violet)">Measuring success</td><td>Task completion, fewer steps, more precise personalization</td><td class="hl" style="background:color-mix(in srgb,var(--violet) 16%,transparent)"><b style="color:var(--violet)">Build.</b> <b>It measures how I perform on my own, without AI</b></td></tr>
+      </tbody>
+    </table>
+    <div class="cols-2">
+      <div class="callout" style="margin:0"><span class="c-tag">It's all in the last row</span><p>It answers the question this system has asked from the start: <b>is the AI growing, or is the person?</b></p></div>
+      <div class="callout warn" style="margin:0"><span class="c-tag">Self-check</span><p>If the five products were just a smarter news assistant / knowledge base / tutor / writing assistant / CRM, they really would have no reason to exist on their own.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">4 · A coach, not an assistant: search, parsing, generation, calendar and execution were always external</footer>
+</section>
+
+<!-- 22 two objective functions -->
+<section class="slide" data-eyebrow="04 · COACH" data-accent="violet">
+  <header class="s-head"><h2>Two objective functions: <em>Agent Productivity</em> vs. <em>Human Capability Development</em></h2>
+    <p class="lead">Cognitive labor is ever easier to outsource. What used to take me three hours of research, framing and reasoning, an agent can now hand back as a report.</p></header>
+  <div class="s-body cols-2 r75">
+    <div class="figbox">
+      <svg class="fig" viewBox="0 0 1000 780">
+        <defs><marker id="m22" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker>
+          <marker id="m22h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#a78bfa"/></marker>
+          <marker id="m22r" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e07a6b"/></marker></defs>
+        <g class="grp"><rect x="10" y="10" width="470" height="310"/></g>
+        <text class="glabel" x="26" y="36">GENERAL PERSONAL AGENT · AGENT PRODUCTIVITY</text>
+        <g class="node"><rect x="30" y="54" width="430" height="58"/><text class="t" x="245" y="80">Make AI know you ever better</text><text class="s" x="245" y="100">and do more of your work for you</text></g>
+        <g class="node"><rect x="30" y="148" width="132" height="42"/><text class="s" x="96" y="174">automation ↑</text></g>
+        <g class="node"><rect x="179" y="148" width="132" height="42"/><text class="s" x="245" y="174">time spent ↓</text></g>
+        <g class="node"><rect x="328" y="148" width="132" height="42"/><text class="s" x="394" y="174">preferences met ↑</text></g>
+        <path class="edge" d="M245 112V144" marker-end="url(#m22)"/><path class="edge" d="M245 190V226" marker-end="url(#m22)"/>
+        <g class="node"><rect x="30" y="230" width="430" height="58"/><text class="t" x="245" y="256">Result: more work gets done</text><text class="s" x="245" y="276">metrics: task completion · fewer steps · stickiness</text></g>
+        <g class="grp"><rect x="520" y="10" width="470" height="310" style="stroke:#a78bfa"/></g>
+        <text class="glabel" x="536" y="36" style="fill:#a78bfa">PERSONAL COACH · HUMAN CAPABILITY</text>
+        <g class="node hi"><rect x="540" y="54" width="430" height="58"/><text class="t" x="755" y="80">Help you understand the world and yourself</text><text class="s" x="755" y="100">and become someone with better judgment</text></g>
+        <g class="node"><rect x="540" y="148" width="132" height="42"/><text class="s" x="606" y="174">deeper understanding</text></g>
+        <g class="node"><rect x="689" y="148" width="132" height="42"/><text class="s" x="755" y="174">transferable skills</text></g>
+        <g class="node"><rect x="838" y="148" width="132" height="42"/><text class="s" x="904" y="174">testable judgment</text></g>
+        <path class="edge hi" d="M755 112V144" marker-end="url(#m22h)"/><path class="edge hi" d="M755 190V226" marker-end="url(#m22h)"/>
+        <g class="node hi"><rect x="540" y="230" width="430" height="58"/><text class="t" x="755" y="256">Result: real gain in human capability</text><text class="s" x="755" y="276">metric: how you perform on your own, without AI</text></g>
+        <text x="500" y="352" class="tx dk" font-size="16" text-anchor="middle">They aren't mutually exclusive, but they optimize different things</text>
+        <line x1="10" y1="378" x2="990" y2="378" stroke="#2a2f36"/>
+        <text class="glabel" x="10" y="410">EXAMPLE · I WANT TO MASTER HOW AN AGENT RUNTIME IS DESIGNED</text>
+        <g class="node"><rect x="10" y="430" width="300" height="190"/><text class="t" x="160" y="460">Dots can do it all for me</text>
+          <text class="s" x="160" y="492">research the architecture</text><text class="s" x="160" y="516">organize the material</text><text class="s" x="160" y="540">generate code</text><text class="s" x="160" y="564">run experiments</text><text class="s" x="160" y="588">even suggest improvements</text></g>
+        <path class="edge" d="M310 525H356" marker-end="url(#m22)"/>
+        <rect x="360" y="495" width="170" height="60" rx="6" fill="color-mix(in srgb,#4fd1c5 10%,#101318)" stroke="#4fd1c5" stroke-width="1.25"/>
+        <text x="445" y="522" class="tx" font-size="15" font-weight="600" text-anchor="middle" style="fill:#4fd1c5">Task success ✓</text>
+        <text x="445" y="543" class="tx" font-size="12" text-anchor="middle">Agent Productivity</text>
+        <path class="edge flow" d="M530 525C560 525 560 455 586 455" marker-end="url(#m22)"/>
+        <path class="edge flow" d="M530 525H586" marker-end="url(#m22)"/>
+        <path class="edge flow" d="M530 525C560 525 560 595 586 595" marker-end="url(#m22)"/>
+        <g class="node"><rect x="590" y="430" width="400" height="50"/><text class="t" x="790" y="460">Can I explain the key trade-offs from zero?</text></g>
+        <g class="node"><rect x="590" y="500" width="400" height="50"/><text class="t" x="790" y="530">Can I locate an unfamiliar failure on my own?</text></g>
+        <g class="node"><rect x="590" y="570" width="400" height="50"/><text class="t" x="790" y="600">Are these skills still there in three months?</text></g>
+        <path class="edge red flow" d="M790 620V652" marker-end="url(#m22r)"/>
+        <g class="node red"><rect x="660" y="656" width="260" height="54"/><text class="t" x="790" y="680">Learning success?</text><text class="s" x="790" y="700">Human Capability Development</text></g>
+        <text x="10" y="690" class="tx a" font-size="17" font-weight="600" style="fill:#a78bfa">Task success</text>
+        <text x="10" y="716" class="tx a" font-size="17" font-weight="600" style="fill:#a78bfa">doesn't prove that a person learned.</text>
+        <text x="10" y="750" class="tx" font-size="13.5">Only if Learning OS tells the two apart is it more than another AI Tutor</text>
+      </svg>
+    </div>
+    <div class="col sb">
+      <ul class="spec">
+        <li><span class="s-k">General Agent</span><span class="s-v"><b>Make AI know you ever better and do more of your work.</b> More automation, less time spent, preferences met more precisely.</span></li>
+        <li><span class="s-k">Coach</span><span class="s-v"><b>Help you understand the world and yourself.</b> Deeper understanding, more transferable skills, judgment that holds up to testing.</span></li>
+        <li><span class="s-k">Same for Compass</span><span class="s-v">Having it finish a career plan for me doesn't prove my strategic judgment improved.</span></li>
+      </ul>
+      <div class="card"><div class="lab">A subtler tension · preference</div>
+        <p>The better an agent knows my style, preferences and habits, the more easily it does tasks the way I always have, while cognitive growth sometimes demands breaking exactly those habits.</p>
+        <p style="margin-top:10px">I've long been excited by a certain kind of technical opportunity. A preference-optimizing system gets ever better at finding me more of them; the system I actually need checks <b style="color:var(--ink)">whether I'm repeating a long-running judgment bias</b>.</p></div>
+      <div class="callout warn"><span class="c-tag">Not contrarianism</span><p>Objection without evidence is just noise. What has value is <b>challenge grounded in my history and real outcomes, which can itself be tested</b>.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">4 · A coach, not an assistant: the difference between Agent Productivity and Human Capability Development</footer>
+</section>
+
+<!-- 23 waiter vs coach -->
+<section class="slide" data-eyebrow="04 · COACH" data-accent="violet">
+  <header class="s-head"><h2>Waiter and coach: the same technology, <em>different objective functions</em></h2>
+    <p class="lead">A system built around consuming content and a system built around cognitive growth will make completely different product decisions, even on the exact same model.</p></header>
+  <div class="s-body">
+    <table class="cmp t14">
+      <thead><tr><th style="width:14%">Dimension</th><th style="width:24%">Xiaohongshu-style discovery platform</th><th style="width:24%">Dedao-style knowledge product</th><th class="hl">The Personal Coach I want</th></tr></thead>
+      <tbody>
+        <tr><td class="k">What users want</td><td>Find interesting, useful content</td><td>Gain systematic knowledge</td><td class="hl"><b>Build judgment and long-term capability</b></td></tr>
+        <tr><td class="k">Core experience</td><td>Discover, browse, interact</td><td>Learn, understand, take courses</td><td class="hl">Think, practice, verify, act</td></tr>
+        <tr><td class="k">Value delivered</td><td>Information and instant utility</td><td>Knowledge and insight</td><td class="hl">Personal change you can verify</td></tr>
+        <tr><td class="k">Feedback from</td><td>Interests, engagement, community</td><td>Courses, study and user feedback</td><td class="hl">Capability tests, real outcomes, outside challenge</td></tr>
+        <tr><td class="k">Ideal long-term result</td><td>A steady supply of relevant content</td><td>Continuous learning and accumulated knowledge</td><td class="hl">Ever more able to think, judge and act on your own</td></tr>
+      </tbody>
+    </table>
+    <div class="cols-2 grow" style="margin-top:18px">
+      <div class="col sb">
+        <h3 style="margin-top:0">A truly effective coach may need to do the opposite</h3>
+        <ul class="spec">
+          <li><span class="s-k">Wants an answer</span><span class="s-v">Hold the answer back; ask them to derive it first</span></li>
+          <li><span class="s-k">Loves a direction</span><span class="s-v">Don't serve more of the same; show the counter-evidence</span></li>
+          <li><span class="s-k">Wants ten fields</span><span class="s-v">Ask them to master one problem first</span></li>
+          <li><span class="s-k">Chasing ten leads</span><span class="s-v">Suggest dropping eight of them</span></li>
+          <li><span class="s-k">Wants praise</span><span class="s-v">Tell them: you made no real progress in the last three months</span></li>
+        </ul>
+        <div class="callout"><span class="c-tag">The difference</span><p>A waiter works to meet the needs you've stated; <b>a good coach is obliged to question whether those needs actually serve your goals.</b></p></div>
+      </div>
+      <div class="col sb">
+        <div class="figbox" style="flex:none;height:205px">
+          <svg class="fig" viewBox="0 0 860 250">
+            <path d="M60 210A130 130 0 0 1 320 210" fill="none" stroke="#3d444d" stroke-width="10" stroke-linecap="round"/>
+            <path d="M60 210A130 130 0 0 1 125 97" fill="none" stroke="#5c6570" stroke-width="10" stroke-linecap="round"/>
+            <path d="M138 89A130 130 0 0 1 242 89" fill="none" stroke="#a78bfa" stroke-width="10" stroke-linecap="round"/>
+            <path d="M255 97A130 130 0 0 1 320 210" fill="none" stroke="#e07a6b" stroke-width="10" stroke-linecap="round" opacity=".8"/>
+            <line x1="190" y1="210" x2="190" y2="104" stroke="#e8eaec" stroke-width="3"/>
+            <circle cx="190" cy="210" r="18" fill="#101318" stroke="#e8eaec" stroke-width="1.5"/>
+            <text x="190" y="214" class="tx dk" font-size="12" text-anchor="middle">you</text>
+            <text x="190" y="244" class="tx m" font-size="12" text-anchor="middle" style="fill:#5c6570">coaching intensity</text>
+            <circle cx="380" cy="40" r="6" fill="#5c6570"/><text x="396" y="45" class="tx dk" font-size="15" font-weight="600">Quick lookup</text>
+            <text x="396" y="68" class="tx" font-size="13.5">serve efficiently, no added friction</text>
+            <circle cx="380" cy="112" r="6" fill="#a78bfa"/><text x="396" y="117" class="tx dk" font-size="15" font-weight="600">Explicit training mode</text>
+            <text x="396" y="140" class="tx" font-size="13.5">independent recall · stepwise hints · delayed answers</text>
+            <circle cx="380" cy="184" r="6" fill="#e07a6b"/><text x="396" y="189" class="tx dk" font-size="15" font-weight="600">Major strategic judgment</text>
+            <text x="396" y="212" class="tx" font-size="13.5">raise the bar for counter-evidence</text>
+          </svg>
+        </div>
+        <div class="callout"><span class="c-tag">The dial</span><p>The coaching-intensity dial is <b>always turned by the human; the agent can't turn it up on its own</b>. Not every interaction should challenge; the right feedback at the right moment, or coaching turns into preaching.</p></div>
+        <div class="callout warn"><span class="c-tag">Tension</span><p>Mass-market products optimize first for value deliverable at scale; deep cognitive growth is slow, effortful, personal and unpleasant in the short run. And a coach can't take away autonomy "for your own good."</p></div>
+      </div>
+    </div>
+  </div>
+  <footer class="s-foot">4 · A coach, not an assistant: commercial doesn't mean shallow; Dedao charges too, and so do coaches</footer>
+</section>
+
+<!-- 24 Connect Think Test Act -->
+<section class="slide" data-eyebrow="04 · COACH" data-accent="violet">
+  <header class="s-head"><h2>Connect · Think · Test · Act, and <em>redefining success</em></h2>
+    <p class="lead">The five products stop being five separate categories; they become five sets of skills one coach uses for different growth goals.</p></header>
+  <div class="s-body cols-2">
+    <div class="col sb">
+      <div class="figbox" style="flex:none;height:420px">
+        <svg class="fig" viewBox="0 0 860 360">
+          <defs><marker id="m24" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#a78bfa"/></marker></defs>
+          <path class="edge hi" d="M530 40Q700 40 700 148" marker-end="url(#m24)"/>
+          <path class="edge hi" d="M700 208Q700 320 534 320" marker-end="url(#m24)"/>
+          <path class="edge hi" d="M330 320Q160 320 160 212" marker-end="url(#m24)"/>
+          <path class="edge hi" d="M160 152Q160 40 326 40" marker-end="url(#m24)"/>
+          <g class="node hi"><rect x="330" y="12" width="200" height="56"/><text class="t" x="430" y="36">Connect 联 · breadth</text><text class="s" x="430" y="56">new info, views, fields, people</text></g>
+          <g class="node hi"><rect x="600" y="152" width="200" height="56"/><text class="t" x="700" y="176">Think 思 · depth</text><text class="s" x="700" y="196">derivation · practice · the cave</text></g>
+          <g class="node hi"><rect x="330" y="292" width="200" height="56"/><text class="t" x="430" y="316">Test 辨 · feedback</text><text class="s" x="430" y="336">disconfirm · log errors · revise</text></g>
+          <g class="node hi"><rect x="60" y="152" width="200" height="56"/><text class="t" x="160" y="176">Act 行 · leverage</text><text class="s" x="160" y="196">real choices and partnerships</text></g>
+          <text x="430" y="172" class="tx dk" font-size="15" text-anchor="middle">cognition → judgment → action</text>
+          <text x="430" y="196" class="tx dk" font-size="15" text-anchor="middle">→ feedback → cognition</text>
+        </svg>
+      </div>
+      <ul class="spec">
+        <li><span class="s-k">Info Assistant</span><span class="s-v">A research assistant that builds breadth and keeps me open</span></li>
+        <li><span class="s-k">Knowledge Bank</span><span class="s-v">Lets my cognitive model be externalized, audited and iterated</span></li>
+        <li><span class="s-k">Learning OS</span><span class="s-v">A coach for deliberate practice and measuring capability</span></li>
+        <li><span class="s-k">Writing Assistant</span><span class="s-v">A mentor that tests understanding through writing and fights fuzzy thinking</span></li>
+        <li><span class="s-k">Compass</span><span class="s-v">A personal strategy coach connecting cognition and capability to real opportunities</span></li>
+      </ul>
+    </div>
+    <div class="col sb">
+      <h3 style="margin-top:0">Three success criteria · avoid building an AI coach that only looks strict</h3>
+      <ol class="vsteps">
+        <li><b>Growth in human capability</b>, not agent task volume: can I solve new problems without AI? Do I still have it three months later?</li>
+        <li><b>Better judgment quality</b>, not more "insights": how many key predictions and choices did later evidence support? Separate luck from the quality of the process.</li>
+        <li><b>Real-world leverage</b>, not activity inside the system: more valuable partnerships, better choices of opportunity, less long-run wasted effort, work and career assets that accumulate.</li>
+      </ol>
+      <div class="figbox" style="flex:1;min-height:240px">
+        <svg class="fig" viewBox="0 0 860 300">
+          <defs><marker id="m24b" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+          <path class="edge" d="M40 260H520" marker-end="url(#m24b)"/><path class="edge" d="M40 260V12" marker-end="url(#m24b)"/>
+          <path d="M50 236C180 222 290 140 510 40" fill="none" stroke="#a78bfa" stroke-width="2.5"/>
+          <path d="M50 52C190 66 310 160 510 236" fill="none" stroke="#9aa3ad" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="530" y="44" class="tx" font-size="15" style="fill:#a78bfa">independent ability ↑</text>
+          <text x="530" y="242" class="tx" font-size="15">reliance on the coach ↓</text>
+          <text x="510" y="288" class="tx m" font-size="12.5" text-anchor="end" style="fill:#5c6570">time in use → (illustrative, not data)</text>
+          <text x="530" y="104" class="tx" font-size="14">LOS: some problems need no hints</text>
+          <text x="530" y="132" class="tx" font-size="14">WA: I spot argument flaws myself</text>
+          <text x="530" y="160" class="tx" font-size="14">Compass: I stop asking every time</text>
+          <text x="530" y="182" class="tx" font-size="14">whether to chase an opportunity</text>
+        </svg>
+      </div>
+      <div class="callout push-b"><span class="c-tag">The mission</span><p>A coach's mission isn't to make users need a coach forever, but to <b>keep raising their ability to do without one</b>. Even as I use it less and less, my ability to think, judge and create value on my own should keep rising.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">4 · A coach, not an assistant: a product that needs me to keep coming back is one more attention system</footer>
+</section>
+
+<section class="slide cover-section" data-accent="sand">
+  <div class="ghost">05</div>
+  <h2>How to build it · buy the general, keep the feedback</h2>
+  <p class="thesis">Buy the underlying intelligence wherever possible, build the cognitive training methods myself, and let long-term judgment and feedback accumulate into the core asset.</p>
+  <ul class="mini-agenda"><li>Buy / build layers</li><li>Product boundaries</li><li>The Judgment Record</li><li>Build order · first loop</li><li>How to prove it</li><li>My decisions</li></ul>
+</section>
+
+<!-- 26 ISO stack -->
+<section class="slide" data-eyebrow="05 · BUILD" data-accent="sand">
+  <header class="s-head"><h2>What to buy, what to build: <em>four layers</em>, and only the top one accumulates as an asset</h2>
+    <p class="lead">Don't build a moat on labor AI can already do; build it on whether AI can make a person actually grow.</p></header>
+  <div class="s-body">
+    <svg class="fig fill iso" viewBox="0 0 1660 760" data-iso-build>
+      <defs><marker id="m26" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e3c99a"/></marker></defs>
+      <path d="M60 690V40" stroke="#e3c99a" stroke-width="1.25" fill="none" marker-end="url(#m26)"/>
+      <text x="40" y="365" class="tx m" font-size="13" text-anchor="middle" transform="rotate(-90 40 365)" style="fill:#e3c99a">higher up: more personal · harder to replace · more worth building</text>
+      <g class="rail-static">
+        <path class="rail" d="M658 140H746" stroke-dasharray="2 3"/><path class="rail" d="M760 124h-8v32h8"/>
+        <text x="774" y="136" class="tx dk m" font-size="16" letter-spacing="1.5" style="fill:#e3c99a">JUDGMENT RECORD · CORE ASSET</text>
+        <text x="774" y="160" class="tx" font-size="15">The only asset that accumulates: propose → record grounds → counter-evidence → act → feedback → revise</text>
+        <text x="774" y="184" class="tx" font-size="14">→ append-only, never overwritten by a newer summary; matters far more than a shared user profile</text>
+        <text x="774" y="204" class="tx" font-size="14">→ every product deposits the useful feedback it produces here</text>
+        <path class="rail" d="M658 310H746" stroke-dasharray="2 3"/><path class="rail" d="M760 294h-8v32h8"/>
+        <text x="774" y="306" class="tx dk m" font-size="16" letter-spacing="1.5">FOUR CROSS-PRODUCT CAPABILITIES · BUILD · THE MOAT IS HERE</text>
+        <text x="774" y="330" class="tx" font-size="15">Not rebuilt separately inside each product</text>
+        <text x="774" y="354" class="tx" font-size="14">→ personal cognitive model: frameworks, long-term hypotheses, knowledge gaps, real capability, judgment bias</text>
+        <text x="774" y="374" class="tx" font-size="14">→ feedback and evaluation: familiar vs. mastered · sound judgment vs. luck · real progress vs. AI doing it</text>
+        <text x="774" y="394" class="tx" font-size="14">→ cognitive challenge: find blind spots from evidence; know when to encourage exploring, when to question the goal</text>
+        <text x="774" y="414" class="tx" font-size="14">→ compounding across cycles: grounds, actions, predictions and later outcomes kept over time</text>
+        <path class="rail" d="M658 480H746" stroke-dasharray="2 3"/><path class="rail" d="M760 464h-8v32h8"/>
+        <text x="774" y="476" class="tx dk m" font-size="16" letter-spacing="1.5">TRAINING METHODS OF THE FIVE PRODUCTS · BUILD</text>
+        <text x="774" y="500" class="tx" font-size="15">Cognitive training methodology: the differentiation lives here, not in a feature list</text>
+        <text x="774" y="524" class="tx" font-size="14">→ Information Assistant: personal research framework · signal grading · counter-evidence · view updates</text>
+        <text x="774" y="544" class="tx" font-size="14">→ Knowledge Bank: evidence-backed concept model · knowledge gaps · view evolution and conflict</text>
+        <text x="774" y="564" class="tx" font-size="14">→ Learning OS: capability map · independent assessment · sealed tests · transfer and retention</text>
+        <text x="774" y="584" class="tx" font-size="14">→ Writing Assistant: argument audit · opposing review · originality separation · feedback review</text>
+        <text x="774" y="604" class="tx" font-size="14">→ Compass: personal strategy · opportunity portfolio · not-to-do list · market validation</text>
+        <path class="rail" d="M658 650H746" stroke-dasharray="2 3"/><path class="rail" d="M760 634h-8v32h8"/>
+        <text x="774" y="646" class="tx dk m" font-size="16" letter-spacing="1.5" style="fill:#9aa3ad">GENERAL CAPABILITIES · BUY · REPLACEABLE ANYTIME</text>
+        <text x="774" y="670" class="tx" font-size="15">The better big companies build these, the less work for this system; base models and tools keep getting swapped</text>
+        <text x="774" y="694" class="tx" font-size="14">→ search · model inference · document parsing · retrieval · content generation · translation and layout</text>
+        <text x="774" y="714" class="tx" font-size="14">→ calendar and email · contacts · code execution environments · Deep Research · basic execution</text>
+      </g>
+    </svg>
+    <script>addEventListener('load',function(){ISO.stack('[data-iso-build]',{cx:400,topY:20,w:240,gap:170,arrows:false,
+      layers:[{label:'',kind:'graph',accent:true},{label:'',kind:'options'},{label:'',kind:'grid'},{label:'',kind:'scatter',count:16}]});});</script>
+  </div>
+  <footer class="s-foot">5 · How to build it: the layers describe where effort goes, not how important each product is</footer>
+</section>
+
+<!-- 27 product boundary table -->
+<section class="slide" data-eyebrow="05 · BUILD" data-accent="sand">
+  <header class="s-head"><h2>Product boundaries: what each product <em>buys</em> and what it <em>builds</em></h2>
+    <p class="lead">"In-house investment" means my own R&amp;D effort, not how important the product is.</p></header>
+  <div class="s-body vspread">
+    <table class="cmp">
+      <thead><tr><th style="width:15%">Product</th><th style="width:21%">The question it answers</th><th style="width:22%">Calls external capabilities for</th><th class="hl" style="width:26%">Differentiation I must build</th><th>In-house investment</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Information Assistant</strong></td><td>Am I seeing the important changes and the counter-evidence?</td><td>Search, news, crawling, summaries, Deep Research</td><td class="hl">Personal research framework, signal grading, counter-evidence discovery, view updates</td><td><span class="bar" style="width:60px"></span>Medium</td></tr>
+        <tr><td><strong>Agentic Knowledge Bank</strong></td><td>What do I actually know, and which beliefs don't hold yet?</td><td>Document parsing, retrieval, knowledge Q&amp;A, auto-organizing</td><td class="hl">Evidence-backed concept model, knowledge gaps, view evolution and conflict</td><td><span class="bar" style="width:90px"></span>High</td></tr>
+        <tr><td><strong>Learning OS</strong></td><td>Have I truly, independently mastered this capability?</td><td>AI explanations, course generation, question writing, code execution environments</td><td class="hl">Capability map, independent assessment, sealed tests, transfer and retention</td><td><span class="bar" style="width:120px"></span>Very high</td></tr>
+        <tr><td><strong>Writing Assistant</strong></td><td>Does my judgment hold up under strict scrutiny?</td><td>Drafting, polish, translation, layout, illustration, publishing</td><td class="hl">Argument audit, opposing review, originality separation, outside-feedback review</td><td><span class="bar" style="width:75px"></span>Medium-high</td></tr>
+        <tr><td><strong>Compass</strong></td><td>Where should capability go, and what should I give up?</td><td>Contacts, calendar, email, meeting prep, market research, task execution</td><td class="hl">Personal strategy, opportunity portfolio, not-to-do list, market validation</td><td><span class="bar" style="width:120px"></span>Very high</td></tr>
+      </tbody>
+    </table>
+    <div class="cols-2">
+      <div>
+        <h3 style="margin-top:0">Explicitly not worth building</h3>
+        <div class="chips no"><span>my own search engine</span><span>a crawler platform</span><span>a news database</span><span>general Deep Research</span><span>yet another daily-digest generator</span><span>a more complicated Notion</span></div>
+        <p class="note" style="margin-top:14px">The knowledge bank doesn't compete with general-agent memory; Compass can also buy research on market size, competition and timing, but the judgment framework has to be my own.</p>
+      </div>
+      <div>
+        <h3 style="margin-top:0">How to read this table</h3>
+        <ul class="tick">
+          <li>The stronger column three gets, the less work this system has; that's not the R&amp;D battlefield</li>
+          <li>Column four is cognitive training methodology; the five products' moat sits in what those methods share</li>
+          <li>The two highest investments are exactly "am I really getting stronger?" and "am I using my capability where it's worth it?"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><span class="c-tag">Principle</span><p>Don't build a moat on labor AI can already do; build it on <b>whether AI can make a person actually grow</b>.</p></div>
+  </div>
+  <footer class="s-foot">5 · How to build it: boundaries</footer>
+</section>
+
+<!-- 28 judgment record -->
+<section class="slide" data-eyebrow="05 · BUILD" data-accent="sand">
+  <header class="s-head"><h2>Four cross-product capabilities, unified in the <em>Judgment Record</em></h2>
+    <p class="lead">The Judgment Record isn't a database design but a principle every product follows: a judgment has a complete life cycle.</p></header>
+  <div class="s-body cols-2 r57">
+    <div class="col sb even">
+      <ul class="spec">
+        <li><span class="s-k">Cognitive model</span><span class="s-v">Not just remembering interests and preferences, but understanding my frameworks, long-term hypotheses, knowledge gaps, real capability and judgment biases, evolving with learning and real feedback</span></li>
+        <li><span class="s-k">Feedback &amp; evaluation</span><span class="s-v"><b>The one most worth deep research.</b> How do you design effective feedback in different settings? How do you tell familiarity from independent mastery, sound judgment from a lucky outcome, real progress from AI doing the work?</span></li>
+        <li><span class="s-k">Cognitive challenge</span><span class="s-v">Not perpetual contrarianism, but finding blind spots and counterexamples from evidence; knowing when to encourage exploration, when to demand independent thinking, when to question the goal itself</span></li>
+        <li><span class="s-k">Compounding</span><span class="s-v">Keep the grounds, actions, predictions and later outcomes of judgments over time, so the five products influence each other and connect cognitive assets, capability and real opportunities</span></li>
+      </ul>
+      <div class="card"><div class="lab">Next step · the minimal Judgment Record</div>
+        <div class="chips" style="margin-top:6px"><span>context</span><span>grounds</span><span>uncertainty at the time</span><span>final outcome</span></div></div>
+      <div class="callout"><span class="c-tag">Compared to</span><p>The five products take part at different stages, but each deposits the useful feedback it produces into this long-term asset. <b>That matters far more than five products sharing one user profile.</b></p></div>
+    </div>
+    <div class="figbox">
+      <svg class="fig" viewBox="0 0 1000 790">
+        <defs><marker id="m28" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e3c99a"/></marker></defs>
+        <circle cx="500" cy="390" r="290" fill="none" stroke="#2a2f36" stroke-dasharray="3 6"/>
+        <path class="edge hi" d="M622.6 127.2A290 290 0 0 1 705.1 184.9" marker-end="url(#m28)"/>
+        <path class="edge hi" d="M780.1 314.9A290 290 0 0 1 780.1 465.1" marker-end="url(#m28)"/>
+        <path class="edge hi" d="M705.1 595.1A290 290 0 0 1 622.6 652.8" marker-end="url(#m28)"/>
+        <path class="edge hi" d="M377.4 652.8A290 290 0 0 1 294.9 595.1" marker-end="url(#m28)"/>
+        <path class="edge hi" d="M219.9 465.1A290 290 0 0 1 219.9 314.9" marker-end="url(#m28)"/>
+        <path class="edge hi" d="M294.9 184.9A290 290 0 0 1 377.4 127.2" marker-end="url(#m28)"/>
+        <g class="node hi"><rect x="390" y="58" width="220" height="84"/><text class="m" x="500" y="80">① Propose a judgment</text><text class="t" x="500" y="104">What I believe</text><text class="s" x="500" y="126">Writing Assistant forces a thesis</text></g>
+        <g class="node hi"><rect x="641" y="203" width="220" height="84"/><text class="m" x="751" y="225">② Record the grounds</text><text class="t" x="751" y="249">Why I believe it</text><text class="s" x="751" y="271">Knowledge Bank sourcing</text></g>
+        <g class="node hi"><rect x="641" y="493" width="220" height="84"/><text class="m" x="751" y="515">③ Raise counter-evidence</text><text class="t" x="751" y="539">Where it could be wrong</text><text class="s" x="751" y="561">Info Assistant counter-evidence</text></g>
+        <g class="node hi"><rect x="390" y="638" width="220" height="84"/><text class="m" x="500" y="660">④ Act</text><text class="t" x="500" y="684">Decide what to do</text><text class="s" x="500" y="706">Compass · opportunity &amp; trade-off</text></g>
+        <g class="node hi"><rect x="139" y="493" width="220" height="84"/><text class="m" x="249" y="515">⑤ Get feedback</text><text class="t" x="249" y="539">What actually happened</text><text class="s" x="249" y="561">Learning OS tests · market results</text></g>
+        <g class="node hi"><rect x="139" y="203" width="220" height="84"/><text class="m" x="249" y="225">⑥ Revise the model</text><text class="t" x="249" y="249">What I learned</text><text class="s" x="249" y="271">Knowledge Bank view evolution</text></g>
+        <rect x="430" y="350" width="140" height="74" fill="#0c0f13" stroke="#e3c99a" stroke-width="1.25"/>
+        <ellipse cx="500" cy="424" rx="70" ry="18" fill="#0c0f13" stroke="#e3c99a" stroke-width="1.25"/>
+        <ellipse cx="500" cy="350" rx="70" ry="18" fill="#141920" stroke="#e3c99a" stroke-width="1.25"/>
+        <text x="500" y="384" class="tx dk" font-size="15" font-weight="600" text-anchor="middle">Judgment</text>
+        <text x="500" y="401" class="tx dk" font-size="15" font-weight="600" text-anchor="middle">Record</text>
+        <text x="500" y="474" class="tx" font-size="13.5" text-anchor="middle" style="fill:#e3c99a">append-only · never overwritten</text>
+        <text x="500" y="494" class="tx" font-size="13" text-anchor="middle">past mistakes are valuable too</text>
+        <text x="990" y="775" class="tx m" font-size="12" text-anchor="end" style="fill:#5c6570">product labels = main participant at that stage</text>
+      </svg>
+    </div>
+  </div>
+  <footer class="s-foot">5 · How to build it: the life cycle of a judgment</footer>
+</section>
+
+<!-- 29 build order + first loop -->
+<section class="slide" data-eyebrow="05 · BUILD" data-accent="sand">
+  <header class="s-head"><h2>Build order, and <em>the first cross-product loop</em></h2>
+    <p class="lead">This is R&amp;D order, not release order; the five products can all use mature base capabilities in parallel.</p></header>
+  <div class="s-body cols-2">
+    <div class="col sb even">
+      <table class="cmp">
+        <thead><tr><th style="width:10%">Priority</th><th style="width:42%">Focus</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td class="p">P0</td><td><b>Independent capability assessment in Learning OS</b></td><td>The easiest place to verify the coach really works, and the most solid differentiation</td></tr>
+          <tr class="hl"><td class="p">P0</td><td><b>Cross-product Judgment Record and feedback loop</b></td><td>Closes the most important gap between the two product clusters; builds long-term accumulation</td></tr>
+          <tr class="hl"><td class="p">P0</td><td><b>Methods for cognitive challenge</b></td><td>The core of moving from "pleasing users" to "challenging users so they grow"</td></tr>
+          <tr><td class="p">P1</td><td>Compass personal strategy and opportunity portfolio</td><td>Very high potential, but harder to measure and slower to validate</td></tr>
+          <tr><td class="p">P1</td><td>Knowledge Bank model evolution and knowledge gaps</td><td>Supports deep cognition and judgments explainable across cycles</td></tr>
+          <tr><td class="p" style="color:var(--ink3)">P2</td><td>Information Assistant counter-evidence filtering; Writing Assistant argument audit</td><td>Important, but existing models and workflows are enough to validate first</td></tr>
+          <tr><td class="p" style="color:var(--ink3)">P2</td><td>More data sources, proactive execution, UI, autonomous multi-agent work</td><td>Valuable, but shouldn't take the scarcest core R&amp;D resources</td></tr>
+        </tbody>
+      </table>
+      <div class="grid-2x2" style="gap:16px">
+        <div class="card hi"><div class="lab">Anchor · Learning OS</div><p>What's most worth investing in is <b style="color:var(--ink)">the method for assessing capability</b>: verifying "am I really getting stronger?"</p></div>
+        <div class="card hi"><div class="lab">Anchor · Compass</div><p>What's most worth investing in is <b style="color:var(--ink)">the method for strategic judgment and market feedback</b>: verifying "am I using my capability where it's worth it?"</p></div>
+      </div>
+    </div>
+    <div class="col sb">
+      <div class="callout" style="margin-top:0"><span class="c-tag">Long-term question</span><p class="q" style="font-size:20px">Where will the competitive advantage of AI Code Agents end up?</p></div>
+      <div class="figbox">
+        <svg class="fig" viewBox="0 0 900 540">
+          <defs><marker id="m29" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e3c99a"/></marker></defs>
+          <g class="node"><rect x="0" y="0" width="840" height="88"/></g>
+          <text x="22" y="38" class="tx dk" font-size="17" font-weight="600">Information Assistant</text>
+          <text x="22" y="64" class="tx m" font-size="13.5" style="fill:#e3c99a">01 · BREADTH</text>
+          <text x="262" y="38" class="tx" font-size="15">Spot new product capabilities, enterprise cases, business signals;</text>
+          <text x="262" y="64" class="tx" font-size="15">and rebuttals: could models or platforms absorb Runtime complexity?</text>
+          <path class="edge hi" d="M120 88V106" marker-end="url(#m29)"/>
+          <g class="node"><rect x="0" y="108" width="840" height="88"/></g>
+          <text x="22" y="146" class="tx dk" font-size="17" font-weight="600">Agentic Knowledge Bank</text>
+          <text x="22" y="172" class="tx m" font-size="13.5" style="fill:#e3c99a">02 · STRUCTURE</text>
+          <text x="262" y="146" class="tx" font-size="15">Set new evidence against my technical and business judgments;</text>
+          <text x="262" y="172" class="tx" font-size="15">which views are supported, and which still lack validation</text>
+          <path class="edge hi" d="M120 196V214" marker-end="url(#m29)"/>
+          <g class="node"><rect x="0" y="216" width="840" height="88"/></g>
+          <text x="22" y="254" class="tx dk" font-size="17" font-weight="600">Learning OS</text>
+          <text x="22" y="280" class="tx m" font-size="13.5" style="fill:#e3c99a">03 · DEPTH</text>
+          <text x="262" y="254" class="tx" font-size="15">Independent tests on state management, tool scheduling,</text>
+          <text x="262" y="280" class="tx" font-size="15">context compression, recovery; new problems, no AI hints</text>
+          <path class="edge hi" d="M120 304V322" marker-end="url(#m29)"/>
+          <g class="node"><rect x="0" y="324" width="840" height="88"/></g>
+          <text x="22" y="362" class="tx dk" font-size="17" font-weight="600">Writing Assistant</text>
+          <text x="22" y="388" class="tx m" font-size="13.5" style="fill:#e3c99a">04 · CHALLENGE</text>
+          <text x="262" y="362" class="tx" font-size="15">Write an article on the Code Agent competitive landscape,</text>
+          <text x="262" y="388" class="tx" font-size="15">checking conclusions, business logic, alternatives, originality</text>
+          <path class="edge hi" d="M120 412V430" marker-end="url(#m29)"/>
+          <g class="node hi"><rect x="0" y="432" width="840" height="88"/></g>
+          <text x="22" y="470" class="tx dk" font-size="17" font-weight="600">Compass</text>
+          <text x="22" y="496" class="tx m" font-size="13.5" style="fill:#e3c99a">05 · REALITY CHECK</text>
+          <text x="262" y="470" class="tx" font-size="15">Take open questions to engineers, founders and enterprise users;</text>
+          <text x="262" y="496" class="tx" font-size="15">decide from real feedback whether to continue, pivot or stop</text>
+          <path class="edge hi flow" d="M840 476H872V44H846" marker-end="url(#m29)"/>
+          <text x="890" y="260" class="tx m" font-size="13" text-anchor="middle" transform="rotate(90 890 260)" style="fill:#e3c99a">real feedback → next round of learning</text>
+        </svg>
+      </div>
+      <div class="card"><div class="lab">The output · not five reports</div>
+        <div class="chips" style="margin-top:6px"><span>a tested professional skill</span><span>an industry judgment, kept revised</span><span>a real action that may create value</span><span>feedback that guides the next round</span></div>
+        <p style="margin-top:10px">Prove the loop works on one real case first, then expand automation and coverage.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">5 · How to build it: build order and the first loop</footer>
+</section>
+
+<section class="slide" data-eyebrow="05 · BUILD" data-accent="sand">
+  <header class="s-head"><h2>How to prove it created value: <em>engagement metrics are not success metrics</em></h2>
+    <p class="lead">Compass's decisions are shaped by luck and circumstance, so judge both the evidence at the time of the decision and the outcome afterwards, never just the final win or loss.</p></header>
+  <div class="s-body">
+    <div class="cols-2 r75">
+      <table class="cmp t14 big">
+        <thead><tr><th style="width:22%">Product</th><th style="width:28%" >Don't mainly optimize</th><th class="hl">Actually worth tracking</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Information Assistant</td><td class="bad">Read counts, alert click-through</td><td class="hl">Valuable new evidence or counter-evidence found, and judgments actually updated</td></tr>
+          <tr><td class="k">Knowledge Bank</td><td class="bad">Note count, knowledge nodes</td><td class="hl">Evidence completeness of key models, gaps filled, views traceable</td></tr>
+          <tr><td class="k">Learning OS</td><td class="bad">Study time, course completion</td><td class="hl">Unhinted independent performance, delayed retention, transfer across settings</td></tr>
+          <tr><td class="k">Writing Assistant</td><td class="bad">Article count, generation speed</td><td class="hl">Quality of arguments under strict review, useful outside feedback, original judgment</td></tr>
+          <tr><td class="k">Compass</td><td class="bad">Contact count, tasks completed</td><td class="hl">Quality of major decisions, real opportunities validated, resource allocation improving over time</td></tr>
+        </tbody>
+      </table>
+      <table class="cmp t14 big">
+        <thead><tr><th style="width:30%">Goal</th><th style="width:17%">Verdict</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>My own long-term use</td><td class="good">Worth it</td><td>Judgment history and self-training methods are personal assets worth more than the build cost</td></tr>
+          <tr><td>An agent product experiment</td><td class="good">Worth it</td><td>Tests how memory, assessment and proactive feedback relate to real capability growth</td></tr>
+          <tr><td>Five separate general SaaS products</td><td class="bad">Not really</td><td>Features overlap; platforms dominate models, connectors and distribution</td></tr>
+          <tr><td>A cognition and strategy trainer for a specific group</td><td style="color:var(--sand)">With conditions</td><td>Must beat Dots, Muse or a well-configured general agent on results, not just feel different</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cols-2 grow" style="margin-top:22px">
+      <div class="figbox">
+        <svg class="fig big" viewBox="0 0 1000 300">
+          <defs><marker id="m30" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#e3c99a"/></marker>
+            <marker id="m30g" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+          <text class="glabel" x="0" y="16" style="fill:#e3c99a">CONTROLLED COMPARISON · TWELVE WEEKS</text>
+          <g class="node"><rect x="0" y="36" width="270" height="76"/><text class="t" x="135" y="66">Control group</text><text class="s" x="135" y="90">a well-configured general Agent</text></g>
+          <g class="node hi"><rect x="0" y="140" width="270" height="76"/><text class="t" x="135" y="170">Treatment group</text><text class="s" x="135" y="194">this system</text></g>
+          <path class="edge" d="M270 74C320 74 330 126 370 126" marker-end="url(#m30g)"/>
+          <path class="edge hi" d="M270 178C320 178 330 130 370 130" marker-end="url(#m30)"/>
+          <g class="node"><rect x="374" y="60" width="290" height="136"/><text class="t" x="519" y="92">Compare only the person</text><text class="s" x="519" y="122">better independent learning?</text><text class="s" x="519" y="146">better long-term judgment?</text><text class="s" x="519" y="170">better real-world decisions?</text></g>
+          <path class="edge hi" d="M664 100H720" marker-end="url(#m30)"/>
+          <path class="edge" d="M664 160H720" marker-end="url(#m30g)"/>
+          <g class="node hi"><rect x="724" y="70" width="276" height="58"/><text class="t" x="862" y="96">Yes → keep investing</text><text class="s" x="862" y="116">prove it with real growth cases</text></g>
+          <g class="node"><rect x="724" y="138" width="276" height="58"/><text class="t" x="862" y="164">No → accept the verdict</text><text class="s" x="862" y="184">"the platform is good enough"</text></g>
+          <text x="0" y="260" class="tx" font-size="14.5">Not compared: user count, how strong the agent is, time spent</text>
+          <text x="0" y="284" class="tx" font-size="14.5">Compass decisions: judge both the evidence at the time and the outcome later</text>
+        </svg>
+      </div>
+      <div class="col" style="gap:20px;justify-content:center">
+      <div class="callout risk" style="margin:0"><span class="c-tag">Counterexample</span><p>If configuring Dots with five sets of long-running tasks, evaluation rubrics and feedback flows gets me most of the way, <b>there's no need to rebuild five complete products</b>. Five apps, five agents, five names are only possible forms.</p></div>
+      <div class="callout warn" style="margin:0"><span class="c-tag">Control group</span><p>The first comparison isn't Notion, Todoist or a traditional CRM, but <b>a well-configured general Personal Agent</b>. If in twelve weeks this system doesn't make me better at independent learning, long-term judgment or real decisions, I accept that the general platform is good enough.</p></div>
+      </div>
+    </div>
+    <div class="callout push-b"><span class="c-tag">What to protect</span><p>The cognitive methodology, traceable judgment records, evaluation standards that span cycles, and real evidence of effect: these are what need protecting, not the product form.</p></div>
+  </div>
+  <footer class="s-foot">5 · How to build it: separating "worth building for myself" from "worth building a company on"</footer>
+</section>
+
+<!-- 31 decisions + status -->
+<section class="slide" data-eyebrow="05 · BUILD" data-accent="sand">
+  <header class="s-head"><h2>My decisions, and <em>where things stand</em></h2>
+    <p class="lead">"Five Personal Agents" is the form; the real positioning is a Personal Intelligence Coach. That's a claim needing long-term validation, not a moat that already exists.</p></header>
+  <div class="s-body cols-3">
+    <div class="col sb even">
+      <div><h3 style="margin-top:0">Four clear choices</h3>
+      <ol class="vsteps">
+        <li><b>Five specialist boundaries, one unified coach</b>: no five separate sets of goals, memory and feedback</li>
+        <li><b>Buy general capabilities first</b>: search, inference, parsing, generation and basic execution aren't the R&amp;D battlefield</li>
+        <li><b>Concentrate on</b> feedback science, cognitive models and personal strategy: independent assessment, evidence-based challenge, long-term decision calibration</li>
+        <li><b>Prove human growth first</b>: not user numbers or agent strength, but a few real growth cases against a well-configured general agent</li>
+      </ol></div>
+      <div class="card"><div class="lab">Personal Intelligence Coach</div><p>A personal system that uses AI to keep deepening cognition, calibrating judgment and building long-term compounding.</p></div>
+      <div class="callout warn"><span class="c-tag">Unresolved</span><p>The learning system insists judgment be mine; the strategy system wants AI's help to judge opportunities well. Which judgments can go to an agent? How do I show it's <b>augmenting</b> my judgment, not replacing it?</p></div>
+    </div>
+    <div class="col sb even">
+      <div><h3 style="margin-top:0">Implemented · mostly methodology and contracts so far</h3>
+      <ul class="spec">
+        <li><span class="s-k">Learning OS</span><span class="s-v">Sealed question bank and full self-verification; <b>the best-designed part</b></span></li>
+        <li><span class="s-k">Knowledge Bank</span><span class="s-v">Per-paragraph sourcing and explicit gaps</span></li>
+        <li><span class="s-k">Compass</span><span class="s-v">A minimal "log, then review" rhythm</span></li>
+        <li><span class="s-k" style="color:var(--red)">Unverified</span><span class="s-v">Runtime, end-to-end behavior, real data connections</span></li>
+      </ul></div>
+      <div><h3 style="margin-top:0">Three systemic gaps · right where the core investment is</h3>
+      <div class="card" style="border-color:color-mix(in srgb,var(--red) 50%,transparent);padding:12px 16px"><h4 style="color:var(--red);font-size:16px">The challenge layer is almost zero</h4><p style="font-size:14.5px">Every product has a natural place for it; none actually implements it. Without it, the whole system is just "better knowledge management."</p></div>
+      <div class="card" style="border-color:color-mix(in srgb,var(--red) 50%,transparent);padding:12px 16px;margin-top:10px"><h4 style="color:var(--red);font-size:16px">Judgment memory is almost zero</h4><p style="font-size:14.5px">Nowhere records "what I judged about what, and whether it proved right."</p></div>
+      <div class="card" style="border-color:color-mix(in srgb,var(--red) 50%,transparent);padding:12px 16px;margin-top:10px"><h4 style="color:var(--red);font-size:16px">The pipeline isn't a loop yet</h4><p style="font-size:14.5px">Return edges aren't connected; the cognitive machine and Compass share no capability claims, so what my profile claims and what Learning OS can evidence may never agree.</p></div></div>
+    </div>
+    <div class="col sb even">
+      <div><h3 style="margin-top:0">Next: three very small things</h3>
+      <ol class="vsteps">
+        <li>Define <b>the minimal Judgment Record</b>: context, grounds, uncertainty at the time, final outcome</li>
+        <li>Connect <b>one return edge</b>, even if it's just writing "what I couldn't explain" in practice back as one gap in the knowledge bank</li>
+        <li>Run every product <b>end to end once</b>, for real</li>
+      </ol></div>
+      <div><h3 style="margin-top:0">Six months to a year, tested in real life</h3>
+      <ul class="tick">
+        <li>Better-grounded long-term judgment, not more news</li>
+        <li>Deeper professional capability, not more courses</li>
+        <li>Lasting reciprocal relationships, not a longer contact list</li>
+        <li>Better allocation of resources, not more tasks done</li>
+        <li><b>Dropping wrong directions in time</b></li>
+      </ul></div>
+      <div class="callout"><span class="c-tag">Bottom line</span><p>Getting the loop to turn matters more than discussing the full architecture. If it doesn't improve real choices, however advanced it looks, it has failed.</p></div>
+    </div>
+  </div>
+  <footer class="s-foot">5 · How to build it: some gains show up as something not done, or half a year not wasted</footer>
+</section>
+
+<!-- 32 closer -->
+<section class="slide cover-main" data-accent="acc">
+  <div class="kicker">Not letting AI grow in my place</div>
+  <h1 style="font-size:60px">Around my own core capability,<br>find the world that can <span style="color:var(--acc)">amplify it</span>.</h1>
+  <p class="sub">Breadth of cognition decides how many possibilities we can see; depth decides how much of the essence we grasp; real-world feedback decides whether we keep getting closer to right; and leverage decides how much difference it all finally makes in the world.</p>
+  <div class="badges"><span>Breadth · how much we can see</span><span>Depth · how much we grasp</span><span>Feedback · getting closer to right</span><span>Leverage · how much impact</span><span>Judgment Record · the only core asset</span></div>
+</section>
+<!-- SLIDES-END -->
+
+</div></div>
+<div id="overview"></div>
+<div id="hud"></div>
+
+<script>
+/* ================= engine ================= */
+(function(){
+'use strict';
+var stage=document.getElementById('stage'),
+    slides=[].slice.call(document.querySelectorAll('.slide')),
+    N=slides.length, cur=0, deck=window.DECK||{};
+
+if(deck.title)document.title=deck.title;
+
+/* chrome injection */
+slides.forEach(function(s,i){
+  var rule=document.createElement('div');rule.className='chrome rule';s.appendChild(rule);
+  if(s.dataset.eyebrow){var e=document.createElement('div');e.className='chrome eyebrow';e.textContent=s.dataset.eyebrow;s.appendChild(e);}
+  var m=document.createElement('div');m.className='chrome meta';m.textContent=deck.meta||'';s.appendChild(m);
+  var p=document.createElement('div');p.className='chrome page';
+  p.textContent=String(i+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');s.appendChild(p);
+});
+
+/* scale */
+function fit(){var w=innerWidth,h=innerHeight,k=Math.min(w/1920,h/1080);
+  stage.style.transform='translate('+(w-1920*k)/2+'px,'+(h-1080*k)/2+'px) scale('+k+')';}
+addEventListener('resize',fit);fit();
+
+/* nav */
+function go(i){cur=Math.max(0,Math.min(N-1,i));
+  slides.forEach(function(s,j){s.classList.toggle('active',j===cur)});
+  history.replaceState(null,'','#'+(cur+1));
+  document.getElementById('hud').textContent=(cur+1)+' / '+N+'   ←→ nav · O overview · P print';}
+var h=parseInt((location.hash||'').replace('#',''),10);
+go(isNaN(h)?0:h-1);
+
+addEventListener('keydown',function(ev){
+  if(ev.key==='ArrowRight'||ev.key===' '||ev.key==='PageDown')go(cur+1);
+  else if(ev.key==='ArrowLeft'||ev.key==='PageUp')go(cur-1);
+  else if(ev.key==='Home')go(0); else if(ev.key==='End')go(N-1);
+  else if(ev.key==='o'||ev.key==='O')toggleOverview();
+  else if(ev.key==='p'||ev.key==='P')window.print();
+});
+addEventListener('hashchange',function(){var n=parseInt(location.hash.replace('#',''),10);if(!isNaN(n))go(n-1);});
+
+/* overview */
+var ov=document.getElementById('overview'),ovBuilt=false;
+function toggleOverview(){
+  if(!ovBuilt){slides.forEach(function(s,i){
+    var t=document.createElement('div');t.className='thumb';
+    var c=s.cloneNode(true);c.className='slide active mini';t.appendChild(c);
+    var x=document.createElement('span');x.className='idx';x.textContent=i+1;t.appendChild(x);
+    t.onclick=function(){go(i);ov.classList.remove('on')};ov.appendChild(t);});ovBuilt=true;}
+  ov.classList.toggle('on');}
+
+/* ============ ISO helpers ============ */
+var SVGNS='http://www.w3.org/2000/svg';
+function el(svg,tag,attrs,txt){var n=document.createElementNS(SVGNS,tag);
+  for(var k in attrs)n.setAttribute(k,attrs[k]);if(txt!=null)n.textContent=txt;svg.appendChild(n);return n;}
+function plane(svg,cx,cy,w,opts){opts=opts||{};var h=w/2;
+  var pts=cx+','+(cy-h)+' '+(cx+w)+','+cy+' '+cx+','+(cy+h)+' '+(cx-w)+','+cy;
+  return el(svg,'polygon',{points:pts,'class':'iso-face-t'+(opts.accent?' acc':'')});}
+function cube(svg,x,y,s,opts){opts=opts||{};var h=s/2,d=opts.depth||s*.7;
+  el(svg,'polygon',{points:(x-s)+','+y+' '+x+','+(y+h)+' '+x+','+(y+h+d)+' '+(x-s)+','+(y+d),'class':'iso-face-l'});
+  el(svg,'polygon',{points:(x+s)+','+y+' '+x+','+(y+h)+' '+x+','+(y+h+d)+' '+(x+s)+','+(y+d),'class':'iso-face-r'});
+  el(svg,'polygon',{points:x+','+(y-h)+' '+(x+s)+','+y+' '+x+','+(y+h)+' '+(x-s)+','+y,'class':'iso-face-t'+(opts.accent?' acc':'')});}
+function cyl(svg,x,y,r){el(svg,'rect',{x:x-r,y:y,width:2*r,height:r*1.4,fill:'#0c0f13',stroke:'#3d444d','stroke-width':1.1});
+  el(svg,'ellipse',{cx:x,cy:y+r*1.4,rx:r,ry:r*.45,fill:'#0c0f13',stroke:'#3d444d','stroke-width':1.1});
+  el(svg,'ellipse',{cx:x,cy:y,rx:r,ry:r*.45,fill:'#141920',stroke:'#3d444d','stroke-width':1.1});}
+function arrow(svg,x1,y1,x2,y2,opts){opts=opts||{};
+  var mid=(y1+y2)/2, d='M'+x1+' '+y1+' C '+(x1-120)+' '+mid+', '+(x2-120)+' '+mid+', '+x2+' '+y2;
+  var p=el(svg,'path',{d:d,'class':'edge'+(opts.dashed?' flow':'')+(opts.hi?' hi':''),fill:'none'});
+  var a=Math.atan2(y2-mid,120), s=8;
+  el(svg,'polygon',{points:x2+','+y2+' '+(x2-10)+','+(y2-5)+' '+(x2-10)+','+(y2+5),fill:opts.hi?'var(--a)':'#5c6570'});
+  return p;}
+function stack(sel,cfg){var svg=document.querySelector(sel);if(!svg)return;
+  var cx=cfg.cx,w=cfg.w,gap=cfg.gap||150,layers=cfg.layers,rail=cfg.rail;
+  /* bottom-up so upper layers overlap */
+  for(var i=layers.length-1;i>=0;i--){var L=layers[i],cy=cfg.topY+w/2+i*gap;
+    if(L.kind==='scatter'){
+      for(var s=0;s<(L.count||14);s++){var ang=(s*137)%360, r=40+((s*97)%3)*38;
+        var sx=cx+Math.cos(ang*Math.PI/180)*r*1.7, sy=cy+Math.sin(ang*Math.PI/180)*r*.5;
+        (s%3===0)?cyl(svg,sx,sy,13):cube(svg,sx,sy,15,{depth:12});}
+    }else{
+      plane(svg,cx,cy,w,{accent:L.accent});
+      if(L.kind==='grid'){var n=4;for(var gy=0;gy<n;gy++)for(var gx=0;gx<n;gx++){
+        var u=(gx-n/2+.5)/n, v=(gy-n/2+.5)/n;
+        cube(svg,cx+(u-v)*w*.82,cy+(u+v)*w*.41,w*.075,{depth:w*.05,accent:L.accent&&(gx+gy)%3===0});}}
+      if(L.kind==='graph'){var pts=[[-.45,0],[.05,-.28],[.5,-.02],[.18,.3],[-.2,.22],[.42,.33],[-.5,.35]];
+        pts.forEach(function(q,qi){var nx=cx+(q[0]-q[1])*w*.8, ny=cy+(q[0]+q[1])*w*.4;
+          if(qi)el(svg,'line',{x1:cx,y1:cy,x2:nx,y2:ny,stroke:'#3d444d','stroke-width':1,'stroke-dasharray':'3 3'});
+          cube(svg,nx,ny,11,{depth:8,accent:qi===0});});}
+      if(L.kind==='options'){[[-.35,-.1],[.1,-.22],[.4,.02],[0,.18]].forEach(function(q){
+        var nx=cx+(q[0]-q[1])*w*.8, ny=cy+(q[0]+q[1])*w*.4;
+        el(svg,'rect',{x:nx-34,y:ny-11,width:68,height:22,rx:3,fill:'#141920',stroke:'#3d444d','stroke-width':1,
+          transform:'skewX(-24) rotate(6 '+nx+' '+ny+')'});});}
+    }
+  }
+  /* rail labels top-down */
+  if(rail)layers.forEach(function(L,i){var cy=cfg.topY+w/2+i*gap;
+    el(svg,'path',{d:'M'+(cx+w+18)+' '+cy+' H '+(rail.x-14),'class':'rail','stroke-dasharray':'2 3'});
+    el(svg,'path',{d:'M'+rail.x+' '+(cy-16)+' h-8 v32 h8','class':'rail'});
+    el(svg,'text',{x:rail.x+14,y:cy-2,'class':'iso-label'},L.label);
+    if(L.sub)el(svg,'text',{x:rail.x+14,y:cy+16,'class':'iso-sub'},L.sub);
+    var iy0=L.sub?33:16;
+    (L.items||[]).forEach(function(it,k){el(svg,'text',{x:rail.x+14,y:cy+iy0+k*17,'class':'iso-sub'},'→ '+it);});});
+  if(cfg.arrows!==false&&layers.length>1){
+    var y1=cfg.topY+w/2, y2=cfg.topY+w/2+(layers.length-1)*gap;
+    arrow(svg,cx-w-26,y1+10,cx-w+30,y2-6,{hi:true});
+  }}
+window.ISO={stack:stack,cube:cube,plane:plane,cyl:cyl,arrow:arrow,el:el};
+
+/* ============ loop generator ============ */
+[].forEach.call(document.querySelectorAll('svg[data-loop]'),function(svg){
+  var names=(svg.dataset.nodes||'').split('|'),center=svg.dataset.center;
+  var vb=svg.viewBox.baseVal,cx=vb.width/2,cy=vb.height/2-10,R=Math.min(cx,cy)-70;
+  names.forEach(function(nm,i){
+    var a0=-Math.PI/2+i*2*Math.PI/names.length, a1=-Math.PI/2+(i+1)*2*Math.PI/names.length;
+    var pad=.34;
+    var sx=cx+R*Math.cos(a0+pad),sy=cy+R*Math.sin(a0+pad),ex=cx+R*Math.cos(a1-pad),ey=cy+R*Math.sin(a1-pad);
+    el(svg,'path',{d:'M'+sx+' '+sy+' A '+R+' '+R+' 0 0 1 '+ex+' '+ey,'class':'edge hi'});
+    var aa=a1-pad, tx=cx+R*Math.cos(aa), ty=cy+R*Math.sin(aa), na=aa+Math.PI/2;
+    el(svg,'polygon',{points:(tx+9*Math.cos(na))+','+(ty+9*Math.sin(na))+' '+(tx+4*Math.cos(na-2.6))+','+(ty+4*Math.sin(na-2.6))+' '+(tx+4*Math.cos(na+2.6))+','+(ty+4*Math.sin(na+2.6)),fill:'var(--a)'});
+    var nx=cx+R*Math.cos(a0),ny=cy+R*Math.sin(a0);
+    el(svg,'rect',{x:nx-92,y:ny-24,width:184,height:48,rx:6,fill:'var(--bg2)',stroke:'var(--line2)','stroke-width':1.25});
+    el(svg,'text',{x:nx,y:ny+5,'class':'t',fill:'var(--ink)','font-size':14,'text-anchor':'middle'},nm);});
+  if(center){cyl(svg,cx,cy-46,34);
+    el(svg,'text',{x:cx,y:cy+30,'text-anchor':'middle',fill:'var(--ink2)','font-size':13},center);}});
+
+/* demo iso */
+if(document.querySelector('[data-iso-demo]'))ISO.stack('[data-iso-demo]',{cx:380,topY:40,w:230,gap:130,
+  layers:[{label:'DECISION ORCHESTRATION',kind:'options'},{label:'DYNAMIC ONTOLOGY',kind:'graph',accent:true,sub:'objects · links · actions'},
+          {label:'YOUR DATA PLATFORM',kind:'grid',items:['AWS','SNOWFLAKE']},{label:'OPERATIONAL SYSTEMS',kind:'scatter',items:['SAP','KAFKA','ORACLE']}],
+  rail:{x:840,w:300}});
+
+/* ============ ?check audit ============ */
+if(/[?&]check=1/.test(location.search)){
+  setTimeout(function(){
+    var bad=[],under=[];
+    slides.forEach(function(s,i){s.classList.add('active');
+      var ow=s.scrollWidth,oh=s.scrollHeight;
+      if(ow>1930||oh>1090){var worst='',mx=0;
+        [].forEach.call(s.querySelectorAll('*'),function(n){var r=n.getBoundingClientRect?n:null;
+          var b=n.offsetTop+n.offsetHeight;if(b>mx&&n.offsetHeight){mx=b;worst=(n.className&&n.className.baseVal!==undefined?n.className.baseVal:n.className)||n.tagName;}});
+        bad.push({slide:i+1,w:ow,h:oh,hint:String(worst).slice(0,60)});}
+      /* underfill: on non-cover slides, real content (leaf text / svg ink / table / img,
+         excluding chrome + footer) must reach at least y=880 of the 1080 canvas */
+      if(!/cover/.test(s.className)){
+        var srect=s.getBoundingClientRect(),mb=0;
+        [].forEach.call(s.querySelectorAll('*'),function(n){
+          if(n.closest('.chrome')||n.closest('.s-foot'))return;
+          if(n.ownerSVGElement)return;
+          var tag=n.tagName.toLowerCase();
+          if(tag!=='svg'&&tag!=='table'&&tag!=='img'&&n.children.length)return;
+          var r=n.getBoundingClientRect();if(!r.height)return;
+          var bottom=r.bottom;
+          if(tag==='svg'){ /* measure drawn ink, not the (possibly letterboxed) element box */
+            try{var vb=n.viewBox.baseVal,bb=n.getBBox();
+              if(vb&&vb.width&&bb.height){var k=Math.min(r.width/vb.width,r.height/vb.height);
+                bottom=r.top+(r.height-vb.height*k)/2+(bb.y+bb.height-vb.y)*k;}}catch(e){}}
+          var b=(bottom-srect.top)/srect.height*1080;if(b>mb)mb=b;});
+        if(mb&&mb<880)under.push({slide:i+1,contentBottom:Math.round(mb)});
+      }
+      if(i!==cur)s.classList.remove('active');});
+    var pre=document.createElement('pre');pre.id='check-report';
+    pre.textContent='OVERFLOW-REPORT:'+JSON.stringify({total:N,fails:bad,underfill:under});
+    pre.style.cssText='position:fixed;left:0;bottom:0;font-size:9px;color:#666;z-index:99;max-width:100%;overflow:hidden';
+    document.body.appendChild(pre);
+    document.title=bad.length?('CHECK-FAIL '+bad.length):(under.length?('CHECK-UNDERFILL '+under.length):'CHECK-OK');
+  },600);}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,578 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <meta name="keywords" content="Personal growth, Xinhe Liu (Charles)">
+    <meta name="description" content="Reflections, reading notes, and lessons from work and everyday life.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Personal growth | Xinhe Liu (Charles)">
+    <meta property="og:description" content="Reflections, reading notes, and lessons from work and everyday life.">
+    <meta property="og:url" content="https://xinheliu.github.io/library/personal-growth/index.html">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Personal growth | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="Reflections, reading notes, and lessons from work and everyday life.">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Personal growth | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/library/" class="is-active">Library</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a class="lang-switch" href="/library-zh/personal-growth/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/library/">Library</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        <a class="lang-switch" href="/library-zh/personal-growth/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+<main class="content site-page-main">
+    <section class="container hero-narrow">
+        <nav class="reading-breadcrumbs" aria-label="Breadcrumb">
+            <a href="/library/">Library</a>
+            
+            <span aria-hidden="true">/</span><span aria-current="page">Personal growth</span>
+        </nav>
+        <h1 class="page-title">Personal growth</h1>
+        <p class="lead">Reflections, reading notes, and lessons from work and everyday life.</p>
+    </section>
+    <section class="section compact">
+        <div class="container">
+            
+            
+<div class="archive-list reading-work-list">
+    
+    <article class="archive-row has-preview" data-work-id="five-agents-one-coach">
+        <a class="post-preview post-preview-image" href="/writing/five-agents-one-coach/">
+            <img src="/writing/five-agents-one-coach/assistant-vs-coach-en.svg" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2026-10-21">2026-10-21</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/five-agents-one-coach/">Five Agents, One Coach: Why I&#39;m Still Building a Growth System for Myself in the Age of AI</a></h3>
+            <p class="work-summary">Why I am designing a personal growth system as the opposite of a personal agent. One line runs through the essay, continually forming, testing and reframing an understanding of the world and of myself, and letting that understandi…</p>
+        </div>
+        <a class="tag" href="/writing/five-agents-one-coach/">Read<span class="visually-hidden"> · Five Agents, One Coach: Why I&#39;m Still Building a Growth System for Myself in the Age of AI</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="working-harder-growing-mediocre">
+        <a class="post-preview post-preview-image" href="/writing/working-harder-growing-mediocre/">
+            <img src="/images/working-harder-growing-mediocre/The-Effificent-Road-to-No-Where.jpeg" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2026-10-11">2026-10-11</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/working-harder-growing-mediocre/">The Efficient Road to No Where: Why Working Harder Can Keep You Mediocre</a></h3>
+            <p class="work-summary">A reflection on why working harder can keep you mediocre — familiar knowledge vs. true knowledge, double-loop learning, and the niche that shapes cognition.</p>
+        </div>
+        <a class="tag" href="/writing/working-harder-growing-mediocre/">Read<span class="visually-hidden"> · The Efficient Road to No Where: Why Working Harder Can Keep You Mediocre</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="lessons-from-2024">
+        <a class="post-preview post-preview-image" href="/writing/lessons-from-2024/">
+            <img src="/writing/lessons-from-2024/93d5c6fe69b27145.png" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-30">2025-11-30</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/lessons-from-2024/">Lessons from 2024</a></h3>
+            <p class="work-summary">The Year of the Dragon has passed and the Year of the Snake has begun. During the Spring Festival holiday, I wrote down some reflections from 2024.</p>
+        </div>
+        <a class="tag" href="/writing/lessons-from-2024/">Read<span class="visually-hidden"> · Lessons from 2024</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="be-your-personal-best-reading-notes">
+        <a class="post-preview post-preview-image" href="/writing/be-your-personal-best-reading-notes/">
+            <img src="/writing/be-your-personal-best-reading-notes/8020e9645dc83df7.jpg" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-25">2025-11-25</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/be-your-personal-best-reading-notes/">Reading Notes: Be Your Personal Best by Kai-Fu Lee</a></h3>
+            <p class="work-summary">During the May Day holiday I wanted to reread this book from my university days, but could not find an e-book or reading notes online, and ChatGPT gave a summary that was complete nonsense. I bought a used copy and read it, and ag…</p>
+        </div>
+        <a class="tag" href="/writing/be-your-personal-best-reading-notes/">Read<span class="visually-hidden"> · Reading Notes: Be Your Personal Best by Kai-Fu Lee</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="reflections-at-the-start-of-2023">
+        <a class="post-preview post-preview-image" href="/writing/reflections-at-the-start-of-2023/">
+            <img src="/writing/reflections-at-the-start-of-2023/94d02355ea4c4d1c.jpg" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-21">2025-11-21</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/reflections-at-the-start-of-2023/">A Little Essay at the Start of 2023</a></h3>
+            <p class="work-summary">My WeChat official account had lain fallow for nearly a year. I wrote a few things here and there in between, but never posted them because they were unfinished or some of the content was unsuitable. I never expected that, chattin…</p>
+        </div>
+        <a class="tag" href="/writing/reflections-at-the-start-of-2023/">Read<span class="visually-hidden"> · A Little Essay at the Start of 2023</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="year-in-review-2021">
+        <a class="post-preview preview-grid" href="/writing/year-in-review-2021/">
+            <span>Article</span>
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-16">2025-11-16</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/year-in-review-2021/">2021 Year in Review</a></h3>
+            <p class="work-summary">The third year of the pandemic brought many changes, yet for many people it was slightly more stable than the previous two. This is especially true for me—reading last year’s year-end review and my job-search notes, my thinking on…</p>
+        </div>
+        <a class="tag" href="/writing/year-in-review-2021/">Read<span class="visually-hidden"> · 2021 Year in Review</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="a-world-without-alternating-workweeks">
+        <a class="post-preview post-preview-image" href="/writing/a-world-without-alternating-workweeks/">
+            <img src="/writing/a-world-without-alternating-workweeks/d0210a90183596f0.jpg" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-12">2025-11-12</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/a-world-without-alternating-workweeks/">In a World Without “Alternating Workweeks”</a></h3>
+            <p class="work-summary">The other shoe dropped yesterday: the “alternating workweek” schedule is being abolished. While many employees are happy, quite a few worry that “all that is cut is the pay” and that “unpaid overtime is about to begin,” and the de…</p>
+        </div>
+        <a class="tag" href="/writing/a-world-without-alternating-workweeks/">Read<span class="visually-hidden"> · In a World Without “Alternating Workweeks”</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="my-first-two-months">
+        <a class="post-preview preview-grid" href="/writing/my-first-two-months/">
+            <span>Article</span>
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-07">2025-11-07</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/my-first-two-months/">My First “Two-Month Cycle”</a></h3>
+            <p class="work-summary">“Now, here, you see, it takes all the running you can do, to keep in the same place.” — Through the Looking-Glass</p>
+        </div>
+        <a class="tag" href="/writing/my-first-two-months/">Read<span class="visually-hidden"> · My First “Two-Month Cycle”</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="returning-to-china-and-job-search">
+        <a class="post-preview post-preview-image" href="/writing/returning-to-china-and-job-search/">
+            <img src="/writing/returning-to-china-and-job-search/e2158c872235f9c0.jpg" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-03">2025-11-03</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/returning-to-china-and-job-search/">Returning to China and the Job Search: A Retrospective</a></h3>
+            <p class="work-summary">Quite a few friends have recently been asking about returning to China and building a career here, and are curious about why I came back. I returned from the U.S. at the end of last year and spent about three months, on and off, t…</p>
+        </div>
+        <a class="tag" href="/writing/returning-to-china-and-job-search/">Read<span class="visually-hidden"> · Returning to China and the Job Search: A Retrospective</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="farewell-to-2020">
+        <a class="post-preview preview-grid" href="/writing/farewell-to-2020/">
+            <span>Article</span>
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-10-29">2025-10-29</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/farewell-to-2020/">Farewell to 2020, the Year the Black Swan Flew By</a></h3>
+            <p class="work-summary">2020 was a year unlike so many before it, from the news media and the columns and books to everyone’s WeChat Moments. Looking back many years from now, it may gradually become as unremarkable as any other year, or even more thrill…</p>
+        </div>
+        <a class="tag" href="/writing/farewell-to-2020/">Read<span class="visually-hidden"> · Farewell to 2020, the Year the Black Swan Flew By</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="hello-2020">
+        <a class="post-preview preview-grid" href="/writing/hello-2020/">
+            <span>Article</span>
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-10-23">2025-10-23</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/hello-2020/">Hello 2020</a></h3>
+            <p class="work-summary">Today is the first day of the new year, and I want to share my plans and goals for it. I hope these plans will help me improve in the areas I said in my previous two reviews I did poorly, and that I can make progress and move one…</p>
+        </div>
+        <a class="tag" href="/writing/hello-2020/">Read<span class="visually-hidden"> · Hello 2020</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="farewell-to-2019-part-2">
+        <a class="post-preview preview-grid" href="/writing/farewell-to-2019-part-2/">
+            <span>Article</span>
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-10-19">2025-10-19</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/farewell-to-2019-part-2/">Farewell to 2019 (Part 2)</a></h3>
+            <p class="work-summary">Following the first half, today I talk about what I did not do well and what I did not need to do. Looking back, what I regret is often that the things I did not do well far outnumber the things I accomplished, and even more time…</p>
+        </div>
+        <a class="tag" href="/writing/farewell-to-2019-part-2/">Read<span class="visually-hidden"> · Farewell to 2019 (Part 2)</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="farewell-to-2019-part-1">
+        <a class="post-preview preview-grid" href="/writing/farewell-to-2019-part-1/">
+            <span>Article</span>
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-10-15">2025-10-15</time> · Article</span>
+            <h3><a class="archive-row-link" href="/writing/farewell-to-2019-part-1/">Farewell to 2019 (Part 1)</a></h3>
+            <p class="work-summary">Today is Christmas 2019. In the West it is a day when families gather and welcome the new year, and the start of saying goodbye to 2019 and stepping into 2020. During this time people spend more time with loved ones, reach out to…</p>
+        </div>
+        <a class="tag" href="/writing/farewell-to-2019-part-1/">Read<span class="visually-hidden"> · Farewell to 2019 (Part 1)</span></a>
+    </article>
+    
+</div>
+
+        </div>
+    </section>
+</main>
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

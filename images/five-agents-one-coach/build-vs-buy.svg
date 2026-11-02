@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 690" width="900" height="690" role="img" aria-labelledby="t d" font-family="-apple-system, 'PingFang SC', 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif">
+<title id="t">通用能力外采，训练方法自建，判断记录沉淀</title>
+<desc id="d">五个产品的哪一部分该自己造？通用能力在底层随时替换，训练方法在中层，判断记录是唯一沉淀下来的核心资产。</desc>
+<defs><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="#1a1f26"/></pattern><marker id="ar-e3c99a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="#e3c99a"/></marker><marker id="ar-5c6570" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker></defs>
+<rect width="900" height="690" rx="12" fill="#0b0d10"/>
+<rect width="900" height="690" rx="12" fill="url(#dots)"/>
+<rect x="0.5" y="0.5" width="899" height="689" rx="12" fill="none" stroke="#2a2f36"/>
+<rect x="32" y="31" width="9" height="9" fill="none" stroke="#e3c99a"/>
+<text x="50" y="40" font-size="12" fill="#e3c99a" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="2">FIG 7 · 外采与自建</text>
+<text x="32" y="72" font-size="21" font-weight="600" fill="#e8eaec">通用能力外采，训练方法自建，判断记录沉淀</text>
+<line x1="32" y1="90" x2="868" y2="90" stroke="#2a2f36"/>
+<rect x="32" y="106" width="836" height="50" rx="6" fill="#e3c99a" stroke="#e3c99a" stroke-width="1.4" fill-opacity="0.12"/>
+<text x="52" y="137" font-size="17" fill="#e3c99a" font-weight="700">判断记录 · Judgment Record</text>
+<text x="848" y="137" font-size="13.5" fill="#9aa3ad" text-anchor="end">唯一跨周期沉淀的核心资产</text>
+<rect x="32" y="178" width="200" height="58" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+<text x="46" y="202" font-size="15" fill="#e8eaec" font-weight="600">个人认知模型</text>
+<text x="46" y="224" font-size="12.5" fill="#5c6570">框架 · 假设 · 空白 · 偏差</text>
+<path d="M132 178 V160" fill="none" stroke="#e3c99a" stroke-width="1.4" marker-end="url(#ar-e3c99a)"/>
+<rect x="244" y="178" width="200" height="58" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+<text x="258" y="202" font-size="15" fill="#e8eaec" font-weight="600">反馈与评估</text>
+<text x="258" y="224" font-size="12.5" fill="#5c6570">熟悉 vs 掌握 · 运气 vs 判断</text>
+<path d="M344 178 V160" fill="none" stroke="#e3c99a" stroke-width="1.4" marker-end="url(#ar-e3c99a)"/>
+<rect x="456" y="178" width="200" height="58" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+<text x="470" y="202" font-size="15" fill="#e8eaec" font-weight="600">认知对抗</text>
+<text x="470" y="224" font-size="12.5" fill="#5c6570">依据证据识别盲点与反例</text>
+<path d="M556 178 V160" fill="none" stroke="#e3c99a" stroke-width="1.4" marker-end="url(#ar-e3c99a)"/>
+<rect x="668" y="178" width="200" height="58" rx="6" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+<text x="682" y="202" font-size="15" fill="#e8eaec" font-weight="600">跨周期复利</text>
+<text x="682" y="224" font-size="12.5" fill="#5c6570">依据 → 行动 → 结果</text>
+<path d="M768 178 V160" fill="none" stroke="#e3c99a" stroke-width="1.4" marker-end="url(#ar-e3c99a)"/>
+<text x="32" y="266" font-size="11.5" fill="#aecbdd" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="1">自建 · 五个产品的训练方法</text>
+<path d="M450 276 V242" fill="none" stroke="#e3c99a" stroke-width="1.5" marker-end="url(#ar-e3c99a)"/>
+<text x="460" y="266" font-size="12" fill="#e3c99a">沉淀为</text>
+<rect x="32" y="280" width="160" height="182" rx="6" fill="#101318" stroke="#aecbdd" stroke-width="1.2"/>
+<text x="44" y="304" font-size="14" fill="#e8eaec" font-weight="600">Information</text>
+<text x="44" y="322" font-size="14" fill="#e8eaec" font-weight="600">Assistant</text>
+<text x="44" y="350" font-size="13" fill="#9aa3ad">个人研究框架</text>
+<text x="44" y="370" font-size="13" fill="#9aa3ad">信号评级</text>
+<text x="44" y="390" font-size="13" fill="#9aa3ad">反证发现 · 观点更新</text>
+<rect x="44" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="70" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="96" y="420" width="22" height="8" rx="1" fill="#0b0d10" stroke="#3d444d" stroke-width="1"/>
+<rect x="122" y="420" width="22" height="8" rx="1" fill="#0b0d10" stroke="#3d444d" stroke-width="1"/>
+<rect x="148" y="420" width="22" height="8" rx="1" fill="#0b0d10" stroke="#3d444d" stroke-width="1"/>
+<text x="44" y="448" font-size="12" fill="#5c6570">自研投入 · 中</text>
+<rect x="202" y="280" width="160" height="182" rx="6" fill="#101318" stroke="#aecbdd" stroke-width="1.2"/>
+<text x="214" y="304" font-size="14" fill="#e8eaec" font-weight="600">Agentic</text>
+<text x="214" y="322" font-size="14" fill="#e8eaec" font-weight="600">Knowledge Bank</text>
+<text x="214" y="350" font-size="13" fill="#9aa3ad">有证据的概念模型</text>
+<text x="214" y="370" font-size="13" fill="#9aa3ad">知识空白</text>
+<text x="214" y="390" font-size="13" fill="#9aa3ad">观点演进与冲突</text>
+<rect x="214" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="240" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="266" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="292" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="318" y="420" width="22" height="8" rx="1" fill="#0b0d10" stroke="#3d444d" stroke-width="1"/>
+<text x="214" y="448" font-size="12" fill="#5c6570">自研投入 · 高</text>
+<rect x="372" y="280" width="160" height="182" rx="6" fill="#101318" stroke="#aecbdd" stroke-width="1.2"/>
+<text x="384" y="304" font-size="14" fill="#e8eaec" font-weight="600">Learning</text>
+<text x="384" y="322" font-size="14" fill="#e8eaec" font-weight="600">OS</text>
+<text x="384" y="350" font-size="13" fill="#9aa3ad">能力地图</text>
+<text x="384" y="370" font-size="13" fill="#9aa3ad">独立评估 · 封存测试</text>
+<text x="384" y="390" font-size="13" fill="#9aa3ad">迁移与保持</text>
+<rect x="384" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="410" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="436" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="462" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="488" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<text x="384" y="448" font-size="12" fill="#5c6570">自研投入 · 极高</text>
+<rect x="542" y="280" width="160" height="182" rx="6" fill="#101318" stroke="#aecbdd" stroke-width="1.2"/>
+<text x="554" y="304" font-size="14" fill="#e8eaec" font-weight="600">Writing</text>
+<text x="554" y="322" font-size="14" fill="#e8eaec" font-weight="600">Assistant</text>
+<text x="554" y="350" font-size="13" fill="#9aa3ad">论点审计</text>
+<text x="554" y="370" font-size="13" fill="#9aa3ad">反方审稿</text>
+<text x="554" y="390" font-size="13" fill="#9aa3ad">原创性区分 · 反馈复盘</text>
+<rect x="554" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="580" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="606" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="632" y="420" width="22" height="8" rx="1" fill="#0b0d10" stroke="#3d444d" stroke-width="1"/>
+<rect x="658" y="420" width="22" height="8" rx="1" fill="#0b0d10" stroke="#3d444d" stroke-width="1"/>
+<text x="554" y="448" font-size="12" fill="#5c6570">自研投入 · 中高</text>
+<rect x="712" y="280" width="160" height="182" rx="6" fill="#101318" stroke="#aecbdd" stroke-width="1.2"/>
+<text x="724" y="304" font-size="14" fill="#e8eaec" font-weight="600">Compass</text>
+<text x="724" y="350" font-size="13" fill="#9aa3ad">个人战略</text>
+<text x="724" y="370" font-size="13" fill="#9aa3ad">机会组合 · 不做清单</text>
+<text x="724" y="390" font-size="13" fill="#9aa3ad">市场验证</text>
+<rect x="724" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="750" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="776" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="802" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<rect x="828" y="420" width="22" height="8" rx="1" fill="#aecbdd" stroke="#aecbdd" stroke-width="1" fill-opacity="0.85"/>
+<text x="724" y="448" font-size="12" fill="#5c6570">自研投入 · 极高</text>
+<text x="32" y="498" font-size="11.5" fill="#5c6570" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="1">外采 · 通用能力（随时可替换）</text>
+<text x="868" y="498" font-size="12.5" fill="#5c6570" text-anchor="end">大厂做得越好，这一层越省力</text>
+<path d="M450 504 V468" fill="none" stroke="#5c6570" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#ar-5c6570)"/>
+<text x="460" y="488" font-size="12" fill="#5c6570">调用</text>
+<rect x="32" y="508" width="836" height="96" rx="8" fill="none" stroke="#3d444d" stroke-width="1.2" stroke-dasharray="6 5"/>
+<rect x="48" y="522" width="50" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="60" y="541" font-size="13" fill="#9aa3ad">搜索</text>
+<rect x="108" y="522" width="89" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="120" y="541" font-size="13" fill="#9aa3ad">资讯与爬取</text>
+<rect x="207" y="522" width="50" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="219" y="541" font-size="13" fill="#9aa3ad">摘要</text>
+<rect x="267" y="522" width="115.26" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="279" y="541" font-size="13" fill="#9aa3ad">Deep Research</text>
+<rect x="392.26" y="522" width="76" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="404.26" y="541" font-size="13" fill="#9aa3ad">文档解析</text>
+<rect x="478.26" y="522" width="89" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="490.26" y="541" font-size="13" fill="#9aa3ad">检索与问答</text>
+<rect x="577.26" y="522" width="76" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="589.26" y="541" font-size="13" fill="#9aa3ad">模型推理</text>
+<rect x="663.26" y="522" width="76" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="675.26" y="541" font-size="13" fill="#9aa3ad">内容生成</text>
+<rect x="48" y="560" width="132.16" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="60" y="579" font-size="13" fill="#9aa3ad">翻译 · 排版 · 发布</text>
+<rect x="190.16" y="560" width="102" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="202.16" y="579" font-size="13" fill="#9aa3ad">代码执行环境</text>
+<rect x="302.16" y="560" width="145.16" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="314.16" y="579" font-size="13" fill="#9aa3ad">通讯录 · 日历 · 邮件</text>
+<rect x="457.32" y="560" width="76" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="469.32" y="579" font-size="13" fill="#9aa3ad">会前背景</text>
+<rect x="543.32" y="560" width="76" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="555.32" y="579" font-size="13" fill="#9aa3ad">市场调研</text>
+<rect x="629.32" y="560" width="76" height="28" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<text x="641.32" y="579" font-size="13" fill="#9aa3ad">任务执行</text>
+<text x="450" y="640" font-size="14" fill="#e8eaec" text-anchor="middle">不要在 AI 已经能完成的劳动上建立护城河，</text>
+<text x="450" y="664" font-size="14" fill="#e8eaec" text-anchor="middle">而要在“AI 能否让一个人真正成长”这件事上建立护城河。</text>
+</svg>

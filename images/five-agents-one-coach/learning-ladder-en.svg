@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 616" width="900" height="616" role="img" aria-labelledby="t d" font-family="-apple-system, 'PingFang SC', 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif">
+<title id="t">Each level up, feedback gets more expensive, and more real</title>
+<desc id="d">Where do the five levels of learning differ? Going up the ladder, you are exposed more and more to the risk of being proven wrong, and more people have the right to tell you so.</desc>
+<defs><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="#1a1f26"/></pattern></defs>
+<rect width="900" height="616" rx="12" fill="#0b0d10"/>
+<rect width="900" height="616" rx="12" fill="url(#dots)"/>
+<rect x="0.5" y="0.5" width="899" height="615" rx="12" fill="none" stroke="#2a2f36"/>
+<rect x="32" y="31" width="9" height="9" fill="none" stroke="#4fd1c5"/>
+<text x="50" y="40" font-size="12" fill="#4fd1c5" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="2">FIG 2 · THE LEARNING LADDER</text>
+<text x="32" y="72" font-size="21" font-weight="600" fill="#e8eaec">Each level up, feedback gets more expensive, and more real</text>
+<line x1="32" y1="90" x2="868" y2="90" stroke="#2a2f36"/>
+<rect x="32" y="316" width="160" height="56" rx="4" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+<text x="44" y="342" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#4fd1c5" font-weight="400" font-size="13">01</tspan><tspan dx="8">Listening &amp;</tspan></text>
+<text x="68" y="361" font-size="15" fill="#e8eaec" font-weight="600">fragments</text>
+<rect x="200" y="274" width="160" height="98" rx="4" fill="#101318" stroke="#3d444d" stroke-width="1.25"/>
+<text x="212" y="300" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#4fd1c5" font-weight="400" font-size="13">02</tspan><tspan dx="8">Reading</tspan></text>
+<rect x="368" y="232" width="160" height="140" rx="4" fill="#4fd1c5" stroke="#3d444d" stroke-width="1.25" fill-opacity="0.05"/>
+<text x="380" y="258" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#4fd1c5" font-weight="400" font-size="13">03</tspan><tspan dx="8">Teaching</tspan></text>
+<text x="404" y="277" font-size="15" fill="#e8eaec" font-weight="600">yourself</text>
+<rect x="536" y="190" width="160" height="182" rx="4" fill="#4fd1c5" stroke="#3d444d" stroke-width="1.25" fill-opacity="0.09"/>
+<text x="548" y="216" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#4fd1c5" font-weight="400" font-size="13">04</tspan><tspan dx="8">Deliberate</tspan></text>
+<text x="572" y="235" font-size="15" fill="#e8eaec" font-weight="600">practice</text>
+<rect x="704" y="148" width="160" height="224" rx="4" fill="#4fd1c5" stroke="#4fd1c5" stroke-width="1.25" fill-opacity="0.14"/>
+<text x="716" y="174" font-size="15" font-weight="600" fill="#e8eaec"><tspan font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" fill="#4fd1c5" font-weight="400" font-size="13">05</tspan><tspan dx="8">Writing</tspan></text>
+<text x="40" y="130" font-size="15" fill="#e3c99a" font-weight="600">Higher up, more exposed</text>
+<text x="40" y="152" font-size="13" fill="#9aa3ad">bar height = how exposed you are to being proven wrong</text>
+<path d="M364 186 V600" fill="none" stroke="#e07a6b" stroke-width="1.3" stroke-dasharray="5 5"/>
+<text x="354" y="230" font-size="13.5" fill="#e07a6b" font-weight="600" text-anchor="end">The self-protection wall</text>
+<text x="354" y="248" font-size="12.5" fill="#5c6570" text-anchor="end">most people stay on this side</text>
+<path d="M32 384 H868" fill="none" stroke="#3d444d" stroke-width="1"/>
+<text x="32" y="404" font-size="11" fill="#5c6570" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="1.5">FEEDBACK TYPE</text>
+<text x="40" y="426" font-size="13.5" fill="#9aa3ad">Input only</text>
+<text x="40" y="444" font-size="12.5" fill="#5c6570">no feedback</text>
+<text x="208" y="426" font-size="13.5" fill="#9aa3ad">Structure</text>
+<text x="208" y="444" font-size="12.5" fill="#5c6570">no outside feedback</text>
+<text x="376" y="426" font-size="13.5" fill="#9aa3ad">Self-audit</text>
+<text x="376" y="444" font-size="12.5" fill="#5c6570">first error signal</text>
+<text x="544" y="426" font-size="13.5" fill="#9aa3ad">Frequent, measurable</text>
+<text x="544" y="444" font-size="12.5" fill="#5c6570">but one skill only</text>
+<text x="712" y="426" font-size="13.5" fill="#e8eaec">Outside challenge</text>
+<text x="712" y="444" font-size="12.5" fill="#9aa3ad">invites criticism</text>
+<text x="32" y="476" font-size="11" fill="#5c6570" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="1.5">WHO CAN SAY YOU'RE WRONG</text>
+<text x="40" y="498" font-size="13.5" fill="#9aa3ad">Nobody</text>
+<text x="208" y="498" font-size="13.5" fill="#9aa3ad">Nobody</text>
+<text x="376" y="498" font-size="13.5" fill="#9aa3ad">Only you</text>
+<text x="544" y="498" font-size="13.5" fill="#9aa3ad">Tests and</text>
+<text x="544" y="516" font-size="12.5" fill="#5c6570">running code</text>
+<text x="712" y="498" font-size="13.5" fill="#e8eaec">Readers who</text>
+<text x="712" y="516" font-size="12.5" fill="#9aa3ad">owe you nothing</text>
+<text x="32" y="548" font-size="11" fill="#5c6570" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="1.5">WHAT GETS EXPOSED</text>
+<text x="40" y="570" font-size="13.5" fill="#9aa3ad">Nothing</text>
+<text x="40" y="588" font-size="12.5" fill="#5c6570">a bookmark graveyard</text>
+<text x="208" y="570" font-size="13.5" fill="#9aa3ad">Not much</text>
+<text x="208" y="588" font-size="12.5" fill="#5c6570">you skip hard parts</text>
+<text x="376" y="570" font-size="13.5" fill="#9aa3ad">Understanding gaps</text>
+<text x="376" y="588" font-size="12.5" fill="#5c6570">derive it unprompted?</text>
+<text x="544" y="570" font-size="13.5" fill="#9aa3ad">Unsolved problems</text>
+<text x="544" y="588" font-size="12.5" fill="#5c6570">programs that fail</text>
+<text x="712" y="570" font-size="13.5" fill="#e8eaec">Logic, evidence,</text>
+<text x="712" y="588" font-size="12.5" fill="#9aa3ad">assumptions, cracks</text>
+<path d="M32 458 H868" fill="none" stroke="#2a2f36" stroke-width="1"/>
+<path d="M32 530 H868" fill="none" stroke="#2a2f36" stroke-width="1"/>
+</svg>

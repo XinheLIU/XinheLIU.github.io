@@ -5,7 +5,7 @@
 })(function () {
   'use strict';
   /**
-   * @typedef {{id: string, date: string, kind: 'created' | 'updated', title: string, url: string}} WritingEvent
+   * @typedef {{id: string, date: string, kind: 'published', title: string, url: string}} WritingEvent
    * @typedef {{events: WritingEvent[]}} WritingSnapshot
    */
 
@@ -29,26 +29,18 @@
   /** @param {WritingSnapshot} snapshot @param {Date} now */
   function summarize(snapshot, now) {
     var range = windowDates(now);
-    var events = snapshot.events.filter(function (event) { return event.date >= range.start && event.date <= range.end; });
+    var events = snapshot.events.filter(function (event) { return event.kind === 'published' && event.date >= range.start && event.date <= range.end; });
     /** @type {Map<string, number>} */
     var counts = new Map();
     events.forEach(function (event) { counts.set(event.date, (counts.get(event.date) || 0) + 1); });
     return { start: range.start, end: range.end, events: events, counts: counts,
-      activeDays: counts.size, created: events.filter(function (event) { return event.kind === 'created'; }).length,
-      updated: events.filter(function (event) { return event.kind === 'updated'; }).length };
-  }
-
-  /** @param {string} value @returns {string} */
-  function escapeHtml(value) {
-    return String(value).replace(/[&<>"']/g, function (character) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character];
-    });
+      activeDays: counts.size, published: events.length };
   }
 
   /** @param {WritingSnapshot} snapshot @param {boolean} isChinese @param {Date} [now] @returns {string} */
   function render(snapshot, isChinese, now) {
     now = now || new Date();
-    var heading = '<h2 class="contribution-title">' + (isChinese ? '写作足迹' : 'Writing activity') + '</h2>';
+    var heading = '<h2 class="contribution-title">' + (isChinese ? '发布足迹' : 'Publication activity') + '</h2>';
     var summary = summarize(snapshot, now);
     var date = new Date(summary.start + 'T00:00:00Z');
     // Monday-aligned columns; padding is not a dated activity cell.
@@ -65,7 +57,7 @@
           if (date.getUTCDate() === 1 || key === summary.start) label = months[date.getUTCMonth()];
           var count = summary.counts.get(key) || 0;
           var level = count === 0 ? 0 : count === 1 ? 1 : count <= 3 ? 2 : count <= 6 ? 3 : 4;
-          var detail = key + ' · ' + count + (isChinese ? ' 次写作' : count === 1 ? ' writing event' : ' writing events');
+          var detail = key + ' · ' + count + (isChinese ? ' 篇发布' : count === 1 ? ' publication' : ' publications');
           cells.push('<span class="contribution-cell level-' + level + '" data-date="' + key +
             '" data-count="' + count + '" tabindex="0" role="img" aria-label="' + detail + '" title="' + detail + '"></span>');
         } else cells.push('<span class="contribution-padding" aria-hidden="true"></span>');
@@ -73,27 +65,14 @@
       }
       columns.push('<div class="contribution-column"><span class="activity-month">' + label + '</span>' + cells.join('') + '</div>');
     }
-    var stats = isChinese ? summary.activeDays + ' 个写作日 · ' + summary.created + ' 篇发布 · ' + summary.updated + ' 次更新' :
-      summary.activeDays + (summary.activeDays === 1 ? ' writing day · ' : ' writing days · ') + summary.created +
-      (summary.created === 1 ? ' piece published · ' : ' pieces published · ') + summary.updated + (summary.updated === 1 ? ' update' : ' updates');
-    var recent = [];
-    var seen = new Set();
-    summary.events.forEach(function (event) {
-      if (seen.has(event.id) || recent.length >= 5) return;
-      seen.add(event.id);
-      recent.push(event);
-    });
-    var items = recent.map(function (event) {
-      var label = event.kind === 'created' ? (isChinese ? '发布' : 'Published') : (isChinese ? '更新' : 'Updated');
-      return '<li><time datetime="' + event.date + '">' + event.date + '</time><div><span class="activity-repo">' +
-        label + '</span><a href="' + escapeHtml(event.url) + '">' + escapeHtml(event.title) + '</a></div></li>';
-    });
+    var stats = isChinese ? summary.activeDays + ' 个发布日 · ' + summary.published + ' 篇发布' :
+      summary.activeDays + (summary.activeDays === 1 ? ' publication day · ' : ' publication days · ') + summary.published +
+      (summary.published === 1 ? ' piece published' : ' pieces published');
     return heading + '<p class="activity-summary">' + stats + '</p>' +
       '<p class="contribution-note">' + summary.start + ' → ' + summary.end + '</p>' +
-      '<div class="contribution-graph" role="group" aria-label="' + (isChinese ? '每日写作记录' : 'Daily writing activity') + '">' + columns.join('') + '</div>' +
-      '<p class="contribution-note">' + (isChinese ? '博客、笔记与书稿，按发布与更新日期记录，包含历史文章收录。' : 'Essays, notes, and book chapters, dated by publication and revision, including archived articles added to the site.') + '</p>' +
-      '<h3 class="activity-recent-title">' + (isChinese ? '这段时间的写作' : 'Writing in this period') + '</h3>' +
-      (items.length ? '<ul class="activity-recent">' + items.join('') + '</ul>' : '<p>' + (isChinese ? '这段时间暂无写作记录。' : 'No writing recorded in this period.') + '</p>');
+      '<div class="contribution-graph" role="group" aria-label="' + (isChinese ? '每日发布记录' : 'Daily publications') + '">' + columns.join('') + '</div>' +
+      '<p class="contribution-note">' + (isChinese ? '博客、笔记与书稿，按配置的发布日期记录。' : 'Essays, notes, and book chapters, recorded by their configured publication dates.') + '</p>';
+
   }
 
   /** @param {Document} document @param {Date} [now] */

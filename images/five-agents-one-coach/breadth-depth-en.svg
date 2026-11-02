@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580" width="900" height="580" role="img" aria-labelledby="t d" font-family="-apple-system, 'PingFang SC', 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif">
+<title id="t">Move along one axis only, and you never reach cognition</title>
+<desc id="d">How do breadth and depth combine into cognition? Moving along only one axis ends in information consumption or a local optimum; only alternating between them leads to structural judgment.</desc>
+<defs><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="#1a1f26"/></pattern><marker id="ar-5c6570" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="#5c6570"/></marker><marker id="ar-e07a6b" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="#e07a6b"/></marker><marker id="ar-e3c99a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="#e3c99a"/></marker><marker id="ar-4fd1c5" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="#4fd1c5"/></marker></defs>
+<rect width="900" height="580" rx="12" fill="#0b0d10"/>
+<rect width="900" height="580" rx="12" fill="url(#dots)"/>
+<rect x="0.5" y="0.5" width="899" height="579" rx="12" fill="none" stroke="#2a2f36"/>
+<rect x="32" y="31" width="9" height="9" fill="none" stroke="#4fd1c5"/>
+<text x="50" y="40" font-size="12" fill="#4fd1c5" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" letter-spacing="2">FIG · BREADTH × DEPTH</text>
+<text x="32" y="72" font-size="21" font-weight="600" fill="#e8eaec">Move along one axis only, and you never reach cognition</text>
+<line x1="32" y1="90" x2="868" y2="90" stroke="#2a2f36"/>
+<rect x="325" y="106" width="235" height="181" rx="0" fill="#4fd1c5" stroke="none" stroke-width="0" fill-opacity="0.07"/>
+<path d="M325 106 V470" fill="none" stroke="#3d444d" stroke-width="1" stroke-dasharray="3 5"/>
+<path d="M90 287 H560" fill="none" stroke="#3d444d" stroke-width="1" stroke-dasharray="3 5"/>
+<path d="M90 470 H556" fill="none" stroke="#5c6570" stroke-width="1.2" marker-end="url(#ar-5c6570)"/>
+<path d="M90 470 V110" fill="none" stroke="#5c6570" stroke-width="1.2" marker-end="url(#ar-5c6570)"/>
+<text x="560" y="496" font-size="13" fill="#9aa3ad" text-anchor="end">Breadth</text>
+<text x="66" y="288" font-size="13" fill="#9aa3ad" text-anchor="middle" transform="rotate(-90 66 288)">Depth</text>
+<text x="130" y="132" font-size="16" fill="#e3c99a" font-weight="600">Local optimum</text>
+<text x="130" y="154" font-size="13" fill="#9aa3ad">Self-consistent, yet</text>
+<text x="130" y="173" font-size="13" fill="#9aa3ad">drifting from reality</text>
+<text x="130" y="194" font-size="12.5" fill="#5c6570">all you have is a hammer</text>
+<text x="548" y="132" font-size="16" fill="#4fd1c5" font-weight="600" text-anchor="end">Structural judgment</text>
+<text x="548" y="154" font-size="13" fill="#9aa3ad" text-anchor="end">transferable · correctable</text>
+<text x="548" y="174" font-size="12.5" fill="#5c6570" text-anchor="end">T-shaped cognition</text>
+<text x="345" y="320" font-size="15" fill="#e07a6b" font-weight="600">Information consumption</text>
+<text x="345" y="342" font-size="13" fill="#9aa3ad">seen a lot ≠ understood a lot</text>
+<text x="345" y="362" font-size="12.5" fill="#5c6570">ten book summaries</text>
+<path d="M110 450 H536" fill="none" stroke="#e07a6b" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#ar-e07a6b)"/>
+<text x="450" y="440" font-size="13" fill="#e07a6b" text-anchor="middle">breadth only</text>
+<path d="M110 450 V128" fill="none" stroke="#e3c99a" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#ar-e3c99a)"/>
+<text x="122" y="246" font-size="13" fill="#e3c99a">depth only</text>
+<path d="M125 435 L177 435 L177 387 L229 387 L229 339 L281 339 L281 291 L333 291 L333 243 L385 243 L385 195" fill="none" stroke="#4fd1c5" stroke-width="2.2" marker-end="url(#ar-4fd1c5)"/>
+<circle cx="110" cy="450" r="4" fill="#9aa3ad"/>
+<text x="236" y="358" font-size="12.5" fill="#4fd1c5">breadth →</text>
+<text x="393" y="225" font-size="12.5" fill="#4fd1c5">depth ↑</text>
+<rect x="590" y="112" width="278" height="108" rx="6" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<rect x="590" y="112" width="3" height="108" fill="#4fd1c5"/>
+<text x="608" y="140" font-size="15.5" fill="#4fd1c5" font-weight="600">Breadth · go out</text>
+<text x="608" y="164" font-size="13.5" fill="#9aa3ad">Gather material and let</text>
+<text x="608" y="184" font-size="13.5" fill="#9aa3ad">frameworks collide</text>
+<text x="608" y="208" font-size="12.5" fill="#5c6570">degrades into: consumption</text>
+<rect x="590" y="232" width="278" height="108" rx="6" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<rect x="590" y="232" width="3" height="108" fill="#aecbdd"/>
+<text x="608" y="260" font-size="15.5" fill="#aecbdd" font-weight="600">Depth · back to the cave</text>
+<text x="608" y="284" font-size="13.5" fill="#9aa3ad">Filter the input, then drill</text>
+<text x="608" y="304" font-size="13.5" fill="#9aa3ad">one question to the bottom</text>
+<text x="608" y="328" font-size="12.5" fill="#5c6570">degrades into: detached logic</text>
+<rect x="590" y="352" width="278" height="108" rx="6" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<rect x="590" y="352" width="3" height="108" fill="#e3c99a"/>
+<text x="608" y="380" font-size="15.5" fill="#e3c99a" font-weight="600">What AI tilts</text>
+<text x="608" y="404" font-size="13.5" fill="#9aa3ad">Sideways steps: nearly free</text>
+<text x="608" y="424" font-size="13.5" fill="#9aa3ad">Downward steps: easy to skip</text>
+<text x="608" y="448" font-size="12.5" fill="#5c6570">understanding ≠ rebuilding</text>
+<rect x="32" y="512" width="836" height="44" rx="4" fill="#101318" stroke="#2a2f36" stroke-width="1"/>
+<rect x="32" y="512" width="3" height="44" fill="#4fd1c5"/>
+<text x="52" y="539.04" font-size="14" fill="#e8eaec">Depth without breadth becomes a local optimum; breadth without depth is refined information consumption.</text>
+</svg>

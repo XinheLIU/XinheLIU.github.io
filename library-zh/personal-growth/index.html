@@ -1,0 +1,578 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <meta name="keywords" content="个人成长, Xinhe Liu (Charles)">
+    <meta name="description" content="关于工作、生活与自我成长的反思、读书笔记和年度回顾。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="个人成长 | Xinhe Liu (Charles)">
+    <meta property="og:description" content="关于工作、生活与自我成长的反思、读书笔记和年度回顾。">
+    <meta property="og:url" content="https://xinheliu.github.io/library-zh/personal-growth/index.html">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="个人成长 | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="关于工作、生活与自我成长的反思、读书笔记和年度回顾。">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;family=Noto+Serif+SC:wght@500;600;700&display=swap">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>个人成长 | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/home-zh/" aria-label="昕和首页">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>昕和</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="主导航">
+    
+        <a href="/home-zh/" class="">首页</a>
+    
+        <a href="/library-zh/" class="is-active">图书馆</a>
+    
+        <a href="/projects-zh/" class="">项目</a>
+    
+        <a href="/about-zh/" class="">个人信息和联系方式</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="搜索" aria-label="搜索">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a class="lang-switch" href="/library/personal-growth/" title="English" aria-label="English">EN</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="主题切换" aria-label="主题切换">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="打开菜单">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/home-zh/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>昕和</strong>
+            </span>
+        </a>
+        <p>昕和的个人主页、写作与技术笔记。</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/home-zh/">首页</a></li>
+        
+            <li><a href="/library-zh/">图书馆</a></li>
+        
+            <li><a href="/projects-zh/">项目</a></li>
+        
+            <li><a href="/about-zh/">个人信息和联系方式</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="搜索">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        <a class="lang-switch" href="/library/personal-growth/">EN</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">标签</a>
+        <a href="/categories/">分类</a>
+        <a href="/archives-zh/">归档</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+<main class="content site-page-main">
+    <section class="container hero-narrow">
+        <nav class="reading-breadcrumbs" aria-label="面包屑导航">
+            <a href="/library-zh/">图书馆</a>
+            
+            <span aria-hidden="true">/</span><span aria-current="page">个人成长</span>
+        </nav>
+        <h1 class="page-title">个人成长</h1>
+        <p class="lead">关于工作、生活与自我成长的反思、读书笔记和年度回顾。</p>
+    </section>
+    <section class="section compact">
+        <div class="container">
+            
+            
+<div class="archive-list reading-work-list">
+    
+    <article class="archive-row has-preview" data-work-id="five-agents-one-coach">
+        <a class="post-preview post-preview-image" href="/writing/five-agents-one-coach-zh/">
+            <img src="/writing/five-agents-one-coach-zh/assistant-vs-coach.svg" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2026-10-21">2026-10-21</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/five-agents-one-coach-zh/">五个 Agent，一位教练：AI 时代，我为什么还要为自己造一套成长系统</a></h3>
+            <p class="work-summary">从“越努力越像在原地优化”出发，重新思考 AI 时代的主动性、元认知与个人成长。全文沿一条主线展开：在不断变化的世界中，持续形成、检验和重构对世界与自身的理解，并让理解与行动相互塑造。我想做的是一个反 Personal Agent 的设计：服务型 Agent…</p>
+        </div>
+        <a class="tag" href="/writing/five-agents-one-coach-zh/">阅读<span class="visually-hidden"> · 五个 Agent，一位教练：AI 时代，我为什么还要为自己造一套成长系统</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="working-harder-growing-mediocre">
+        <a class="post-preview post-preview-image" href="/writing/working-harder-growing-mediocre-zh/">
+            <img src="/images/working-harder-growing-mediocre/The-Effificent-Road-to-No-Where.jpeg" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2026-10-11">2026-10-11</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/working-harder-growing-mediocre-zh/">越努力越平庸的真相</a></h3>
+            <p class="work-summary">一篇关于为什么越努力越可能平庸的反思：熟知与真知、双环学习，以及塑造认知的生态位。</p>
+        </div>
+        <a class="tag" href="/writing/working-harder-growing-mediocre-zh/">阅读<span class="visually-hidden"> · 越努力越平庸的真相</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="lessons-from-2024">
+        <a class="post-preview post-preview-image" href="/writing/lessons-from-2024-zh/">
+            <img src="/writing/lessons-from-2024-zh/93d5c6fe69b27145.png" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-30">2025-11-30</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/lessons-from-2024-zh/">2024年的一些收获</a></h3>
+            <p class="work-summary">龙年已过，蛇年开始。趁春节假期，记下了24年的一些感悟。</p>
+        </div>
+        <a class="tag" href="/writing/lessons-from-2024-zh/">阅读<span class="visually-hidden"> · 2024年的一些收获</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="be-your-personal-best-reading-notes">
+        <a class="post-preview post-preview-image" href="/writing/be-your-personal-best-reading-notes-zh/">
+            <img src="/writing/be-your-personal-best-reading-notes-zh/8020e9645dc83df7.jpg" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-25">2025-11-25</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/be-your-personal-best-reading-notes-zh/">读书笔记《做最好的自己》李开复</a></h3>
+            <p class="work-summary">五一期间想再读这本大学学过的书，网上竟然找不到电子版和读书笔记，ChatGPT也给出了完全胡说的摘要。自己买了二手书一读，再次感慨是一本被书名耽误的好书和有前瞻性的书。而且再看其中的内容，很多是工作之后才真的开始懂的。其实自我提升的书都属于知易行难，实践远远比…</p>
+        </div>
+        <a class="tag" href="/writing/be-your-personal-best-reading-notes-zh/">阅读<span class="visually-hidden"> · 读书笔记《做最好的自己》李开复</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="reflections-at-the-start-of-2023">
+        <a class="post-preview post-preview-image" href="/writing/reflections-at-the-start-of-2023-zh/">
+            <img src="/writing/reflections-at-the-start-of-2023-zh/94d02355ea4c4d1c.jpg" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-21">2025-11-21</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/reflections-at-the-start-of-2023-zh/">2023年初的小作文</a></h3>
+            <p class="work-summary">公众号本已撂荒近一年，之间也有陆陆续续写一些文字，但都因不成型或有些内容的原因并未发出。没想到春节聊天之际，有几个朋友竟问起“你今年的小作文呢”，便写一点文字给问起的几个朋友和家人罢。（也希望今年能勤快一点）</p>
+        </div>
+        <a class="tag" href="/writing/reflections-at-the-start-of-2023-zh/">阅读<span class="visually-hidden"> · 2023年初的小作文</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="year-in-review-2021">
+        <a class="post-preview preview-grid" href="/writing/year-in-review-2021-zh/">
+            <span>文章</span>
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-16">2025-11-16</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/year-in-review-2021-zh/">2021年度总结</a></h3>
+            <p class="work-summary">疫情第三年，虽仍诸多变动，对不少人来说却比前两年略微稳定一些。对于自己而言尤其如此——看去年的年终总结和求职相关的札记，大的方面想法还是基本一致的。虽然具体执行实践中碰到不少新的问题，但与前两年相比，在从国外到国内、从金融到互联网转换环境和落地的的大背景下，今…</p>
+        </div>
+        <a class="tag" href="/writing/year-in-review-2021-zh/">阅读<span class="visually-hidden"> · 2021年度总结</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="a-world-without-alternating-workweeks">
+        <a class="post-preview post-preview-image" href="/writing/a-world-without-alternating-workweeks-zh/">
+            <img src="/writing/a-world-without-alternating-workweeks-zh/d0210a90183596f0.jpg" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-12">2025-11-12</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/a-world-without-alternating-workweeks-zh/">在没有“大小周”的世界里</a></h3>
+            <p class="work-summary">取消“大小周”的靴子昨天算落了地。很多员工高兴的同时，不少人担忧“少的只是钱”“不给钱的加班开始了”，甚嚣尘上，议论纷纷。老实说，“你们真的996吗”真可谓回国这段时间朋友聚会中通常被问的最多的问题，似乎也是大家对如今的互联网公司唯一关心的问题（当然还有“钱够…</p>
+        </div>
+        <a class="tag" href="/writing/a-world-without-alternating-workweeks-zh/">阅读<span class="visually-hidden"> · 在没有“大小周”的世界里</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="my-first-two-months">
+        <a class="post-preview preview-grid" href="/writing/my-first-two-months-zh/">
+            <span>文章</span>
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-07">2025-11-07</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/my-first-two-months-zh/">第一个“双月”</a></h3>
+            <p class="work-summary">在这个国度中，必须不停地奔跑，才能使你保持在原地。—《爱丽丝镜中奇遇记》</p>
+        </div>
+        <a class="tag" href="/writing/my-first-two-months-zh/">阅读<span class="visually-hidden"> · 第一个“双月”</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="returning-to-china-and-job-search">
+        <a class="post-preview post-preview-image" href="/writing/returning-to-china-and-job-search-zh/">
+            <img src="/writing/returning-to-china-and-job-search-zh/e2158c872235f9c0.jpg" alt="" loading="lazy">
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-11-03">2025-11-03</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/returning-to-china-and-job-search-zh/">回国与求职复盘</a></h3>
+            <p class="work-summary">最近不少朋友关心关于回国和在国内发展的问题，也对我为什么回国的想法很感兴趣。从去年底从美国回来，之间断断续续谈工作差不多有三个月时间。现在入职已经差不多有一个月了，也对之前回国和找工作做一下复盘，聊一聊回国的想法和规划和找工作的过程中一些反思。</p>
+        </div>
+        <a class="tag" href="/writing/returning-to-china-and-job-search-zh/">阅读<span class="visually-hidden"> · 回国与求职复盘</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="farewell-to-2020">
+        <a class="post-preview preview-grid" href="/writing/farewell-to-2020-zh/">
+            <span>文章</span>
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-10-29">2025-10-29</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/farewell-to-2020-zh/">再见，黑天鹅飞过的2020</a></h3>
+            <p class="work-summary">2020，从新闻媒体，专栏著作到每个人的朋友圈，都是与过去很多年如此不同的一年；也许过去很多年回头看，也许它会渐渐变得和其他年份一样平平无奇，又或者更加惊心动魄，但我想对于我个人而言，多半仍然是难忘的一年。</p>
+        </div>
+        <a class="tag" href="/writing/farewell-to-2020-zh/">阅读<span class="visually-hidden"> · 再见，黑天鹅飞过的2020</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="hello-2020">
+        <a class="post-preview preview-grid" href="/writing/hello-2020-zh/">
+            <span>文章</span>
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-10-23">2025-10-23</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/hello-2020-zh/">你好2020</a></h3>
+            <p class="work-summary">今天是新年的第一天，分享一下我对自己新一年的规划和设立的目标。希望通过这些规划，让在自己前两篇总结中所说做的不好的方面有所提高进步，同时能有所提高，离自己所想成为的人再进一步。</p>
+        </div>
+        <a class="tag" href="/writing/hello-2020-zh/">阅读<span class="visually-hidden"> · 你好2020</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="farewell-to-2019-part-2">
+        <a class="post-preview preview-grid" href="/writing/farewell-to-2019-part-2-zh/">
+            <span>文章</span>
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-10-19">2025-10-19</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/farewell-to-2019-part-2-zh/">告别2019(下）</a></h3>
+            <p class="work-summary">承接上半篇，今天谈谈自己没有做好和没有必要做的事情。回顾过去，遗憾的往往是没做好的事情比做成的事情多出不少，而更多的时间花费在了没有必要做的事情上。因此很多时候，反思往往比精进更容易带来进步，少犯错误比多做事情更加重要。</p>
+        </div>
+        <a class="tag" href="/writing/farewell-to-2019-part-2-zh/">阅读<span class="visually-hidden"> · 告别2019(下）</span></a>
+    </article>
+    
+    <article class="archive-row has-preview" data-work-id="farewell-to-2019-part-1">
+        <a class="post-preview preview-grid" href="/writing/farewell-to-2019-part-1-zh/">
+            <span>文章</span>
+        </a>
+        <div class="summary-stack">
+            <span class="meta"><time datetime="2025-10-15">2025-10-15</time> · 文章</span>
+            <h3><a class="archive-row-link" href="/writing/farewell-to-2019-part-1-zh/">告别2019(上)</a></h3>
+            <p class="work-summary">今天是2019的圣诞节，在西方，这是家人团聚，欢聚新年的日子，也是大家告别2019，跨入2020的开始。在这段时间里，大家会多花一些时间陪伴亲人，联系朋友，和重要的人在一起，回顾过去，展望来年。因此按照“国际惯例”，我也在这段时间将自己过去的一年做一个简单回顾…</p>
+        </div>
+        <a class="tag" href="/writing/farewell-to-2019-part-1-zh/">阅读<span class="visually-hidden"> · 告别2019(上)</span></a>
+    </article>
+    
+</div>
+
+        </div>
+    </section>
+</main>
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>昕和 · 个人网站、写作与技术笔记</span>
+        <div class="footer-links">
+            <a href="/writing-zh/">写作</a>
+            <a href="/projects-zh/">项目</a>
+            <a href="/about-zh/">个人信息和联系方式</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">标签</a>
+            <a href="/categories/">分类</a>
+            <a href="/archives-zh/">归档</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>

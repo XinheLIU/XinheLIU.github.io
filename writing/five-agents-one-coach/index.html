@@ -1,0 +1,1314 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        /* Apply saved theme before first paint to avoid a light->dark flash (FOUC). */
+        (function () {
+            try {
+                var t = localStorage.getItem('xinhe-site-theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <meta name="keywords" content="Five Agents, One Coach: Why I&#39;m Still Building a Growth System for Myself in the Age of AI, Xinhe Liu (Charles)">
+    <meta name="description" content="Why I am designing a personal growth system as the opposite of a personal agent. One line runs through the essay, continually forming, testing and reframing an understanding of the world and of myself, and letting that understanding and action shape each other. General personal agents, which I call service agents, will win a huge market by serving convenience, but they serve human laziness rather than amplify human ability, and they will never keep that line running in one person. So I am trying the other way, a coach built on a shared knowledge base with five products, one agent each, borrowing general capabilities from existing agents and building only what they cannot or will not do. It is tested in a twelve-week practice with evidence others can check and failure conditions written in advance.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Five Agents, One Coach: Why I&#39;m Still Building a Growth System for Myself in the Age of AI | Xinhe Liu (Charles)">
+    <meta property="og:description" content="Why I am designing a personal growth system as the opposite of a personal agent. One line runs through the essay, continually forming, testing and reframing an understanding of the world and of myself, and letting that understanding and action shape each other. General personal agents, which I call service agents, will win a huge market by serving convenience, but they serve human laziness rather than amplify human ability, and they will never keep that line running in one person. So I am trying the other way, a coach built on a shared knowledge base with five products, one agent each, borrowing general capabilities from existing agents and building only what they cannot or will not do. It is tested in a twelve-week practice with evidence others can check and failure conditions written in advance.">
+    <meta property="og:url" content="https://xinheliu.github.io/writing/five-agents-one-coach/">
+    <meta property="og:image" content="https://xinheliu.github.io/images/profile.png">
+    <meta property="og:site_name" content="Xinhe Liu (Charles)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Five Agents, One Coach: Why I&#39;m Still Building a Growth System for Myself in the Age of AI | Xinhe Liu (Charles)">
+    <meta name="twitter:description" content="Why I am designing a personal growth system as the opposite of a personal agent. One line runs through the essay, continually forming, testing and reframing an understanding of the world and of myself, and letting that understanding and action shape each other. General personal agents, which I call service agents, will win a huge market by serving convenience, but they serve human laziness rather than amplify human ability, and they will never keep that line running in one person. So I am trying the other way, a coach built on a shared knowledge base with five products, one agent each, borrowing general capabilities from existing agents and building only what they cannot or will not do. It is tested in a twelve-week practice with evidence others can check and failure conditions written in advance.">
+    <meta name="twitter:image" content="https://xinheliu.github.io/images/profile.png">
+
+    <!-- Display webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Five Agents, One Coach: Why I&#39;m Still Building a Growth System for Myself in the Age of AI | Xinhe Liu (Charles)</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/xinhe-site.css">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- KaTeX 数学公式支持 -->
+    
+    
+    <!-- MathJax 数学公式支持 -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed site-header-wrap">
+    <nav id="headNav" class="site-header-shell">
+        <div id="navContainer" class="nav-wrapper container nav-row">
+            
+
+<a class="brand-lockup" href="/" aria-label="Xinhe Liu (Charles) home">
+    <span class="brand-mark">
+        <img src="/images/logo.svg" alt="">
+    </span>
+    <span class="brand-name">
+        <strong>Xinhe Liu (Charles)</strong>
+    </span>
+</a>
+
+<div class="site-nav hide-on-med-and-down" role="navigation" aria-label="Primary navigation">
+    
+        <a href="/" class="">Home</a>
+    
+        <a href="/library/" class="">Library</a>
+    
+        <a href="/projects/" class="">Projects</a>
+    
+        <a href="/about/" class="">About &amp; Contact</a>
+    
+</div>
+
+<div class="nav-actions utility-actions">
+    <a href="#searchModal" class="modal-trigger nav-utility hide-on-med-and-down" title="Search" aria-label="Search">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a class="lang-switch" href="/writing/five-agents-one-coach-zh/" title="中文" aria-label="中文">中</a>
+    <button class="theme-toggle" type="button" data-theme-toggle title="Theme toggle" aria-label="Theme toggle">●</button>
+    <a href="#" data-target="mobile-nav" class="sidenav-trigger nav-utility site-mobile-trigger hide-on-large-only" aria-label="Open menu">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </a>
+</div>
+
+
+<div id="mobile-nav" class="sidenav site-mobile-nav">
+    <div class="mobile-nav-head">
+        <a class="brand-lockup" href="/">
+            <span class="brand-mark">
+                <img src="/images/logo.svg" alt="">
+            </span>
+            <span class="brand-name">
+                <strong>Xinhe Liu (Charles)</strong>
+            </span>
+        </a>
+        <p>Xinhe Liu (Charles): personal site, writing, and technical notes.</p>
+    </div>
+
+    <ul class="mobile-nav-list">
+        
+            <li><a href="/">Home</a></li>
+        
+            <li><a href="/library/">Library</a></li>
+        
+            <li><a href="/projects/">Projects</a></li>
+        
+            <li><a href="/about/">About &amp; Contact</a></li>
+        
+    </ul>
+
+    <div class="mobile-nav-actions">
+        <a href="#searchModal" class="modal-trigger nav-utility sidenav-close" aria-label="Search">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+        <a class="lang-switch" href="/writing/five-agents-one-coach-zh/">中</a>
+        <button class="theme-toggle" type="button" data-theme-toggle>●</button>
+    </div>
+
+    <div class="mobile-secondary-links">
+        <a href="/tags/">Tags</a>
+        <a href="/categories/">Categories</a>
+        <a href="/archives/">Archives</a>
+    </div>
+</div>
+
+
+        </div>
+    </nav>
+</header>
+
+    
+
+
+<header class="post-hero content">
+    <div class="container">
+        
+            <p class="eyebrow">Writing</p>
+        
+        <h1 class="page-title">Five Agents, One Coach: Why I&#39;m Still Building a Growth System for Myself in the Age of AI</h1>
+        <div class="post-meta">
+            <time datetime="2026-10-21">2026-10-21</time>
+            
+                <span class="dot">·</span>
+                <span>84 min read</span>
+            
+            
+                <span class="post-hero-tags">
+                    
+                        <a class="chip" href="/tags/Personal-Growth/">Personal Growth</a>
+                    
+                        <a class="chip" href="/tags/AI-Machine-Learning/">AI &amp; Machine Learning</a>
+                    
+                        <a class="chip" href="/tags/Agent/">Agent</a>
+                    
+                </span>
+            
+        </div>
+        <hr class="post-hero-rule">
+    </div>
+</header>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="five-agents-one-coach-why-im-still-building-a-growth-system-for-myself-in-the-age-of-ai"><a class="markdownIt-Anchor" href="#five-agents-one-coach-why-im-still-building-a-growth-system-for-myself-in-the-age-of-ai"></a> Five Agents, One Coach: Why I’m Still Building a Growth System for Myself in the Age of AI</h1>
+<p>I want to design a growth system for myself. It started with three very concrete frustrations: information is scattered, learning gets no feedback, and ideas are hard to put into action. Pressing further, I found they point to the same question: how can I keep forming better understanding out of my daily work and life, and use that understanding to decide what to do next?</p>
+<p>AI makes the question more urgent. It has sharply lowered the cost of searching, analyzing, deriving and generating, so I can do more. But the more I can do, the more I need to know what is worth doing, why I choose as I do, and what evidence would change my choice.</p>
+<p>What I expect from this system comes down to two things:</p>
+<ul>
+<li>Sharpening feedback loops</li>
+<li>Cultivating metacognition</li>
+</ul>
+<p>The first lets the information that action produces actually shape the next action. The second gives me a chance to step outside and examine what I am pursuing, what I base my judgments on, and how the environment has shaped those ideas. Both sit on one line: <strong>in a world that keeps changing, to keep forming, testing and reconstructing my understanding of the world and of myself, and to let that understanding and my actions shape each other.</strong></p>
+<p>“Understanding” here includes the question itself. Often I don’t know at the start what I am really asking; the question becomes clear bit by bit through reading, practice and conversation.</p>
+<figure class="slides-embed">
+  <div class="slides-embed-frame">
+    <iframe src="/slides/five-agents-one-coach/en/" title="Five Agents · One Coach · 32 slides" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <figcaption class="slides-embed-bar">
+    <span class="slides-embed-title">Five Agents · One Coach · 32 slides</span>
+    <span class="slides-embed-hint">Click, then arrow keys · O for overview</span>
+    <a class="slides-embed-open" href="/slides/five-agents-one-coach/en/" target="_blank" rel="noopener">Open fullscreen ↗</a>
+  </figcaption>
+</figure>
+<h2 id="1-the-problem-the-harder-i-work-the-more-i-optimize-in-place"><a class="markdownIt-Anchor" href="#1-the-problem-the-harder-i-work-the-more-i-optimize-in-place"></a> 1. The problem: the harder I work, the more I optimize in place</h2>
+<p>For more than a decade I grew along a clear path: read more books, learn more things, solve harder problems. That method carried me into one new field after another. In my twenties it worked extremely well: the marginal return on learning was high and the results were direct. If you couldn’t code, learning to code was a huge step; if you didn’t understand business, grasping its basic logic opened up a new world.</p>
+<p>After thirty, and with AI, I began to doubt whether it was still enough. With AI, my ability to acquire knowledge is far beyond what it used to be: a few hours cover research that once took weeks, I can get into an unfamiliar field quickly, and I can write code that runs. But the speed at which I process information went up, and my growth did not keep pace.</p>
+<ul>
+<li>I spent a lot of time researching a technical direction, yet never seriously judged whether it deserved three years of my life;</li>
+<li>I know quite a few excellent people, yet rarely turned those relationships into long-term mutual success;</li>
+<li>Every so often a good idea comes up, and three months later it is buried in chat logs, notes and to-do lists;</li>
+<li>I finished each day’s tasks conscientiously, yet couldn’t say which understanding in the past half year had actually changed me.</li>
+</ul>
+<p>Over the National Day holiday I wrote <a href="/writing/working-harder-growing-mediocre/">The Efficient Road to No Where</a>, about familiar knowledge versus true knowledge, single- versus double-loop learning, and niches. Its conclusion was that I can no longer treat cognition as a substitute for action. A person can be extremely diligent and still spend years making local optimizations inside a familiar framework. So the question I really want to ask is: <strong>am I growing, or just repeating my past self more and more efficiently?</strong></p>
+<h3 id="after-school-the-broken-feedback-loop"><a class="markdownIt-Anchor" href="#after-school-the-broken-feedback-loop"></a> After school, the broken feedback loop</h3>
+<p>At school, exams are a highly institutionalized feedback mechanism. They may not measure every ability accurately, but they keep telling us what’s right, what’s wrong, and what we haven’t mastered. After we leave school, that mechanism is dismantled piece by piece:</p>
+<p><img src="/writing/five-agents-one-coach/feedback-four-cuts-v5-en.svg" alt="Where does feedback break after school? The four breaks land on observation, testing, goals and storage" /></p>
+<ul>
+<li><strong>Cut-off.</strong> Testing is taken away on graduation day, and most people never put it back. Reading, taking courses, bookmarking and summarizing all bring an easy sense of completion, but none of them proves real mastery.</li>
+<li><strong>Contamination.</strong> Without tests, people turn to consuming information. But what they consume has passed through two filters: platforms rank by engagement, and we tend to pick what we want to see. Both push the same way: people become more certain, and narrower.</li>
+<li><strong>Wrong target.</strong> Plenty of people do review their work, but only whether it was done well, rarely whether it should have been done. Optimize only execution and you get better and better at doing things that were never worth doing.</li>
+<li><strong>No trace.</strong> Even when feedback happens, it has nowhere to live. A book changes your view, and a month later you can’t remember what the old view was; a project ends, and the review relies on memory. If you can’t see how your model changed, you can’t spot the biases that keep recurring.</li>
+</ul>
+<p>This is only a diagnosis. It says where feedback breaks; it doesn’t map each break to a single repair tool. Stack the four together and a person can keep learning, acting and reviewing, yet get better and better at proving themselves right from inside their existing position. AI’s most valuable role may not be reading and summarizing for us. <strong>For the first time, it may be possible to reinstall a feedback system for an adult.</strong></p>
+<h3 id="from-competing-on-skill-to-competing-on-management"><a class="markdownIt-Anchor" href="#from-competing-on-skill-to-competing-on-management"></a> From competing on skill to competing on management</h3>
+<p>When we are young, progress happens mainly in professional skills: learn more new abilities, faster, and you get bigger results. Once ability has accumulated to a certain point, the problem gets more complicated: knowing more doesn’t necessarily make it clearer where to invest, and working faster on your own doesn’t necessarily create more value.</p>
+<p>A career at this stage is like an athlete’s. When young, it is mostly about individual breakthroughs; late in the career, you have to mobilize a team and even influence the club. Four kinds of leverage matter more than individual ability, and they need to work together:</p>
+<ul>
+<li><strong>Information leverage</strong>: reaching important changes in time, and noticing what your own sources are missing;</li>
+<li><strong>Cognitive leverage</strong>: forming understanding that explains problems and guides action;</li>
+<li><strong>Relationship leverage</strong>: building lasting, reciprocal relationships with the right people, so that different capabilities can work together;</li>
+<li><strong>Action leverage</strong>: putting understanding, capability and relationships into practice, producing products, work and new opportunities.</li>
+</ul>
+<p>These kinds of leverage affect each other. Understanding decides what I’m willing to try, collaboration brings new information, and action may overturn the original understanding. The ability to run things shows up in this back-and-forth: judging what’s worth doing, organizing the conditions to make it happen, then reallocating resources on the results. What’s worth learning is how to keep connecting talent, markets and organizations around a core cognitive edge, and so break through the ceiling of individual output. The value of individual ability depends heavily on where it is deployed and what resources it is combined with.</p>
+<p>In the AI era we have calendars, to-do lists, notes, contacts and all kinds of AI assistants. They are all useful, but mostly they help us finish what we have already decided to do: they can list today’s tasks without judging whether those tasks are worth doing, and record a contact without connecting what that person is doing lately to the opportunity I’m exploring. Companies have strategy, talent and knowledge-management functions to judge and allocate resources; individuals have almost none. <strong>Most personal productivity tools optimize execution efficiency, not the quality of cognition and decisions.</strong></p>
+<h3 id="once-ai-flattens-much-intellectual-work-agency-becomes-the-more-important-edge"><a class="markdownIt-Anchor" href="#once-ai-flattens-much-intellectual-work-agency-becomes-the-more-important-edge"></a> Once AI flattens much intellectual work, agency becomes the more important edge</h3>
+<p>Searching for material, comparing options, deriving plans, and generating code and content: a large share of professional intellectual work is being flattened by AI. Tasks change at different speeds, and expertise still matters, but building an advantage on information-processing ability alone will keep getting harder.</p>
+<p>That is why more and more people talk about agency. Agency is a person’s capacity to form goals, make choices, organize resources to act, adjust on feedback, and own the results. It shows in starting something, and equally in sustaining effort, changing methods, or stopping a project that is no longer worth doing.</p>
+<p>One claim divides the people of the future into “those who supply data” and “those who supply algorithms”.</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>What you supply</th>
+<th>What you get</th>
+<th>Where it goes in the AI era</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Supplying data</td>
+<td>Attention, preferences, behavior</td>
+<td>Convenience and entertainment</td>
+<td>Served best, and most easily shaped</td>
+</tr>
+<tr>
+<td>Supplying methods</td>
+<td>Analysis, experience, process</td>
+<td>A professional premium</td>
+<td>Gradually caught up by AI; methods get distilled into data</td>
+</tr>
+<tr>
+<td>Supplying definitions</td>
+<td>Goals, judgment, connection, ownership</td>
+<td>Leverage</td>
+<td>Ever rarer, and ever more valuable</td>
+</tr>
+</tbody>
+</table>
+<p>Personal Agents will gradually take over, from entertainment to shopping and social life. But a system that only learns preferences just feeds the user’s past choices back, making the next choice look more like the past. A service-type AI won’t automatically decide what I want to build or what cost I’m willing to bear, and it won’t automatically walk me into reality to turn an idea into practice. What will be scarcer in the future is the person who dares to define rather than be defined.</p>
+<p>But if the person is the subject and AI the tool, AI can markedly amplify and strengthen a person’s agency:</p>
+<table>
+<thead>
+<tr>
+<th>Component of agency</th>
+<th>What AI can help with</th>
+<th>What the person must do</th>
+<th>What understanding it depends on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Defining</td>
+<td>Cluster signals; list candidate problems and goals</td>
+<td>Pick the problem; set your own standards</td>
+<td>A model of yourself and the environment: what matters</td>
+</tr>
+<tr>
+<td>Judging</td>
+<td>Gather evidence, offer a first take, look for counterexamples</td>
+<td>The final trade-off and level of confidence</td>
+<td>A model of the domain: where the key constraints are</td>
+</tr>
+<tr>
+<td>Connecting</td>
+<td>Spot complementary people and timing; prepare background</td>
+<td>Introduce and collaborate on your own credibility</td>
+<td>A model of people: who lacks what, who can offer what</td>
+</tr>
+<tr>
+<td>Owning</td>
+<td>Execute, follow up, remind</td>
+<td>Answer for the results and revisit the grounds</td>
+<td>A model of yourself: how much uncertainty you can bear</td>
+</tr>
+</tbody>
+</table>
+<p>Agency and cognition depend on each other. On one hand, you need enough understanding to recognize opportunities, constraints and costs; on the other, much understanding only comes after acting. Waiting until you have thought everything through may mean never setting out; acting continuously without reflection may be mere repetition.</p>
+<h3 id="why-metacognition-matters"><a class="markdownIt-Anchor" href="#why-metacognition-matters"></a> Why metacognition matters</h3>
+<p>A major source of agency is <strong>metacognition: noticing how I come to know and judge, and deliberately adjusting that process.</strong></p>
+<p>At bottom this takes “double-loop learning”: treating my own goals, rules and underlying assumptions as things to examine. Only when I can see the framework do I have a chance to adjust it deliberately.</p>
+<ul>
+<li>Single-loop learning is about doing better under given goals: can the model perform better, can the work go faster, can communication be clearer. It has a premise: the goals, rules and measures have already been accepted.</li>
+<li>Double-loop learning brings those premises into scope too: why pursue this goal? Why judge good and bad by this standard? Do the assumptions I used to believe still hold? Sometimes a person keeps working hard and never breaks through, precisely because they have become very good at optimizing something they don’t really want to do.</li>
+</ul>
+<p>Cognition forms gradually inside an environment. What work rewards, what the people around you discuss, and what information you meet every day all affect which problems I think matter and which abilities I think are valuable. Spend long enough in a technical environment and it is easy to take technical difficulty as the main source of value; get used to the evaluation criteria an organization gives you and it is easy to take passing the evaluation as your own goal.</p>
+<p>So to step outside and examine myself, I have to treat the surrounding environment as an object of understanding too. Notes, project records, conversation history and memory have a concrete use here: they help me look back at what I saw then, what incentives I faced, what choices I had, and why I keep heading toward similar choices. Records give this examination something to stand on; whether I’m willing to judge again is still up to me.</p>
+<p><strong>Real cognitive accumulation makes it ever clearer what deserves my sustained investment, and under what conditions I should change it.</strong></p>
+<p>Metacognition doesn’t create resources out of nothing, and it doesn’t remove real constraints. But it at least helps me see what options I still have, and reduces how often I’m pushed along by the environment without realizing it.</p>
+<p>This examination can happen at different levels: how a specific judgment was formed, or the position from which I habitually view the whole situation.</p>
+<p>Many concrete exercises can build metacognition on the basis of double-loop learning, for example:</p>
+<ul>
+<li>Separating fact, emotion, interpretation and prediction.
+<ul>
+<li>Often we think we are describing reality when we are describing a feeling, or treating an interpretation as a fact. Suppose a client hasn’t replied for three days after receiving a quote. “No reply for three days” is an observation; “I feel let down” is an emotion; “the client thinks the price is too high” is an interpretation; “this deal probably won’t happen” is a prediction. All four can show up at once, but each needs different grounds. The disappointment is a real feeling, but it can’t by itself prove why the client declined; one silence is not enough to infer long-term market demand.</li>
+</ul>
+</li>
+<li>Switching between the retail-investor view and the house view.
+<ul>
+<li>The retail view habitually stands inside existing rules and looks for a local optimum in its own interest: how to get a better quote, a higher rating, the opportunity right in front of you. The house has to understand the whole picture: who sets the rules, why each party takes part, how resources are organized, how to keep collaboration going, which rules are worth changing. Only with the house’s insight can someone knowingly give up part of an immediate gain, leave room for collaboration, and trade it for long-term trust and the chance to create value together. That trade-off needs a longer view of relationships and time, and knowing how much uncertainty you can bear.</li>
+</ul>
+</li>
+<li>The ability to gradually correct your own actions.
+<ul>
+<li>You can act first with an incomplete question, then use new evidence to ask it more precisely. A growth system needs to help people through this back-and-forth, and can’t require users to hand in a perfectly defined long-term goal at the start. How a question goes from vague to clear is taken up in the last section of Part 2.</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-how-cognition-grows-the-unity-of-knowing-and-acting"><a class="markdownIt-Anchor" href="#2-how-cognition-grows-the-unity-of-knowing-and-acting"></a> 2. How cognition grows: the unity of knowing and acting</h2>
+<p>People and agents are trained in many of the same ways: both have to <strong>make decisions and allocate resources continuously in an uncertain environment, on the basis of feedback.</strong> A mature Agent needs to define a goal, obtain facts, choose actions under constraints, record results and keep adjusting; running a company means understanding the market, allocating resources, acting, then revising strategy on feedback; personal growth likewise involves goals, time, ability, relationships and feedback. The differences lie in the goal, the quality of information, the actions available, and the cost of trial and error.</p>
+<p>There is also a more basic difference between human growth and agent training: an agent’s goal is usually given, while many of a person’s goals and questions form gradually through exploration. What I want, and what I am really asking, often only becomes known after I have walked a stretch of the road. So for a person this line can’t be only the optimization of a fixed goal; it has to include forming and reconstructing the goals and questions themselves.</p>
+<p>Broken down, it is four steps: <strong>observe</strong> the environment, <strong>model</strong> it, <strong>test</strong> the model, and make a <strong>choice</strong> and commit. Choices bring feedback and feedback returns to the model; that is the single loop from Part 1. When needed, bringing goals, questions and assumptions into scope as well is the double loop. Behind the four steps are three abilities that reinforce one another:</p>
+<ul>
+<li><strong>Making meaning and building goals</strong>: gradually forming understanding out of vague experience, information and conflict, mainly in observing and modeling;</li>
+<li><strong>Learning and correction</strong>: testing understanding through logic, evidence and practice, finding errors and boundaries, mainly in testing;</li>
+<li><strong>Agency and metacognition</strong>: choosing on the basis of incomplete understanding and continuing to learn about the world in practice, mainly in choosing and committing.</li>
+</ul>
+<p>The three have no order. Without meaning-making, learning doesn’t know what to test; without learning, understanding is only a self-consistent story; without agency, understanding stays on paper.</p>
+<p>My understanding of 知行合一, the unity of knowing and acting, is making this line actually run, which to some extent resembles training an agent: existing understanding guides action, action brings out conditions that were invisible before, and through feedback, reflection and abstraction these experiences become the basis for the next action. Knowing and acting change each other in this process. Reading, learning and thinking all take part; their role has to be understood within this back-and-forth.</p>
+<h3 id="acting-shaping-the-feedback-environment"><a class="markdownIt-Anchor" href="#acting-shaping-the-feedback-environment"></a> Acting: shaping the feedback environment</h3>
+<h4 id="turning-action-into-experience-and-knowledge"><a class="markdownIt-Anchor" href="#turning-action-into-experience-and-knowledge"></a> Turning action into experience and knowledge</h4>
+<p>Much real knowledge can only be gained through action. Only by writing an article do you discover that some ideas you thought were clear can’t be expressed precisely. Only by building a product do you learn how much of your understanding of users came from imagination. Only by actually charging customers do you meet the combined constraints of need, budget, procurement process and trust. This information is hard to get fully by reading a few more pieces, because it is tied to specific people, situations and the actions you took yourself.</p>
+<p>Action makes part of the previously invisible world visible. But going through something doesn’t automatically become experience, and experience doesn’t automatically become cognition. Going through something only means contact; experience means your original understanding was tested and corrected. If someone works for ten years and keeps blaming failure on the environment and luck, never adjusting their framework, they may have just repeated their first year ten times.</p>
+<p>What I call cognitive growth is being able to distill, from such experiences, relationships with more explanatory power, knowing the conditions under which they hold, and applying them to new problems. For example, one client not buying can push me to distinguish between “the product can solve the problem” and “the client is in a position to buy”. Whether that insight transfers depends on whether other clients face similar constraints.</p>
+<p>Notes and reviews are useful because they help me take this step. Retelling what happened only preserves the experience; finding the conditions I hadn’t seen, and changing the next action accordingly, is where my own experience begins to form.</p>
+<h4 id="knowledge-an-effective-feedback-loop"><a class="markdownIt-Anchor" href="#knowledge-an-effective-feedback-loop"></a> Knowledge = an effective feedback loop</h4>
+<p>Feedback is the information you get when a model comes into contact with reality. It can come from an exercise, and also from product use, client conversations, collaboration and final results. A result that matches expectations raises confidence in an explanation; one that doesn’t may expose a problem in assumptions, execution or observation.</p>
+<p>The real difficulty is explaining the gap. A product nobody uses might mean the need was misjudged, or reach was insufficient, or the cost of use is too high, or the product doesn’t yet reliably solve the problem. Blame every failure on the wrong direction and you give up too early; blame it all on poor execution and you keep doubling down in the wrong direction.</p>
+<p>So an effective feedback loop has to answer at least a few connected questions: what did I expect to happen, what did I actually observe, what are the possible explanations, what further evidence do I need, and how should I adjust next. The result itself rarely gives the whole answer. The job of reflection is to narrow the range of explanations and design a more discriminating next attempt.</p>
+<p>This includes uncertain conclusions. Sometimes the evidence can only say “we can’t tell yet”, and different explanations should be kept open; sometimes new material supports the original judgment, and continuing to invest is the reasonable choice. The number of times a model changes is not a direct measure of how much cognition has grown.</p>
+<h4 id="fast-and-slow-feedback"><a class="markdownIt-Anchor" href="#fast-and-slow-feedback"></a> Fast and slow feedback</h4>
+<p>The speed and the quality of feedback are not the same thing either. A failing program may expose a problem instantly without pointing to the root cause; a client’s quick yes doesn’t necessarily mean willingness to pay; the value of a long-term collaboration takes longer to see.</p>
+<p>Roughly by speed, feedback comes fast or slow. These are not two paths, “learning” and “acting”; they are two rhythms inside the same stretch of practice. A client interview, a code experiment, an exercise or a draft can all yield results the same day; whether a direction deserves three years, or whether a collaboration stays reciprocal, takes longer to learn.</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Fast feedback</th>
+<th>Slow feedback</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source</td>
+<td>Material, exercises, drafts, one conversation, one small experiment</td>
+<td>Real results of direction, collaboration and investment</td>
+</tr>
+<tr>
+<td>Cycle</td>
+<td>A day to two weeks</td>
+<td>A quarter to several years</td>
+</tr>
+<tr>
+<td>Sample size</td>
+<td>Every day</td>
+<td>A few times a year</td>
+</tr>
+<tr>
+<td>Attribution</td>
+<td>Relatively clear: this piece of understanding is empty; this assumption was shaken by a counterexample</td>
+<td>Mixed: luck, environment, other people and the model intertwine</td>
+</tr>
+<tr>
+<td>Good for testing</td>
+<td>Whether understanding holds, whether capability is independently usable</td>
+<td>Whether the model actually improved choices</td>
+</tr>
+</tbody>
+</table>
+<div class="mermaid">
+  flowchart LR
+    subgraph S1 ["Fast feedback: in days"]
+        A1["Take in material<br/>or take one small action"] --> A2["Write down understanding and gaps"] --> A3["Unaided exercise<br/>or evidence check"] --> A4["Revise the model"] --> A1
+    end
+    subgraph S2 ["Slow feedback: in quarters"]
+        B1["Choose based on the model"] --> B2["Invest and act"] --> B3["Real results"] --> B4["Attribute back to the model"] --> B1
+    end
+    A4 -.->|a few key moments| B1
+    B4 -.->|write back| A2
+</div>
+
+<p>Both are indispensable. With only fast feedback, the system becomes an elaborate practice machine: the model grows ever more self-consistent, without knowing whether it improved any choice. With only slow feedback, information is too sparse and slow, there is nothing to do most of the time, and attribution is hard. The sensible split is that fast feedback carries most of the training and correction, and slow feedback tests whether that training actually affected life.</p>
+<p>My task is to find suitable evidence for each question and, while waiting for long-term results, to test the key assumptions with smaller actions, while admitting that such partial evidence doesn’t prove much yet.</p>
+<h3 id="knowing-breaking-self-protection-aiming-at-the-verifiable"><a class="markdownIt-Anchor" href="#knowing-breaking-self-protection-aiming-at-the-verifiable"></a> Knowing: breaking self-protection, aiming at the verifiable</h3>
+<p>Where does fast feedback come from? Take learning as an example: different ways of learning differ in how far understanding gets tested. I split them into five levels:</p>
+<ol>
+<li><strong>Listening and fragments</strong>: input only, no feedback. Bookmarks, half-finished podcasts and unread subscriptions create the feeling that “I’m learning”, with no mechanism to test it.</li>
+<li><strong>Reading</strong>: more structured, but still inside someone else’s framework, and you can skip what you don’t understand.</li>
+<li><strong>Teaching yourself</strong>: the first self-generated test. Without prompts, can I explain it, derive it?</li>
+<li><strong>Deliberate practice</strong>: frequent feedback with clear right and wrong, but it covers only the skill being practiced.</li>
+<li><strong>Writing</strong>: turning understanding into an object others can examine, and handing it to people who owe you nothing.</li>
+</ol>
+<p><img src="/writing/five-agents-one-coach/learning-ladder-en.svg" alt="Where do the five levels of learning differ? Going up the ladder, understanding is exposed more and more to testing, and more people can point out its errors" /></p>
+<p>Going up the ladder, the shared variable is: <strong>how far the understanding is exposed to testing, and how many people can point out its errors.</strong> Beyond the ladder there are fuller tests, delivery, charging money and collaboration, which put understanding through real consequences.</p>
+<p>Many people stay on the first two levels for a long time, not only out of laziness, but because the upper levels require repeatedly facing “I hadn’t actually thought it through”.</p>
+<p>One piece of feedback can correct what’s in front of you, but facing and reflecting on it goes against human nature. For the experience to help with future problems too, you need to find relationships, conditions and boundaries in specific results, and compare across settings. This is where AI can help amplify.</p>
+<h4 id="extracting-structure-from-phenomena-is-something-ai-is-good-at"><a class="markdownIt-Anchor" href="#extracting-structure-from-phenomena-is-something-ai-is-good-at"></a> Extracting structure from phenomena is something AI is good at</h4>
+<p>I like a Cartesian distinction. What we touch day to day are complex, shifting appearances; reason tries to pierce them and find the relatively stable structures and relationships underneath. That gives me a definition I care about a lot: <strong>cognitive growth isn’t knowing more phenomena; it’s extracting from phenomena structures that can explain other phenomena and guide the next action.</strong></p>
+<p>Take reading the news. AI news changes fast: a model ships a new version, a company raises a round, a benchmark gets beaten. These are phenomena. Behind them, what’s worth asking is which costs are falling, which constraints remain, why customers pay, and where value will flow. The concrete feedback from an interview or a partnership is also a phenomenon; if you notice that “my technical depth was recognized, but my business communication hasn’t earned comparable value”, it becomes a structure that can guide what you learn and how you position yourself. <strong>The first is information. Only the second starts to become cognition.</strong></p>
+<p>This kind of abstraction is valuable because it helps me understand situations I haven’t met yet. If a model can only explain what has already happened, but can’t help me decide what to observe next or how to act, it isn’t much use. A knowledge base with ten thousand notes doesn’t mean its owner understands the world; without abstraction, validation across settings and continuous correction, it is just a beautifully organized bookmarks folder.</p>
+<p>But abstraction easily erases the specific conditions along with the noise. A method that worked in one project may depend on team size, client type or the technology of the time. Delete those conditions and you get a principle that sounds universally true and is practically unusable. That is where people and AI have to reflect together. Processing information alone cannot really distill cognition.</p>
+<p>I prefer to see cognition as a set of testable models, each with conditions of applicability. They can contain causal explanations, empirical regularities and expectations about the future, but each has to know what it rests on and where its limits are. As the environment changes, some models need refining, some need replacing, and some gain fuller support.</p>
+<h4 id="breadth-and-depth"><a class="markdownIt-Anchor" href="#breadth-and-depth"></a> Breadth and depth</h4>
+<p>How are such models formed? The system I have in mind has two dimensions, breadth and depth, which hold up information leverage and cognitive leverage respectively.</p>
+<ul>
+<li><strong>Breadth comes from staying in continuous contact with the world.</strong>
+<ul>
+<li>Reading, conversation, watching new technology, and meeting the methods of other industries and disciplines give cognition room to compare and transfer. What Munger’s emphasis on multiple mental models taught me is that, facing a problem, you can call on explanations from different fields, then see which one actually captures the constraints.</li>
+<li>The value of lateral connection is that experience in one field helps us notice what’s overlooked in another. Someone with an algorithms background tends to see business problems as optimization problems; someone with only a business background tends to underestimate how technology changes costs.</li>
+<li>The danger of breadth is degrading into information consumption: having seen a lot feels like understanding a lot. This has to be deliberately designed against. For example, understanding that companies and Agents both need feedback doesn’t mean you have mastered organizational incentives or runtime design. A variable in one field may be unmeasurable in another; technical tasks can be rerun, but human collaboration has memory, trust and irreversible costs. So after a lateral connection, you have to go back to the specific field and check where the analogy holds and where it fails.</li>
+</ul>
+</li>
+<li><strong>Depth comes from drilling down through a few problems.</strong>
+<ul>
+<li>Follow one question further and further down until you understand its underlying assumptions, internal structure and boundaries. Take learning about Agents. You can stop at the latest frameworks and papers, or keep asking: why can a model finish some tasks directly while others depend on external state, tools and feedback? Does reliability come from model capability or from system design? That kind of understanding takes independent derivation, repeated practice and solving unfamiliar problems, and is hard to get by reading a few more articles.</li>
+<li><strong>Depth without breadth tends to become a local optimum; breadth without depth is just a refined kind of information consumption.</strong> AI sharpens the tension: it drives the cost of breadth way down, and makes it easier to skip hard vertical thinking. <strong>Understanding the answer AI gives you is not the same as being able to rebuild that reasoning on your own without it.</strong> A real generalist can connect different fields, and also knows when to rely on more specialized people. Knowing what you don’t know, and whom to ask, is itself an important piece of metacognition.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/writing/five-agents-one-coach/breadth-depth-en.svg" alt="How do breadth and depth combine into cognition? Moving along only one axis ends in information consumption or a local optimum; only alternating between them leads to structural understanding" /></p>
+<h3 id="the-unity-of-knowing-and-acting-using-new-understanding-in-the-next-action"><a class="markdownIt-Anchor" href="#the-unity-of-knowing-and-acting-using-new-understanding-in-the-next-action"></a> The unity of knowing and acting: using new understanding in the next action</h3>
+<p>Once a model is distilled, it still has to be applied to a new task: what did it make me notice, which step did it change, and what situations did I not anticipate? Those results return to the model again. Only this way does abstraction gradually become usable understanding.</p>
+<p>A feedback loop can make me better and better at solving one problem. Metacognition keeps asking: why is this problem worth solving? By what standard do I judge progress? Do those standards still fit what I want to build?</p>
+<p>For example, the original learning goal might be mastering an Agent framework. After practice, I find that what really needs solving is the reliability of a class of tasks; after meeting users, the question may become: even if such tasks can be automated, is it worth the client changing their workflow? Each change redefines what is worth investing in.</p>
+<p>This also connects the unity of knowing and acting to the double-loop learning discussed earlier. Feedback from practice can help me improve action under the current goal, and can also push me to examine goals, rules and underlying assumptions. New understanding sometimes changes the method and sometimes changes the question itself, and either way goes into the next round of practice.</p>
+<h4 id="questions-get-clarified-slowly-too"><a class="markdownIt-Anchor" href="#questions-get-clarified-slowly-too"></a> Questions get clarified slowly too</h4>
+<p>The unity of knowing and acting as described so far seems to assume I already have a clear question. But real cognitive growth rarely starts from a clear goal and clear assumptions. Even “what am I really asking” and “what do I actually want” form gradually in the course of exploration.</p>
+<p>Many questions begin as a vague dissatisfaction: something feels wrong, but I can’t say what; I envy certain people, but can’t say what I envy; the same frustration keeps recurring, but I have never written it down. These signals deserve to be taken seriously. They are often a question that hasn’t been named yet.</p>
+<p>Exploration is often a process of reconstruction and revision:</p>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>What happens</th>
+<th>The example above</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clarify</td>
+<td>Turn a vague feeling into a definite question</td>
+<td>From “I’m not progressing” to “I’m not testing how well I’ve mastered things”</td>
+</tr>
+<tr>
+<td>Revise</td>
+<td>Find that the original explanation was not enough</td>
+<td>Mastering the technology doesn’t necessarily turn into value</td>
+</tr>
+<tr>
+<td>Reframe</td>
+<td>Change the frame of the question, find new variables</td>
+<td>From a knowledge problem to a management problem</td>
+</tr>
+<tr>
+<td>Reflect</td>
+<td>Examine why I ask in this way at all</td>
+<td>Ask where the goal “I must master more technology” came from</td>
+</tr>
+</tbody>
+</table>
+<p>Reframing usually affects more deeply than revising, and is harder to recognize: the two ways of asking are not simply right and wrong, and what has to be distinguished is whether I really found a more important question or was just temporarily drawn in by new information. In the AI era, the more valuable reflection examines not the answers but the way of asking.</p>
+<p>There is no need to wait until the question is fully clear before setting out. Start from the work at hand: look back at a difficulty that has recurred recently, separate fact from interpretation, choose a small action that adds understanding, and see whether the question has become more specific. This doesn’t only happen at the beginning either. Each time a stage is finished and I am ready to switch to a question worth pursuing, the next question also often appears in a vague form and has to be gone through again.</p>
+<p>AI can help me cluster signals, mirror recurring patterns, and even remind me, “this is the third time this month you’ve complained about the same thing”; but it can’t choose the question for me. <strong>Choosing a question is choosing a purpose; outsourcing purpose is the deepest form of cognitive outsourcing.</strong> A good human coach is best at exactly this: putting what you yourself have said in front of you.</p>
+<h2 id="3-what-i-want-to-build-a-design-that-is-the-opposite-of-a-personal-agent"><a class="markdownIt-Anchor" href="#3-what-i-want-to-build-a-design-that-is-the-opposite-of-a-personal-agent"></a> 3. What I want to build: a design that is the opposite of a Personal Agent</h2>
+<p>I want to design an Agent system whose job is to keep that line running in one person. What it really has to maintain is not a fixed set of goals and assumptions, but a person’s continually developing process of understanding.</p>
+<p>It doesn’t require the user to create a goal first, or to write down hypotheses first. A user can start from a single sentence: “Lately I feel I’ve been learning all the time, but I don’t know why I’m not growing.” The system accompanies that question as it unfolds, and as new understanding appears, gradually forms testable judgments, real action and a clearer direction.</p>
+<p>The structure I have in mind can be summed up as <strong>one base, five Agents, one coach</strong>: the five products are each carried by one Agent, and each can be used on its own; the knowledge base maintained by Agentic Knowledge Bank is also the shared base that all the products read and write; the coach strings them along the line, and is itself a product.</p>
+<h3 id="the-coachs-two-missions"><a class="markdownIt-Anchor" href="#the-coachs-two-missions"></a> The coach’s two missions</h3>
+<p><strong>Sharpening feedback loops closes the single loop; cultivating metacognition lets the double loop open when needed.</strong> I call the interface that carries these two missions a coach, because what it cares about is how I build capability and make choices. Its work has to run through both learning and action, and it has to know when to help me push forward and when to remind me to stop and judge again.</p>
+<h4 id="sharpening-feedback-loops-dont-let-feedback-stay-in-the-chat-log"><a class="markdownIt-Anchor" href="#sharpening-feedback-loops-dont-let-feedback-stay-in-the-chat-log"></a> Sharpening feedback loops: don’t let feedback stay in the chat log</h4>
+<p>Much work already produces feedback that simply goes unused. A client’s hesitation stays in the chat log, a product’s failure stays in the project retro, holes exposed in writing stay in the edit comments. Next time a similar problem comes up, I judge from impression again.</p>
+<ul>
+<li>The coach first has to help me connect this information. Before acting, state the key expectations and assumptions. During action, identify which phenomena are worth watching. Once results arrive, compare expectation and reality, separate execution problems, model problems and environmental change, then decide what to try next.</li>
+<li>At a deeper level, it should also help me improve how I get feedback. Some projects stall for a long time because I keep doing things that can’t distinguish between explanations. Collecting more industry coverage may not answer whether customers will adopt something; polishing a prototype further may not answer whether it solves a problem important enough. At that point the coach should help me find the action that brings key evidence.</li>
+<li>The quality of a feedback loop shows, in the end, in later behavior: did I avoid repeating a mistake, did I find a key constraint earlier, did I adjust my investment because of new evidence. A thorough retro only shows that the information was organized.</li>
+</ul>
+<h4 id="cultivating-metacognition-seeing-how-i-make-judgments"><a class="markdownIt-Anchor" href="#cultivating-metacognition-seeing-how-i-make-judgments"></a> Cultivating metacognition: seeing how I make judgments</h4>
+<p>Even someone very good at reviewing may keep using the same unexamined standards. For example, always attributing project failure to immature technology, so that feedback only ever leads to more technical investment.</p>
+<ul>
+<li>Cultivating metacognition means making such patterns visible. The system can put reasons, choices and results from different projects side by side, helping me notice which variables I keep attending to, which constraints I ignore, when I become overconfident, and in what situations I habitually hand the choice to others.</li>
+<li>At first, all of these can only be explanations waiting to be checked. The records the system sees are limited: a reason I didn’t write down doesn’t mean I didn’t consider it, and making similar choices repeatedly in some environment can’t be read directly as a fixed character flaw. A good coach presents evidence and questions together, giving me the chance to fill in context.</li>
+<li>This mission also includes examining goals. If I claim to want to build my own product, yet my time keeps flowing into technical exploration unrelated to user needs, the system should help me understand the gap. Do I genuinely need to build up capability right now, has my goal changed, or am I avoiding something unfamiliar? Different explanations lead to entirely different next steps.</li>
+</ul>
+<h4 id="changing-my-mind-making-ideas-explicit-and-checkable"><a class="markdownIt-Anchor" href="#changing-my-mind-making-ideas-explicit-and-checkable"></a> Changing my mind: making ideas explicit and checkable</h4>
+<p>Allowing questions and goals to change raises a harder problem: how do you tell cognitive evolution from self-justification?</p>
+<p>Suppose I arrange three months of Agent-technology study for myself. A month in, I tell the coach: “I’ve found that business understanding matters more than technical study, so I’ve decided to change direction.” That may be a very valuable piece of double-loop learning, or it may simply be that the study has reached a hard stage and I want something easier that feels fresh. In words, the two cases can look exactly the same.</p>
+<p>An AI that panders to me would agree at once: “That’s a cognitive upgrade.” A rigid goal-management system would criticize in the opposite direction: “You haven’t followed the original plan.” Neither helps. The coach should help me work out:</p>
+<ul>
+<li>What new evidence led me to change my judgment?</li>
+<li>Is this a change of goal, a change of explanation, or resistance I met in execution?</li>
+<li>Which parts of the original goal still hold?</li>
+<li>Does the new judgment need to change my investment immediately, or can I first run a small experiment?</li>
+<li>What should stay open, and which commitments already made need to be honored?</li>
+</ul>
+<p>It doesn’t have to rule on whether I’m growing or avoiding; it makes both possibilities checkable. There is a principle here I care about a lot: <strong>let a person change their mind, but never let the system quietly rewrite the past.</strong> I can change my goal at any time, but I should be able to look back at why I set it and what changed afterwards. Not to assign blame, but to gradually learn how I make judgments.</p>
+<h4 id="adversarial-design-this-is-not-a-personal-agent"><a class="markdownIt-Anchor" href="#adversarial-design-this-is-not-a-personal-agent"></a> Adversarial design: this is not a “Personal Agent”</h4>
+<p>A system that learns only my preferences and past views will understand me better and better, and get better and better at pleasing me. It is hard to see your own position clearly from inside it, so the coach needs to be able to stand outside my framework and look for counterexamples, alternative explanations and overlooked evidence.</p>
+<p>Getting an AI to say “are you sure?” costs almost nothing and changes almost no behavior. A rebuttal that can actually change a model needs some kind of standing, which comes from four sources:</p>
+<ul>
+<li><strong>Material</strong>: a case, dataset or derivation that can’t easily be explained away, exposing a gap in the model on the spot;</li>
+<li><strong>Commitment</strong>: writing a judgment down as a choice with stated grounds and conditions to watch, so it can be checked afterwards;</li>
+<li><strong>Third parties</strong>: handing understanding to people who owe you nothing and know the field;</li>
+<li><strong>Consequences</strong>: putting understanding into the real world, to be tested by customers, readers, collaborators and the market.</li>
+</ul>
+<p>The first can happen every day, and software can supply it on its own; the other three are rarer and need people and the real world. So the coach’s main daily work is keeping <strong>material-level checks</strong> going, and saving costlier challenges for important choices. Challenge is a way of getting evidence, not a personality.</p>
+<div class="mermaid">
+  flowchart LR
+    A["A piece of material that<br/>might shake the current model"] --> B["Write down how the model changes<br/>or why it holds"]
+    B --> C{"Does it affect an<br/>important choice?"}
+    C -->|No| F["Write back to the knowledge base"]
+    C -->|Yes| D["Design an action:<br/>interview, experiment, publish, deliver"]
+    D --> E["Review the result; separate<br/>execution, model and environment"]
+    E --> F
+    F -.->|next challenge| A
+</div>
+
+<p>Adversarial questioning has a use here, but the coach also needs to observe, clarify, explain, help design practice, and recognize when there is already enough basis to keep acting. Endless questioning that never helps the person choose also drains agency.</p>
+<h4 id="three-ways-of-working-explore-model-practice"><a class="markdownIt-Anchor" href="#three-ways-of-working-explore-model-practice"></a> Three ways of working: explore, model, practice</h4>
+<p>Questions sit at different levels of clarity, and the coach should work differently for each:</p>
+<ul>
+<li><strong>Explore</strong>: I don’t even know what my real question is. The coach helps open up different explanations, expose contradictions, and find a more accurate way to ask, without rushing to converge on a goal. The idea from the last section of Part 2, that questions get clarified slowly too, happens here.</li>
+<li><strong>Model</strong>: I’m starting to form some judgments. The coach helps separate fact, assumption and inference, find the boundaries of applicability and possible counterexamples, and doesn’t rush to manufacture certainty.</li>
+<li><strong>Practice</strong>: some questions can only be answered by reality. The coach helps choose low-cost ways of testing, form commitments for a period, and re-examine the original understanding once results appear.</li>
+</ul>
+<p>The three are not a linear process and can be switched at any time. Sometimes I have to do something before I know what to ask; sometimes reading one article shows me I asked the wrong question; sometimes an uncertain judgment has to be kept for months until the conditions for a new practice appear. A good system should let a person explore and act at the same time, rather than require every question to be thought through first.</p>
+<h4 id="handing-the-practice-of-examination-back-to-the-person"><a class="markdownIt-Anchor" href="#handing-the-practice-of-examination-back-to-the-person"></a> Handing the practice of examination back to the person</h4>
+<p>Cultivating metacognition also means gradually handing this way of examining back to me. At first, the system can point out an overlooked assumption from historical material; later, I should be increasingly able to spot similar problems before acting, and know how to look for evidence. Otherwise, even if the system finds my blind spots every time, what gets trained may just be my habit of asking it for help.</p>
+<p>Richer models in the system don’t mean I myself have grown. To judge whether the coach works, I set myself three standards:</p>
+<ol>
+<li><strong>Growth in human capability, not the Agent’s task volume.</strong> Without AI, can I independently solve new problems in this field? Can I still in three months?</li>
+<li><strong>Better understanding and choices, not more “insights”.</strong> Which models were corrected by evidence and had their boundaries clarified, and which choices changed as a result?</li>
+<li><strong>Whether the four kinds of leverage actually moved, not activity inside the system.</strong> Did I produce better work, collaborations or choices among opportunities, or stop ineffective investment sooner?</li>
+</ol>
+<p>In such a system, success sometimes shows up as declining dependence: certain questions no longer need hints, I start finding problems in my own arguments, I don’t have to ask it every time whether to pursue an opportunity. <strong>A coach’s mission isn’t to make the user need a coach forever. It’s to keep raising the user’s ability to do without one.</strong></p>
+<p>That is what I want to build: a system that doesn’t think for a person, but hands reflection back to them. It runs almost opposite to the Personal Agents now exploding onto the market, and the next section explains why.</p>
+<h3 id="service-agents-will-win-the-market-but-cant-reach-this-line"><a class="markdownIt-Anchor" href="#service-agents-will-win-the-market-but-cant-reach-this-line"></a> Service agents will win the market, but can’t reach this line</h3>
+<p>I call Personal Agents service agents. This autumn they have been released one after another. On August 11, xAI released <a target="_blank" rel="noopener" href="https://m.thepaper.cn/newsDetail_forward_33778907">Grok Bot</a>, a standing team of Agents with memory, their own working environments and cross-Bot collaboration, which can also shadow a user’s operations to learn a workflow. On September 8, Meta released <a target="_blank" rel="noopener" href="https://pakistanpost.pk/metas-muse-ai-app-passes-10-million-users/">Muse</a>, with long-term goals, proactive suggestions, cross-app execution and persistent memory; it reportedly reached ten million users six weeks after launch (a figure Meta reported itself), shopping is one of its main scenarios, and it plans to take a cut of transactions. On September 29, OpenAI released <a target="_blank" rel="noopener" href="https://qazinform.com/news/openai-unveils-dots-as-metas-muse-reshapes-ai-assistant-race-9838bf">Dots</a>, in which every Dot has its own cloud computer, browser and a wide set of app connections, and can push a goal forward around the clock. Long-term memory, proactivity, multi-agent collaboration, security and privacy are becoming general capabilities.</p>
+<p>I believe service agents can never accomplish “keeping that line running in one person”. The reason isn’t technology; it’s the objective. What they optimize is task completion rate, fewer operating steps and higher usage frequency, which is to say, saving people effort. Saving effort isn’t wrong in itself, and I let tools book my flights and arrange my calendar too. But this line demands exactly the effort that can’t be saved: re-examining myself, facing “I hadn’t actually thought it through”, accepting “don’t do this”. So what they amplify is not human ability, but human laziness.</p>
+<p>This has to do with where the income comes from. What follows is a tendency I infer from business models, not a strategy these companies have stated. Muse plans to take a cut of transactions, and the most natural direction is more and smoother purchases, while a good coach often has to say “don’t buy this”. Dots runs on individual and organizational subscriptions and optimizes task completion and organizational efficiency; when an employer pays, it serves the organization’s goals, not necessarily the individual’s growth. Grok Bot runs on premium subscriptions and pursues the degree of automation and the output of an Agent team; it learns my workflow in order to do it for me, not to make me better at it. Grok Bot’s “shadowing” is a good contrast: the same observing, but an assistant observes me in order to take over from me, and a coach observes me so that next time I no longer need it. <strong>Technically it is the same action, with exactly opposite purposes.</strong></p>
+<p>This road will win an enormous market. Most of the time people just want to get things done, and handing things to a service agent is a reasonable choice. But it is also a bit of a pity: AI’s superintelligence is used to wait on people more comfortably rather than to help them become stronger, and a large part of it is wasted. So I want to try this myself.</p>
+<p>Incentive is of course not a moat. A single system prompt can make any platform switch on a “learning mode” or a “Socratic mode”: ask before answering, reflection prompts and review templates will soon be standard. What is less likely to be absorbed is what needs long accumulation and real consequences: sealed tasks and delayed retests built for one person, a personal model carrying its gaps and its history of change, and qualified third parties and a real market. <strong>A platform can copy a prompt; it can’t copy your history, your questions and your people.</strong> Of course, this is still only a hypothesis.</p>
+<h3 id="dividing-work-between-people-and-ai-a-capability-first-design"><a class="markdownIt-Anchor" href="#dividing-work-between-people-and-ai-a-capability-first-design"></a> Dividing work between people and AI: a capability-first design</h3>
+<p>The first thing is to think through how people and AI divide the work. Building this system has a built-in contradiction. I want AI to take on more and more information processing, knowledge management, learning support and strategic analysis. But if AI does all of that very well, might I lose exactly the abilities I set out to build? It’s like having a machine at the gym lift the weight for you and then logging the machine’s workout as your own.</p>
+<p>So two things need a person to stay involved.</p>
+<p><strong>First, understanding itself.</strong> Distilling models from material, judging what’s useful and what’s worth investing in: AI can assist, but it can’t carry this for me. As models improve, it may analyze more accurately than I do in more and more domains. But if I just accept its conclusion every time, <strong>it’s the AI’s model that grows, not mine.</strong> I get the answer without getting the ability.</p>
+<p><strong>Second, the perspective that examines me.</strong> In a company, the people who make decisions and the people who audit them aren’t the same. An individual is all the roles at once: proposing the understanding, executing, reviewing, grading. A system that only optimizes for my preferences deepens this structural conflict of interest. I need it to stand outside my framework and raise testable doubts based on material, history and external results, while leaving the decision to revise with me.</p>
+<p>The same technology, with different goals, makes different decisions:</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Waiter</th>
+<th>Coach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Measuring success</td>
+<td>Task completion rate, time spent and engagement</td>
+<td>Independent performance and choice quality once AI is gone</td>
+</tr>
+<tr>
+<td>When the user asks a question</td>
+<td>Gives the answer right away</td>
+<td>Depending on the case, first asks them to try answering it</td>
+</tr>
+<tr>
+<td>When the user holds firm on a view</td>
+<td>Recommends more of the same material</td>
+<td>Looks for evidence that can test it</td>
+</tr>
+<tr>
+<td>Ideal long-term outcome</td>
+<td>The user can’t do without it</td>
+<td>The user increasingly doesn’t need it</td>
+</tr>
+</tbody>
+</table>
+<p>An example. I want to master the design principles of Agent runtimes. A general Agent can research the architecture for me, organize material, generate code, run experiments, even suggest improvements. But once it has done all that, can I explain the key design trade-offs from scratch? Facing an unfamiliar failure, can I locate it on my own? Three months later, will those abilities still be there? <strong>A successful task doesn’t prove that a person successfully learned.</strong></p>
+<p><img src="/writing/five-agents-one-coach/assistant-vs-coach-en.svg" alt="Faced with the same request, what do a waiter and a coach choose differently? Two goals take the same technology toward different long-term curves" /></p>
+<p><strong>A waiter works to satisfy needs already expressed; a good coach also helps the person examine whether the need serves their goals.</strong> But a coach can’t use “it’s for your own good” as an excuse to take away autonomy; it can only persuade with material, evidence and feedback. Friction should also be applied on demand. For a quick lookup it should serve efficiently; only in training should it require independent recall, step-by-step hints and delayed answers; only for important trade-offs should it raise the bar for counter-evidence. <strong>The human turns the coaching-intensity dial.</strong> The system shouldn’t turn every request for help into an exam.</p>
+<p>Bringing this boundary down to every feature compresses it into one test question:</p>
+<blockquote>
+<p><strong>For any feature, ask first: after a hundred uses, what capability will the user lose? Is it one they want to keep?</strong></p>
+</blockquote>
+<p>After using a calculator a hundred times, mental arithmetic declines, and most people don’t care. After using AI drafting a hundred times, the ability to organize an argument independently declines, and for someone who lives on understanding that is a real loss. Outsourcing itself isn’t the problem; <strong>outsourcing without knowing it, and outsourcing capabilities you should own yourself</strong>, is. So looking up APIs, organizing sources and preparing meeting background can aim for efficiency without worry; a capability I want to master myself needs scheduled independent attempts and delayed testing. Before reading a summary, write one line of my own understanding. Before letting AI draft, write the core claim and argument skeleton. For an important trade-off, write my own estimate first, then read the AI’s analysis, and record the two separately. Goals can’t be inferred from past behavior alone either: things I spent a lot of time on may just have been what the environment required, not necessarily the life I want. AI can point out contradictions and offer options, but it has to let me choose again.</p>
+<h2 id="4-what-needs-to-be-done"><a class="markdownIt-Anchor" href="#4-what-needs-to-be-done"></a> 4. What needs to be done</h2>
+<p>With the ideas above in place, the design gets simple: what service agents already do well, I borrow directly; only what they can’t do, and won’t do, is worth building myself.</p>
+<h3 id="borrow-or-build-where-the-distinctiveness-lies"><a class="markdownIt-Anchor" href="#borrow-or-build-where-the-distinctiveness-lies"></a> Borrow or build: where the distinctiveness lies</h3>
+<table>
+<thead>
+<tr>
+<th>Borrowed from existing Agents</th>
+<th>Built myself (where the distinctiveness lies)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search, browsing and organizing material</td>
+<td>A model that carries its gaps and its history of change, including the history of how questions were rewritten</td>
+</tr>
+<tr>
+<td>Long-term memory and proactive reminders</td>
+<td>Sealed tasks and delayed retests, with help level and correctness recorded separately</td>
+</tr>
+<tr>
+<td>Code and tool execution, cross-app operation</td>
+<td>Supporting and opposing evidence side by side, and reminders triggered by “what would change my mind”</td>
+</tr>
+<tr>
+<td>Scheduling, polishing, translation, layout</td>
+<td>The human claim first, then argument review, and only last the AI’s expression</td>
+</tr>
+<tr>
+<td>Multi-agent collaboration, security and privacy</td>
+<td>A time ledger, important choices, and checking them against people and opportunities</td>
+</tr>
+<tr>
+<td></td>
+<td>One unified object format that can be taken away</td>
+</tr>
+</tbody>
+</table>
+<p>The test is still the same question as before: what I won’t lose capability I care about after a hundred uses, I outsource without worry; what I would lose, I either build myself or wrap in anti-substitution design. The boundary isn’t fixed. The day a platform does one of these well enough, I’ll switch it to borrowed.</p>
+<h3 id="the-base-a-personal-knowledge-base"><a class="markdownIt-Anchor" href="#the-base-a-personal-knowledge-base"></a> The base: a personal knowledge base</h3>
+<p>Both missions need long-term context. A single chat can raise good questions, but it can hardly know how I got to where I am, which explanations have already been tried, and which feedback hasn’t been digested yet. The knowledge base does this work. It takes in reading and research, and also project records, discussions, work, results of action, and what I understood at the time. It’s the base every product reads and writes, and also a product users can use alone, inspect directly and take with them: what’s in it is the user’s own material and models.</p>
+<p>I abstract the essential data of the knowledge base into two dimensions:</p>
+<ul>
+<li><strong>The information environment</strong>: what situation I am in, and through what I see it. This includes markets, organizations, rules and resource constraints, and also where my information comes from and which voices are persistently absent.</li>
+<li><strong>Decision models</strong>: how I make choices in this environment, including goals, the constraints I consider important, my expectations of results, and the conditions under which I should change course. The two mustn’t be mixed: when the environment changes, a previously reasonable choice may need adjusting; when the environment hasn’t visibly changed, my earlier understanding of it may have been wrong. Goals also involve personal value trade-offs and can’t be judged right or wrong solely by how much the market rewards them.</li>
+</ul>
+<p>The harness this base needs: where material is lacking, keep the gap, and don’t let AI generate a complete-looking explanation to cover it. The current understanding can be updated at any time, but past understanding is never quietly overwritten; keeping the grounds of the time is what lets me tell “the environment changed” from “my earlier understanding was wrong”. Questions and models stay open and can be clarified, revised and reconstructed again and again; commitments stay relatively stable within an agreed period and change only with grounds. Otherwise you fall into one of two extremes: at one end, fixed goals that only execute and never reflect; at the other, endless exploration and endless revision of understanding that never gets to act. Nor is it a ledger to fill in every day: only a few important choices are recorded, and the organizing work should grow as far as possible out of what has already happened.</p>
+<h3 id="one-base-five-agents"><a class="markdownIt-Anchor" href="#one-base-five-agents"></a> One base, five Agents</h3>
+<p>With base and boundaries in place, the architecture can be read straight off the line. Each step on the line is carried by a product; the only difference between the single loop and the double loop is where the feedback returns to:</p>
+<div class="mermaid">
+  flowchart LR
+    G["Questions, goals and assumptions"] --> M["Understanding of the environment<br/>and decision models"]
+    O["Observe the environment<br/>Information Assistant"] --> M
+    M --> T["Test capability and arguments<br/>Learning OS · Writing Assistant"]
+    T --> A["Choose and commit<br/>Compass"]
+    A --> F["Results and feedback"]
+    F -->|Single loop: revise the model| M
+    F -->|Double loop: examine questions, goals and assumptions| G
+    F -.->|What to observe next| O
+    K[("Knowledge base<br/>maintained by Agentic Knowledge Bank")] -.- M
+</div>
+
+<p>Why these five?</p>
+<ul>
+<li>Of the line’s four steps, observe, model, test and choose, testing splits into capability and arguments, matching levels three and four and level five of the exposure ladder;</li>
+<li>Every step reads and writes the same models, so Agentic Knowledge Bank isn’t just alongside the other four but underneath them.</li>
+<li><strong>Usable alone, compounding together.</strong> Each product used alone has its own small loop and is worth using for its own sake; connected, gaps flow between products and results return to the model. That requires one convention: whether used alone or connected, every product writes to the knowledge base in the same object format, and products don’t call each other directly. A product used alone loses no history when it is connected later.</li>
+<li><strong>The coach</strong> is the layer that strings them together, and is itself a product: it talks with the person, schedules exercises and actions, passes gaps between products, raises doubts, and asks the person to stop at important moments.</li>
+</ul>
+<p>Below, following the order of the line, I’ll go through each product’s idea, and which parts can be borrowed from existing Agents and which I must build myself.</p>
+<h4 id="information-assistant-bringing-information-into-your-own-questions"><a class="markdownIt-Anchor" href="#information-assistant-bringing-information-into-your-own-questions"></a> Information Assistant: bringing information into your own questions</h4>
+<p>It handles observation on the line. My difficulty is that there’s plenty of information but it’s hard to judge what’s worth following. Platforms organize content by popularity and interest, and I tend to pick familiar views I agree with. Together they easily make me more and more certain inside my existing framework.</p>
+<p>It organizes information around the questions I’m pursuing and the understanding I already have: separating new facts, repeated coverage, opinion and speculation, judging sources by evidence quality, and explaining how a piece of material relates to the current question. Popularity can help discover material but can’t stand in for credibility.</p>
+<p>There is a touch of “investigating things to extend knowledge” (格物致知) here. As a young man, Wang Yangming followed Zhu Xi’s teaching and tried to investigate the bamboo in front of his pavilion. After seven days he had learned nothing, and fell ill instead. Staring at a pile of phenomena doesn’t make knowledge grow: investigating things needs a question, and extending knowledge needs a willingness to be changed by evidence. So its process isn’t “collect, filter, summarize, push”, but: start from a long-term question, find new material, compare it with existing understanding, identify changes worth verifying, then decide whether to keep researching or move into practice. It serves three functions:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Counters what</th>
+<th>AI handles</th>
+<th>Person keeps</th>
+<th>Fails if it degrades into</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Filtering</td>
+<td>Bias from platform ranking</td>
+<td>Collect and organize by long-term questions and existing understanding; offer a first judgment</td>
+<td>Taste and the final choice</td>
+<td>A more refined interest recommender</td>
+</tr>
+<tr>
+<td>Contrasting</td>
+<td>Seeing only what you want to see</td>
+<td>Look for supporting and opposing evidence with equal effort, side by side</td>
+<td>Whether and how much to revise</td>
+<td>Contrarianism in tone only</td>
+</tr>
+<tr>
+<td>Updating</td>
+<td>The more experience, the harder to correct</td>
+<td>Track conflicts between old understanding and new evidence; alert when conditions trigger</td>
+<td>Admitting “I was wrong”</td>
+<td>Silent overwriting, no trace</td>
+</tr>
+</tbody>
+</table>
+<p>For example, when I’m bullish on an Agent direction, it needs to help me see technical progress, failure cases, alternatives and users’ constraints at the same time. If my sources are mainly developer discussions, it should point out where the customer and buyer perspectives are missing. Supporting and opposing evidence both deserve serious scrutiny, but the final judgment still goes by evidence quality; it shouldn’t manufacture controversy just to fill both sides.</p>
+<p>So that I can examine the recommendations themselves, each important piece of material should state its source and credibility, the related question, which understanding it supports or challenges, whether other explanations were looked for, and whether there’s a commercial relationship behind the recommendation. “Looked but found nothing” and “haven’t looked yet” are written separately. For each important understanding, I can also write down in advance “what would change my mind”. It pushes no daily digest, and only comes to me when such a condition is triggered.</p>
+<p>When evidence supports the original judgment, the system can help me state clearly why to keep investing; when conditions change, it should remind me to judge again; when public material can no longer answer the question, it should hand the gap to later interviews, experiments or actual use. Adding input, stopping reading, starting to act: any of these can be a reasonable next step.</p>
+<h4 id="agentic-knowledge-bank-recording-the-grounds-and-the-gaps-too"><a class="markdownIt-Anchor" href="#agentic-knowledge-bank-recording-the-grounds-and-the-gaps-too"></a> Agentic Knowledge Bank: recording the grounds, and the gaps too</h4>
+<p>Agentic Knowledge Bank maintains the knowledge base. It’s the base the other four products read and write, and it’s also usable on its own. The section on the base covered what it stores; here I’ll only cover how it works.</p>
+<ul>
+<li>The requirement that matters most: <strong>where material is lacking, keep the gap.</strong> Important conclusions should trace back to specific sources, and every layer of every concept should state its coverage: complete, partial, draft or empty. AI can propose hypotheses, but has to keep them recognizably distinct from established facts, and mustn’t generate a complete-looking, self-consistent explanation that papers over a gap. <strong>An honest gap is more useful than a beautiful story:</strong> the gap tells me what to do next; the story only tells me “you already understand”.</li>
+<li>The use of a gap is to help choose the next step. Some need Information Assistant to add material, some need Learning OS to test understanding, and some can only be answered by client conversations or actual delivery. The knowledge base lacking material doesn’t mean I lack capability; the two need to be confirmed separately.</li>
+<li>It also needs to preserve how models evolve. Say my understanding of some kind of AI product moves from per-seat pricing to outcome-based pricing. The knowledge base should be able to say what material and practice drove the change, which customers the judgment applies to, and what counterexamples remain. The new conclusion can replace the old one as the current understanding, but the grounds at the time need to stay, so that “the environment changed” can be told apart from “my earlier understanding was wrong”. Lateral connection also happens here: the system helps me find relationships that can transfer, while keeping the conditions in each field that resist analogy.</li>
+</ul>
+<p>This brings maintenance costs, and knowledge-management tools often fall down on exactly this. My approach has three parts:</p>
+<ol>
+<li>Organize deeply only around the few questions that matter now, and keep other material rough;</li>
+<li>Let AI build sources and links, and only check key explanations myself;</li>
+<li>Rank gaps by relevance to the current question; those left untouched for a long time are either dropped or upgraded into a clear research or practice task, so they don’t pile up as a new backlog. Building sources and links can be borrowed from existing Agents. But their memory features remember preferences, not gaps, and not how a question was rewritten, so this layer almost entirely has to be built myself.</li>
+</ol>
+<h4 id="learning-os-testing-what-i-can-really-do"><a class="markdownIt-Anchor" href="#learning-os-testing-what-i-can-really-do"></a> Learning OS: testing what I can really do</h4>
+<p>Learning OS tests capability, corresponding to levels three and four of the exposure ladder. The question it answers: facing a real problem, how far can I actually get? Understanding an explanation, restating a concept, deriving independently and applying to an unfamiliar task are different degrees of mastery. Reading code isn’t implementing it from scratch; restating a concept isn’t using it correctly on a new problem.</p>
+<p>Training starts from capability gaps found in practice. If an Agent task exposed a state-management problem, learning and exercises can be scheduled around it. If what’s really missing is understanding of requirements, technical training can’t stand in for it just because technical questions are easier to grade.</p>
+<p>Its core mechanism is reinstalling tests for adults:</p>
+<ul>
+<li><strong>Cold recall and independent attempts</strong>: call on knowledge without prompts first, exposing problems that familiarity hides;</li>
+<li><strong>Spaced review and delayed retests</strong>: capability decays, so test again after an interval to see whether understanding and capability hold;</li>
+<li><strong>Help level recorded separately from correctness</strong>: getting a question right, you also need to know how much you relied on hints;</li>
+<li><strong>Sealed questions and unfamiliar tasks</strong>: test transfer with questions sealed before training and not seen during it, so you don’t just get good at the questions;</li>
+<li><strong>Confirming mastery by actual performance</strong>: distinguish can explain, can derive, can build and can transfer, attach evaluation to evidence, and give no fake numeric scores.</li>
+</ul>
+<p>Different domains need different tasks and standards:</p>
+<ul>
+<li>Technical capability can be tested through derivation, implementation and debugging;</li>
+<li>Business understanding also needs cases, client situations and real projects.</li>
+<li>Question quality has costs too: good questions are more expensive than good answers, sealing only delays leakage, and once a question has been practiced it needs replacing with a new variant of the same structure. Training intensity is set by the goal. Capabilities I want to master myself are judged by unaided performance; work where tool assistance is allowed is judged by whether I can understand the grounds, find errors and own the final judgment.</li>
+</ul>
+<p>Difficulties exposed by exercises need to return to the knowledge base, sorted into a misunderstood concept, insufficient practice, or an original model that doesn’t apply. Capability evidence formed by exercises should also go to Compass, so later judgments about opportunities rest on actual mastery.</p>
+<h4 id="writing-assistant-writing-it-down-handing-it-to-others-to-check"><a class="markdownIt-Anchor" href="#writing-assistant-writing-it-down-handing-it-to-others-to-check"></a> Writing Assistant: writing it down, handing it to others to check</h4>
+<p>Writing Assistant tests arguments, corresponding to level five of the exposure ladder. Writing forces me to unfold the relationships in my head. An idea that seems complete in my head reveals, once written down, unclear concepts, missing evidence, or views that don’t really connect.</p>
+<p>It should first help me form the core claim and argument skeleton, check how the evidence supports the conclusion, look for alternative explanations and boundaries, and only then help with expression. The order matters: <strong>first the human claim, then the argument review, and only then AI’s expression.</strong> The process can also change the question itself. Halfway through, if what I set out to prove turns out not to hold, I need to go back to the material and to practice.</p>
+<p>It has to help separate my own judgment, quoted views, and AI’s additions. The system can polish, translate and lay out for me, but whether important arguments hold, and which conclusions I’m willing to stand behind, I need to understand and decide myself.</p>
+<p>After publication, readers may point out holes, or offer new cases and situations. Articles, project proposals and client plans can all produce such feedback, so writing means feedback is no longer entirely under my control. The system needs to extract questions worth verifying, go back to the knowledge base to add evidence and adjust models, and schedule new practice when needed. The number of agreements and objections can’t by itself decide whether a view is reliable.</p>
+<p>Its emphasis differs from Learning OS. Learning OS cares whether a predefined capability can be called on; Writing Assistant cares whether explanations I put forward myself can be stated clearly and hold up. Both expose gaps, and both need those gaps to shape the next round of work.</p>
+<h4 id="compass-deciding-where-to-put-time-capability-and-relationships"><a class="markdownIt-Anchor" href="#compass-deciding-where-to-put-time-capability-and-relationships"></a> Compass: deciding where to put time, capability and relationships</h4>
+<p>Compass handles choosing and committing on the line, and is where the double loop is triggered most often. It comes from two ideas: Human Leverage, managing yourself inward, and Personal CRM, managing relationships and opportunities outward. Personal direction and the outside world have to keep correcting each other, so both live in one product; relationships need their own objects and rhythm, so it’s split into two layers:</p>
+<ul>
+<li><strong>The upper layer, Compass, is the decision layer</strong>: goals, time ledger, important choices, not-to-do list.</li>
+<li><strong>The lower layer, Personal CRM, is the relationship layer</strong>: people, interaction records, commitments in both directions, reciprocity, introductions and opportunities. It can be used on its own; Compass reads it to decide which people and opportunities matter for current goals.</li>
+</ul>
+<p>It’s centered on goals, not contacts: why invest in a direction, what capability I intend to build, what collaboration I need, what conditions would change the choice. A goal here is a commitment for a period, not an end point that never changes: it can shift as the question is rewritten, but the shift needs grounds, and the earlier reasons and results are kept. Contacts, meetings and tasks are material, kept by Personal CRM, and only become meaningful when placed back in a specific goal. It follows three principles:</p>
+<ul>
+<li><strong>Time is the most direct resource constraint.</strong> Estimate investment in half-days and compare opportunity costs, so abstract priorities land on real time.</li>
+<li><strong>The past can’t be rewritten; the future can be adjusted.</strong> The reasons and results of choices at the time are kept, not prettified afterwards; plans can change with new evidence. This is exactly the knowledge base’s principle applied to investment.</li>
+<li><strong>I am the product.</strong> The capability I offer the world has to be understood and tested through articles, code, talks, products and actual delivery. Direction decides what to pursue, work connects that direction to the outside world, and feedback comes back to adjust the direction.</li>
+</ul>
+<p><strong>Inward, it helps me examine positioning and investment.</strong> What do I want to build, what am I really good at, where does my time actually go? Learning OS provides capability evidence, the knowledge base provides models and experience, and calendars and project records show actual investment. Only with them side by side can I judge whether I’m laying foundations for a long-term direction, or have been pulled off course by familiar work.</p>
+<p><strong>Outward, it connects people, markets and opportunities through Personal CRM.</strong> If a collaborator is exploring a business problem related to technology I’ve been researching, Personal CRM should help me see the connection, what we could validate together, and what each of us can offer; Compass then judges whether it’s worth time taken from current goals. Relationships need trust, feeling and long-term reciprocity; business opportunities need further checks on need, ability to pay, cost of sales and delivery constraints. People with technical backgrounds get excited about technical opportunities easily, so it has to be able to ask: where does the money come from? Who is actually willing to pay? Why now? But business analysis is only for vetting business opportunities, not for converting every relationship into returns.</p>
+<p>The relationship layer also does a few concrete things. Interaction records are append-only, and each meaningful conversation gets just one confirmed line of “what I learned”. Commitments on both sides are visible, especially what I promised others. Before a meeting, it prepares what we discussed last time, what the other person is working on, and what I can offer. Reciprocity is recorded by actual content, not scored. Introductions use my own credibility, and I write them myself. If something someone said changes a model, it goes into the knowledge base as material too: when the information environment lacks a perspective, what fills it is often a person, not more reading. Existing capabilities and ideas such as Gbrain can be borrowed here.</p>
+<p>It also has to read patterns in external feedback, not just plan the next step. For example: “Three companies all stopped after the technical round. Your assessment of your own technical depth may be systematically too high.” That isn’t feedback on how well I executed; it tests my model of my own capability.</p>
+<p><img src="/writing/five-agents-one-coach/two-loops-v5-en.svg" alt="Capability is tested in practice, and practice feeds back into learning: capability evidence flows from learning to practice, practical feedback flows back, and the knowledge base is the shared foundation" /></p>
+<p>Learning and practice connect here. If capability formed in Learning OS and in writing can’t reach Compass, my choices don’t know my capability has changed. Conversely, if practice finds some capability matters more than expected, that feedback should change the next stage’s learning plan. Watch the other side too: <strong>short-term external rewards mustn’t fully govern long-term cognitive building</strong>, or I fall back into chasing trends toward a local optimum.</p>
+<p>In the end, Compass has to keep answering three questions:</p>
+<ul>
+<li><strong>Where to play</strong>: given my real capability and long-term aspirations, which problems, markets and directions deserve investment?</li>
+<li><strong>How to win</strong>: what capability do I need to build up, whom should I work with, and what resources should I organize to create value?</li>
+<li><strong>How to compound</strong>: how do I carry the capability, trust and understanding formed this time into the next choice?</li>
+</ul>
+<p>It especially needs to help me decide what not to do. This direction is exciting, but the business logic is thin; this person is excellent, but we don’t have a chance to create value for each other right now; this project can be finished, but isn’t worth another three months. When a direction hasn’t shown the expected progress, whether to build capability, change methods or stop investing has to be analyzed against the grounds at the time and the new evidence. <strong>The most expensive cost in life usually isn’t doing one thing wrong. It’s spending years on a direction that wasn’t worth it.</strong></p>
+<p><strong>Borrow and build:</strong> moving calendars and contacts around, and reminders, I borrow from existing tools. What I build is putting them back into a specific goal, letting the time ledger, important choices and relationships check one another, and helping me decide what not to do.</p>
+<h3 id="who-the-potential-users-might-be"><a class="markdownIt-Anchor" href="#who-the-potential-users-might-be"></a> Who the potential users might be</h3>
+<p>For people who just want to get things done, service agents already serve very well, and will serve better still. People who need a coach are in a different situation: their understanding directly affects their income or work, their questions and goals are changing, they are willing to let evidence correct their understanding, and there are people or real results around them that can point out their errors. The most critical of these is that their questions and goals are changing. For people in transition, entering a new field or changing stage, the most common difficulty isn’t that the work won’t get done, but that they can’t say what they should be pursuing. An engineering manager who has just started leading a team, and has to learn and make trade-offs in unfamiliar territory every week, may fit this situation better than a senior executive who only wants to hear compliments. The first users I can think of are senior technologists in transition, founders who have to make trade-offs on direction and pricing, independent consultants and experts, and researchers who need to connect different fields.</p>
+<p>These people already pay for cognition, to books, courses, consultants and peer groups. But that only shows they suit the first round of validation; it doesn’t follow that they will pay for this system. The reason to pay has to land in the work: finding the background of a complex problem faster, spotting sooner that a key assumption has gone wrong, applying the lessons of the last project to this choice, and, when I want to change direction, telling cognitive evolution from avoidance. “It doesn’t pander to me” can be a value, but it isn’t a reason to pay.</p>
+<p>In delivery, software handles day-to-day continuity, and people handle context and qualified judgment. Peer groups, writing workshops and technical reading clubs have long existed, and what they lack is exactly what software is good at: nobody remembers what each member was asking three months ago, how their models changed, and what is still empty. The way of charging also changes incentives: subscriptions reward retention, transaction cuts reward closing deals, and neither is neutral by nature. What I can do is make sources, recommendation logic and opposing views transparent, and let users take their own material and models with them.</p>
+<h3 id="how-ill-validate-it-from-here"><a class="markdownIt-Anchor" href="#how-ill-validate-it-from-here"></a> How I’ll validate it from here</h3>
+<p>The validation for the second half of the year is plain: I use it myself on a real problem for twelve weeks straight. The problem isn’t preset; it grows out of what I’m working on, perhaps the reliability of an Agent system, whether an algorithm direction deserves more investment, or whether to keep learning a technology. It needn’t be clear at the start, but it must have both a learning side and a business side: what can I actually do, and which layer is empty; who is this valuable to, and what are they willing to give for it. Outside conversations begin in the first few weeks, not saved for the end.</p>
+<p>At the end, I want to leave behind four things others can check: a before-and-after retest on a sealed task, a record of how a question was rewritten, an article that received outside feedback, and one or two important choices with grounds and results.</p>
+<p>Before starting, I write down the failure conditions. The control has to be strong: a general Agent configured with my goals and a weekly review prompt, plus a set of spaced-repetition cards and a mentor I meet once a month. If their results on unaided retests, publication and outside conversations show no clear difference from this design, if help level hasn’t fallen between the two retests, or if the cost of organizing and checking eats up the work on the real problem, I’ll accept that “this doesn’t need dedicated software” and turn it into a personal method. Twelve weeks of my own use can only give a preliminary signal; task difficulty, accumulated learning and the outside environment all change at once, and a single success can’t be put down entirely to the system. If the conclusion is “general tools plus a few people are good enough”, that is a valuable conclusion too. <strong>A theory that can’t possibly fail isn’t a theory; it’s a belief.</strong></p>
+<p>If it is used again and again on new problems, its feedback pushes the next action, and the maintenance cost is bearable, I’ll invite a few people in similar situations to validate it with me. Over the following half year to a year, I’ll test it against real life: does it help me form better-grounded understanding rather than just hold more information; turn vague dissatisfaction into better questions; build lasting reciprocal relationships rather than maintain a longer contact list; make better resource-allocation decisions rather than finish more tasks; and, most important, give up wrong directions in time.</p>
+<h2 id="epilogue-what-i-want-to-build-is-a-way-of-growing-continuously"><a class="markdownIt-Anchor" href="#epilogue-what-i-want-to-build-is-a-way-of-growing-continuously"></a> Epilogue: what I want to build is a way of growing continuously</h2>
+<p>Back to the original question: why build these five Agents for myself?</p>
+<p>AI has already made it easier for me to get answers and finish tasks. Next, I want to know more clearly what I’m doing and why, and what these practices have actually taught me.</p>
+<p>The experience I’ve accumulated is spread across different fields and looks like one turn after another. Now I want to try to find the parts of it that can keep growing: understanding of environments and constraints, the ability to make choices under uncertainty, the ability to distill methods from feedback, and the ability to create value together with the right people. Together they are the line that runs through this whole essay.</p>
+<p>To that end, the system needs to connect the material I’ve met, the things I’ve been through and the understanding I’ve formed, so that the information environment and decision models gradually become clear. The coach then helps me put them to use in action, and helps me re-examine them when necessary. What it maintains isn’t a fixed set of goals and assumptions, but a person’s continually developing process of understanding: questions can begin vague, be clarified, revised and reconstructed in practice, and past judgments aren’t quietly rewritten.</p>
+<p>In the past, we left this kind of growth to self-discipline, insight, luck, and the occasional benefactor. Now I want to try turning part of it into a system. Not to have AI grow for me, but to have AI help me build a personal system that keeps correcting errors and keeps looking for larger possibilities. Benefactors won’t be replaced by a system; what a system can do is make sure that when I meet them, I have clearer context in hand.</p>
+<p>I hope this accumulation will in the end make me more agentic: able to choose questions worth investing in, to take action to get the information I lack, to accept corrections that have grounds, and, having understood the cost, to hold to my choices.</p>
+<p>If the core task of my twenties was building capability, then what I want to learn after thirty is: to see in which world these capabilities can be put to work, how to amplify them together with others, and which things deserve long-term investment.</p>
+
+            </div>
+            
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Xinhe Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xinheliu.github.io/writing/five-agents-one-coach/">https://xinheliu.github.io/writing/five-agents-one-coach/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Xinhe Liu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Personal-Growth/">
+                                    <span class="chip bg-color">Personal Growth</span>
+                                </a>
+                            
+                                <a href="/tags/AI-Machine-Learning/">
+                                    <span class="chip bg-color">AI &amp; Machine Learning</span>
+                                </a>
+                            
+                                <a href="/tags/Agent/">
+                                    <span class="chip bg-color">Agent</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<nav class="post-nav" aria-label="Post navigation">
+    
+    <a class="post-nav-card" href="/writing/working-harder-growing-mediocre/" rel="prev">
+        <span class="post-nav-label">&larr;&nbsp;Previous</span>
+        <span class="post-nav-title">The Efficient Road to No Where: Why Working Harder Can Keep You Mediocre</span>
+    </a>
+    
+    <span></span>
+</nav>
+
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    
+<footer class="site-footer">
+    <div class="container footer-row">
+        <span>Xinhe Liu (Charles) · Personal site, writing, and technical notes</span>
+        <div class="footer-links">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About &amp; Contact</a>
+        </div>
+    </div>
+    <div class="container footer-row footer-row-secondary">
+        <div class="footer-links secondary-links">
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+            <a href="/archives/">Archives</a>
+        </div>
+        <div class="footer-links secondary-links">
+            <a href="https://github.com/XinheLIU" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:liuxinhe@outlook.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+        <!-- <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script> -->
+        <script src='/libs/mermaid/mermaid.min.js'></script>
+        <script>
+          if (window.mermaid) {
+            var siteTheme = 'dark';
+            try { siteTheme = localStorage.getItem('xinhe-site-theme') || 'dark'; } catch (e) {}
+            mermaid.initialize({theme: siteTheme === 'dark' ? 'dark' : 'neutral'});
+          }
+        </script>
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script src="/js/xinhe-site.js"></script>
+
+</body>
+
+</html>
