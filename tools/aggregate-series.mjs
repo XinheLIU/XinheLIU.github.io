@@ -20,6 +20,7 @@ import {
   resolveSourceRoot,
   splitFrontmatter,
 } from './lib/content-system.mjs'
+import { isAggregated } from './lib/repositories.mjs'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const OUT = path.join(ROOT, '.generated', 'series')
@@ -60,6 +61,7 @@ function collectInputs() {
     book: sitePosts, series: { ...sitePosts, index: false }, siteOwned: true,
   }]
   for (const source of loadSourceRegistry(ROOT)) {
+    if (!isAggregated(source)) continue
     const sourceRoot = resolveSourceRoot(ROOT, source, LOCAL_SOURCES)
     if (!sourceRoot || !fs.existsSync(sourceRoot)) {
       console.warn(`aggregate-content: ${LOCAL_SOURCES ? 'local' : 'pinned'} source missing for ${source.id}: ${sourceRoot}`)

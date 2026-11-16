@@ -27,3 +27,14 @@ sources:
     public_url: https://xinheliu.github.io/Coding-Interview-Questions
     content_type: book
     locales: [en]
+  # Not yet published: no remote, no submodule, not aggregated. `local_only`
+  # keeps it out of aggregate-series.mjs, `write check --all` and the audit,
+  # while still letting `write dev`, `write drafts` and `write new` see it.
+  - id: agent-building-handbook
+    name: Agent Building Handbook
+    path: sources/Agent-Building-Handbook
+    local_path: ../Agent-Building-Handbook
+    public_url: null
+    content_type: book
+    locales: [en, zh-CN]
+    local_only: true
