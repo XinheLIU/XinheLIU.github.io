@@ -1499,6 +1499,10 @@ body {
   color: var(--fg);
 }
 
+.post-hero-publications .chip {
+  gap: 0.35em;
+}
+
 .post-hero-rule {
   border: 0;
   border-top: 1px solid var(--border);
