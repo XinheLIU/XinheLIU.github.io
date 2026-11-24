@@ -1563,6 +1563,11 @@ body {
   width: min(var(--container-max), calc(100% - var(--container-gutter-desktop) * 2));
 }
 
+/* The typographic header no longer needs the legacy banner overlap. */
+#artDetail {
+  margin-top: 0;
+}
+
 #artDetail .card,
 .toc-widget,
 .prev-next {

@@ -8,7 +8,7 @@ $(function () {
     });
 
     let fixFooterPosition = function () {
-        $('.content').css('min-height', window.innerHeight - 165);
+        $('main.content').css('min-height', window.innerHeight - 165);
     };
     fixFooterPosition();
     $(window).resize(function () {
